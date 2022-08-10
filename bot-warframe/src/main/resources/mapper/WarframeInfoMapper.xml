@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.twg.bot.warframe.mapper.WarframeInfoMapper">
+
+    <resultMap type="WarframeInfo" id="WarframeInfoResult">
+        <result property="infoId" column="info_id"/>
+        <result property="infoWhy" column="info_why"/>
+        <result property="infoInse" column="info_inse"/>
+    </resultMap>
+
+    <sql id="selectWarframeInfoVo">
+        select info_id, info_why, info_inse from wf_info
+    </sql>
+
+    <select id="selectWarframeInfoList" parameterType="WarframeInfo" resultMap="WarframeInfoResult">
+        <include refid="selectWarframeInfoVo"/>
+        <where>
+            <if test="infoWhy != null  and infoWhy != ''">and info_why like '%'||#{infoWhy}||'%'</if>
+            <if test="infoInse != null  and infoInse != ''">and info_inse like '%'||#{infoInse}||'%'</if>
+        </where>
+        GROUP BY info_id
+    </select>
+
+    <select id="selectWarframeInfoById" parameterType="Long" resultMap="WarframeInfoResult">
+        <include refid="selectWarframeInfoVo"/>
+        where info_id = #{aliasId}
+    </select>
+
+    <insert id="insertWarframeInfo" parameterType="WarframeInfo" useGeneratedKeys="true" keyProperty="aliasId">
+        insert into wf_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="infoWhy != null">info_why,</if>
+            <if test="infoInse != null">info_inse,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="infoWhy != null">#{infoWhy},</if>
+            <if test="infoInse != null">#{infoInse},</if>
+        </trim>
+    </insert>
+
+    <update id="updateWarframeInfo" parameterType="WarframeInfo">
+        update wf_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="infoWhy != null">info_why = #{infoWhy},</if>
+            <if test="infoInse != null">info_inse = #{infoInse},</if>
+        </trim>
+        where info_id = #{aliasId}
+    </update>
+
+    <delete id="deleteWarframeInfoById" parameterType="Long">
+        delete from wf_info where info_id = #{aliasId}
+    </delete>
+
+    <delete id="deleteWarframeInfoByIds" parameterType="String">
+        delete from wf_info where info_id in
+        <foreach item="aliasId" collection="array" open="(" separator="," close=")">
+            #{aliasId}
+        </foreach>
+    </delete>
+</mapper>

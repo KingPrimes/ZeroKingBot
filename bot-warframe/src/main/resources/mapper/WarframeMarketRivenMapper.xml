@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.twg.bot.warframe.mapper.WarframeMarketRivenMapper">
+
+    <resultMap type="com.twg.bot.warframe.domain.market.WarframeMarketRiven" id="WarframeMarketRivenResult">
+        <result property="thumb" column="thumb"/>
+        <result property="rivenType" column="riven_type"/>
+        <result property="group" column="group"/>
+        <result property="id" column="id"/>
+        <result property="iconFormat" column="icon_format"/>
+        <result property="urlName" column="url_name"/>
+        <result property="itemName" column="item_name"/>
+        <result property="icon" column="icon"/>
+    </resultMap>
+
+    <sql id="selectWarframeMarketRivenVo">
+        select thumb, riven_type, `group`, id,icon_format,url_name,item_name,icon from wf_market_riven
+    </sql>
+
+    <select id="selectWarframeMarketRivenList" parameterType="WarframeMarketRiven"
+            resultMap="WarframeMarketRivenResult">
+        <include refid="selectWarframeMarketRivenVo"/>
+        <where>
+            <if test="rivenType != null  and rivenType != ''">and riven_type like '%'||#{rivenType}||'%'</if>
+            <if test="group != null  and group != ''">and `group` = #{group}</if>
+            <if test="urlName != null  and urlName != ''">and url_name like '%'||#{urlName}||'%'</if>
+            <if test="itemName != null  and itemName != ''">and item_name like '%'||#{itemName}||'%'</if>
+        </where>
+    </select>
+
+    <select id="selectWarframeMarketRivenByItemName" parameterType="String" resultMap="WarframeMarketRivenResult">
+        <include refid="selectWarframeMarketRivenVo"/>
+        where upper(replace(item_name,' ','')) like UPPER(replace('%'||#{itemName}||'%',' ',''))
+        LIMIT 10
+    </select>
+
+    <insert id="insertWarframeMarketRiven" parameterType="java.util.List">
+        insert OR IGNORE into wf_market_riven
+        (thumb,riven_type,`group`,id,icon_format,url_name,item_name,icon)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.thumb},
+            #{item.rivenType},
+            #{item.group},
+            #{item.id},
+            #{item.iconFormat},
+            #{item.urlName},
+            #{item.itemName},
+            #{item.icon}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

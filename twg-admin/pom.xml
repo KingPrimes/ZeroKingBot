@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>TWGBot-Shiro-Sqlite</artifactId>
+        <groupId>com.twg</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>twg-admin</artifactId>
+
+    <packaging>jar</packaging>
+
+
+    <dependencies>
+
+        <!-- spring-boot-devtools -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional> <!-- 表示依赖不会传递 -->
+        </dependency>
+
+        <!-- 核心模块-->
+        <dependency>
+            <groupId>com.twg</groupId>
+            <artifactId>twg-framework</artifactId>
+        </dependency>
+
+        <!--Bot 服务 核心-->
+        <dependency>
+            <groupId>com.twg</groupId>
+            <artifactId>bot-server</artifactId>
+        </dependency>
+
+        <!--Bot 群管 模块-->
+        <dependency>
+            <groupId>com.twg</groupId>
+            <artifactId>bot-group</artifactId>
+        </dependency>
+
+        <!--Bot Warframe 模块-->
+        <dependency>
+            <groupId>com.twg</groupId>
+            <artifactId>bot-warframe</artifactId>
+        </dependency>
+
+        <!--聊天模块-->
+        <dependency>
+            <groupId>com.twg</groupId>
+            <artifactId>bot-aiml</artifactId>
+        </dependency>
+
+        <!--Gif表情包模块-->
+        <dependency>
+            <groupId>com.twg</groupId>
+            <artifactId>bot-image-togif</artifactId>
+        </dependency>
+        <!--Image测试-->
+        <dependency>
+            <groupId>com.twg</groupId>
+            <artifactId>twg-image</artifactId>
+        </dependency>
+        <!--JavaX 模块-->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.1.1.RELEASE</version>
+                <configuration>
+                    <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
+                    <!--将本地Jar包导出项目最终依赖库中-->
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>${project.artifactId}</warName>
+                </configuration>
+            </plugin>
+        </plugins>
+        <finalName>${project.artifactId}</finalName>
+    </build>
+</project>

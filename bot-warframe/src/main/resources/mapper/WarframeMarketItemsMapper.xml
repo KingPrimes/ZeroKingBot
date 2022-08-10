@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.twg.bot.warframe.mapper.WarframeMarketItemsMapper">
+
+    <resultMap type="com.twg.bot.warframe.domain.market.WarframeMarketItems" id="WarframeMarketItemsResult">
+        <result property="itemName" column="item_name"/>
+        <result property="urlName" column="url_name"/>
+    </resultMap>
+
+
+    <sql id="selectWarframeMarketItemsVo">
+        select item_name, url_name from wf_market_items
+    </sql>
+
+    <select id="selectWarframeMarketItemsList" parameterType="WarframeMarketItems"
+            resultMap="WarframeMarketItemsResult">
+        <include refid="selectWarframeMarketItemsVo"/>
+        <where>
+            <if test="itemName != null  and itemName != ''">and item_name like '%'||#{itemName}||'%'</if>
+            <if test="urlName != null  and urlName != ''">and url_name like '%'||#{urlName}||'%'</if>
+        </where>
+    </select>
+
+    <select id="selectWarframeMarketItemsByItemName" parameterType="String" resultMap="WarframeMarketItemsResult">
+        <include refid="selectWarframeMarketItemsVo"/>
+        where UPPER(replace(item_name,' ','')) like UPPER(replace('%'||#{itemName}||'%',' ','')) LIMIT 1
+    </select>
+
+    <select id="selectWarframeMarketItemByItemNameToRegular"
+            parameterType="com.twg.bot.warframe.domain.market.WarframeMarketItemsRegular"
+            resultMap="WarframeMarketItemsResult">
+        <include refid="selectWarframeMarketItemsVo"/>
+        where `item_name` REGEXP '^'||#{regulaHeader}||'.*'||#{regulaEnd} limit 1
+    </select>
+
+    <select id="selectWarframeMarketItemsLikeList" parameterType="String" resultMap="WarframeMarketItemsResult">
+        <include refid="selectWarframeMarketItemsVo"/>
+        where upper(replace(item_name,' ','')) like UPPER(replace('%'||#{itemName}||'%',' ',''))
+        LIMIT 10
+    </select>
+
+    <select id="selectWarframeMarketItemsByItemNameList" parameterType="String" resultMap="WarframeMarketItemsResult">
+        <include refid="selectWarframeMarketItemsVo"/>
+        where upper(replace(item_name,' ','')) like UPPER(replace('%'||#{itemName}||'%',' ',''))
+        LIMIT 10
+    </select>
+
+    <insert id="insertWarframeMarketItems" parameterType="java.util.List">
+        insert OR IGNORE into wf_market_items
+        (item_name, url_name)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.itemName},
+            #{item.urlName}
+            )
+        </foreach>
+    </insert>
+</mapper>

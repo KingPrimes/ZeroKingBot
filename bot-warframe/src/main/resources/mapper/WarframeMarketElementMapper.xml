@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.twg.bot.warframe.mapper.WarframeMarketElementMapper">
+
+    <resultMap type="WarframeMarketElement" id="WarframeMarketElementResult">
+        <result property="elementEn" column="element_en"/>
+        <result property="elementCh" column="element_ch"/>
+    </resultMap>
+
+    <sql id="selectWarframeMarketElementVo">
+        select element_en, element_ch from wf_market_element
+    </sql>
+
+    <select id="selectWarframeMarketElementLikeEn" parameterType="String" resultMap="WarframeMarketElementResult">
+        <include refid="selectWarframeMarketElementVo"/>
+        where element_en like '%'||#{elementEn}||'%'
+    </select>
+
+    <select id="selectWarframeMarketElementLikeCh" parameterType="String" resultMap="WarframeMarketElementResult">
+        <include refid="selectWarframeMarketElementVo"/>
+        where element_ch like '%'||#{elementCh}||'%'
+    </select>
+
+    <select id="selectWarframeMarketElementList" parameterType="WarframeMarketElement"
+            resultMap="WarframeMarketElementResult">
+        <include refid="selectWarframeMarketElementVo"/>
+        <where>
+            <if test="elementEn != null  and elementEn != ''">and element_en like '%'||#{elementEn}||'%'</if>
+            <if test="elementCh != null  and elementCh != ''">and element_ch like '%'||#{elementCh}||'%'</if>
+        </where>
+    </select>
+
+    <select id="selectWarframeMarketElementByElementEn" parameterType="String" resultMap="WarframeMarketElementResult">
+        <include refid="selectWarframeMarketElementVo"/>
+        where element_en = #{elementEn}
+    </select>
+
+    <insert id="insertWarframeMarketElement" parameterType="WarframeMarketElement">
+        insert into wf_market_element
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="elementEn != null and elementEn != ''">element_en,</if>
+            <if test="elementCh != null and elementCh != ''">element_ch,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="elementEn != null and elementEn != ''">#{elementEn},</if>
+            <if test="elementCh != null and elementCh != ''">#{elementCh},</if>
+        </trim>
+    </insert>
+
+    <update id="updateWarframeMarketElement" parameterType="WarframeMarketElement">
+        update wf_market_element
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="elementCh != null and elementCh != ''">element_ch = #{elementCh},</if>
+        </trim>
+        where element_en = #{elementEn}
+    </update>
+
+    <delete id="deleteWarframeMarketElementByElementEn" parameterType="String">
+        delete from wf_market_element where element_en = #{elementEn}
+    </delete>
+
+    <delete id="deleteWarframeMarketElementByElementEns" parameterType="String">
+        delete from wf_market_element where element_en in
+        <foreach item="elementEn" collection="array" open="(" separator="," close=")">
+            #{elementEn}
+        </foreach>
+    </delete>
+</mapper>
