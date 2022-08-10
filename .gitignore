@@ -23,3 +23,9 @@
 hs_err_pid*
 
 .idea
+ZKBotHtml/
+target/
+db/
+config.ini
+twg-image/
+*.iml

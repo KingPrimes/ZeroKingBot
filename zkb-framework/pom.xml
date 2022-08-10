@@ -3,13 +3,13 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>TWGBot-Shiro-Sqlite</artifactId>
-        <groupId>com.twg</groupId>
+        <artifactId>ZeroKingBot</artifactId>
+        <groupId>com.zkb</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>twg-framework</artifactId>
+    <artifactId>zkb-framework</artifactId>
 
     <description>
         framework框架核心
@@ -66,8 +66,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.twg</groupId>
-            <artifactId>twg-common</artifactId>
+            <groupId>com.zkb</groupId>
+            <artifactId>zkb-common</artifactId>
         </dependency>
 
         <dependency>

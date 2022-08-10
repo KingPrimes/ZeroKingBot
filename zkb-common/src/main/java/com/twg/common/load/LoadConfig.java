@@ -12,7 +12,7 @@ import java.util.Properties;
 
 public class LoadConfig {
 
-    private static final String HTML_PATH = "./TWGBot-html";
+    private static final String HTML_PATH = "./ZKBotHtml";
     public static Properties prop = new Properties();
 
     public static void initConfig() {
@@ -70,7 +70,7 @@ public class LoadConfig {
         if (!file.exists()) {
             try {
                 Git.cloneRepository()
-                        .setURI("https://gitee.com/KingPrime/TWGBot-Html.git")
+                        .setURI("https://gitee.com/KingPrime/ZKBotHtml.git")
                         .setDirectory(file)
                         .call();
                 return true;

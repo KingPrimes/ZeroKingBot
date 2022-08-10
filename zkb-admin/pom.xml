@@ -3,13 +3,13 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>TWGBot-Shiro-Sqlite</artifactId>
-        <groupId>com.twg</groupId>
+        <artifactId>ZeroKingBot</artifactId>
+        <groupId>com.zkb</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>twg-admin</artifactId>
+    <artifactId>zkb-admin</artifactId>
 
     <packaging>jar</packaging>
 
@@ -25,43 +25,43 @@
 
         <!-- 核心模块-->
         <dependency>
-            <groupId>com.twg</groupId>
-            <artifactId>twg-framework</artifactId>
+            <groupId>com.zkb</groupId>
+            <artifactId>zkb-framework</artifactId>
         </dependency>
 
         <!--Bot 服务 核心-->
         <dependency>
-            <groupId>com.twg</groupId>
+            <groupId>com.zkb</groupId>
             <artifactId>bot-server</artifactId>
         </dependency>
 
         <!--Bot 群管 模块-->
         <dependency>
-            <groupId>com.twg</groupId>
+            <groupId>com.zkb</groupId>
             <artifactId>bot-group</artifactId>
         </dependency>
 
         <!--Bot Warframe 模块-->
         <dependency>
-            <groupId>com.twg</groupId>
+            <groupId>com.zkb</groupId>
             <artifactId>bot-warframe</artifactId>
         </dependency>
 
         <!--聊天模块-->
         <dependency>
-            <groupId>com.twg</groupId>
+            <groupId>com.zkb</groupId>
             <artifactId>bot-aiml</artifactId>
         </dependency>
 
         <!--Gif表情包模块-->
         <dependency>
-            <groupId>com.twg</groupId>
+            <groupId>com.zkb</groupId>
             <artifactId>bot-image-togif</artifactId>
         </dependency>
         <!--Image测试-->
         <dependency>
-            <groupId>com.twg</groupId>
-            <artifactId>twg-image</artifactId>
+            <groupId>com.zkb</groupId>
+            <artifactId>zkb-image</artifactId>
         </dependency>
         <!--JavaX 模块-->
         <dependency>
@@ -111,6 +111,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>ZeroKingBot</finalName>
     </build>
 </project>

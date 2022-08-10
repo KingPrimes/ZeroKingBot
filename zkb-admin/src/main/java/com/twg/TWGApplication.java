@@ -17,7 +17,7 @@ public class TWGApplication {
     public static void main(String[] args) {
         if (!LoadConfig.initHtml()) {
             System.out.println("下载Html文件失败请手动创建或重试");
-            System.out.println("手动下载请到：https://gitee.com/KingPrime/TWGBot-Html 网站中下载文件");
+            System.out.println("手动下载请到：https://gitee.com/KingPrime/ZKBotHtml 网站中下载文件");
             return;
         }
         if (!LoadConfig.WriteConfigFile()) {

@@ -30,7 +30,7 @@ import java.util.Locale;
 @Component
 public class HtmlToImage {
 
-    private static final String HTML_PATH = "./TWGBot-html/";
+    private static final String HTML_PATH = "./ZKBotHtml/";
     @Autowired
     IWarframeTranslationService trans;
 
@@ -63,115 +63,107 @@ public class HtmlToImage {
         html = outH(html);
 
         if (html.contains("#table")) {
-            StringBuffer str = new StringBuffer();
-            str
-                    .append("<h3>---地球---</h3>")
-                    .append("<table>")
-                    .append("<tr>")
-                    .append("<td>")
-                    .append("状态")
-                    .append("</td>")
-                    .append("<td>")
-                    .append(trans.enToZh(earth.getState()))
-                    .append("</td>")
-                    .append("</tr>")
-                    .append("<tr>")
-                    .append("<td>")
-                    .append("时间")
-                    .append("</td>")
-                    .append("<td>")
-                    .append(DateUtils.getDate((earth.getExpiry()), new Date()))
-                    .append("</td>")
-                    .append("</tr>")
-                    .append("</table>")
-                    .append("<br/>")
+            String str = "<h3>---地球---</h3>" +
+                    "<table>" +
+                    "<tr>" +
+                    "<td>" +
+                    "状态" +
+                    "</td>" +
+                    "<td>" +
+                    trans.enToZh(earth.getState()) +
+                    "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td>" +
+                    "时间" +
+                    "</td>" +
+                    "<td>" +
+                    DateUtils.getDate((earth.getExpiry()), new Date()) +
+                    "</td>" +
+                    "</tr>" +
+                    "</table>" +
+                    "<br/>" +
+                    "<h3>---夜灵平野---</h3>" +
+                    "<table>" +
+                    "<tr>" +
+                    "<td>" +
+                    "状态" +
+                    "</td>" +
+                    "<td>" +
+                    trans.enToZh(cetus.getState()) +
+                    "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td>" +
+                    "时间" +
+                    "</td>" +
+                    "<td>" +
+                    DateUtils.getDate((cetus.getExpiry()), new Date()) +
+                    "</td>" +
+                    "</tr>" +
+                    "</table>" +
+                    "<br/>" +
+                    "<h3>---福尔图娜---</h3>" +
+                    "<table>" +
+                    "<tr>" +
+                    "<td>" +
+                    "状态" +
+                    "</td>" +
+                    "<td>" +
+                    trans.enToZh(vallis.getState()) +
+                    "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td>" +
+                    "时间" +
+                    "</td>" +
+                    "<td>" +
+                    DateUtils.getDate((vallis.getExpiry()), new Date()) +
+                    "</td>" +
+                    "</tr>" +
+                    "</table>" +
+                    "<br/>" +
+                    "<h3>---魔胎之境---</h3>" +
+                    "<table>" +
+                    "<tr>" +
+                    "<td>" +
+                    "状态" +
+                    "</td>" +
+                    "<td>" +
+                    cambion.getActive().toUpperCase(Locale.ROOT) +
+                    "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td>" +
+                    "时间" +
+                    "</td>" +
+                    "<td>" +
+                    DateUtils.getDate((cambion.getExpiry()), new Date()) +
+                    "</td>" +
+                    "</tr>" +
+                    "</table>" +
+                    "<br/>" +
+                    "<h3>---扎里曼---</h3>" +
+                    "<table>" +
+                    "<tr>" +
+                    "<td>" +
+                    "状态" +
+                    "</td>" +
+                    "<td>" +
+                    zariman.getState().toUpperCase(Locale.ROOT) +
+                    "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td>" +
+                    "时间" +
+                    "</td>" +
+                    "<td>" +
+                    DateUtils.getDate((zariman.getExpiry()), new Date()) +
+                    "</td>" +
+                    "</tr>" +
+                    "</table>";
 
-                    .append("<h3>---夜灵平野---</h3>")
-                    .append("<table>")
-                    .append("<tr>")
-                    .append("<td>")
-                    .append("状态")
-                    .append("</td>")
-                    .append("<td>")
-                    .append(trans.enToZh(cetus.getState()))
-                    .append("</td>")
-                    .append("</tr>")
-                    .append("<tr>")
-                    .append("<td>")
-                    .append("时间")
-                    .append("</td>")
-                    .append("<td>")
-                    .append(DateUtils.getDate((cetus.getExpiry()), new Date()))
-                    .append("</td>")
-                    .append("</tr>")
-                    .append("</table>")
-                    .append("<br/>")
-
-                    .append("<h3>---福尔图娜---</h3>")
-                    .append("<table>")
-                    .append("<tr>")
-                    .append("<td>")
-                    .append("状态")
-                    .append("</td>")
-                    .append("<td>")
-                    .append(trans.enToZh(vallis.getState()))
-                    .append("</td>")
-                    .append("</tr>")
-                    .append("<tr>")
-                    .append("<td>")
-                    .append("时间")
-                    .append("</td>")
-                    .append("<td>")
-                    .append(DateUtils.getDate((vallis.getExpiry()), new Date()))
-                    .append("</td>")
-                    .append("</tr>")
-                    .append("</table>")
-                    .append("<br/>")
-
-                    .append("<h3>---魔胎之境---</h3>")
-                    .append("<table>")
-                    .append("<tr>")
-                    .append("<td>")
-                    .append("状态")
-                    .append("</td>")
-                    .append("<td>")
-                    .append(cambion.getActive().toUpperCase(Locale.ROOT))
-                    .append("</td>")
-                    .append("</tr>")
-                    .append("<tr>")
-                    .append("<td>")
-                    .append("时间")
-                    .append("</td>")
-                    .append("<td>")
-                    .append(DateUtils.getDate((cambion.getExpiry()), new Date()))
-                    .append("</td>")
-                    .append("</tr>")
-                    .append("</table>")
-                    .append("<br/>")
-
-                    .append("<h3>---扎里曼---</h3>")
-                    .append("<table>")
-                    .append("<tr>")
-                    .append("<td>")
-                    .append("状态")
-                    .append("</td>")
-                    .append("<td>")
-                    .append(zariman.getState().toUpperCase(Locale.ROOT))
-                    .append("</td>")
-                    .append("</tr>")
-                    .append("<tr>")
-                    .append("<td>")
-                    .append("时间")
-                    .append("</td>")
-                    .append("<td>")
-                    .append(DateUtils.getDate((zariman.getExpiry()), new Date()))
-                    .append("</td>")
-                    .append("</tr>")
-                    .append("</table>")
-
-            ;
-
-            html = html.replaceAll("#table", str.toString());
+            html = html.replaceAll("#table", str);
         }
         //地球
         {

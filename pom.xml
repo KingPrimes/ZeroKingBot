@@ -3,16 +3,16 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.twg</groupId>
-    <artifactId>TWGBot-Shiro-Sqlite</artifactId>
+    <groupId>com.zkb</groupId>
+    <artifactId>ZeroKingBot</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
 
-    <name>twg</name>
+    <name>ZeroKingBot</name>
 
     <properties>
-        <twg.version>1.0-SNAPSHOT</twg.version>
+        <zkb.version>1.0-SNAPSHOT</zkb.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -114,57 +114,57 @@
 
             <!-- 核心模块-->
             <dependency>
-                <groupId>com.twg</groupId>
-                <artifactId>twg-framework</artifactId>
-                <version>${twg.version}</version>
+                <groupId>com.zkb</groupId>
+                <artifactId>zkb-framework</artifactId>
+                <version>1.0-SNAPSHOT</version>
             </dependency>
 
 
             <!-- 通用工具-->
             <dependency>
-                <groupId>com.twg</groupId>
-                <artifactId>twg-common</artifactId>
-                <version>${twg.version}</version>
+                <groupId>com.zkb</groupId>
+                <artifactId>zkb-common</artifactId>
+                <version>${zkb.version}</version>
             </dependency>
 
             <!--Bot 服务核心-->
             <dependency>
-                <groupId>com.twg</groupId>
+                <groupId>com.zkb</groupId>
                 <artifactId>bot-server</artifactId>
-                <version>${twg.version}</version>
+                <version>${zkb.version}</version>
             </dependency>
 
             <!--Bot 群管 模块-->
             <dependency>
-                <groupId>com.twg</groupId>
+                <groupId>com.zkb</groupId>
                 <artifactId>bot-group</artifactId>
-                <version>${twg.version}</version>
+                <version>${zkb.version}</version>
             </dependency>
 
             <!--Bot Warframe 模块-->
             <dependency>
-                <groupId>com.twg</groupId>
+                <groupId>com.zkb</groupId>
                 <artifactId>bot-warframe</artifactId>
-                <version>${twg.version}</version>
+                <version>${zkb.version}</version>
             </dependency>
 
             <!--Gif表情包模块-->
             <dependency>
-                <groupId>com.twg</groupId>
+                <groupId>com.zkb</groupId>
                 <artifactId>bot-image-togif</artifactId>
-                <version>${twg.version}</version>
+                <version>${zkb.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.twg</groupId>
-                <artifactId>twg-image</artifactId>
-                <version>${twg.version}</version>
+                <groupId>com.zkb</groupId>
+                <artifactId>zkb-image</artifactId>
+                <version>${zkb.version}</version>
             </dependency>
             <!--Bot关键词回复模块-->
             <dependency>
-                <groupId>com.twg</groupId>
+                <groupId>com.zkb</groupId>
                 <artifactId>bot-aiml</artifactId>
-                <version>${twg.version}</version>
+                <version>${zkb.version}</version>
             </dependency>
 
             <!--GIF绘图核心-->
@@ -243,15 +243,15 @@
     </dependencyManagement>
 
     <modules>
-        <module>twg-admin</module>
-        <module>twg-framework</module>
-        <module>twg-common</module>
+        <module>zkb-admin</module>
+        <module>zkb-framework</module>
+        <module>zkb-common</module>
         <module>bot-server</module>
         <module>bot-group</module>
         <module>bot-warframe</module>
         <module>bot-aiml</module>
         <module>bot-image-togif</module>
-        <module>twg-image</module>
+        <module>zkb-image</module>
     </modules>
 
 
