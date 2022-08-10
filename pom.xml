@@ -130,28 +130,28 @@
             <!--Bot 服务核心-->
             <dependency>
                 <groupId>com.zkb</groupId>
-                <artifactId>bot-server</artifactId>
+                <artifactId>zkb-server</artifactId>
                 <version>${zkb.version}</version>
             </dependency>
 
             <!--Bot 群管 模块-->
             <dependency>
                 <groupId>com.zkb</groupId>
-                <artifactId>bot-group</artifactId>
+                <artifactId>zkb-group</artifactId>
                 <version>${zkb.version}</version>
             </dependency>
 
             <!--Bot Warframe 模块-->
             <dependency>
                 <groupId>com.zkb</groupId>
-                <artifactId>bot-warframe</artifactId>
+                <artifactId>zkb-warframe</artifactId>
                 <version>${zkb.version}</version>
             </dependency>
 
             <!--Gif表情包模块-->
             <dependency>
                 <groupId>com.zkb</groupId>
-                <artifactId>bot-image-togif</artifactId>
+                <artifactId>zkb-image-togif</artifactId>
                 <version>${zkb.version}</version>
             </dependency>
 
@@ -163,7 +163,7 @@
             <!--Bot关键词回复模块-->
             <dependency>
                 <groupId>com.zkb</groupId>
-                <artifactId>bot-aiml</artifactId>
+                <artifactId>zkb-aiml</artifactId>
                 <version>${zkb.version}</version>
             </dependency>
 
@@ -246,11 +246,11 @@
         <module>zkb-admin</module>
         <module>zkb-framework</module>
         <module>zkb-common</module>
-        <module>bot-server</module>
-        <module>bot-group</module>
-        <module>bot-warframe</module>
-        <module>bot-aiml</module>
-        <module>bot-image-togif</module>
+        <module>zkb-server</module>
+        <module>zkb-group</module>
+        <module>zkb-warframe</module>
+        <module>zkb-aiml</module>
+        <module>zkb-image-togif</module>
         <module>zkb-image</module>
     </modules>
 

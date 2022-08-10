@@ -32,31 +32,31 @@
         <!--Bot 服务 核心-->
         <dependency>
             <groupId>com.zkb</groupId>
-            <artifactId>bot-server</artifactId>
+            <artifactId>zkb-server</artifactId>
         </dependency>
 
         <!--Bot 群管 模块-->
         <dependency>
             <groupId>com.zkb</groupId>
-            <artifactId>bot-group</artifactId>
+            <artifactId>zkb-group</artifactId>
         </dependency>
 
         <!--Bot Warframe 模块-->
         <dependency>
             <groupId>com.zkb</groupId>
-            <artifactId>bot-warframe</artifactId>
+            <artifactId>zkb-warframe</artifactId>
         </dependency>
 
         <!--聊天模块-->
         <dependency>
             <groupId>com.zkb</groupId>
-            <artifactId>bot-aiml</artifactId>
+            <artifactId>zkb-aiml</artifactId>
         </dependency>
 
         <!--Gif表情包模块-->
         <dependency>
             <groupId>com.zkb</groupId>
-            <artifactId>bot-image-togif</artifactId>
+            <artifactId>zkb-image-togif</artifactId>
         </dependency>
         <!--Image测试-->
         <dependency>

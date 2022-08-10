@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>bot-image-togif</artifactId>
+    <artifactId>zkb-image-togif</artifactId>
 
 
     <dependencies>
@@ -21,7 +21,7 @@
 
         <dependency>
             <groupId>com.zkb</groupId>
-            <artifactId>bot-group</artifactId>
+            <artifactId>zkb-group</artifactId>
         </dependency>
     </dependencies>
 
