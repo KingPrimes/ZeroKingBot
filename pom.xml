@@ -251,7 +251,6 @@
         <module>zkb-warframe</module>
         <module>zkb-aiml</module>
         <module>zkb-image-togif</module>
-        <module>zkb-image</module>
     </modules>
 
 

@@ -26,5 +26,4 @@ ZKBotHtml/
 target/
 db/
 config.ini
-zkb-image/
 *.iml

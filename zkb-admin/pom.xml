@@ -58,11 +58,8 @@
             <groupId>com.zkb</groupId>
             <artifactId>zkb-image-togif</artifactId>
         </dependency>
-        <!--Image测试-->
-        <dependency>
-            <groupId>com.zkb</groupId>
-            <artifactId>zkb-image</artifactId>
-        </dependency>
+
+
         <!--JavaX 模块-->
         <dependency>
             <groupId>javax.xml.bind</groupId>
