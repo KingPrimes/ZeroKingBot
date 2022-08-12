@@ -108,6 +108,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>ZeroKingBot-4.1.4</finalName>
+        <finalName>ZeroKingBot-4.1.5</finalName>
     </build>
 </project>

@@ -826,7 +826,7 @@ public class HtmlToImage {
                 }
                 str.append("</tbody></table>");
             }
-            str.append("<table class=\"voidTrader\"><caption align=\"top\">---------------------------------</caption><tr><td>虚空商人所在地：</td><td>")
+            str.append("<table class=\"voidTraderOut\"><caption align=\"top\">---------------------------------</caption><tr><td>虚空商人所在地：</td><td>")
                     .append(location)
                     .append("</td></tr><tr><td>虚空商人 到来/离去：</td><td>")
                     .append(DateUtils.getDate(v.getExpiry(), new Date()))
@@ -1207,7 +1207,7 @@ public class HtmlToImage {
                         .append("</td></tr>");
 
             }
-            str.append("</tbody></table><table class=\"table-css\"><caption about=\"top\">金垃圾</caption><thead><tr><th>名称</th><th>杜卡币</th><th>?币/白金</th><th>成交均价</th><th>库存</th></tr></thead><tbody>");
+            str.append("</tbody></table><table class=\"table-css\"><caption about=\"top\">银垃圾</caption><thead><tr><th>名称</th><th>杜卡币</th><th>?币/白金</th><th>成交均价</th><th>库存</th></tr></thead><tbody>");
             for (Ducats.Ducat ducat : dumps.getSilver()) {
                 str
                         .append("<tr><td>")
