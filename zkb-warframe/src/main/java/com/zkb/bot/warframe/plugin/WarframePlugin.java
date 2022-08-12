@@ -151,6 +151,15 @@ public class WarframePlugin extends BotPlugin {
             }
         }
 
+        //金银垃圾
+        if (TYPE_MARKET_GOD_DUMP.getType().equals(event.getRawMessage()) || TYPE_MARKET_SILVER_DUMP.getType().equals(event.getRawMessage())) {
+            if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
+                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektDumpsImage").build(), false);
+            } else {
+                return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
+            }
+        }
+
         //WM
         if (TYPE_WM_PLUGIN.getType().equals(StringUtils.substring(event.getRawMessage(), 0, TYPE_WM_PLUGIN.getType().length()).toUpperCase(Locale.ROOT))) {
             new Thread(() -> MarketItemUtil.marketSelectItem(bot, event)).start();

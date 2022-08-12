@@ -24,7 +24,7 @@ public class MarektRivenImageController {
 
     @IgnoreAuth
     @GetMapping(value = "/{uuid}/getMarektRivenImage/{key}", produces = MediaType.IMAGE_PNG_VALUE)
-    private void getImage(HttpServletResponse response, @PathVariable String key) throws IOException {
+    public void getImage(HttpServletResponse response, @PathVariable String key) throws IOException {
         response.setHeader("Content-Type", "image/png");
         MarketRivenParameter parameter = MarketRivenUtil.toMarketRiven(URLDecoder.decode(key, "UTF-8"));
         MarketRiven riven = MarketRivenUtil.marketRiven(parameter);

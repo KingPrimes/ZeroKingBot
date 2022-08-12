@@ -7,11 +7,13 @@
     <resultMap type="com.zkb.bot.warframe.domain.market.WarframeMarketItems" id="WarframeMarketItemsResult">
         <result property="itemName" column="item_name"/>
         <result property="urlName" column="url_name"/>
+        <result property="id" column="item_id"/>
+        <result property="thumb" column="item_thumb"/>
     </resultMap>
 
 
     <sql id="selectWarframeMarketItemsVo">
-        select item_name, url_name from wf_market_items
+        select item_id,item_name, url_name,item_thumb from wf_market_items
     </sql>
 
     <select id="selectWarframeMarketItemsList" parameterType="WarframeMarketItems"
@@ -41,6 +43,11 @@
         LIMIT 10
     </select>
 
+    <select id="selectWarframeMarketItemsById" parameterType="String" resultMap="WarframeMarketItemsResult">
+        <include refid="selectWarframeMarketItemsVo"/>
+        where item_id = #{id}
+    </select>
+
     <select id="selectWarframeMarketItemsByItemNameList" parameterType="String" resultMap="WarframeMarketItemsResult">
         <include refid="selectWarframeMarketItemsVo"/>
         where upper(replace(item_name,' ','')) like UPPER(replace('%'||#{itemName}||'%',' ',''))
@@ -49,12 +56,14 @@
 
     <insert id="insertWarframeMarketItems" parameterType="java.util.List">
         insert OR IGNORE into wf_market_items
-        (item_name, url_name)
+        (item_id,item_name, url_name,item_thumb)
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (
+            #{item.id},
             #{item.itemName},
-            #{item.urlName}
+            #{item.urlName},
+            #{item.thumb}
             )
         </foreach>
     </insert>

@@ -51,6 +51,22 @@ public class WarframeMarketItemsServiceImpl implements IWarframeMarketItemsServi
     }
 
     /**
+     * 根据Id获取物品详情
+     *
+     * @param id ID
+     * @return 详细信息
+     */
+    @Override
+    public WarframeMarketItems selectWarframeMarketItemsById(String id) {
+        WarframeMarketItems items = itemsMapper.selectWarframeMarketItemsById(id);
+        if(items == null){
+            items = new WarframeMarketItems();
+            items.setItemName("未知物品");
+        }
+        return items;
+    }
+
+    /**
      * 根据名称模糊查询数据
      *
      * @param itemName 名称

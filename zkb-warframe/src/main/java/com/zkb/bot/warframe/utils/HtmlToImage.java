@@ -1179,6 +1179,58 @@ public class HtmlToImage {
         return tmpHtmlToImageByteArray("marketRiven", html, width);
     }
 
+    /**
+     * 查询金银垃圾
+     * @param dumps 垃圾数据
+     * @return 图片字节流
+     */
+    public ByteArrayOutputStream marketDucat(DucatDumps dumps){
+        String html = FileUtils.getFileString(HTML_PATH + "html/marketDumps.html");
+        int width = getWidth(html);
+        html = outH(html);
+        if(html.contains("#table")){
+            StringBuilder str = new StringBuilder();
+            str
+                    .append("<table class=\"table-css\"><caption about=\"top\">金垃圾</caption><thead><tr><th>名称</th><th>杜卡币</th><th>?币/白金</th><th>成交均价</th><th>库存</th></tr></thead><tbody>");
+            for (Ducats.Ducat ducat : dumps.getGod()) {
+                str
+                        .append("<tr><td>")
+                        .append(ducat.getItem_name())
+                        .append("</td><td>")
+                        .append(ducat.getDucats())
+                        .append("</td><td>")
+                        .append(ducat.getDucatsPerPlatinumWa())
+                        .append("</td><td>")
+                        .append(ducat.getWaPrice())
+                        .append("</td><td>")
+                        .append(ducat.getVolume())
+                        .append("</td></tr>");
+
+            }
+            str.append("</tbody></table><table class=\"table-css\"><caption about=\"top\">金垃圾</caption><thead><tr><th>名称</th><th>杜卡币</th><th>?币/白金</th><th>成交均价</th><th>库存</th></tr></thead><tbody>");
+            for (Ducats.Ducat ducat : dumps.getSilver()) {
+                str
+                        .append("<tr><td>")
+                        .append(ducat.getItem_name())
+                        .append("</td><td>")
+                        .append(ducat.getDucats())
+                        .append("</td><td>")
+                        .append(ducat.getDucatsPerPlatinumWa())
+                        .append("</td><td>")
+                        .append(ducat.getWaPrice())
+                        .append("</td><td>")
+                        .append(ducat.getVolume())
+                        .append("</td></tr>");
+
+            }
+            str.append("</tbody></table>");
+            html = html.replaceAll("#table",str.toString());
+        }
+
+
+        return tmpHtmlToImageByteArray("marketDumps", html, width);
+    }
+
 
     /**
      * 获取宽度

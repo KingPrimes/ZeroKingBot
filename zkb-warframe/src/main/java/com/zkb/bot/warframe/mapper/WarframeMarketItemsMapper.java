@@ -41,6 +41,13 @@ public interface WarframeMarketItemsMapper {
      */
     WarframeMarketItems selectWarframeMarketItemsByItemName(String itemName);
 
+    /**
+     * 根据Id获取物品详情
+     * @param id ID
+     * @return 详细信息
+     */
+    WarframeMarketItems selectWarframeMarketItemsById(String id);
+
 
     /**
      * 根据名称正则查询数据
