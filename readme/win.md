@@ -9,8 +9,10 @@ Windows部署教程
 - 回到 放置ZeroKingBot.jar的文件夹下 <br/>
   按住Shift键+鼠标右键 选择 打开于 PowerShell<br/>
   或者直接在导航栏输入 cmd 按回车。打开黑窗口
-- 在黑窗口中输入 **java -jar ZeroKingBot-x.x.x.jar** 按下回车，之后出现 **启动成功** 说明部署完成 **x代表版本号**
+- 在黑窗口中输入 **java -jar ZeroKingBot.jar** 按下回车，之后出现 **启动成功** 说明部署完成 **x代表版本号**
   ![](../.github/image/winJar.png)
+
+- **4.1.7.3 版本之后无需进行下面的操作**
 
 - 您需要自行下载OneBot协议实现的机器人程序例如 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp/releases)
   - 这里以go-cqhttp 为例：
