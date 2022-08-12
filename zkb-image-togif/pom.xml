@@ -15,11 +15,6 @@
     <dependencies>
 
         <dependency>
-            <groupId>net.imglib2</groupId>
-            <artifactId>imglib2</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.zkb</groupId>
             <artifactId>zkb-group</artifactId>
         </dependency>

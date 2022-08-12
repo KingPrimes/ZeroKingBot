@@ -18,10 +18,6 @@
             <artifactId>zkb-group</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>net.imglib2</groupId>
-            <artifactId>imglib2</artifactId>
-        </dependency>
 
         <!--JavaX 模块-->
         <dependency>
