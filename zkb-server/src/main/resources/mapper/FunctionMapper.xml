@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.twg.bot.mapper.FunctionMapper">
+<mapper namespace="com.zkb.bot.mapper.FunctionMapper">
 
-    <resultMap type="com.twg.bot.domain.Function" id="FunctionResult">
+    <resultMap type="com.zkb.bot.domain.Function" id="FunctionResult">
         <result property="functionId" column="function_id"/>
         <result property="functionName" column="function_name"/>
         <result property="functionIntroduction" column="function_introduction"/>
@@ -34,7 +34,7 @@
         where function_name = #{functionName}
     </select>
 
-    <insert id="insertFunction" parameterType="com.twg.bot.domain.Function" useGeneratedKeys="true">
+    <insert id="insertFunction" parameterType="com.zkb.bot.domain.Function" useGeneratedKeys="true">
         insert OR IGNORE into bot_function
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="functionId != null and functionId != ''">function_id,</if>

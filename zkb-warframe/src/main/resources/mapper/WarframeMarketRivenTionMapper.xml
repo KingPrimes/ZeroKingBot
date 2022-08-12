@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.twg.bot.warframe.mapper.WarframeMarketRivenTionMapper">
+<mapper namespace="com.zkb.bot.warframe.mapper.WarframeMarketRivenTionMapper">
 
-    <resultMap type="com.twg.bot.warframe.domain.market.WarframeMarketRivenTion" id="WarframeMarketRivenTionResult">
+    <resultMap type="com.zkb.bot.warframe.domain.market.WarframeMarketRivenTion" id="WarframeMarketRivenTionResult">
         <result property="effect" column="effect"/>
         <result property="exclusiveTo" column="exclusive_to"/>
         <result property="group" column="group"/>
@@ -32,7 +32,7 @@
     </sql>
 
     <select id="selectWarframeMarketRivenTionList"
-            parameterType="com.twg.bot.warframe.domain.market.WarframeMarketRivenTion"
+            parameterType="com.zkb.bot.warframe.domain.market.WarframeMarketRivenTion"
             resultMap="WarframeMarketRivenTionResult">
         <include refid="selectWarframeMarketRivenTionVo"/>
         <where>

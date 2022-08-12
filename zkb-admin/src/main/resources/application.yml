@@ -47,7 +47,7 @@ spring:
 # MyBatis配置
 mybatis:
   # 搜索指定包别名
-  typeAliasesPackage: com.twg.**.domain
+  typeAliasesPackage: com.zkb.**.domain
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
   mapperLocations: classpath*:mapper/**/*Mapper.xml
   # 加载全局的配置文件
@@ -55,7 +55,7 @@ mybatis:
 #Bot插件列表(有序) 如果插件返回0，继续执行剩余插件，如果插件返回1，终止剩余插件执行
 shiro:
   plugin-list:
-    - com.twg.bot.plugin.FunctionOnOffPlugin
-    - com.twg.bot.group.plugin.JoinGroupVerifyCodePlugin
-    - com.twg.bot.warframe.plugin.WarframePlugin
-    - com.twg.bot.imagetogif.plugin.GifImagePlugin
+    - com.zkb.bot.plugin.FunctionOnOffPlugin
+    - com.zkb.bot.group.plugin.JoinGroupVerifyCodePlugin
+    - com.zkb.bot.warframe.plugin.WarframePlugin
+    - com.zkb.bot.imagetogif.plugin.GifImagePlugin

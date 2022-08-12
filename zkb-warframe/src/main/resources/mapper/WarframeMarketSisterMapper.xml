@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.twg.bot.warframe.mapper.WarframeMarketSisterMapper">
+<mapper namespace="com.zkb.bot.warframe.mapper.WarframeMarketSisterMapper">
 
     <resultMap type="WarframeMarketLichOrSister" id="WarframeMarketSisterResult">
         <result property="id" column="sister_id"/>

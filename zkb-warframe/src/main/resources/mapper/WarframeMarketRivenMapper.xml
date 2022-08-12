@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.twg.bot.warframe.mapper.WarframeMarketRivenMapper">
+<mapper namespace="com.zkb.bot.warframe.mapper.WarframeMarketRivenMapper">
 
-    <resultMap type="com.twg.bot.warframe.domain.market.WarframeMarketRiven" id="WarframeMarketRivenResult">
+    <resultMap type="com.zkb.bot.warframe.domain.market.WarframeMarketRiven" id="WarframeMarketRivenResult">
         <result property="thumb" column="thumb"/>
         <result property="rivenType" column="riven_type"/>
         <result property="group" column="group"/>

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.twg.bot.aiml.mapper.IssueReplyMapper">
+<mapper namespace="com.zkb.bot.aiml.mapper.IssueReplyMapper">
 
-    <resultMap type="com.twg.bot.aiml.domain.IssueReply" id="IssueReplyResult">
+    <resultMap type="com.zkb.bot.aiml.domain.IssueReply" id="IssueReplyResult">
         <result property="msgId" column="msg_id"/>
         <result property="msgIssue" column="msg_issue"/>
         <result property="msgIssueImage" column="msg_issue_image"/>
@@ -16,7 +16,7 @@
         <result property="msgCreateMember" column="msg_create_member"/>
     </resultMap>
 
-    <resultMap id="LeaderboardResult" type="com.twg.bot.aiml.domain.Leaderboard">
+    <resultMap id="LeaderboardResult" type="com.zkb.bot.aiml.domain.Leaderboard">
         <result property="count" column="c"/>
         <result property="msgCreateGroup" column="msg_create_group"/>
         <result property="msgCreateMember" column="msg_create_member"/>

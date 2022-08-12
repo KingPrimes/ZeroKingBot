@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.twg.bot.warframe.mapper.WarframeMarketItemsMapper">
+<mapper namespace="com.zkb.bot.warframe.mapper.WarframeMarketItemsMapper">
 
-    <resultMap type="com.twg.bot.warframe.domain.market.WarframeMarketItems" id="WarframeMarketItemsResult">
+    <resultMap type="com.zkb.bot.warframe.domain.market.WarframeMarketItems" id="WarframeMarketItemsResult">
         <result property="itemName" column="item_name"/>
         <result property="urlName" column="url_name"/>
     </resultMap>
@@ -29,7 +29,7 @@
     </select>
 
     <select id="selectWarframeMarketItemByItemNameToRegular"
-            parameterType="com.twg.bot.warframe.domain.market.WarframeMarketItemsRegular"
+            parameterType="com.zkb.bot.warframe.domain.market.WarframeMarketItemsRegular"
             resultMap="WarframeMarketItemsResult">
         <include refid="selectWarframeMarketItemsVo"/>
         where `item_name` REGEXP '^'||#{regulaHeader}||'.*'||#{regulaEnd} limit 1

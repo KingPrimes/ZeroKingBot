@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.twg.bot.warframe.mapper.WfAllTranslNoMapper">
+<mapper namespace="com.zkb.bot.warframe.mapper.WfAllTranslNoMapper">
 
-    <resultMap type="com.twg.bot.warframe.domain.WfAllTranslNo" id="WfAllNoTrasResult">
+    <resultMap type="com.zkb.bot.warframe.domain.WfAllTranslNo" id="WfAllNoTrasResult">
         <result property="missId" column="miss_id"/>
         <result property="missRewardsName" column="miss_rewards_name"/>
         <result property="relicsKeyId" column="relics_key_id"/>
@@ -16,7 +16,7 @@
     </resultMap>
 
     <!--查询任务未翻译的列表-->
-    <select id="selectAllNoMission" parameterType="com.twg.bot.warframe.domain.WfAllTranslNo"
+    <select id="selectAllNoMission" parameterType="com.zkb.bot.warframe.domain.WfAllTranslNo"
             resultMap="WfAllNoTrasResult">
         SELECT
         miss_id,
@@ -32,7 +32,7 @@
     </select>
 
     <!--查询遗物未翻译的列表-->
-    <select id="selectAllNoRelics" parameterType="com.twg.bot.warframe.domain.WfAllTranslNo"
+    <select id="selectAllNoRelics" parameterType="com.zkb.bot.warframe.domain.WfAllTranslNo"
             resultMap="WfAllNoTrasResult">
         SELECT
         a.relics_key_id,
@@ -47,7 +47,7 @@
     </select>
 
     <!--查询交易市场未翻译的列表-->
-    <select id="selectAllNoMarket" parameterType="com.twg.bot.warframe.domain.WfAllTranslNo"
+    <select id="selectAllNoMarket" parameterType="com.zkb.bot.warframe.domain.WfAllTranslNo"
             resultMap="WfAllNoTrasResult">
         SELECT
         a.market_id,
@@ -62,7 +62,7 @@
     </select>
 
     <!--查询紫卡倾向未翻译的列表-->
-    <select id="selectAllNoTrend" parameterType="com.twg.bot.warframe.domain.WfAllTranslNo"
+    <select id="selectAllNoTrend" parameterType="com.zkb.bot.warframe.domain.WfAllTranslNo"
             resultMap="WfAllNoTrasResult">
         SELECT
         a.riven_trend_id,

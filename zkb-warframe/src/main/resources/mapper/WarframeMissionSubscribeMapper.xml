@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.twg.bot.warframe.mapper.WarframeMissionSubscribeMapper">
+<mapper namespace="com.zkb.bot.warframe.mapper.WarframeMissionSubscribeMapper">
 
-    <resultMap type="com.twg.bot.warframe.domain.subscribe.WarframeMissionSubscribe"
+    <resultMap type="com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe"
                id="WarframeMissionSubscribeResult">
         <result property="subscribeGroup" column="subscribe_group"/>
         <result property="subscribeUser" column="subscribe_user"/>
@@ -18,7 +18,7 @@
 
     <!--条件查询,无条件则返回所有列表-->
     <select id="selectWarframeMissionSubscribeList"
-            parameterType="com.twg.bot.warframe.domain.subscribe.WarframeMissionSubscribe"
+            parameterType="com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe"
             resultMap="WarframeMissionSubscribeResult">
         <include refid="selectWarframeMissionSubscribeVo"/>
         <where>
@@ -39,7 +39,7 @@
 
     <!--添加订阅-->
     <insert id="insertWarframeMissionSubscribe"
-            parameterType="com.twg.bot.warframe.domain.subscribe.WarframeMissionSubscribe">
+            parameterType="com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe">
         INSERT OR IGNORE INTO wf_subscribe
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="subscribeGroup != 0 and subscribeGroup != null">subscribe_group,</if>
@@ -56,7 +56,7 @@
     </insert>
 
     <update id="updateWarframeMissionSubscribe"
-            parameterType="com.twg.bot.warframe.domain.subscribe.WarframeMissionSubscribe">
+            parameterType="com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe">
         UPDATE wf_subscribe
         <trim prefix="SET" suffixOverrides=",">
             <if test="subscribeUser != '' and subscribeUser != null">subscribe_user = #{subscribeUser},</if>
@@ -69,7 +69,7 @@
 
     <!--移除订阅-->
     <delete id="deleteWarframeMissionSubscribe"
-            parameterType="com.twg.bot.warframe.domain.subscribe.WarframeMissionSubscribe">
+            parameterType="com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe">
         DELETE FROM wf_subscribe WHERE subscribe_group = #{subscribeGroup} AND
         subscribe_mission_id = #{subscribeMissionId}
         <if test="subscriberBot != 0 and subscriberBot != null">

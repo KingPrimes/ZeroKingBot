@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.twg.bot.group.mapper.OFFunGroupMapper">
+<mapper namespace="com.zkb.bot.group.mapper.OFFunGroupMapper">
 
     <resultMap type="OFFunGroup" id="OFFunGroupResult">
         <result property="gorupUuid" column="group_uuid"/>
