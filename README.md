@@ -30,6 +30,11 @@
   <br/>
 - 
 
+赞助作者
+---
+---
+![](.github/image/upA-W.png)
+
 
 项目部署
 ---
@@ -49,6 +54,7 @@
 - [阿里云优惠](https://www.aliyun.com/minisite/goods?userCode=8dt5pt0g&share_source=copy_link)
 - [腾讯云优惠](https://cloud.tencent.com/act/pro/cps_3?fromSource=gwzcw.6688284.6688284.6688284&cps_key=ae3b8b6e55495d8bc53f2227ea0273d8)
 - [腾讯云免费体验](https://cloud.tencent.com/act/free)
+
 
 
 鸣谢
