@@ -30,10 +30,6 @@
   <br/>
 - 
 
-赞助作者
----
----
-![](.github/image/upA-W.png)
 
 
 项目部署
@@ -55,6 +51,10 @@
 - [腾讯云优惠](https://cloud.tencent.com/act/pro/cps_3?fromSource=gwzcw.6688284.6688284.6688284&cps_key=ae3b8b6e55495d8bc53f2227ea0273d8)
 - [腾讯云免费体验](https://cloud.tencent.com/act/free)
 
+赞助作者
+---
+---
+![](.github/image/upA-W.png)
 
 
 鸣谢
