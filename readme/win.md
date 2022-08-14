@@ -32,11 +32,13 @@ Windows部署教程
 - 查看go-cqhttp窗口中是否出现 **已连接到反向服务器** 若出现此提示则说明部署成功了
 
 
-<p id="update"></p>
+
 
 适用于TWGBot 4.0.9~4.1.2迁移版本
 ---
 ---
+<p id="update"></p>
+
 - 您只需要删除文件夹中的 **db文件夹**  即可
 - 将 **TWGBot-Server.exe**  替换为 **ZeroKingBot.jar** 
 - 修改启动.bat 右键编辑/打开方式 选择记事本打开
