@@ -17,9 +17,9 @@ import java.io.IOException;
 public class SubscribeListController {
 
     @IgnoreAuth
-    @GetMapping(value = "/getSubscriberHelp")
+    @GetMapping(value = "/{uuid}/getSubscriberHelp")
     public void getSubscriberHelp(HttpServletResponse response) throws IOException {
-        response.setHeader("Content-Type", "image/png");
+        response.setHeader("Content-Type", "image/gif");
         ByteArrayOutputStream out = SpringUtils.getBean(HtmlToImage.class).subscriberHelp();
         response.getOutputStream().write(out.toByteArray());
     }
