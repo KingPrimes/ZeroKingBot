@@ -1,5 +1,5 @@
 # 本教程适用于 4.1.3 之后的版本
-
+  
 Windows部署教程
 ---
 ---
@@ -29,4 +29,15 @@ Windows部署教程
      - ![](../.github/image/go-cqhttp-lows.png)
 - 之后双击 **"go-cqhttp.bat"** 启动，**根据提示操作**。
 - 查看go-cqhttp窗口中是否出现 **已连接到反向服务器** 若出现此提示则说明部署成功了
+
+适用于TWGBot 4.0.9~4.1.2迁移版本
+---
+---
+- 您只需要删除文件夹中的 **db文件夹**  即可
+- 将 **TWGBot-Server.exe**  替换为 **ZeroKingBot.jar** 
+- 修改启动.bat 右键编辑/打开方式 选择记事本打开
+- ![](../.github/image/up.png)
+- 修改为 **%BASE_DIR%/jre/bin/java.exe -jar ./ZeroKingBot.jar**
+- ![](../.github/image/upd.png)
+- 之后**关闭所有窗口重新启动**即可
 
