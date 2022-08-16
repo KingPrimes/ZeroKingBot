@@ -4,7 +4,7 @@
     <groupId>com.zkb</groupId>
     <artifactId>ZeroKingBot</artifactId>
     <packaging>pom</packaging>
-    <version>4.1.6</version>
+    <version>4.1.7-SNAPSHOT</version>
 
 
     <name>ZeroKingBot</name>
@@ -12,11 +12,11 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/KingPrimes/ZeroKingBot.git</developerConnection>
-      <tag>v4.1.6</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <properties>
-        <zkb.version>4.1.6</zkb.version>
+        <zkb.version>4.1.7-SNAPSHOT</zkb.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
