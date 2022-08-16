@@ -110,4 +110,12 @@
         </plugins>
         <finalName>ZeroKingBot</finalName>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>releases</name>
+            <url>https://github.com/KingPrimes/ZeroKingBot/releases</url>
+        </repository>
+    </distributionManagement>
 </project>
