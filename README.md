@@ -6,7 +6,11 @@
 
 # ZeroKingBot
 
+[![Java CI Package](https://github.com/KingPrimes/ZeroKingBot/actions/workflows/release.yml/badge.svg)](https://github.com/KingPrimes/ZeroKingBot/actions/workflows/release.yml)
+
 </div>
+
+
 
 ----
 
