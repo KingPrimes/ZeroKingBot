@@ -19,7 +19,6 @@ import static com.zkb.bot.enums.WarframeTypeEnum.REDIS_MISSION_KEY;
  */
 public class WarframeMissionUtils {
 
-    private static AsyncManager asyn;
 
     public static void isUpdated(SocketGlobalStates states) {
         SocketGlobalStates redisState;
@@ -46,7 +45,7 @@ public class WarframeMissionUtils {
         //判断警报是否相同
         if (form.getAlerts() != null && redisForm.getAlerts() != null) {
             if (!form.getAlerts().equals(redisForm.getAlerts())) {
-                asyn.execute(new TimerTask() {
+                AsyncManager.me().execute(new TimerTask() {
                     @Override
                     public void run() {
                         WarframeDataUpdateMission.updateAlerts();
@@ -59,7 +58,7 @@ public class WarframeMissionUtils {
         if (form.getArbitration() != null && redisForm.getArbitration() != null) {
             if (form.getArbitration().getNode() != null) {
                 if (!form.getArbitration().equals(redisForm.getArbitration())) {
-                    asyn.execute(new TimerTask() {
+                    AsyncManager.me().execute(new TimerTask() {
                         @Override
                         public void run() {
                             WarframeDataUpdateMission.updateArbitration();
@@ -76,7 +75,7 @@ public class WarframeMissionUtils {
                 if (DateUtils.getDateHour(form.getCetusCycle().getExpiry(), new Date()) == 0) {
                     long date = DateUtils.getDateMin(form.getCetusCycle().getExpiry(), new Date());
                     if (date == 13) {
-                        asyn.execute(new TimerTask() {
+                        AsyncManager.me().execute(new TimerTask() {
                             @Override
                             public void run() {
                                 WarframeDataUpdateMission.updateCetusCycle(DateUtils.getDate(form.getCetusCycle().getExpiry(), new Date()));
@@ -90,7 +89,7 @@ public class WarframeMissionUtils {
         if (form.getDailyDeals() != null && redisForm.getDailyDeals() != null) {
             if (form.getDailyDeals().get(0).getItem() != null) {
                 if (!form.getDailyDeals().get(0).getItem().equals(redisForm.getDailyDeals().get(0).getItem())) {
-                    asyn.execute(new TimerTask() {
+                    AsyncManager.me().execute(new TimerTask() {
                         @Override
                         public void run() {
                             WarframeDataUpdateMission.updateDailyDeals();
@@ -102,7 +101,7 @@ public class WarframeMissionUtils {
         //判断活动是否相同
         if (form.getEvents() != null && redisForm.getEvents() != null) {
             if (form.getEvents().retainAll(redisForm.getEvents()) && redisForm.getEvents().retainAll(form.getEvents())) {
-                asyn.execute(new TimerTask() {
+                AsyncManager.me().execute(new TimerTask() {
                     @Override
                     public void run() {
                         WarframeDataUpdateMission.updateEvents();
@@ -113,18 +112,18 @@ public class WarframeMissionUtils {
         //判断入侵是否相同
         if (form.getInvasions() != null && redisForm.getInvasions() != null) {
             if (form.getInvasions().retainAll(redisForm.getInvasions()) && redisForm.getInvasions().retainAll(form.getInvasions())) {
-                asyn.execute(new TimerTask() {
-                    @Override
-                    public void run() {
-                        WarframeDataUpdateMission.updateInvasions();
-                    }
-                });
+                    AsyncManager.me().execute(new TimerTask() {
+                        @Override
+                        public void run() {
+                            WarframeDataUpdateMission.updateInvasions();
+                        }
+                    });
             }
         }
         //判断钢铁轮换是否相同
         if (form.getSteelPath() != null && redisForm.getSteelPath() != null) {
             if (!form.getSteelPath().equals(redisForm.getSteelPath())) {
-                asyn.execute(new TimerTask() {
+                AsyncManager.me().execute(new TimerTask() {
                     @Override
                     public void run() {
                         WarframeDataUpdateMission.updateSteelPath();
@@ -136,14 +135,14 @@ public class WarframeMissionUtils {
         if (form.getVoidTrader() != null && redisForm.getVoidTrader() != null) {
             if (!form.getVoidTrader().equals(redisForm.getVoidTrader())) {
                 if (form.getVoidTrader().getInventory().size() == 0 && !form.getVoidTrader().getActive()) {
-                    asyn.execute(new TimerTask() {
+                    AsyncManager.me().execute(new TimerTask() {
                         @Override
                         public void run() {
                             WarframeDataUpdateMission.updateVoidTrader("奸商走了！\n下次会带来什么好东西呢？");
                         }
                     });
                 } else {
-                    asyn.execute(new TimerTask() {
+                    AsyncManager.me().execute(new TimerTask() {
                         @Override
                         public void run() {
                             WarframeDataUpdateMission.updateVoidTrader("奸商又来了！\n这次又带来了什么坏东西呢？\n奸商刺杀1等3");

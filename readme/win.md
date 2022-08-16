@@ -43,7 +43,7 @@ Windows部署教程
 - 将 **TWGBot-Server.exe**  替换为 **ZeroKingBot.jar** 
 - 修改启动.bat 右键编辑/打开方式 选择记事本打开
 - ![](../.github/image/up.png)
-- 修改为 **%BASE_DIR%/jre/bin/java.exe -jar ./ZeroKingBot.jar**
+- 修改为 **start cmd /K %BASE_DIR%/jre/bin/java.exe -jar %BASE_DIR%/ZeroKingBot.jar**
 - ![](../.github/image/upd.png)
 - 之后**关闭所有窗口重新启动**即可
 
