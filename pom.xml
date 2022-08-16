@@ -6,13 +6,13 @@
     <groupId>com.zkb</groupId>
     <artifactId>ZeroKingBot</artifactId>
     <packaging>pom</packaging>
-    <version>4.1.3</version>
+    <version>${zkb.version}</version>
 
 
     <name>ZeroKingBot</name>
 
     <properties>
-        <zkb.version>4.1.3</zkb.version>
+        <zkb.version>4.1.6</zkb.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
