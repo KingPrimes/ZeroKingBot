@@ -11,8 +11,13 @@
 
     <name>ZeroKingBot</name>
 
+
+    <scm>
+        <developerConnection>scm:git:https://github.com/KingPrimes/ZeroKingBot.git</developerConnection>
+    </scm>
+
     <properties>
-        <zkb.version>4.1.6</zkb.version>
+        <zkb.version>4.1.6-SNAPSHOT</zkb.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -259,6 +264,17 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <generateReleasePoms>false</generateReleasePoms>
+                    <arguments>-DskipTests</arguments>
                 </configuration>
             </plugin>
         </plugins>
