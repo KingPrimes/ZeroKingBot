@@ -3,6 +3,7 @@ package com.zkb.bot.warframe.socket;
 import com.alibaba.fastjson.JSONObject;
 import com.zkb.bot.warframe.dao.SocketGlobalStates;
 import com.zkb.bot.warframe.utils.WarframeMissionUtils;
+import com.zkb.framework.manager.AsyncManager;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Response;
 import okhttp3.WebSocket;
@@ -11,8 +12,12 @@ import okio.ByteString;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.TimerTask;
+
 @Slf4j
 public class OkHttpListener extends WebSocketListener {
+
+
     public OkHttpListener() {
         super();
     }
@@ -29,7 +34,12 @@ public class OkHttpListener extends WebSocketListener {
         if (states != null) {
             if (!states.getEvent().equals("connected") && states.getEvent().equals("ws:update")) {
                 if (states.getPacket().getLanguage().equals("en") && states.getPacket().getPlatform().equals("pc")) {
-                    new Thread(() -> WarframeMissionUtils.isUpdated(states)).start();
+                    AsyncManager.me().execute(new TimerTask() {
+                        @Override
+                        public void run() {
+                            WarframeMissionUtils.isUpdated(states);
+                        }
+                    });
 
                 }
             }
@@ -57,6 +67,5 @@ public class OkHttpListener extends WebSocketListener {
         super.onFailure(webSocket, t, response);
         log.error("链接出错,尝试重新连接...\nError:{}", t.getMessage());
         OkHttpWebSocket.init();
-
     }
 }

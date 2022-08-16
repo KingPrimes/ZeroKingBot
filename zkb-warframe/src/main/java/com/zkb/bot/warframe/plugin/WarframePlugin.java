@@ -27,6 +27,7 @@ import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.spring.SpringUtils;
 import com.zkb.common.utils.uuid.UUID;
+import com.zkb.framework.manager.AsyncManager;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,6 +36,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimerTask;
 
 import static com.zkb.bot.enums.WarframeTypeEnum.*;
 
@@ -47,7 +49,7 @@ public class WarframePlugin extends BotPlugin {
     @Autowired
     IWarframeMissionSubscribeService service;
     @Autowired
-    private IWarframeTranslationService traService;
+    IWarframeTranslationService traService;
 
     @Override
     public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
@@ -162,7 +164,12 @@ public class WarframePlugin extends BotPlugin {
 
         //WM
         if (TYPE_WM_PLUGIN.getType().equals(StringUtils.substring(event.getRawMessage(), 0, TYPE_WM_PLUGIN.getType().length()).toUpperCase(Locale.ROOT))) {
-            new Thread(() -> MarketItemUtil.marketSelectItem(bot, event)).start();
+            AsyncManager.me().execute(new TimerTask() {
+                @Override
+                public void run() {
+                    MarketItemUtil.marketSelectItem(bot, event);
+                }
+            });
             return 0;
         }
 
@@ -173,19 +180,34 @@ public class WarframePlugin extends BotPlugin {
 
         // WR
         if (TYPE_WR_PLUGIN.getType().equals(StringUtils.substring(event.getRawMessage(), 0, TYPE_WR_PLUGIN.getType().length()).toUpperCase(Locale.ROOT)) || TYPE_ZKWM_PLUGIN.getType().equals(StringUtils.substring(event.getRawMessage(), 0, TYPE_ZKWM_PLUGIN.getType().length()).toUpperCase(Locale.ROOT))) {
-            new Thread(() -> MarketRivenUtil.sendToGroupRiven(bot, event)).start();
+            AsyncManager.me().execute(new TimerTask() {
+                @Override
+                public void run() {
+                    MarketRivenUtil.sendToGroupRiven(bot, event);
+                }
+            });
             return 0;
         }
 
         //赤毒武器
         if (TYPE_CD_PLUGIN.getType().equals(StringUtils.substring(event.getRawMessage(), 0, TYPE_CD_PLUGIN.getType().length()).toUpperCase(Locale.ROOT)) || TYPE_C_PLUGIN.getType().equals(StringUtils.substring(event.getRawMessage(), 0, TYPE_C_PLUGIN.getType().length()).toUpperCase(Locale.ROOT))) {
-            new Thread(() -> MarketLichAndSisterUtil.marketLich(bot, event)).start();
+            AsyncManager.me().execute(new TimerTask() {
+                @Override
+                public void run() {
+                    MarketLichAndSisterUtil.marketSister(bot, event);
+                }
+            });
             return 0;
         }
 
         //信条武器
         if (TYPE_XT_PLUGIN.getType().equals(StringUtils.substring(event.getRawMessage(), 0, TYPE_XT_PLUGIN.getType().length()).toUpperCase(Locale.ROOT)) || TYPE_X_PLUGIN.getType().equals(StringUtils.substring(event.getRawMessage(), 0, TYPE_X_PLUGIN.getType().length()).toUpperCase(Locale.ROOT))) {
-            new Thread(() -> MarketLichAndSisterUtil.marketSister(bot, event)).start();
+            AsyncManager.me().execute(new TimerTask() {
+                @Override
+                public void run() {
+                    MarketLichAndSisterUtil.marketSister(bot, event);
+                }
+            });
             return 0;
         }
 

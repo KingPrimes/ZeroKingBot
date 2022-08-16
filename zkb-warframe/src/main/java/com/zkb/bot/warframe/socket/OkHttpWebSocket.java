@@ -11,11 +11,10 @@ import java.time.Duration;
 public class OkHttpWebSocket {
 
     public static WebSocket socket;
-    private static OkHttpClient client;
 
     public static void init() {
         String url = "ws://api.warframestat.us/socket";
-        client = new OkHttpClient.Builder()
+        OkHttpClient client = new OkHttpClient.Builder()
                 .pingInterval(Duration.ofMinutes(1L))
                 .build();
         Request request = new Request.Builder()
@@ -23,14 +22,6 @@ public class OkHttpWebSocket {
                 .build();
         log.info("正在初始化Socket连接...");
         socket = client.newWebSocket(request, new OkHttpListener());
-    }
-
-    public static boolean closeSocket() {
-        return socket.close(1002, "客户端主动关闭");
-    }
-
-    public static void getConnect() {
-        System.out.println(client.connectionSpecs().size());
     }
 
 
