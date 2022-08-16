@@ -28,7 +28,7 @@ public class ZeroKingBotApplication {
             System.out.println("创建缓存文件失败！");
             return;
         }
-        //测试
+
         LoadConfig.initConfig();
         SpringApplication.run(ZeroKingBotApplication.class, args);
         GetProxyOnClons.isHttpProxy();
