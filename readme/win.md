@@ -39,7 +39,10 @@ Windows部署教程
 ---
 <p id="update"></p>
 
-- 您只需要删除文件夹中的 **db文件夹**  即可
+- 您需要删除文件夹中的 **db文件夹** 
+- 打开任务管理器找到Redis服务关闭它
+- 打开Redis文件夹删除 **dump.rdb** 文件
+- ~~启动Redis服务~~ 
 - 将 **TWGBot-Server.exe**  替换为 **ZeroKingBot.jar** 
 - 修改启动.bat 右键编辑/打开方式 选择记事本打开
 - ![](../.github/image/up.png)
