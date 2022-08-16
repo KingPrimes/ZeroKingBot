@@ -14,7 +14,16 @@ jobs:
         with:
           java-version: '8'
           distribution: 'adopt'
-      - name: Publish package
-        run: mvn -B package --file pom.xml
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Maven Release and Publish
+        # You may pin to the exact commit or the version.
+        # uses: mg-smartrent/github-actions-maven-release@5f387c0d77b22da293e9812d43ab90cdc49f475a
+        uses: mg-smartrent/github-actions-maven-release@v1.5
+        with:
+          # Filter the branch to execute the release on
+          release-branch-name: main # optional
+          # The git user name for commiting the release
+          git-release-bot-name: KingPrimes
+          # The git user email for commiting the release
+          git-release-bot-email: Sakitama_q@163.com
+          # Github access token. https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
+          access-token: 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
