@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.zkb</groupId>
     <artifactId>ZeroKingBot</artifactId>
     <packaging>pom</packaging>
-    <version>${zkb.version}</version>
+    <version>4.1.6</version>
 
 
     <name>ZeroKingBot</name>
@@ -14,10 +12,11 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/KingPrimes/ZeroKingBot.git</developerConnection>
-    </scm>
+      <tag>v4.1.6</tag>
+  </scm>
 
     <properties>
-        <zkb.version>4.1.6-SNAPSHOT</zkb.version>
+        <zkb.version>4.1.6</zkb.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
