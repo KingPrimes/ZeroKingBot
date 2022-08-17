@@ -1,7 +1,7 @@
 <div align="center">
 
 <p align="center">
-   <img src=".github/image/ico.jpg" width="200" height="200" alt="有谁能帮帮我画个吉祥物吗？" title="有谁能帮帮我画个吉祥物吗？">
+   <img src=".github/image/ico.jpg" width="200" height="200" alt="非常感谢 `别哭草莓菠菜^ ^ 微信号：Xwenlilililili_` 绘制的图像" title="非常感谢 `别哭草莓菠菜^ ^ 微信号：Xwenlilililili_` 绘制的图像">
 </p>
 
 # ZeroKingBot
@@ -55,6 +55,7 @@
 贡献者
 ---
 ---
+- 非常感谢 `别哭草莓菠菜^ ^ 微信号：Xwenlilililili_` 绘制的图像
 <!-- readme: collaborators,contributors -start -->
 <!-- readme: collaborators,contributors -end -->
 
