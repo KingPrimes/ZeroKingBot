@@ -12,6 +12,7 @@ import com.zkb.bot.warframe.utils.forums.RivenDispositionUpdatesImage;
 import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.spring.SpringUtils;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +28,8 @@ public class RivenDispositionUpdatesTask {
      * @return 更新的条数
      * @throws Exception 可能存在空异常
      */
-    @Scheduled(cron = "0 0 0 * * ? ")
+    @Async("taskExecutor")
+    @Scheduled(cron = "${task.cron.rivenTask}")
     public void renewRivenDisposition() throws Exception {
         List<WarframeRivenTrend> trends = GetForumsRivenDispositionUpdates.getRivenDispositionUpdates("");
         List<WarframeRivenTrend> redis_trends = null;

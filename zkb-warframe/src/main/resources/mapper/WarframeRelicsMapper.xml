@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkb.bot.warframe.mapper.WarframeRelicsMapper">
+
+    <resultMap type="WarframeRelics" id="WarframeRelicsResult">
+        <result property="relicsKeyId"    column="relics_key_id"    />
+        <result property="relicsId"    column="relics_id"    />
+        <result property="relicsTier"    column="relics_tier"    />
+        <result property="relicsName"    column="relics_name"    />
+        <result property="relicsState"    column="relics_state"    />
+        <result property="relicsItemId"    column="relics_item_id"    />
+        <result property="relicsItemName"    column="relics_item_name"    />
+        <result property="relicsItemRarity"    column="relics_item_rarity"    />
+        <result property="relicsItemChance"    column="relics_item_chance"    />
+        <result property="traCh"    column="tra_ch"    />
+    </resultMap>
+
+    <sql id="selectWarframeRelicsVo">
+        select relics_key_id,relics_id, relics_tier, relics_name, relics_state, relics_item_id, relics_item_name, relics_item_rarity, relics_item_chance,tra_ch from wf_relics,wf_translation
+    </sql>
+
+    <sql id="selectWarframeRelicsOVo">
+        select relics_key_id,relics_id, relics_tier, relics_name, relics_state, relics_item_id, relics_item_name, relics_item_rarity, relics_item_chance from wf_relics
+    </sql>
+
+    <select id="selectWarframeRelicsList" parameterType="WarframeRelics" resultMap="WarframeRelicsResult">
+        <include refid="selectWarframeRelicsVo"/>
+        <where>
+            wf_relics.relics_item_name = wf_translation.tra_en
+            <if test="relicsTier != null  and relicsTier != ''"> and relics_tier = #{relicsTier}</if>
+            <if test="relicsName != null  and relicsName != ''"> and relics_name like concat('%', #{relicsName}, '%')</if>
+            <if test="relicsState != null  and relicsState != ''"> and relics_state = #{relicsState}</if>
+            <if test="relicsItemName != null  and relicsItemName != ''"> and relics_item_name like concat('%', #{relicsItemName}, '%')</if>
+            <if test="traCh != null  and traCh != ''"> and tra_ch like concat('%', #{traCh}, '%')</if>
+            <if test="relicsItemRarity != null  and relicsItemRarity != ''"> and relics_item_rarity = #{relicsItemRarity}</if>
+            <if test="relicsItemChance != null  and relicsItemChance != ''"> and relics_item_chance = #{relicsItemChance}</if>
+        </where>
+        GROUP BY relics_key_id ORDER BY relics_tier,relics_name,relics_state,relics_item_rarity
+    </select>
+
+    <select id="selectWarframeRelicsById" parameterType="Long" resultMap="WarframeRelicsResult">
+        <include refid="selectWarframeRelicsOVo"/>
+        where relics_key_id = #{relics_key_id}
+    </select>
+
+    <!--根据条件查询某个遗物对应的物品-->
+    <select id="selectWarframeRelicsByAll" parameterType="String" resultMap="WarframeRelicsResult">
+        select * from (SELECT
+                           r.relics_key_id,
+                           t1.tra_ch AS relics_tier,
+                           r.relics_name,
+                           t2.tra_ch AS relics_item_name,
+                           t3.tra_ch AS relics_item_rarity
+                       FROM
+                           wf_relics r
+                               INNER JOIN wf_translation t1 ON t1.tra_en = r.relics_tier
+                               INNER JOIN wf_translation t2 ON t2.tra_en = r.relics_item_name
+                               INNER JOIN wf_translation t3 ON t3.tra_en = r.relics_item_rarity
+                       WHERE relics_state = 'Intact'
+                      ) as a where a.relics_name like concat('%', #{traCh}, '%') or a.relics_item_name like concat('%', #{traCh}, '%') or a.relics_item_rarity like concat('%', #{traCh}, '%')
+        ORDER BY relics_tier
+    </select>
+
+    <insert id="insertWarframeRelics" parameterType="WarframeRelics">
+        insert OR IGNORE into wf_relics
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="relicsId != null">relics_id,</if>
+            <if test="relicsTier != null and relicsTier != ''">relics_tier,</if>
+            <if test="relicsName != null and relicsName != ''">relics_name,</if>
+            <if test="relicsState != null and relicsState != ''">relics_state,</if>
+            <if test="relicsItemId != null">relics_item_id,</if>
+            <if test="relicsItemName != null and relicsItemName != ''">relics_item_name,</if>
+            <if test="relicsItemRarity != null and relicsItemRarity != ''">relics_item_rarity,</if>
+            <if test="relicsItemChance != null and relicsItemChance != ''">relics_item_chance,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="relicsId != null">#{relicsId},</if>
+            <if test="relicsTier != null and relicsTier != ''">#{relicsTier},</if>
+            <if test="relicsName != null and relicsName != ''">#{relicsName},</if>
+            <if test="relicsState != null and relicsState != ''">#{relicsState},</if>
+            <if test="relicsItemId != null">#{relicsItemId},</if>
+            <if test="relicsItemName != null and relicsItemName != ''">#{relicsItemName},</if>
+            <if test="relicsItemRarity != null and relicsItemRarity != ''">#{relicsItemRarity},</if>
+            <if test="relicsItemChance != null and relicsItemChance != ''">#{relicsItemChance},</if>
+         </trim>
+    </insert>
+
+    <insert id="insertWarframeRelicsList" parameterType="java.util.List">
+        insert OR IGNORE into wf_relics
+        (relics_id,relics_tier,relics_name,relics_state,relics_item_id,relics_item_name,relics_item_rarity,relics_item_chance)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.relicsId},
+            #{item.relicsTier},
+            #{item.relicsName},
+            #{item.relicsState},
+            #{item.relicsItemId},
+            #{item.relicsItemName},
+            #{item.relicsItemRarity},
+            #{item.relicsItemChance}
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateWarframeRelics" parameterType="WarframeRelics">
+        update wf_relics
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="relicsTier != null and relicsTier != ''">relics_tier = #{relicsTier},</if>
+            <if test="relicsName != null and relicsName != ''">relics_name = #{relicsName},</if>
+            <if test="relicsState != null and relicsState != ''">relics_state = #{relicsState},</if>
+            <if test="relicsItemId != null">relics_item_id = #{relicsItemId},</if>
+            <if test="relicsItemName != null and relicsItemName != ''">relics_item_name = #{relicsItemName},</if>
+            <if test="relicsItemRarity != null and relicsItemRarity != ''">relics_item_rarity = #{relicsItemRarity},</if>
+            <if test="relicsItemChance != null and relicsItemChance != ''">relics_item_chance = #{relicsItemChance},</if>
+        </trim>
+        where relics_key_id = #{relicsKeyId}
+    </update>
+
+    <delete id="deleteWarframeRelicsById" parameterType="Long">
+        delete from wf_relics where relics_key_id = #{relicsKeyId}
+    </delete>
+
+    <delete id="deleteWarframeRelicsByIds" parameterType="Long">
+        delete from wf_relics where relics_key_id in
+        <foreach item="relicsKeyId" collection="array" open="(" separator="," close=")">
+            #{relicsKeyId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteWarframeRelics">
+        delete from wf_relics
+    </delete>
+
+</mapper>

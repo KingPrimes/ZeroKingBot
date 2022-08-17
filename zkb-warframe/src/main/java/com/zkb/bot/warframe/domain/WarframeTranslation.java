@@ -34,6 +34,16 @@ public class WarframeTranslation {
      */
     private Long traSet;
 
+    public WarframeTranslation() {
+    }
+
+    public WarframeTranslation(String traEn, String traCh, Long traPrime, Long traSet) {
+        this.traEn = traEn;
+        this.traCh = traCh;
+        this.traPrime = traPrime;
+        this.traSet = traSet;
+    }
+
     public Long getTraId() {
         return traId;
     }

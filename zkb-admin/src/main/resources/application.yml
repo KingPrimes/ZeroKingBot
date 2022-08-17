@@ -59,3 +59,12 @@ shiro:
     - com.zkb.bot.group.plugin.JoinGroupVerifyCodePlugin
     - com.zkb.bot.warframe.plugin.WarframePlugin
     - com.zkb.bot.imagetogif.plugin.GifImagePlugin
+
+task:
+  cron:
+    #Data 定时更新
+    dataTask: 0 0 * * * ?
+    #Riven紫卡倾向定时查询
+    rivenTask: 0 0 0 * * ?
+    #定时获取词典
+    traTask: 0 0 0 1/7 * *
