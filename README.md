@@ -1,7 +1,7 @@
 <div align="center">
 
 <p align="center">
-   <img src="" width="200" height="200" alt="有谁能帮帮我画个吉祥物吗？" title="有谁能帮帮我画个吉祥物吗？">
+   <img src=".github/image/ico.jpg" width="200" height="200" alt="有谁能帮帮我画个吉祥物吗？" title="有谁能帮帮我画个吉祥物吗？">
 </p>
 
 # ZeroKingBot
