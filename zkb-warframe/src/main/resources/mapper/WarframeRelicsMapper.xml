@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="relicsKeyId"    column="relics_key_id"    />
         <result property="relicsId"    column="relics_id"    />
         <result property="relicsTier"    column="relics_tier"    />
+        <result property="relicsTierD"    column="relics_tierd"    />
         <result property="relicsName"    column="relics_name"    />
         <result property="relicsState"    column="relics_state"    />
         <result property="relicsItemId"    column="relics_item_id"    />
@@ -47,20 +48,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!--根据条件查询某个遗物对应的物品-->
     <select id="selectWarframeRelicsByAll" parameterType="String" resultMap="WarframeRelicsResult">
-        select * from (SELECT
-                           r.relics_key_id,
-                           t1.tra_ch AS relics_tier,
-                           r.relics_name,
-                           t2.tra_ch AS relics_item_name,
-                           t3.tra_ch AS relics_item_rarity
-                       FROM
-                           wf_relics r
-                               INNER JOIN wf_translation t1 ON t1.tra_en = r.relics_tier
-                               INNER JOIN wf_translation t2 ON t2.tra_en = r.relics_item_name
-                               INNER JOIN wf_translation t3 ON t3.tra_en = r.relics_item_rarity
-                       WHERE relics_state = 'Intact'
-                      ) as a where a.relics_name like concat('%', #{traCh}, '%') or a.relics_item_name like concat('%', #{traCh}, '%') or a.relics_item_rarity like concat('%', #{traCh}, '%')
-        ORDER BY relics_tier
+       SELECT
+        *
+        FROM
+        (
+        SELECT
+        r.relics_key_id,
+        r.relics_id,
+        r.relics_tier,
+        t1.tra_ch AS relics_tierd,
+        t1.tra_ch||' '||r.relics_name as name,
+        r.relics_name,
+        r.relics_item_chance,
+        t2.tra_ch AS relics_item_name,
+        t3.tra_ch AS relics_item_rarity
+        FROM
+        wf_relics r
+        INNER JOIN wf_translation t1 ON t1.tra_en = r.relics_tier
+        INNER JOIN wf_translation t2 ON t2.tra_en = r.relics_item_name
+        INNER JOIN wf_translation t3 ON t3.tra_en = r.relics_item_rarity
+        ) AS a
+        WHERE
+        a.relics_name LIKE '%' ||#{ traCh }|| '%'
+        OR a.relics_item_name LIKE '%' ||#{ traCh }|| '%'
+        OR a.relics_item_rarity LIKE '%' ||#{ traCh }|| '%'
+        or a.name like '%'||#{ traCh }||'%'
+
+        ORDER BY
+        relics_id,
+        relics_item_chance DESC
+
     </select>
 
     <insert id="insertWarframeRelics" parameterType="WarframeRelics">

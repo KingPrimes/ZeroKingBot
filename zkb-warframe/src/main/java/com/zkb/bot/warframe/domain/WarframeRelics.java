@@ -22,6 +22,11 @@ public class WarframeRelics {
     private String relicsTier;
 
     /**
+     * 纪元
+     */
+    private String relicsTierD;
+
+    /**
      * 遗物名称
      */
     private String relicsName;
@@ -249,12 +254,14 @@ public class WarframeRelics {
         this.traCh = traCh;
     }
 
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
                 .append("relicsKeyId", relicsKeyId)
                 .append("relicsId", relicsId)
                 .append("relicsTier", relicsTier)
+                .append("relicsTierD", relicsTierD)
                 .append("relicsName", relicsName)
                 .append("relicsState", relicsState)
                 .append("relicsItemId", relicsItemId)
@@ -263,5 +270,23 @@ public class WarframeRelics {
                 .append("relicsItemChance", relicsItemChance)
                 .append("traCh", traCh)
                 .toString();
+    }
+
+    /**
+     * get 纪元
+     *
+     * @return relicsTierD 纪元
+     */
+    public String getRelicsTierD() {
+        return this.relicsTierD;
+    }
+
+    /**
+     * set 纪元
+     *
+     * @param relicsTierD 纪元
+     */
+    public void setRelicsTierD(String relicsTierD) {
+        this.relicsTierD = relicsTierD;
     }
 }

@@ -108,6 +108,20 @@ public class WarframePlugin extends BotPlugin {
             }
         }
 
+        //核桃
+        if (TYPE_RELICS_PLUGIN.getType().equals(StringUtils.substring(event.getRawMessage(), 0, TYPE_RELICS_PLUGIN.getType().length()).toUpperCase(Locale.ROOT))) {
+            if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
+                String key = event.getRawMessage().replaceAll(TYPE_RELICS_PLUGIN.getType(),"");
+                if(key.trim().length()==0){
+                    bot.sendGroupMsg(event.getGroupId(),Msg.builder().text("请输入 遗物名称如 A1").build(),false);
+                    return 0;
+                }
+                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getRelics/"+key).build(), false);
+            } else {
+                return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
+            }
+        }
+
         //裂隙
         if (TYPE_FISSUES_PLUGIN.getType().equals(event.getRawMessage()) || TYPE_FISSUESX_PLUGIN.getType().equals(event.getRawMessage())) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {

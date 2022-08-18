@@ -3,6 +3,7 @@ package com.zkb.bot.warframe.utils;
 import com.zkb.bot.enums.WarframeSubscribeEnums;
 import com.zkb.bot.enums.WarframeTypeEnum;
 import com.zkb.bot.warframe.dao.*;
+import com.zkb.bot.warframe.domain.WarframeRelics;
 import com.zkb.bot.warframe.domain.WarframeTranslation;
 import com.zkb.bot.warframe.service.*;
 import com.zkb.common.utils.DateUtils;
@@ -939,6 +940,17 @@ public class HtmlToImage {
         return tmpHtmlToImageByteArray("marketNot", html, width);
     }
 
+    public ByteArrayOutputStream NotImage() {
+        String html = "<!DOCTYPE html><html><head> <meta charset=\"UTF-8\"/><link rel=\"stylesheet\" href=\"../css/index.css\"/></head><body>" +
+                "<div class=\"card\"><div class=\"card-layer\">" +
+                "<h2>未找到您查询的物品！</h2><h2>请输入的更详细些！</h2></div></div>" +
+                "</body></html>";
+        int width = getWidth(html);
+        html = outH(html);
+        return tmpHtmlToImageByteArray("Not", html, width);
+    }
+
+
     /**
      * 查询 信条/赤毒 武器
      *
@@ -1181,14 +1193,15 @@ public class HtmlToImage {
 
     /**
      * 查询金银垃圾
+     *
      * @param dumps 垃圾数据
      * @return 图片字节流
      */
-    public ByteArrayOutputStream marketDucat(DucatDumps dumps){
+    public ByteArrayOutputStream marketDucat(DucatDumps dumps) {
         String html = FileUtils.getFileString(HTML_PATH + "html/marketDumps.html");
         int width = getWidth(html);
         html = outH(html);
-        if(html.contains("#table")){
+        if (html.contains("#table")) {
             StringBuilder str = new StringBuilder();
             str
                     .append("<table class=\"table-css\"><caption about=\"top\">金垃圾</caption><thead><tr><th>名称</th><th>杜卡币</th><th>?币/白金</th><th>成交均价</th><th>库存</th></tr></thead><tbody>");
@@ -1224,11 +1237,121 @@ public class HtmlToImage {
 
             }
             str.append("</tbody></table>");
-            html = html.replaceAll("#table",str.toString());
+            html = html.replaceAll("#table", str.toString());
         }
 
 
         return tmpHtmlToImageByteArray("marketDumps", html, width);
+    }
+
+    public ByteArrayOutputStream relicsSelect(List<WarframeRelics> relics) {
+        String html = FileUtils.getFileString(HTML_PATH + "html/relics.html");
+        int width = getWidth(html);
+        html = outH(html);
+        if (relics.size() == 0 || relics.size() > 90) return NotImage();
+        if (html.contains("#table")) {
+            StringBuilder str = new StringBuilder();
+            str.append("<tr><td>");
+            int x = 0, j = 0;
+            String tempName = "", tempTier = "";
+            for (WarframeRelics relic : relics) {
+                if (x != 0 && x % 6 == 0) {
+                    str.append("</table></td>");
+                    j++;
+                    if (j % 4 == 0) {
+                        str.append("</tr><tr><td>");
+                    }
+                    if (x < relics.size() && j % 4 != 0) str.append("<td>");
+                }
+
+                if (!tempName.equals(relic.getRelicsName()) && !tempTier.equals(relic.getRelicsTier()) || (x != 0 && x % 6 == 0)) {
+                    str
+                            .append("<table class=\"relics\"><caption about=\"top\" class=\"relics-")
+                            .append(relic.getRelicsTier())
+                            .append("\"> [")
+                            .append(relic.getRelicsTierD())
+                            .append(" ")
+                            .append(relic.getRelicsName())
+                            .append(" 遗物] </caption>")
+                    ;
+                    tempName = relic.getRelicsName();
+                    tempTier = relic.getRelicsTier();
+                }
+                str.append("<tr><td>")
+                        .append(relic.getRelicsItemName())
+                        .append("</td></tr>");
+
+                if (x == relics.size() - 1) {
+                    str.append("</table></td></tr>");
+                }
+
+                x++;
+
+            }
+            /* str.append("</table>");*/
+
+            html = html.replaceAll("#table", str.toString());
+        }
+        return tmpHtmlToImageByteArray("relics", html, width);
+    }
+
+    public ByteArrayOutputStream relics(List<WarframeRelics> relics) {
+        String html = FileUtils.getFileString(HTML_PATH + "html/relics.html");
+        int width = getWidth(html);
+        html = outH(html);
+        if (relics.size() == 0 || relics.size() > 90) return NotImage();
+        if (html.contains("#table")) {
+            StringBuilder str = new StringBuilder();
+            str.append("<tr>");
+            int x = 0;
+            String tempName = "", tempTier = "";
+            for (WarframeRelics relic : relics) {
+                if (!tempName.equals(relic.getRelicsName()) && !tempTier.equals(relic.getRelicsTier()) && x != 0) {
+                    str.append("</table></td>");
+                    if (x % 4 == 0) {
+                        str.append("</tr>");
+                        if (x < relics.size()) str.append("<tr>");
+                    }
+                }
+
+                if (!tempName.equals(relic.getRelicsName()) && !tempTier.equals(relic.getRelicsTier())) {
+                    str
+                            .append("<td><table class=\"relics\"><caption about=\"top\" class=\"relics-")
+                            .append(relic.getRelicsTier())
+                            .append("\"> [")
+                            .append(relic.getRelicsTierD())
+                            .append(" ")
+                            .append(relic.getRelicsName())
+                            .append(" 遗物] </caption>")
+                    ;
+                    tempName = relic.getRelicsName();
+                    tempTier = relic.getRelicsTier();
+                }
+                str.append("<tr><td class=\"");
+                if(relic.getRelicsItemChance().equals("11")){
+                    str.append("relics-y\">");
+                }
+                if(relic.getRelicsItemChance().equals("2")){
+                    str.append("relics-j\">");
+                }
+                if(relic.getRelicsItemChance().equals("25.33")){
+                    str.append("relics-t\">");
+                }
+                str
+
+                        .append(relic.getRelicsItemName())
+                        .append("</td></tr>");
+
+                if (x == relics.size() - 1) {
+                    str.append("</table></td></tr>");
+                }
+                x++;
+            }
+            /* str.append("</table>");*/
+
+            html = html.replaceAll("#table", str.toString());
+        }
+        return tmpHtmlToImageByteArray("relics", html, width);
     }
 
 
@@ -1313,5 +1436,6 @@ public class HtmlToImage {
         }
         return convertHtmlToImage(path, width);
     }
+
 
 }

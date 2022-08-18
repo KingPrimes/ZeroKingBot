@@ -27,9 +27,7 @@ public class DataTask {
     @Async("taskExecutor")
     @Scheduled(cron = "${task.cron.dataTask}")
     public void getDataHash() {
-        System.out.println("开始执行定时任务");
         DataHash d = JSONObject.parseObject(HttpUtils.sendGetOkHttp("https://drops.warframestat.us//data/info.json"), DataHash.class);
-        System.out.println(d.toString());
         DataHash dh;
         try {
             dh = SpringUtils.getBean(RedisCache.class).getCacheObject("datahash");

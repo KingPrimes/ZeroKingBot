@@ -727,6 +727,20 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return m.replaceAll(newString);
     }
 
+    /**
+     * 全局匹配正则表达式
+     * @param str 字符串
+     * @param regex 正则表达式
+     * @return
+     */
+    public static boolean regexG(String str,String regex){
+        Pattern p = Pattern.compile(regex);
+        Matcher m =p.matcher(str);
+        while (m.find()){
+            return true;
+        }
+        return false;
+    }
 
 
    /* public static String toJsonString(String json){

@@ -37,6 +37,8 @@ public enum WarframeTypeEnum {
 
     TYPE_MARKET_GOD_DUMP("金垃圾"),
 
+    TYPE_RELICS_PLUGIN("核桃"),
+
     TYPE_MARKET_SILVER_DUMP("银垃圾"),
     TYPE_RES_MARKET_ITEMS("更新WM物品"),
     TYPE_RES_MARKET_RIVEN("更新WM紫卡"),

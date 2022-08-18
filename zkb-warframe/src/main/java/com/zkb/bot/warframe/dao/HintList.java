@@ -11,7 +11,11 @@ public class HintList {
             "小提示：查询<span style=\"font-weight: bold;\"> 紫卡 </span>可以使用后缀 <br/>例如： <span style=\"color: #ee3f4d;\">/wr 紫卡名 -爆率,多重 -有|无</span>",
             "小提示：在使用/wm 命令时可以添加后缀<br/>例如：<span style=\"color: #ee3f4d;\">/wm 充沛 满级 买家</span>",
             "小提示：/wm 的后缀可以添加到任意位置<br/>例如：<span style=\"color: #ee3f4d;\">/wm 充<span style=\"color: #8a6913;\">满级买家</span>沛</span>",
-            "小提示：在<span style=\"color: #5698c3;\">github.com</span> 网站中搜索<span style=\"color: #e77c8e;\">ZeroKingBot</span> <br/>就是这个项目哦！"
+            "小提示：在<span style=\"color: #5698c3;\">github.com</span> 网站中搜索<span style=\"color: #e77c8e;\">ZeroKingBot</span> <br/>就是这个项目哦！",
+            "小提示：发送 核桃 a1 即可查询所有名为 a1 的核桃",
+            "小提示：发送 核桃 守望者 即可查询包含“守望者”的所有遗物！",
+            "小提示: 发送 开核桃|砸核桃 [遗物的名，如 A1] 即可模拟开核桃",
+            "小提示：发送 开核桃|砸核桃 不写遗物名称则随机抽取一个遗物开启！"
 
     };
 
