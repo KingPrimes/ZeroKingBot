@@ -29,9 +29,7 @@ public class RelicsSelectImageController {
     @GetMapping(value = "/{uuid}/getRelics/{key}")
     public void getImage(HttpServletResponse response, @PathVariable String key) throws IOException {
         response.setHeader("Content-Type", "image/png");
-        System.out.println(key);
         List<WarframeRelics> rs = rels.selectWarframeRelicsByAll(URLDecoder.decode(key,"UTF-8").trim());
-        System.out.println(rs);
         if(StringUtils.regexG(key,"[A-z1-9]")){
             ByteArrayOutputStream out = SpringUtils.getBean(HtmlToImage.class).relicsSelect(rs);
             response.getOutputStream().write(out.toByteArray());

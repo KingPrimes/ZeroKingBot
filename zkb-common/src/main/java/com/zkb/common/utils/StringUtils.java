@@ -742,17 +742,5 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return false;
     }
 
-
-   /* public static String toJsonString(String json){
-        json = json.replaceFirst("\"","");
-        json = replaceLast(json,"\"","");
-        return json.replace("\\","").trim();
-    }
-
-
-    public static String replaceLast(String text, String strToReplace, String replaceWithThis) {
-        return text.replaceFirst("(?s)" + strToReplace + "(?!.*?" + strToReplace + ")", replaceWithThis);
-    }*/
-
 }
 
