@@ -7,7 +7,6 @@ import com.zkb.common.utils.image.ImageToGif;
 import com.zkb.common.utils.image.ImageUtils;
 import com.zkb.common.utils.image.combiner.ImageCombiner;
 import com.zkb.common.utils.image.combiner.enums.OutputFormat;
-import com.zkb.framework.interceptor.IgnoreAuth;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/Gif/Capoo/Chuo")
 public class CapooTGifImageController {
-    @IgnoreAuth
+
     @GetMapping(value = "/{uuid}/getImage/{id}/{ms}")
     public void getImage(@PathVariable("id") long id, @PathVariable("ms") int ms, HttpServletResponse response) throws Exception {
         response.setHeader("Content-Type", "image/gif");

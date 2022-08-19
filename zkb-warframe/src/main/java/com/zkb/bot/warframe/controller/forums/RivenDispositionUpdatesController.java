@@ -8,7 +8,6 @@ import com.zkb.bot.warframe.utils.forums.RivenDispositionUpdatesImage;
 import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.utils.file.FileUtils;
 import com.zkb.common.utils.spring.SpringUtils;
-import com.zkb.framework.interceptor.IgnoreAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +25,7 @@ public class RivenDispositionUpdatesController {
     @Autowired
     RedisCache redisCache;
 
-    @IgnoreAuth
+
     @GetMapping(value = "/{uuid}/getNewsImage")
     public void getRivenDisUpdatesImage(HttpServletResponse response, HttpServletRequest request) throws Exception {
         response.setHeader("Content-Type", "image/png");

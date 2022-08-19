@@ -6,7 +6,6 @@ import com.zkb.bot.warframe.dao.SocketGlobalStates;
 import com.zkb.bot.warframe.utils.HtmlToImage;
 import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.utils.spring.SpringUtils;
-import com.zkb.framework.interceptor.IgnoreAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +25,7 @@ public class DailyDealsImageController {
     RedisCache redisCache;
 
 
-    @IgnoreAuth
+
     @GetMapping(value = "/{uuid}/getDailyDealsImage")
     public void getImage(HttpServletResponse response) throws IOException {
         response.setHeader("Content-Type", "image/png");

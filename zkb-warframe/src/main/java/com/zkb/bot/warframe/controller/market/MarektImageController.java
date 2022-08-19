@@ -5,7 +5,6 @@ import com.zkb.bot.warframe.dao.Market;
 import com.zkb.bot.warframe.utils.HtmlToImage;
 import com.zkb.bot.warframe.utils.market.MarketItemUtil;
 import com.zkb.common.utils.spring.SpringUtils;
-import com.zkb.framework.interceptor.IgnoreAuth;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,7 @@ import java.io.IOException;
 public class MarektImageController {
 
 
-    @IgnoreAuth
+
     @GetMapping(value = "/{uuid}/getMarektImage/{key}/{seBy}/{isMax}/{form}", produces = MediaType.IMAGE_PNG_VALUE)
     public synchronized void getImage(@NotNull HttpServletResponse response, @PathVariable String key, @PathVariable Boolean seBy, @PathVariable Boolean isMax, @PathVariable String form) throws IOException {
         response.setHeader("Content-Type", "image/png");

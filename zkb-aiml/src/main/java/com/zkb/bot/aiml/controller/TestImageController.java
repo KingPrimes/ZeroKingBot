@@ -2,7 +2,6 @@ package com.zkb.bot.aiml.controller;
 
 import com.zkb.bot.aiml.domain.IssueReply;
 import com.zkb.bot.aiml.service.IssueReplyService;
-import com.zkb.framework.interceptor.IgnoreAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +17,7 @@ public class TestImageController {
     @Autowired
     IssueReplyService service;
 
-    @IgnoreAuth
+
     @GetMapping(value = "{uuid}/getImage/{id}")
     public void getImage(HttpServletResponse response, @PathVariable Integer id) {
         try {

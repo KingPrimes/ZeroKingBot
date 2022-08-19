@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.zkb.bot.warframe.dao.ErrorWM;
 import com.zkb.bot.warframe.utils.HtmlToImage;
 import com.zkb.common.utils.spring.SpringUtils;
-import com.zkb.framework.interceptor.IgnoreAuth;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +21,7 @@ import java.util.List;
 @RequestMapping("/warframe/market")
 public class MarektErrImageController {
 
-    @IgnoreAuth
+
     @GetMapping(value = "/{uuid}/getMarektErrImage/{er}", produces = MediaType.IMAGE_PNG_VALUE)
     public void getImage(HttpServletResponse response, @PathVariable String er) throws IOException {
         response.setHeader("Content-Type", "image/png");

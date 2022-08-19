@@ -3,9 +3,10 @@ package com.zkb.common.load;
 import com.zkb.common.utils.StringUtils;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.lib.RepositoryCache;
+import org.eclipse.jgit.util.FS;
 
-import java.io.File;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Properties;
@@ -80,6 +81,45 @@ public class LoadConfig {
 
         }
         return file.exists();
+    }
+
+    //https://gitcode.net/KingPrimes/win-redis.git
+    public static boolean initRedis() {
+        try {
+            File file = new File("./Redis");
+            if (!file.exists()) {
+
+                Git.cloneRepository()
+                        .setURI("https://gitcode.net/KingPrimes/win-redis.git")
+                        .setDirectory(file)
+                        .call()
+                ;
+                boolean flg = RepositoryCache.FileKey.isGitRepository(file, FS.DETECTED);
+                if (!flg) {
+                    Process exec = Runtime.getRuntime().exec("./Redis/setup.bat");
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(exec.getInputStream()));
+                    if (bufferedReader.readLine() == null){
+                        return false;
+                    }
+                    Runtime.getRuntime().exec("net start redis");
+                }
+                return flg;
+
+            }
+            if (file.exists()) {
+                Process exec = Runtime.getRuntime().exec("net start redis");
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(exec.getInputStream()));
+                if(bufferedReader.readLine()==null){
+                    Runtime.getRuntime().exec("./Redis/setup.bat");
+                    Runtime.getRuntime().exec("net start redis");
+                }
+            }
+            return file.exists();
+        } catch (GitAPIException e) {
+            return false;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

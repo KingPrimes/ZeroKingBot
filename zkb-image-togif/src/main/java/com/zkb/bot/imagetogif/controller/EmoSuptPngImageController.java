@@ -5,7 +5,6 @@ import com.zkb.common.jhlabs.image.RotateFilter;
 import com.zkb.common.utils.image.ImageUtils;
 import com.zkb.common.utils.image.combiner.ImageCombiner;
 import com.zkb.common.utils.image.combiner.enums.OutputFormat;
-import com.zkb.framework.interceptor.IgnoreAuth;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +22,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/Png/Emo/Supt")
 public class EmoSuptPngImageController {
-    @IgnoreAuth
+
     @GetMapping(value = "/{uuid}/getImage/{id}/{ms}")
     public void getImage(@PathVariable("id") long id, @PathVariable("ms") int ms, HttpServletResponse response) throws Exception {
         response.setHeader("Content-Type", MediaType.IMAGE_PNG_VALUE);

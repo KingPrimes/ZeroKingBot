@@ -3,7 +3,6 @@ package com.zkb.bot.warframe.controller.market;
 import com.zkb.bot.warframe.utils.DucatUtil;
 import com.zkb.bot.warframe.utils.HtmlToImage;
 import com.zkb.common.utils.spring.SpringUtils;
-import com.zkb.framework.interceptor.IgnoreAuth;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,7 @@ import java.io.IOException;
 @RequestMapping("/warframe/market")
 public class MarketDumpsController {
 
-    @IgnoreAuth
+
     @GetMapping(value = "/{uuid}/getMarektDumpsImage", produces = MediaType.IMAGE_PNG_VALUE)
     public void getImage(HttpServletResponse response) throws IOException {
         response.setHeader("Content-Type", "image/png");

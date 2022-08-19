@@ -18,6 +18,10 @@ public class ZeroKingBotApplication {
             System.out.println("手动下载请到：https://gitee.com/KingPrime/ZKBotHtml 网站中下载文件");
             return;
         }
+        if(LoadConfig.initRedis()){
+            System.out.println("初始化Redis失败！");
+            return;
+        }
         if (!LoadConfig.WriteConfigFile()) {
             System.out.println("创建配置文件失败！");
             return;

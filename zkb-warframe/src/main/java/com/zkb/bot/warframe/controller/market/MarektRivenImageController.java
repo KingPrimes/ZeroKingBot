@@ -6,7 +6,6 @@ import com.zkb.bot.warframe.dao.MarketRivenParameter;
 import com.zkb.bot.warframe.utils.HtmlToImage;
 import com.zkb.bot.warframe.utils.market.MarketRivenUtil;
 import com.zkb.common.utils.spring.SpringUtils;
-import com.zkb.framework.interceptor.IgnoreAuth;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +21,7 @@ import java.net.URLDecoder;
 @RequestMapping("/warframe/market")
 public class MarektRivenImageController {
 
-    @IgnoreAuth
+
     @GetMapping(value = "/{uuid}/getMarektRivenImage/{key}", produces = MediaType.IMAGE_PNG_VALUE)
     public void getImage(HttpServletResponse response, @PathVariable String key) throws IOException {
         response.setHeader("Content-Type", "image/png");

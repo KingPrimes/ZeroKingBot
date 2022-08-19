@@ -1,7 +1,4 @@
-<div style="background-color: #E0C78F;">
-
 <div align="center">
-
 <p align="center">
    <img src=".github/image/ico.jpg" height="350" alt="非常感谢 `别哭草莓菠菜^ ^ 微信号：Xwenlilililili_` 绘制的图像" title="非常感谢 `别哭草莓菠菜^ ^ 微信号：Xwenlilililili_` 绘制的图像">
 </p>
@@ -78,7 +75,3 @@ Stargazers over time
 ---
 ---
 [![Stargazers over time](https://starchart.cc/KingPrimes/ZeroKingBot.svg)](https://starchart.cc/KingPrimes/ZeroKingBot)
-
-
-
-</div>

@@ -5,7 +5,6 @@ import com.zkb.bot.warframe.service.impl.WarframeRelicsServiceImpl;
 import com.zkb.bot.warframe.utils.HtmlToImage;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.spring.SpringUtils;
-import com.zkb.framework.interceptor.IgnoreAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +24,7 @@ public class RelicsSelectImageController {
     @Autowired
     WarframeRelicsServiceImpl rels;
 
-    @IgnoreAuth
+
     @GetMapping(value = "/{uuid}/getRelics/{key}")
     public void getImage(HttpServletResponse response, @PathVariable String key) throws IOException {
         response.setHeader("Content-Type", "image/png");

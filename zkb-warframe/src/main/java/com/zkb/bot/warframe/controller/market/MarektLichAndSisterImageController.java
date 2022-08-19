@@ -7,7 +7,6 @@ import com.zkb.bot.warframe.service.IWarframeMarketSisterService;
 import com.zkb.bot.warframe.utils.HtmlToImage;
 import com.zkb.bot.warframe.utils.market.MarketLichAndSisterUtil;
 import com.zkb.common.utils.spring.SpringUtils;
-import com.zkb.framework.interceptor.IgnoreAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +31,7 @@ public class MarektLichAndSisterImageController {
     @Autowired
     IWarframeMarketSisterService sisterService;
 
-    @IgnoreAuth
+
     @GetMapping(value = "/{uuid}/getLichOrSisterImage/{key}/{type}", produces = MediaType.IMAGE_PNG_VALUE)
     public void getImage(HttpServletResponse response, @PathVariable String key, @PathVariable WarframeTypeEnum type) throws IOException {
         response.setHeader("Content-Type", "image/png");
