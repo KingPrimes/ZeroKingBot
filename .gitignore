@@ -23,6 +23,7 @@
 
 .idea
 ZKBotHtml/
+zero-king-bot-logs/
 Redis/
 target/
 db/

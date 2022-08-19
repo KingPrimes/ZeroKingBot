@@ -5,22 +5,58 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.RepositoryCache;
 import org.eclipse.jgit.util.FS;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.PostConstruct;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Locale;
 import java.util.Properties;
 
+@Configuration
 public class LoadConfig {
+
+    private static final Logger log = LoggerFactory.getLogger(LoadConfig.class);
 
     private static final String HTML_PATH = "./ZKBotHtml";
     public static Properties prop = new Properties();
 
-    public static void initConfig() {
+    @PostConstruct
+    public static boolean init(){
+        if (!initHtml()) {
+            log.error("下载Html文件失败请手动创建或重试\n手动下载请到：https://gitee.com/KingPrime/ZKBotHtml 网站中下载文件");
+            return false;
+        }
+        if(isOs()==1){
+            if(initWinRedis()){
+                log.error("初始化Redis失败！");
+                return false;
+            }
+        }
+        if (!WriteConfigFile()) {
+            log.error("创建配置文件失败！");
+            return false;
+        }
+        if (!WriteSqlite()) {
+            log.error("创建缓存文件失败！");
+            return false;
+        }
+        return initConfig();
+    }
+
+
+    private static boolean initConfig() {
         try {
             prop.load(Files.newInputStream(Paths.get(System.getProperty("user.dir") + "/config.ini")));
-        } catch (Exception ignored) {
+            return true;
+        } catch (Exception e) {
+            log.error("读取config.ini文件出错，错误信息：{}", e.getMessage());
+            return false;
         }
+
     }
 
     public static long getAdmin() {
@@ -31,7 +67,7 @@ public class LoadConfig {
     }
 
     //判断配置文件是否存在不存在则新建一个配置文件
-    public static boolean WriteConfigFile() {
+    private static boolean WriteConfigFile() {
         //config
         File file = new File("./config.ini");
         if (!file.isFile()) {
@@ -47,7 +83,7 @@ public class LoadConfig {
         return file.isFile();
     }
 
-    public static boolean WriteSqlite() {
+    private static boolean WriteSqlite() {
         File file = new File("./db/data.db3");
         if (!file.isFile()) {
             try {
@@ -59,6 +95,7 @@ public class LoadConfig {
                 assert in != null;
                 Files.copy(in, file.toPath());
             } catch (Exception e) {
+                log.error("创建db数据库失败，错误信息：{}",e.getMessage());
                 return false;
             }
 
@@ -66,7 +103,25 @@ public class LoadConfig {
         return file.isFile();
     }
 
-    public static boolean initHtml() {
+    /**
+     * 获取操作系统
+     * @return 1/Win
+     *         2/Linux
+     */
+    private static int isOs(){
+        String os = System.getProperty("os.name").toLowerCase();
+        if(os.contains("windows")){
+            return 1;
+        }
+        if(os.contains("linux")){
+            return 2;
+        }
+
+        return 0;
+    }
+
+
+    private static boolean initHtml() {
         File file = new File(HTML_PATH);
         if (!file.exists()) {
             try {
@@ -76,19 +131,18 @@ public class LoadConfig {
                         .call();
                 return true;
             } catch (GitAPIException e) {
+                log.error("下载Html文件失败：{}",e.getMessage());
                 return false;
             }
 
         }
         return file.exists();
     }
-
-    //https://gitcode.net/KingPrimes/win-redis.git
-    public static boolean initRedis() {
+    private static boolean initWinRedis() {
+        String x = "cmd /c start "+System.getProperty("user.dir")+"\\Redis\\redis-server.exe "+System.getProperty("user.dir")+"\\Redis\\redis.windows.conf";
         try {
             File file = new File("./Redis");
             if (!file.exists()) {
-
                 Git.cloneRepository()
                         .setURI("https://gitcode.net/KingPrimes/win-redis.git")
                         .setDirectory(file)
@@ -96,29 +150,43 @@ public class LoadConfig {
                 ;
                 boolean flg = RepositoryCache.FileKey.isGitRepository(file, FS.DETECTED);
                 if (!flg) {
-                    Process exec = Runtime.getRuntime().exec("./Redis/setup.bat");
+                    Process exec = Runtime.getRuntime().exec(x);
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(exec.getInputStream()));
                     if (bufferedReader.readLine() == null){
-                        return false;
+                        return true;
                     }
-                    Runtime.getRuntime().exec("net start redis");
                 }
                 return flg;
-
             }
             if (file.exists()) {
-                Process exec = Runtime.getRuntime().exec("net start redis");
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(exec.getInputStream()));
-                if(bufferedReader.readLine()==null){
-                    Runtime.getRuntime().exec("./Redis/setup.bat");
-                    Runtime.getRuntime().exec("net start redis");
+                if(!isRunRedis()){
+                     Runtime.getRuntime().exec(x);
                 }
             }
-            return file.exists();
-        } catch (GitAPIException e) {
             return false;
+        } catch (GitAPIException e) {
+            return true;
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private static boolean isRunRedis(){
+        Runtime run = Runtime.getRuntime();
+        try {
+             Process exec = run.exec("cmd /c Tasklist");
+             BufferedReader in = new BufferedReader(new InputStreamReader(exec.getInputStream()));
+             String g;
+             while ((g = in.readLine())!=null){
+                 g = g.toLowerCase(Locale.ROOT);
+                 if (g.contains("redis-server")){
+                     return true;
+                 }
+             }
+             return false;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
         }
     }
 

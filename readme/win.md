@@ -6,7 +6,6 @@ Windows部署教程
 ---
 - 使用搜索引擎 搜索 [Java8](https://www.java.com/zh-CN/) 下载并安装
 - 配置 Java 的 [环境变量](https://zhuanlan.zhihu.com/p/146558611)
-- [下载 Redis 并安装](https://redis.com.cn/redis-installation.html)
 - 回到 放置ZeroKingBot.jar的文件夹下 <br/>
   按住Shift键+鼠标右键 选择 打开于 PowerShell<br/>
   或者直接在导航栏输入 cmd 按回车。打开黑窗口

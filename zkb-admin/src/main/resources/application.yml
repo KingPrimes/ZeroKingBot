@@ -1,3 +1,9 @@
+
+logging:
+  level:
+    com.zkb: debug
+    org.springframework: warn
+
 server:
   port: 8080
   servlet:

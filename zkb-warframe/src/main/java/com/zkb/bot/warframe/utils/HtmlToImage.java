@@ -12,6 +12,8 @@ import com.zkb.common.utils.file.FileUtils;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xhtmlrenderer.simple.Graphics2DRenderer;
@@ -27,6 +29,8 @@ import java.util.Locale;
 
 @Component
 public class HtmlToImage {
+
+    private static final Logger log = LoggerFactory.getLogger(HtmlToImage.class);
 
     private static final String HTML_PATH = "./ZKBotHtml/";
     @Autowired
@@ -1416,7 +1420,7 @@ public class HtmlToImage {
             ImageIO.write(image, "png", os);
             return os;
         } catch (IOException e) {
-            e.printStackTrace();
+           log.error("html渲染字节流出错，文件路径：{}\n\t\t错误信息：{}",htmlFilePath,e.getMessage());
         }
         return null;
     }
@@ -1432,7 +1436,7 @@ public class HtmlToImage {
             os.flush();
             os.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("生成临时文件出错\n\t\t文件名称：{}\n\t\t错误信息：{}",name,e.getMessage());
         }
         return convertHtmlToImage(path, width);
     }
