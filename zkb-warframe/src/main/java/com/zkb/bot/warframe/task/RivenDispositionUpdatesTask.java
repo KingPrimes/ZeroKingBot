@@ -28,25 +28,25 @@ public class RivenDispositionUpdatesTask {
 
     /**
      * 更新紫卡倾向
-     *
-     * @return 更新的条数
-     * @throws Exception 可能存在空异常
      */
     @Async("taskExecutor")
     @Scheduled(cron = "${task.cron.rivenTask}")
-    public void renewRivenDisposition() throws Exception {
-        List<WarframeRivenTrend> trends = GetForumsRivenDispositionUpdates.getRivenDispositionUpdates("");
+    public void renewRivenDisposition() {
+        List<WarframeRivenTrend> trends = GetForumsRivenDispositionUpdates.getRivenDispositionUpdates();
         List<WarframeRivenTrend> redis_trends = null;
         try {
             //获取之前的缓存
             redis_trends = SpringUtils.getBean(RedisCache.class).getCacheList("renew-riven-disposition");
         } catch (Exception e) {
-            log.error("紫卡更新失败，错误信息：{}",e.getMessage());
+            log.error("紫卡更新失败，空缓存，错误信息：{}", e.getMessage());
         }
 
-        assert redis_trends != null;
-        trends.retainAll(redis_trends);
+        if (redis_trends != null && redis_trends.size() > 0) {
+            trends.retainAll(redis_trends);
+        }
+
         if (trends.size() <= 0) {
+            log.error("WarframeRivenTrend集合为空，未获取到数据！");
             return;
         }
 

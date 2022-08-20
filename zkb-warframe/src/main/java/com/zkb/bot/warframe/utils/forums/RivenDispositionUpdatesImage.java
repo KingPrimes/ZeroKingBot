@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import static com.zkb.common.utils.ColorEnum.*;
 @Component
 public class RivenDispositionUpdatesImage {
 
-    public static void getImage(List<WarframeRivenTrend> rt) throws Exception {
+    public static void getImage(List<WarframeRivenTrend> rt) {
         List<Seat> seatList = new ArrayList<>();
         BufferedImage image = ImageUtils.getImage("/images/riven-news.png");
         String text = "---本次紫卡倾向更新如下---";
@@ -52,7 +53,11 @@ public class RivenDispositionUpdatesImage {
             }
         }
         assert image != null;
-        ImageIO.write(ImageUtils.getBufferedImage(image, seatList), "jpg", new File("./renew-riven-disposition.jpg"));
+        try {
+            ImageIO.write(ImageUtils.getBufferedImage(image, seatList), "jpg", new File("./renew-riven-disposition.jpg"));
+        } catch (IOException e) {
+           e.printStackTrace();
+        }
     }
 
 

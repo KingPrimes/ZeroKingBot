@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,20 +29,10 @@ public class GetForumsRivenDispositionUpdates {
      *
      * @return Url地址
      */
-    private static List<String> getRivenDispositionUpdateUrl(String key) throws UnsupportedEncodingException {
-        String html;
-        if (StringUtils.isHttpUrl(key) && key != null && !key.equals("")) {
-            html = HttpUtils.sendGetOkHttp(key);
-        } else {
-            //网站搜索 获取html
-            if (!Objects.equals(key, "") && key != null) {
-                String url = "https://forums.warframe.com/search/?&q=" + URLEncoder.encode(key, "UTF-8") + "&quick=1&search_and_or=and&search_in=titles&sortby=relevancy";
-                html = HttpUtils.sendGetOkHttp(url);
-            } else {
-                html = HttpUtils.sendGetOkHttp(
+    private static List<String> getRivenDispositionUpdateUrl() {
+        String html = HttpUtils.sendGetOkHttp(
                         "https://forums.warframe.com/search/?&q=Riven&type=forums_topic&quick=1&nodes=123&search_and_or=and&search_in=titles&sortby=relevancy");
-            }
-        }
+
         //返回变量
         List<String> newRiven = new ArrayList<>();
         //解析Html文档
@@ -59,6 +50,7 @@ public class GetForumsRivenDispositionUpdates {
                 }
             }
         }
+
         return newRiven;
     }
 
@@ -68,14 +60,15 @@ public class GetForumsRivenDispositionUpdates {
      *
      * @return 紫卡倾向集
      */
-    public static List<WarframeRivenTrend> getRivenDispositionUpdates(String urlStr) throws UnsupportedEncodingException {
+    public static List<WarframeRivenTrend> getRivenDispositionUpdates() {
         //获取文档Url地址
-        List<String> urls = getRivenDispositionUpdateUrl(urlStr);
+        List<String> urls = getRivenDispositionUpdateUrl();
         //用于存放返回的结果
         List<WarframeRivenTrend> trends = new ArrayList<>();
         for (String url : urls) {
             //Get请求获取Html文档
             String html = HttpUtils.sendGetOkHttp(url);
+
             //解析Html文档
             Document document = Jsoup.parse(html);
             Elements elements = document.getElementsByClass("ipsSpoiler_contents ipsClearfix");
