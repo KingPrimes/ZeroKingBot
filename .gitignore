@@ -25,9 +25,12 @@
 ZKBotHtml/
 zero-king-bot-logs/
 Redis/
+gocqhttp/
 target/
 db/
 config.ini
 *.iml
 testJson
+dump.rdb
+.gitignore
 

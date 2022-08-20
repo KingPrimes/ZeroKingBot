@@ -11,8 +11,11 @@ import com.zkb.bot.warframe.service.impl.WarframeRelicsServiceImpl;
 import com.zkb.bot.warframe.service.impl.WarframeTranslationServiceImpl;
 import com.zkb.bot.warframe.service.impl.WfAllTranslNoImpl;
 import com.zkb.common.core.redis.RedisCache;
+import com.zkb.common.load.LoadConfig;
 import com.zkb.common.utils.http.HttpUtils;
 import com.zkb.common.utils.spring.SpringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -22,6 +25,8 @@ import java.util.List;
 
 @Component
 public class DataTask {
+
+    private static final Logger log = LoggerFactory.getLogger(DataTask.class);
 
     //每天请求一下判断Hash值是否相同
     @Async("taskExecutor")
@@ -42,6 +47,7 @@ public class DataTask {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            log.error("获取遗物Hash出错，错误信息：{}",e.getMessage());
             SpringUtils.getBean(RedisCache.class).setCacheObject("datahash", d);
         }
 

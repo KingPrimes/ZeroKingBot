@@ -53,7 +53,6 @@ public class RivenDispositionUpdatesImage {
         }
         assert image != null;
         ImageIO.write(ImageUtils.getBufferedImage(image, seatList), "jpg", new File("./renew-riven-disposition.jpg"));
-        //return URLDecoder.decode(RivenDispositionUpdatesImage.class.getProtectionDomain().getCodeSource().getLocation().getPath(),"UTF-8") +"renew-riven-disposition.jpg";
     }
 
 

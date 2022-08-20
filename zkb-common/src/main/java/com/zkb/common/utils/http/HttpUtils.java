@@ -456,8 +456,10 @@ public class HttpUtils {
             return tmp;
         } catch (Exception e) {
             if (e.getMessage().equals("timeout")) {
+                log.error("Url:{} 请求超时",url+param);
                 return "timeout";
             }
+            log.error("Url:{} \n\t\t错误信息:{}",url+param,e.getMessage());
             return "";
         }
 

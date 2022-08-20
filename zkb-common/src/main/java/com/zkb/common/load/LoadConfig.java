@@ -8,14 +8,17 @@ import org.eclipse.jgit.util.FS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Properties;
 
+@Component
 @Configuration
 public class LoadConfig {
 
@@ -35,6 +38,10 @@ public class LoadConfig {
                 log.error("初始化Redis失败！");
                 return false;
             }
+            if(initQQ()){
+                log.error("初始化Go-cqhttp失败！请自行下载Go-cqhttp: https://github.com/Mrs4s/go-cqhttp/releases");
+                return false;
+            }
         }
         if (!WriteConfigFile()) {
             log.error("创建配置文件失败！");
@@ -47,6 +54,21 @@ public class LoadConfig {
         return initConfig();
     }
 
+    @PreDestroy
+    public static void end(){
+        if(isOs()==1){
+            String go = "taskkill /f /im go*";
+            String redis = "taskkill /f /im redis*";
+            String cmd = "taskkill /f /im cmd*";
+            try{
+                Runtime.getRuntime().exec(go);
+                Runtime.getRuntime().exec(redis);
+                Runtime.getRuntime().exec(cmd);
+            }catch (Exception e){
+                log.error("未能成功退出程序错误信息：{}",e.getMessage());
+            }
+        }
+    }
 
     private static boolean initConfig() {
         try {
@@ -120,6 +142,38 @@ public class LoadConfig {
         return 0;
     }
 
+    private static boolean initQQ(){
+        String x = System.getProperty("user.dir")+"\\gocqhttp\\go-cqhttp.bat";
+        try {
+            File file = new File("./gocqhttp");
+            if (!file.exists()) {
+                Git.cloneRepository()
+                        .setURI("https://gitcode.net/KingPrimes/qq.git")
+                        .setDirectory(file)
+                        .call()
+                ;
+                boolean flg = RepositoryCache.FileKey.isGitRepository(file, FS.DETECTED);
+                if (!flg) {
+                    Process exec = Runtime.getRuntime().exec(x);
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(exec.getInputStream()));
+                    if (bufferedReader.readLine() == null){
+                        return true;
+                    }
+                }
+                return flg;
+            }
+            if (file.exists()) {
+                if(isRunRedis("go-cqhttp")){
+                    Runtime.getRuntime().exec(x);
+                }
+            }
+            return false;
+        } catch (GitAPIException e) {
+            return true;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private static boolean initHtml() {
         File file = new File(HTML_PATH);
@@ -159,7 +213,7 @@ public class LoadConfig {
                 return flg;
             }
             if (file.exists()) {
-                if(!isRunRedis()){
+                if(isRunRedis("redis-server")){
                      Runtime.getRuntime().exec(x);
                 }
             }
@@ -171,7 +225,7 @@ public class LoadConfig {
         }
     }
 
-    private static boolean isRunRedis(){
+    private static boolean isRunRedis(String name){
         Runtime run = Runtime.getRuntime();
         try {
              Process exec = run.exec("cmd /c Tasklist");
@@ -179,14 +233,14 @@ public class LoadConfig {
              String g;
              while ((g = in.readLine())!=null){
                  g = g.toLowerCase(Locale.ROOT);
-                 if (g.contains("redis-server")){
-                     return true;
+                 if (g.contains(name)){
+                     return false;
                  }
              }
-             return false;
+             return true;
         }catch (Exception e){
             e.printStackTrace();
-            return false;
+            return true;
         }
     }
 

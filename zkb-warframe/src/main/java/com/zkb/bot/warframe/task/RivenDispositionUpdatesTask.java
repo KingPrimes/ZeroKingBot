@@ -12,6 +12,8 @@ import com.zkb.bot.warframe.utils.forums.RivenDispositionUpdatesImage;
 import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.spring.SpringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,8 @@ import java.util.List;
 
 @Component
 public class RivenDispositionUpdatesTask {
+
+    private static final Logger log = LoggerFactory.getLogger(RivenDispositionUpdatesTask.class);
 
     /**
      * 更新紫卡倾向
@@ -37,8 +41,7 @@ public class RivenDispositionUpdatesTask {
             //获取之前的缓存
             redis_trends = SpringUtils.getBean(RedisCache.class).getCacheList("renew-riven-disposition");
         } catch (Exception e) {
-            System.out.println("紫卡更新失败，错误信息：" + e.getMessage());
-
+            log.error("紫卡更新失败，错误信息：{}",e.getMessage());
         }
 
         assert redis_trends != null;
@@ -66,7 +69,5 @@ public class RivenDispositionUpdatesTask {
         //添加新的缓存
         SpringUtils.getBean(RedisCache.class).setCacheList("renew-riven-disposition", trends);
         SendAllGroup.sendAllGroup(Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/forums/riven/getNewsImage"), FunctionEnums.FUNCTION_WARFRAME);
-
-
     }
 }

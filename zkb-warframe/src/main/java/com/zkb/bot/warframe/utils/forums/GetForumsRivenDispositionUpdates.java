@@ -47,7 +47,7 @@ public class GetForumsRivenDispositionUpdates {
         //解析Html文档
         Document document = Jsoup.parse(html);
         Elements elements = document.getElementsByClass("ipsStream ipsList_reset ");
-        //System.out.println("Elements:"+elements.size());
+
         if (!elements.isEmpty()) {
             for (Element e : elements) {
                 Elements span = e.getElementsByClass("ipsStreamItem ipsStreamItem_contentBlock ipsStreamItem_expanded ipsAreaBackground_reset ipsPad  ");
@@ -59,46 +59,6 @@ public class GetForumsRivenDispositionUpdates {
                 }
             }
         }
-
-        /*//根据类绑定器取得 此类中的元素
-        Elements elements = document.getElementsByClass("ipsStreamItem ipsStreamItem_contentBlock ipsStreamItem_expanded ipsAreaBackground_reset ipsPad  ");
-        if (elements.isEmpty()) {
-            Elements lis = document.getElementsByClass("ipsList_inline ipsType_brandedLinks");
-            for (Element el : lis) {
-                newRiven = el.getElementsByTag("a").attr("href");
-                break;
-            }
-            if (newRiven.contains("%2B")) {
-                //返回结果
-                return getRivenDispositionUpdateUrl(newRiven.replace("%2B", "%20"));
-            }
-        }
-        //遍历 此类中的元素
-        for (Element element : elements) {
-            //根据类绑定器取得 此类中的元素
-            Elements span = element.getElementsByClass("ipsType_break ipsContained");
-            //遍历 此类中的元素
-            for (Element element1 : span) {
-                if (key.contains(element1.getElementsByTag("mark").text())) {
-                    //截取Url地址
-                    newRiven = StringUtils.getSubString(
-                            //根据A标签获取Href中的Url地址
-                            element1.getElementsByTag("a").attr("href"),
-                            "",
-                            "?do=findComment");
-                    //只取第一个Url地址
-                    break;
-                } else {
-                    //截取Url地址
-                    newRiven = StringUtils.getSubString(
-                            //根据A标签获取Href中的Url地址
-                            element1.getElementsByTag("a").attr("href"),
-                            "",
-                            "?do=findComment");
-                }
-            }
-            break;
-        }*/
         return newRiven;
     }
 
@@ -109,7 +69,6 @@ public class GetForumsRivenDispositionUpdates {
      * @return 紫卡倾向集
      */
     public static List<WarframeRivenTrend> getRivenDispositionUpdates(String urlStr) throws UnsupportedEncodingException {
-        //System.out.println(getRivenDispositionUpdateUrl(urlStr));
         //获取文档Url地址
         List<String> urls = getRivenDispositionUpdateUrl(urlStr);
         //用于存放返回的结果
