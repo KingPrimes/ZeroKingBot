@@ -31,6 +31,5 @@ db/
 config.ini
 *.iml
 testJson
-dump.rdb
-.gitignore
+*.rdb
 
