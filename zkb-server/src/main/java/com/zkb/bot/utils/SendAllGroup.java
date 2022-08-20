@@ -15,17 +15,20 @@ public class SendAllGroup {
      * @param msg      Msg
      * @param function FunctionEnums
      */
-    public static void sendAllGroup(Msg msg, FunctionEnums function) throws InterruptedException {
+    public static void sendAllGroup(Msg msg, FunctionEnums function) {
         Map<Long, Bot> bots = SpringUtils.getBean(BotContainer.class).robots;
-        for (long botId : bots.keySet()) {
-            for (GroupInfoResp group : bots.get(botId).getGroupList().getData()) {
-                Thread.sleep(3000L);
-                if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group.getGroupId(), function)) {
-                    msg.sendToGroup(bots.get(botId), group.getGroupId());
+        try{
+            for (long botId : bots.keySet()) {
+                for (GroupInfoResp group : bots.get(botId).getGroupList().getData()) {
+                    Thread.sleep(3000L);
+                    if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group.getGroupId(), function)) {
+                        msg.sendToGroup(bots.get(botId), group.getGroupId());
+                    }
+
                 }
-
             }
+        }catch (InterruptedException e){
+            e.printStackTrace();
         }
-
     }
 }

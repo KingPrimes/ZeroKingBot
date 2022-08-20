@@ -119,8 +119,7 @@ public class FunctionOnOffPlugin extends BotPlugin {
 
             Msg.builder()
                     .text("语雀文档:\nhttps://www.yuque.com/kingprimes/twgbot\n")
-                    .text("B站视频:\nhttps://www.bilibili.com/video/BV1cF411F7w5/\n")
-                    .text("百度贴吧:\nhttps://tieba.baidu.com/p/7770150887?pid=143554944348&cid=0&red_tag=1843223236#143554944348\n")
+                    .text("B站主页:\nhttps://space.bilibili.com/16131052\n")
                     .text("GitHub:\nhttps://github.com/KingPrimes")
                     .sendToGroup(bot, event);
             return MESSAGE_BLOCK;

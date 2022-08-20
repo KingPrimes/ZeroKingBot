@@ -1,7 +1,7 @@
 
 logging:
   level:
-    com.zkb: debug
+    com.zkb: info
     org.springframework: warn
 
 server:

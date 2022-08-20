@@ -14,12 +14,14 @@ import com.zkb.bot.warframe.service.IWarframeMarketSisterService;
 import com.zkb.common.utils.http.HttpUtils;
 import com.zkb.common.utils.spring.SpringUtils;
 import okhttp3.Headers;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class RenewMarketUtil {
 
-
+    private static final Logger log = LoggerFactory.getLogger(RenewMarketUtil.class);
     /**
      * 更新Market紫卡词典
      *
@@ -35,7 +37,8 @@ public class RenewMarketUtil {
                 i += SpringUtils.getBean(IWarframeMarketRivenService.class).insertWarframeMarketRiven(mrs);
             }
             return i;
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            log.error("更新Market紫卡词典：{}",e.getMessage());
             return 0;
         }
     }
@@ -57,7 +60,8 @@ public class RenewMarketUtil {
                 i += SpringUtils.getBean(IWarframeMarketRivenTionService.class).insertWarframeMarketRivenTion(mrs);
             }
             return i;
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            log.error("更新Market紫卡词条词典：{}",e.getMessage());
             return 0;
         }
     }
@@ -77,6 +81,7 @@ public class RenewMarketUtil {
         for (List<WarframeMarketItems> mrs : lists) {
             i += SpringUtils.getBean(IWarframeMarketItemsService.class).insertWarframeMarketItems(mrs);
         }
+        log.info("更新Market物品词典 条{}数据",i);
         return i;
     }
 
@@ -103,6 +108,7 @@ public class RenewMarketUtil {
         for (WarframeMarketLichOrSister sister : sisters) {
             i += SpringUtils.getBean(IWarframeMarketSisterService.class).insertWarframeMarketSister(sister);
         }
+        log.info("更新Market 信条 武器 共更新条{}数据",i);
         return i;
     }
 
@@ -119,6 +125,7 @@ public class RenewMarketUtil {
         for (WarframeMarketLichOrSister sister : sisters) {
             i += SpringUtils.getBean(IWarframeMarketSisterService.class).insertWarframeMarketSister(sister);
         }
+        log.info("更新Market 信条 幻纹 共更新条{}数据",i);
         return i;
     }
 
