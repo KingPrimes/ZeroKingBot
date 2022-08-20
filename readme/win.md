@@ -12,7 +12,10 @@ Windows部署教程
 - 在黑窗口中输入 **java -jar ZeroKingBot.jar** 按下回车，之后出现 **启动成功** 说明部署完成 **x代表版本号**
   ![](../.github/image/winJar.png)
 
-- **4.1.7.3 版本之后无需进行下面的操作**
+- **4.1.7.3 版本之后无需下载Go-cqhttp**
+- **4.1.7.3 版本之后启动Jar包会自动下载配置**
+  
+  - **你只需要配置gocqhttp文件夹中的config.yml中的账号密码即可** 
 
 - 您需要自行下载OneBot协议实现的机器人程序例如 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp/releases)
   - 这里以go-cqhttp 为例：
