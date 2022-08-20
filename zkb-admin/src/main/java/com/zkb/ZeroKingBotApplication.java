@@ -22,4 +22,5 @@ public class ZeroKingBotApplication {
         OkHttpWebSocket.init();
         log.info("启动成功！");
     }
+    //测试是否同步 Releases
 }
