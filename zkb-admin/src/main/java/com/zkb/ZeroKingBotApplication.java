@@ -19,7 +19,7 @@ public class ZeroKingBotApplication {
         SpringApplication.run(ZeroKingBotApplication.class, args);
         GetProxyOnClons.isHttpProxy();
         GetProxyOnClons.isSocketProxy();
-        //OkHttpWebSocket.init();
+        OkHttpWebSocket.init();
         log.info("启动成功！");
     }
 }
