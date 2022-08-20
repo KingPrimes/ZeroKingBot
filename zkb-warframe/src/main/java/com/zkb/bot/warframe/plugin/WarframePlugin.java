@@ -208,7 +208,7 @@ public class WarframePlugin extends BotPlugin {
             AsyncManager.me().execute(new TimerTask() {
                 @Override
                 public void run() {
-                    MarketLichAndSisterUtil.marketSister(bot, event);
+                    MarketLichAndSisterUtil.marketLich(bot, event);
                 }
             });
             return 0;

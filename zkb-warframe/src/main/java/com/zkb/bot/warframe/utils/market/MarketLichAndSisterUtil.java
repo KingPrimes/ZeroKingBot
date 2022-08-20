@@ -17,6 +17,8 @@ import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.spring.SpringUtils;
 import com.zkb.common.utils.uuid.UUID;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
@@ -29,13 +31,15 @@ import java.util.Locale;
 @Component
 public class MarketLichAndSisterUtil {
 
+    private static final Logger log = LoggerFactory.getLogger(MarketLichAndSisterUtil.class);
+
     /**
      * 查询Market上赤毒武器与幻纹的售卖
      *
      * @param bot   bot
      * @param event event
      */
-    public static int marketLich(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
+    public static void marketLich(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
         //核查是否开启Warframe功能
         if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
             String key = event.getRawMessage().toUpperCase(Locale.ROOT).replace(WarframeTypeEnum.TYPE_CD_PLUGIN.getType(), "").replace(WarframeTypeEnum.TYPE_C_PLUGIN.getType(), "").trim();
@@ -54,12 +58,12 @@ public class MarketLichAndSisterUtil {
                         false);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
+                log.error("调用赤毒武器查询错误：{}",e.getMessage());
             }
         } else {
             //提醒未开启此功能
-            return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
+             ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
         }
-        return 0;
     }
 
 
@@ -88,6 +92,7 @@ public class MarketLichAndSisterUtil {
                         false);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
+                log.error("调用信条武器查询错误：{}",e.getMessage());
             }
         } else {
             //提醒未开启此功能
@@ -135,6 +140,7 @@ public class MarketLichAndSisterUtil {
 
         } catch (Exception e) {
             e.printStackTrace();
+            log.error("赤毒武器数据获取出错：{}",e.getMessage());
             return null;
         }
     }
@@ -177,6 +183,7 @@ public class MarketLichAndSisterUtil {
             return marketSister;
         } catch (Exception e) {
             e.printStackTrace();
+            log.error("信条武器数据获取出错：{}",e.getMessage());
             return null;
         }
     }

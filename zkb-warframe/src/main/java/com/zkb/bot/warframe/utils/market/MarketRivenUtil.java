@@ -26,6 +26,8 @@ import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.spring.SpringUtils;
 import com.zkb.common.utils.uuid.UUID;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -35,6 +37,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class MarketRivenUtil {
+
+    private static final Logger log = LoggerFactory.getLogger(MarketRivenUtil.class);
 
     public static void sendToGroupRiven(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
         if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
@@ -94,6 +98,7 @@ public class MarketRivenUtil {
             return JSONObject.parseObject(json, MarketRiven.class);
         } catch (Exception e) {
             e.printStackTrace();
+            log.error("api.warframe.market查询紫卡错误：{}",e.getMessage());
             return null;
         }
 

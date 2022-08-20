@@ -15,6 +15,7 @@ public class BotWsInterceptor {
     public boolean checkSession(@NotNull WebSocketSession session) {
         HttpHeaders headers = session.getHandshakeHeaders();
         String botId = headers.getFirst("x-self-id");
+
         System.out.println("新的连接:" + botId + "---" + session.getId());
         return true; // 正常连接
     }
