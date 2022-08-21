@@ -16,7 +16,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class ZeroKingBotApplication extends AbstractJavaFxApplicationSupport {
     private static final Logger log = LoggerFactory.getLogger(ZeroKingBotApplication.class);
     public static void main(String[] args) {
-        //launch(ZeroKingBotApplication.class,HelloView.class,args);
         SpringApplication.run(ZeroKingBotApplication.class, args);
         OkHttpWebSocket.init();
         log.info("启动成功！");
