@@ -17,37 +17,37 @@ public class TextPainter implements IPainter {
 
     public void draw(Graphics2D g, CombineElement element, int canvasWidth) {
         TextElement textElement = (TextElement) element;
-        List<TextElement> textLineElements = new ArrayList();
+        List<TextElement> textLineElements = new ArrayList<>();
         textLineElements.add(textElement);
         if (textElement.isAutoBreakLine()) {
             textLineElements = textElement.getBreakLineElements();
         }
 
         for (int i = 0; i < textLineElements.size(); ++i) {
-            TextElement firstLineElement = (TextElement) ((List) textLineElements).get(0);
-            TextElement currentLineElement = (TextElement) ((List) textLineElements).get(i);
+            TextElement firstLineElement = (TextElement) ((List<?>) textLineElements).get(0);
+            TextElement currentLineElement = (TextElement) ((List<?>) textLineElements).get(i);
             g.setFont(currentLineElement.getFont());
             g.setColor(currentLineElement.getColor());
             if (currentLineElement.isCenter()) {
                 if (i == 0) {
-                    currentLineElement.setX((canvasWidth - currentLineElement.getWidth()) / 2);
+                    currentLineElement.setX((int) ((canvasWidth - currentLineElement.getWidth()) / 2));
                 } else {
                     switch (textElement.getLineAlign()) {
                         case Left:
                             currentLineElement.setX(firstLineElement.getX());
                             break;
                         case Center:
-                            currentLineElement.setX((canvasWidth - currentLineElement.getWidth()) / 2);
+                            currentLineElement.setX((int) ((canvasWidth - currentLineElement.getWidth()) / 2));
                             break;
                         case Right:
-                            currentLineElement.setX(firstLineElement.getX() + firstLineElement.getWidth() - currentLineElement.getWidth());
+                            currentLineElement.setX((int) (firstLineElement.getX() + firstLineElement.getWidth() - currentLineElement.getWidth()));
                     }
                 }
             } else if (i == 0) {
                 if (currentLineElement.getDirection() == Direction.RightLeft) {
-                    currentLineElement.setX(currentLineElement.getX() - currentLineElement.getWidth());
+                    currentLineElement.setX((int) (currentLineElement.getX() - currentLineElement.getWidth()));
                 } else if (currentLineElement.getDirection() == Direction.CenterLeftRight) {
-                    currentLineElement.setX(currentLineElement.getX() - currentLineElement.getWidth() / 2);
+                    currentLineElement.setX((int) (currentLineElement.getX() - currentLineElement.getWidth() / 2));
                 }
             } else {
                 switch (textElement.getLineAlign()) {
@@ -55,10 +55,10 @@ public class TextPainter implements IPainter {
                         currentLineElement.setX(firstLineElement.getX());
                         break;
                     case Center:
-                        currentLineElement.setX(firstLineElement.getX() + (firstLineElement.getWidth() - currentLineElement.getWidth()) / 2);
+                        currentLineElement.setX((int) (firstLineElement.getX() + (firstLineElement.getWidth() - currentLineElement.getWidth()) / 2));
                         break;
                     case Right:
-                        currentLineElement.setX(firstLineElement.getX() + firstLineElement.getWidth() - currentLineElement.getWidth());
+                        currentLineElement.setX((int) (firstLineElement.getX() + firstLineElement.getWidth() - currentLineElement.getWidth()));
                 }
             }
 
@@ -71,7 +71,7 @@ public class TextPainter implements IPainter {
                 AttributedString as = new AttributedString(currentLineElement.getText());
                 as.addAttribute(TextAttribute.FONT, currentLineElement.getFont());
                 as.addAttribute(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON, 0, currentLineElement.getText().length());
-                g.drawString(as.getIterator(), currentLineElement.getX(), currentLineElement.getDrawY());
+                g.drawString(as.getIterator(), (int) currentLineElement.getX(), currentLineElement.getDrawY());
             } else {
                 g.drawString(currentLineElement.getText(), currentLineElement.getX(), currentLineElement.getDrawY());
             }

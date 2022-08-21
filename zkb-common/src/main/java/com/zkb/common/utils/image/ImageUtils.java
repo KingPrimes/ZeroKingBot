@@ -5,6 +5,8 @@ import com.zkb.common.utils.ColorEnum;
 import com.zkb.common.utils.Fonts;
 import com.zkb.common.utils.Seat;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -13,6 +15,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -20,6 +23,8 @@ import java.util.Locale;
 
 
 public class ImageUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(ImageUtils.class);
 
     private Font font;
     private Color backgroundColor;
@@ -270,7 +275,16 @@ public class ImageUtils {
             assert in != null;
             return ImageIO.read(in);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            log.error("InputStream获取图片出错：{}",e.getMessage());
+            return null;
+        }
+    }
+
+    public static BufferedImage getImagePath(String path){
+        try{
+            return ImageIO.read(new File(path));
+        }catch (Exception e){
+            log.error("从路径读取图片报错：{}",e.getMessage());
             return null;
         }
     }

@@ -1,6 +1,7 @@
 package com.zkb.bot.imagetogif.controller;
 
 
+import com.zkb.bot.imagetogif.utils.GitPng;
 import com.zkb.bot.utils.PrivateAddApi;
 import com.zkb.common.jhlabs.image.PerspectiveFilter;
 import com.zkb.common.utils.image.ImageToGif;
@@ -28,6 +29,9 @@ public class CapooGifImageController {
     @GetMapping(value = "/{uuid}/getImage/{id}/{ms}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_PNG_VALUE})
     public void getImage(@PathVariable("id") long id, @PathVariable("ms") int ms, HttpServletResponse response) throws Exception {
         response.setHeader("Content-Type", "image/gif");
+        if (GitPng.getInitPng()){
+            return;
+        }
         //Gif图像组
         List<BufferedImage> ims = new ArrayList<>();
         //获取用户头像
@@ -40,9 +44,9 @@ public class CapooGifImageController {
         //遍历Png素材
         for (int i = 1; i <= 43; i++) {
             //素材地址
-            String path = "/images-gif/capoo/ding/" + i + ".png";
+            String path = GitPng.PATH+"capoo\\ding\\" + i + ".png";
             //加载素材到内存
-            BufferedImage s = ImageUtils.getImage(path);
+            BufferedImage s = ImageUtils.getImagePath(path);
             //加载素材到内存
             assert s != null;
             ImageCombiner combiner = new ImageCombiner(new BufferedImage(s.getWidth(), s.getHeight(), BufferedImage.TYPE_INT_ARGB), OutputFormat.PNG);

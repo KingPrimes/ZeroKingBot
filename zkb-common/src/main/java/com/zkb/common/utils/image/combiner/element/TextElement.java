@@ -2,22 +2,26 @@ package com.zkb.common.utils.image.combiner.element;
 
 
 import com.zkb.common.utils.image.combiner.enums.LineAlign;
-import sun.font.FontDesignMetrics;
 
 import java.awt.*;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TextElement extends CombineElement<TextElement> {
-    private FontDesignMetrics metrics;
+
+    private FontRenderContext metrics;
+
     private String text;
     private Font font;
     private boolean strikeThrough;
     private Color color = new Color(0, 0, 0);
     private Integer rotate;
-    private Integer lineHeight;
-    private Integer width;
-    private Integer height;
+    private Double lineHeight;
+    private Double width;
+    private Double height;
     private Integer drawY;
     private boolean autoBreakLine = false;
     private int maxLineWidth = 600;
@@ -49,15 +53,15 @@ public class TextElement extends CombineElement<TextElement> {
         super.setY(y);
     }
 
-    public Integer getWidth() {
+    public Double getWidth() {
         if (this.width == null) {
-            this.width = this.getMetrics().stringWidth(this.text);
+            this.width = this.font.getStringBounds(this.text,this.metrics).getWidth();
         }
 
         return this.width;
     }
 
-    public Integer getHeight() {
+    public Double getHeight() {
         if (this.height == null) {
             if (this.autoBreakLine) {
                 this.height = this.getLineHeight() * this.getBreakLineElements().size();
@@ -69,9 +73,10 @@ public class TextElement extends CombineElement<TextElement> {
         return this.height;
     }
 
-    public Integer getDrawY() {
-        if (this.drawY == null) {
-            this.drawY = this.getY() + (this.getLineHeight() - this.getMetrics().getHeight()) / 2 + this.getMetrics().getAscent();
+    public int getDrawY() {
+        if (this.drawY == 0) {
+            Rectangle2D rec = this.font.getStringBounds("",this.metrics);
+            this.drawY = (int) (this.getY() + (this.getLineHeight() - rec.getHeight()) / 2);
         }
 
         return this.drawY;
@@ -127,15 +132,16 @@ public class TextElement extends CombineElement<TextElement> {
         return this.setColor(new Color(r, g, b));
     }
 
-    public Integer getLineHeight() {
+    public Double getLineHeight() {
         if (this.lineHeight == null) {
-            this.lineHeight = this.getMetrics().getHeight();
+            Rectangle2D rec = this.font.getStringBounds("",this.metrics);
+            this.lineHeight = rec.getHeight();
         }
 
         return this.lineHeight;
     }
 
-    public TextElement setLineHeight(Integer lineHeight) {
+    public TextElement setLineHeight(Double lineHeight) {
         this.lineHeight = lineHeight;
         this.resetProperties();
         return this;
@@ -154,7 +160,7 @@ public class TextElement extends CombineElement<TextElement> {
         return this.autoBreakLine;
     }
 
-    public TextElement setAutoBreakLine(int maxLineWidth, int maxLineCount, int lineHeight) {
+    public TextElement setAutoBreakLine(int maxLineWidth, int maxLineCount, double lineHeight) {
         this.autoBreakLine = true;
         this.maxLineWidth = maxLineWidth;
         this.maxLineCount = maxLineCount;
@@ -169,7 +175,7 @@ public class TextElement extends CombineElement<TextElement> {
         return this;
     }
 
-    public TextElement setAutoBreakLine(int maxLineWidth, int maxLineCount, int lineHeight, LineAlign lineAlign) {
+    public TextElement setAutoBreakLine(int maxLineWidth, int maxLineCount, double lineHeight, LineAlign lineAlign) {
         this.autoBreakLine = true;
         this.maxLineWidth = maxLineWidth;
         this.maxLineCount = maxLineCount;
@@ -197,16 +203,17 @@ public class TextElement extends CombineElement<TextElement> {
         this.breakLineElements = null;
     }
 
-    private FontDesignMetrics getMetrics() {
+    private FontRenderContext getMetrics() {
         if (this.metrics == null) {
-            this.metrics = FontDesignMetrics.getMetrics(this.font);
+            this.metrics = new FontRenderContext(new AffineTransform(),true,true);
+
         }
 
         return this.metrics;
     }
 
     private List<TextElement> computeBreakLineElements() {
-        List<TextElement> breakLineElements = new ArrayList();
+        List<TextElement> breakLineElements = new ArrayList<>();
         List<String> breakLineTexts = this.computeLines(this.text);
         int currentY = this.getY();
 
@@ -232,7 +239,7 @@ public class TextElement extends CombineElement<TextElement> {
     }
 
     private List<String> computeLines(String text) {
-        List<String> computedLines = new ArrayList();
+        List<String> computedLines = new ArrayList<>();
         String strToComputer = "";
         String word = "";
         boolean hasWord = false;
@@ -249,10 +256,12 @@ public class TextElement extends CombineElement<TextElement> {
             }
 
             if (hasWord) {
-                int originWidth = this.getMetrics().stringWidth(strToComputer);
-                int wordWidth = this.getMetrics().stringWidth(word);
+                Rectangle2D rec = this.font.getStringBounds(strToComputer,this.metrics);
+                Rectangle2D recw = this.font.getStringBounds(word,this.metrics);
+                double originWidth = rec.getWidth();
+                double wordWidth = recw.getWidth();
                 strToComputer = strToComputer + word;
-                int newWidth = originWidth + wordWidth;
+                double newWidth = originWidth + wordWidth;
                 if (wordWidth > this.maxLineWidth) {
                     int fetch = (int) ((float) (this.maxLineWidth - originWidth) / (float) wordWidth * (float) word.length());
                     strToComputer = strToComputer.substring(0, strToComputer.length() - word.length() + fetch);

@@ -23,6 +23,11 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>de.roskenet</groupId>
+            <artifactId>springboot-javafx-support</artifactId>
+        </dependency>
+
 
         <!-- SpringBoot Websocket -->
         <dependency>

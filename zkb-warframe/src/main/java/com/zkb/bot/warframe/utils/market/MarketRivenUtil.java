@@ -86,12 +86,8 @@ public class MarketRivenUtil {
             //订单的状况 direct 售卖 / auction 拍卖
             buffer.append("&buyout_policy=direct");
 
-            String json;
-            if (GetProxyOnClons.getProxyOnClons()) {
-                json = HttpUtils.sendGetOkHttpProxy(buffer.toString());
-            } else {
-                json = HttpUtils.sendGetOkHttp(buffer.toString());
-            }
+            String json = HttpUtils.sendGetOkHttp(buffer.toString());
+
             if (json.equals("timeout")) {
                 return null;
             }

@@ -55,6 +55,11 @@
                 <scope>import</scope>
             </dependency>
 
+            <dependency>
+                <groupId>de.roskenet</groupId>
+                <artifactId>springboot-javafx-support</artifactId>
+                <version>2.1.6</version>
+            </dependency>
             <!-- SpringBoot集成mybatis框架 -->
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
