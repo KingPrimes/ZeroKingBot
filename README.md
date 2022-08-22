@@ -56,7 +56,16 @@
 ---
 
 <!-- readme: collaborators,contributors -start -->
-
+<table>
+<tr>
+    <td align="center">
+        <a href="https://github.com/KingPrimes">
+            <img src="https://avatars.githubusercontent.com/u/50130875?v=4" width="100;" alt="KingPrimes"/>
+            <br />
+            <sub><b>KingPrimes</b></sub>
+        </a>
+    </td></tr>
+</table>
 <!-- readme: collaborators,contributors -end -->
 
 
