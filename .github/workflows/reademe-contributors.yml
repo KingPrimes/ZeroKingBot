@@ -1,9 +1,9 @@
+name: Contributes
+
 on:
   push:
     branches:
-      - master
-
-name: Contributes
+      - main
 
 jobs:
   # 任务

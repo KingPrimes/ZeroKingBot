@@ -5,8 +5,9 @@
 
 # ZeroKingBot
 
-[![Java CI Package](https://github.com/KingPrimes/ZeroKingBot/actions/workflows/release.yml/badge.svg)](https://github.com/KingPrimes/ZeroKingBot/actions/workflows/release.yml)
-
+![GitHub forks](https://img.shields.io/github/forks/KingPrimes/ZeroKingBot?style=social)
+![GitHub stars](https://img.shields.io/github/stars/KingPrimes/ZeroKingBot?style=social)
+[![QQ Group](https://img.shields.io/badge/QQ%20Group-260079469-blue)](https://jq.qq.com/?_wv=1027&k=RgqgJLij)
 </div>
 
 ----
@@ -50,11 +51,12 @@
 - [腾讯云优惠](https://cloud.tencent.com/act/pro/cps_3?fromSource=gwzcw.6688284.6688284.6688284&cps_key=ae3b8b6e55495d8bc53f2227ea0273d8)
 - [腾讯云免费体验](https://cloud.tencent.com/act/free)
 
-贡献者
+贡献者  ✨
 ---
 ---
-- 非常感谢 `别哭草莓菠菜^ ^ 微信号：Xwenlilililili_` 绘制的图像
+
 <!-- readme: collaborators,contributors -start -->
+
 <!-- readme: collaborators,contributors -end -->
 
 
