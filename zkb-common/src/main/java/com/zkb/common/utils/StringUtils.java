@@ -16,6 +16,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     public static final String RIVEN_TREND_3 = "●●●○○";
     public static final String RIVEN_TREND_4 = "●●●●○";
     public static final String RIVEN_TREND_5 = "●●●●●";
+
+    private static final String RAND_STR = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
+
     private static final Logger log = LoggerFactory.getLogger(StringUtils.class);
     /**
      * 空字符串
@@ -741,6 +744,32 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         }
         return false;
     }
+
+    /**
+     * 随机的字符串
+     * @param len 字符串长度
+     * @return 字符串
+     */
+    public static String getRandomString(int len){
+        /*RAND_STR*/
+        Random r = new Random();
+        int rl = RAND_STR.length();
+        StringBuilder str = new StringBuilder();
+        for(int i=0;i<len;i++){
+            str.append(RAND_STR.charAt(r.nextInt(rl)));
+        }
+        return str.toString();
+    }
+
+    /**
+     * 获取随机的字符串 4-17位
+     * @return 字符串
+     */
+    public static String getRandomString(){
+        return getRandomString(new Random().nextInt(14)+4);
+    }
+
+
 
 }
 

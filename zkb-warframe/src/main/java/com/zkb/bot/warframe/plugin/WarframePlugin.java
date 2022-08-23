@@ -108,6 +108,15 @@ public class WarframePlugin extends BotPlugin {
             }
         }
 
+        //模拟开核桃
+        if (TYPE_OPEN_RELICS_PLUGIN.getType().equals(event.getRawMessage())||TYPE_OPEN1_RELICS_PLUGIN.getType().equals(event.getRawMessage())) {
+            if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
+                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getRelicsToy").build(), false);
+            } else {
+                return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
+            }
+        }
+
         //核桃
         if (TYPE_RELICS_PLUGIN.getType().equals(StringUtils.substring(event.getRawMessage(), 0, TYPE_RELICS_PLUGIN.getType().length()).toUpperCase(Locale.ROOT))) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {

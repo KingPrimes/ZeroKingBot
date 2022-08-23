@@ -18,7 +18,7 @@ public interface IWarframeRelicsService {
      * @param relicsKeyId 【请填写功能名称】ID
      * @return 【请填写功能名称】
      */
-    WarframeRelics selectWarframeRelicsById(Long relicsKeyId);
+    WarframeRelics selectWarframeRelicsById(Integer relicsKeyId);
 
     /**
      * 查询【请填写功能名称】列表
@@ -42,6 +42,16 @@ public interface IWarframeRelicsService {
     int insertWarframeRelics(WarframeRelics WarframeRelics);
 
     /**
+     * 查最大ID
+     */
+    WarframeRelics selectWarframeRelicsMaxId();
+
+    /**
+     * 根据ID查询 翻译之后的物品
+     */
+    WarframeRelics selectWarframeRelicsToTraById(Integer relicsKeyId);
+
+    /**
      * 批量插入数据
      *
      * @param WarframeRelics
@@ -63,7 +73,7 @@ public interface IWarframeRelicsService {
      * @param relicsKeyId 【请填写功能名称】ID
      * @return 结果
      */
-    int deleteWarframeRelicsById(Long relicsKeyId);
+    int deleteWarframeRelicsById(Integer relicsKeyId);
 
     /**
      * 批量删除【请填写功能名称】
@@ -71,7 +81,7 @@ public interface IWarframeRelicsService {
      * @param relicsKeyIds 需要删除的数据ID
      * @return 结果
      */
-    int deleteWarframeRelicsByIds(Long[] relicsKeyIds);
+    int deleteWarframeRelicsByIds(Integer[] relicsKeyIds);
 
     /**
      * 清空表格

@@ -22,10 +22,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Component
 public class HtmlToImage {
@@ -38,6 +35,9 @@ public class HtmlToImage {
 
     @Autowired
     IWarframeMarketRivenTionService rts;
+
+    @Autowired
+    IWarframeRelicsService relics;
 
     /**
      * 平原图片
@@ -1332,13 +1332,13 @@ public class HtmlToImage {
                     tempTier = relic.getRelicsTier();
                 }
                 str.append("<tr><td class=\"");
-                if(relic.getRelicsItemChance().equals("11")){
+                if (relic.getRelicsItemChance().equals("11")) {
                     str.append("relics-y\">");
                 }
-                if(relic.getRelicsItemChance().equals("2")){
+                if (relic.getRelicsItemChance().equals("2")) {
                     str.append("relics-j\">");
                 }
-                if(relic.getRelicsItemChance().equals("25.33")){
+                if (relic.getRelicsItemChance().equals("25.33")) {
                     str.append("relics-t\">");
                 }
                 str
@@ -1356,6 +1356,82 @@ public class HtmlToImage {
             html = html.replaceAll("#table", str.toString());
         }
         return tmpHtmlToImageByteArray("relics", html, width);
+    }
+
+    /**
+     * 模拟砸核桃
+     *
+     * @return 图片流
+     */
+    public ByteArrayOutputStream relicsToy() {
+        String html = FileUtils.getFileString(HTML_PATH + "html/relicsToy.html");
+        int width = getWidth(html);
+        html = outH(html);
+        int max = relics.selectWarframeRelicsMaxId().getRelicsKeyId();
+        Random r = new Random();
+        int p = r.nextInt(3) + 2;
+        switch (p) {
+            case 2:
+                width = 380;
+                break;
+            case 3:
+                width = 500;
+                break;
+            case 4:
+                width = 700;
+                break;
+        }
+        if (html.contains("#table")) {
+            StringBuilder str = new StringBuilder();
+            str.append("<table><tr>");
+            for (int i = 0; i < p; i++) {
+                WarframeRelics warframeRelics = relics.selectWarframeRelicsToTraById(r.nextInt(max) + 1);
+                str.append("<td><div class=\"relics-toy-");
+                switch (warframeRelics.getRelicsItemChance()) {
+                    case "11":
+                        str.append("y\">");
+                        break;
+                    case "2":
+                        str.append("j\">");
+                        break;
+                    case "25.33":
+                        str.append("t\">");
+                        break;
+                    default:
+                        break;
+                }
+                str.append("<img src=\"../img/relics/");
+                String item = warframeRelics.getRelicsItemName().toLowerCase();
+
+                if (item.contains("forma")) {
+                    str.append("Forma");
+                } else if (item.contains("chassis")) {
+                    str.append("Chassis");
+                } else if (item.contains("neuroptics")) {
+                    str.append("Neuroptics");
+                } else if (item.contains("systems")) {
+                    str.append("Systems");
+                } else if(item.contains("adapter")){
+                    str.append("Adapter");
+                }else{
+                    String[] s = warframeRelics.getRelicsItemName().split(" ");
+                    str.append(s[s.length - 1]);
+                }
+
+                str.append(".png\" width=\"128\" height=\"128\"/>")
+                        .append("<p>")
+                        .append(warframeRelics.getTraCh().replace("&", "-"))
+                        .append("</p></div><p>")
+                        .append(StringUtils.getRandomString())
+                        .append("</p></td>");
+            }
+            str.append("</tr></table>");
+
+            html = html.replaceAll("#table", str.toString());
+        }
+
+
+        return tmpHtmlToImageByteArray("relicsToy", html, width);
     }
 
 
@@ -1420,7 +1496,7 @@ public class HtmlToImage {
             ImageIO.write(image, "png", os);
             return os;
         } catch (IOException e) {
-           log.error("html渲染字节流出错，文件路径：{}\n\t\t错误信息：{}",htmlFilePath,e.getMessage());
+            log.error("html渲染字节流出错，文件路径：{}\n\t\t错误信息：{}", htmlFilePath, e.getMessage());
         }
         return null;
     }
@@ -1436,7 +1512,7 @@ public class HtmlToImage {
             os.flush();
             os.close();
         } catch (Exception e) {
-            log.error("生成临时文件出错\n\t\t文件名称：{}\n\t\t错误信息：{}",name,e.getMessage());
+            log.error("生成临时文件出错\n\t\t文件名称：{}\n\t\t错误信息：{}", name, e.getMessage());
         }
         return convertHtmlToImage(path, width);
     }

@@ -28,7 +28,7 @@ public class WarframeRelicsServiceImpl implements IWarframeRelicsService
      * @return 【请填写功能名称】
      */
     @Override
-    public WarframeRelics selectWarframeRelicsById(Long relicsKeyId)
+    public WarframeRelics selectWarframeRelicsById(Integer relicsKeyId)
     {
         return WarframeRelicsMapper.selectWarframeRelicsById(relicsKeyId);
     }
@@ -66,6 +66,22 @@ public class WarframeRelicsServiceImpl implements IWarframeRelicsService
         return WarframeRelicsMapper.insertWarframeRelics(WarframeRelics);
     }
 
+    /**
+     * 查最大ID
+     */
+    @Override
+    public WarframeRelics selectWarframeRelicsMaxId() {
+        return WarframeRelicsMapper.selectWarframeRelicsMaxId();
+    }
+
+    /**
+     * 根据ID查询 翻译之后的物品
+     */
+    @Override
+    public WarframeRelics selectWarframeRelicsToTraById(Integer relicsKeyId) {
+        return WarframeRelicsMapper.selectWarframeRelicsToTraById(relicsKeyId);
+    }
+
     @Override
     public int insertWarframeRelicsList(List<WarframeRelics> WarframeRelics) {
         return WarframeRelicsMapper.insertWarframeRelicsList(WarframeRelics);
@@ -90,7 +106,7 @@ public class WarframeRelicsServiceImpl implements IWarframeRelicsService
      * @return 结果
      */
     @Override
-    public int deleteWarframeRelicsByIds(Long[] relicsKeyIds)
+    public int deleteWarframeRelicsByIds(Integer[] relicsKeyIds)
     {
         return WarframeRelicsMapper.deleteWarframeRelicsByIds(relicsKeyIds);
     }
@@ -112,7 +128,7 @@ public class WarframeRelicsServiceImpl implements IWarframeRelicsService
      * @return 结果
      */
     @Override
-    public int deleteWarframeRelicsById(Long relicsKeyId)
+    public int deleteWarframeRelicsById(Integer relicsKeyId)
     {
         return WarframeRelicsMapper.deleteWarframeRelicsById(relicsKeyId);
     }

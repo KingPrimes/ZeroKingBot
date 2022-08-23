@@ -41,9 +41,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         GROUP BY relics_key_id ORDER BY relics_tier,relics_name,relics_state,relics_item_rarity
     </select>
 
-    <select id="selectWarframeRelicsById" parameterType="Long" resultMap="WarframeRelicsResult">
+    <select id="selectWarframeRelicsMaxId" resultMap="WarframeRelicsResult">
+        select MAX(relics_key_id) as relics_key_id  from wf_relics
+    </select>
+
+
+    <select id="selectWarframeRelicsById" parameterType="Integer" resultMap="WarframeRelicsResult">
         <include refid="selectWarframeRelicsOVo"/>
         where relics_key_id = #{relics_key_id}
+    </select>
+
+    <select id="selectWarframeRelicsToTraById" parameterType="Integer" resultMap="WarframeRelicsResult">
+        SELECT
+        *
+        FROM
+        (
+        SELECT
+        r.relics_key_id,
+        r.relics_item_chance,
+        r.relics_item_name,
+        t2.tra_ch as tra_ch
+        FROM
+        wf_relics r
+        INNER JOIN wf_translation t2 ON t2.tra_en = r.relics_item_name
+        ) AS a
+        WHERE
+        a.relics_key_id = #{relicsKeyId}
     </select>
 
     <!--根据条件查询某个遗物对应的物品-->
@@ -136,11 +159,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where relics_key_id = #{relicsKeyId}
     </update>
 
-    <delete id="deleteWarframeRelicsById" parameterType="Long">
+    <delete id="deleteWarframeRelicsById" parameterType="Integer">
         delete from wf_relics where relics_key_id = #{relicsKeyId}
     </delete>
 
-    <delete id="deleteWarframeRelicsByIds" parameterType="Long">
+    <delete id="deleteWarframeRelicsByIds" parameterType="Integer">
         delete from wf_relics where relics_key_id in
         <foreach item="relicsKeyId" collection="array" open="(" separator="," close=")">
             #{relicsKeyId}

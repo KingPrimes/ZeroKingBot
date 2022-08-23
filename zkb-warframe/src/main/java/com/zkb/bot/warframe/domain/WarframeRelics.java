@@ -10,7 +10,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class WarframeRelics {
 
-    private Long relicsKeyId;
+    private Integer relicsKeyId;
     /**
      * 遗物ID
      */
@@ -61,7 +61,7 @@ public class WarframeRelics {
     public WarframeRelics() {
     }
 
-    public WarframeRelics(Long relicsKeyId, String relicsId, String relicsTier, String relicsName, String relicsState, String relicsItemId, String relicsItemName, String relicsItemRarity, String relicsItemChance, String traCh) {
+    public WarframeRelics(Integer relicsKeyId, String relicsId, String relicsTier, String relicsName, String relicsState, String relicsItemId, String relicsItemName, String relicsItemRarity, String relicsItemChance, String traCh) {
         this.relicsKeyId = relicsKeyId;
         this.relicsId = relicsId;
         this.relicsTier = relicsTier;
@@ -79,7 +79,7 @@ public class WarframeRelics {
      *
      * @return relicsKeyId
      */
-    public Long getRelicsKeyId() {
+    public Integer getRelicsKeyId() {
         return this.relicsKeyId;
     }
 
@@ -88,7 +88,7 @@ public class WarframeRelics {
      *
      * @param relicsKeyId
      */
-    public void setRelicsKeyId(Long relicsKeyId) {
+    public void setRelicsKeyId(Integer relicsKeyId) {
         this.relicsKeyId = relicsKeyId;
     }
 
