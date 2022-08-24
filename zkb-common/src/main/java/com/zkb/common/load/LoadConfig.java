@@ -28,44 +28,23 @@ public class LoadConfig {
     public static Properties prop = new Properties();
 
     @PostConstruct
-    public static boolean init(){
-        if (!initHtml()) {
-            log.error("下载Html文件失败请手动创建或重试\n手动下载请到：https://gitee.com/KingPrime/ZKBotHtml 网站中下载文件");
-            return false;
-        }
-        if(isOs()==1){
-            if(initWinRedis()){
-                log.error("初始化Redis失败！");
-                return false;
-            }
-            if(initQQ()){
-                log.error("初始化Go-cqhttp失败！请自行下载Go-cqhttp: https://github.com/Mrs4s/go-cqhttp/releases");
-                return false;
-            }
-        }
-        if (!WriteConfigFile()) {
-            log.error("创建配置文件失败！");
-            return false;
-        }
-        if (!WriteSqlite()) {
-            log.error("创建缓存文件失败！");
-            return false;
-        }
-        return initConfig();
-    }
+    public void init(){
+        log.info("开始初始化！请稍等……");
+        int os = isOs();
 
-    @PreDestroy
-    public static void end(){
+        if(os==1){
+            initQQ();
+            initWinRedis();
+
+        }
 
     }
 
-    private static boolean initConfig() {
+    private static void initConfig() {
         try {
             prop.load(Files.newInputStream(Paths.get(System.getProperty("user.dir") + "/config.ini")));
-            return true;
         } catch (Exception e) {
             log.error("读取config.ini文件出错，错误信息：{}", e.getMessage());
-            return false;
         }
 
     }
@@ -78,7 +57,8 @@ public class LoadConfig {
     }
 
     //判断配置文件是否存在不存在则新建一个配置文件
-    private static boolean WriteConfigFile() {
+    @PostConstruct
+    public void WriteConfigFile() {
         //config
         File file = new File("./config.ini");
         if (!file.isFile()) {
@@ -86,15 +66,17 @@ public class LoadConfig {
                 InputStream in = LoadConfig.class.getResourceAsStream("/cfg.txt");
                 assert in != null;
                 Files.copy(in, file.toPath());
+
             } catch (Exception e) {
-                return false;
+                log.error("创建config.ini失败，错误信息：{}",e.getMessage());
             }
 
         }
-        return file.isFile();
+
     }
 
-    private static boolean WriteSqlite() {
+    @PostConstruct
+    public void WriteSqlite() {
         File file = new File("./db/data.db3");
         if (!file.isFile()) {
             try {
@@ -107,11 +89,9 @@ public class LoadConfig {
                 Files.copy(in, file.toPath());
             } catch (Exception e) {
                 log.error("创建db数据库失败，错误信息：{}",e.getMessage());
-                return false;
             }
 
         }
-        return file.isFile();
     }
 
     /**
@@ -131,7 +111,8 @@ public class LoadConfig {
         return 0;
     }
 
-    private static boolean initQQ(){
+
+    public void initQQ(){
         String x = System.getProperty("user.dir")+"\\gocqhttp\\go-cqhttp.bat";
         try {
             File file = new File("./gocqhttp");
@@ -143,28 +124,25 @@ public class LoadConfig {
                 ;
                 boolean flg = RepositoryCache.FileKey.isGitRepository(file, FS.DETECTED);
                 if (!flg) {
-                    Process exec = Runtime.getRuntime().exec(x);
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(exec.getInputStream()));
-                    if (bufferedReader.readLine() == null){
-                        return true;
-                    }
+                    Runtime.getRuntime().exec(x);
+                   return;
                 }
-                return flg;
+
+                return;
             }
             if (file.exists()) {
                 if(isRunRedis("go-cqhttp")){
                     Runtime.getRuntime().exec(x);
                 }
             }
-            return false;
-        } catch (GitAPIException e) {
-            return true;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+        } catch (GitAPIException|IOException e) {
+            log.error("初始化Go-cqhttp失败！错误信息：{}\n请自行下载Go-cqhttp: https://github.com/Mrs4s/go-cqhttp/releases",e.getMessage());
         }
     }
 
-    private static boolean initHtml() {
+    @PostConstruct
+    public void initHtml() {
         File file = new File(HTML_PATH);
         if (!file.exists()) {
             try {
@@ -172,16 +150,14 @@ public class LoadConfig {
                         .setURI("https://gitee.com/KingPrime/ZKBotHtml.git")
                         .setDirectory(file)
                         .call();
-                return true;
             } catch (GitAPIException e) {
                 log.error("下载Html文件失败：{}",e.getMessage());
-                return false;
             }
 
         }
-        return file.exists();
     }
-    private static boolean initWinRedis() {
+
+    public void  initWinRedis() {
         String x = "cmd /c start "+System.getProperty("user.dir")+"\\Redis\\redis-server.exe "+System.getProperty("user.dir")+"\\Redis\\redis.windows.conf";
         try {
             File file = new File("./Redis");
@@ -194,20 +170,18 @@ public class LoadConfig {
                 boolean flg = RepositoryCache.FileKey.isGitRepository(file, FS.DETECTED);
                 if (!flg) {
                    Runtime.getRuntime().exec(x);
-                   return true;
+                   return ;
                 }
-                return flg;
+                return ;
             }
             if (file.exists()) {
                 if(isRunRedis("redis-server")){
                      Runtime.getRuntime().exec(x);
                 }
             }
-            return false;
-        } catch (GitAPIException e) {
-            return true;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+        } catch (GitAPIException|IOException e) {
+            log.error("初始化Redis失败！{}",e.getMessage());
         }
     }
 
