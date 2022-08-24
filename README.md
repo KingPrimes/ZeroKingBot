@@ -31,6 +31,10 @@
   Html文件在 [ZKBotImageHtml](https://github.com/KingPrimes/ZKBotImageHtml) 库中。您如果对默认生成的图片不满意，可随意更改Html/Css文件。
   <br/>
 
+更新计划
+---
+---
+- 作者最近在找工作可能有一段时间不会更新此机器人了
 
 项目部署
 ---
