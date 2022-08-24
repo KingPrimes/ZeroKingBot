@@ -56,18 +56,7 @@ public class LoadConfig {
 
     @PreDestroy
     public static void end(){
-       /* if(isOs()==1){
-            String go = "taskkill /f /im go*";
-            String redis = "taskkill /f /im redis*";
-            String cmd = "taskkill /f /im cmd*";
-            try{
-                Runtime.getRuntime().exec(go);
-                Runtime.getRuntime().exec(redis);
-                Runtime.getRuntime().exec(cmd);
-            }catch (Exception e){
-                log.error("未能成功退出程序错误信息：{}",e.getMessage());
-            }
-        }*/
+
     }
 
     private static boolean initConfig() {
@@ -204,11 +193,8 @@ public class LoadConfig {
                 ;
                 boolean flg = RepositoryCache.FileKey.isGitRepository(file, FS.DETECTED);
                 if (!flg) {
-                    Process exec = Runtime.getRuntime().exec(x);
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(exec.getInputStream()));
-                    if (bufferedReader.readLine() == null){
-                        return true;
-                    }
+                   Runtime.getRuntime().exec(x);
+                   return true;
                 }
                 return flg;
             }

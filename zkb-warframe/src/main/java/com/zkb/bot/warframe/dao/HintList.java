@@ -21,7 +21,7 @@ public class HintList {
     private static final Random R = new Random();
 
     public static String getHint() {
-        int i = R.nextInt(hints.length);
+        int i = R.nextInt(hints.length-1);
         return hints[i];
     }
 
