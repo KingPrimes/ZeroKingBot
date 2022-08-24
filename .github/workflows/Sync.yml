@@ -1,4 +1,4 @@
-name: Sync To Gitee And GitCode
+name: Sync To Gitee
 
 on: [push,delete,create]
 
