@@ -37,6 +37,7 @@
 ---
 - [Windows部署文档](./readme/win.md)
 - [Linux部署文档](./readme/linux.md)
+- [最新视频部署教程](https://b23.tv/tnLP86i)
 
 
 使用文档
