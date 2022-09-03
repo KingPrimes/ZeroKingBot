@@ -40,7 +40,7 @@
 ---
 ---
 - [Windows部署文档](./readme/win.md)
-- [Linux部署文档](./readme/linux.md)
+- [Linux部署文档](./readme/4173%2B/liunx.md)
 - [最新视频部署教程](https://b23.tv/tnLP86i)
 
 
@@ -74,7 +74,7 @@
         <a href="https://github.com/Wapriaily">
             <img src="https://avatars.githubusercontent.com/u/52833112?v=4" width="100;" alt="Wapriaily"/>
             <br />
-            <sub><b>Kano</b></sub>
+            <sub><b>Wapriaily</b></sub>
         </a>
     </td></tr>
 </table>
