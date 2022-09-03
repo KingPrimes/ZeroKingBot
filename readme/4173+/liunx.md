@@ -19,20 +19,7 @@ OpenJDK 64-Bit Server VM (build 25.252-b09, mixed mode)
 ```
 这里我们就成功安装好Java啦
 
-## 第二步: 部署 ZeroKingBot
-
-1.在你喜欢的地方创建 ZeroKingBot 文件夹
-
-2.在文件夹内下载 [ZeroKingBot.jar](https://github.com/KingPrimes/ZeroKingBot/releases/latest)
-
-3.终端输入 java -jar ZeroKingBot.jar 启动 ZeroKingBot
-```bash
-java -jar ZeroKingBot.jar
-```
-![image](https://user-images.githubusercontent.com/52833112/188266172-91bceae4-cb33-43ac-894c-9b415752e3f9.png)
-> 这里我们就部署好ZeroKingBot啦
-
-## 第三步: 配置 Go-cqhttp
+## 第二步: 配置 Go-cqhttp
 > 部署之前我们需要安装redis存储程序
 
 ```bash
@@ -73,13 +60,26 @@ tar -zxvf go-cqhttp_linux_amd64.tar.gz
 
 > 这里我们就配置好Go-cqhttp了
 
-## 第四步: 启动 Go-cqhttp
+## 第三步: 启动 Go-cqhttp
 > 进入go-cqhttp文件夹
 ```bash
 ./go-cqhttp
 ```
 根据提示登录你的账号
 成功登录上就部署完成了
+
+## 第四步: 部署 ZeroKingBot
+
+1.在你喜欢的地方创建 ZeroKingBot 文件夹
+
+2.在文件夹内下载 [ZeroKingBot.jar](https://github.com/KingPrimes/ZeroKingBot/releases/latest)
+
+3.终端输入 java -jar ZeroKingBot.jar 启动 ZeroKingBot
+```bash
+java -jar ZeroKingBot.jar
+```
+![image](https://user-images.githubusercontent.com/52833112/188266172-91bceae4-cb33-43ac-894c-9b415752e3f9.png)
+> 这里我们就部署好ZeroKingBot啦
 
 ### 注意事项
 > **你得先打开 ZeroKingBot, 再打开 Go-cqhttp，并保持运行状态**
