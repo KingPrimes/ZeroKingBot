@@ -69,6 +69,13 @@
             <br />
             <sub><b>KingPrimes</b></sub>
         </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Wapriaily">
+            <img src="https://avatars.githubusercontent.com/u/52833112?v=4" width="100;" alt="Wapriaily"/>
+            <br />
+            <sub><b>Kano</b></sub>
+        </a>
     </td></tr>
 </table>
 <!-- readme: collaborators,contributors -end -->
