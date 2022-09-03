@@ -33,6 +33,13 @@ java -jar ZeroKingBot.jar
 > 这里我们就部署好ZeroKingBot啦
 
 ## 第三步: 配置 Go-cqhttp
+> 部署之前我们需要安装redis存储程序
+
+```bash
+sudo apt update
+sudo apt install redis-server
+sudo systemctl status redis-server
+```
 
 1.在 ZeroKingBot 文件夹内创建 go-cqhttp文件夹
 
