@@ -17,16 +17,20 @@ openjdk version "1.8.0_252"
 OpenJDK Runtime Environment (build 1.8.0_252-8u252-b09-1ubuntu1-b09)
 OpenJDK 64-Bit Server VM (build 25.252-b09, mixed mode)
 ```
-这里我们就成功安装好Java啦
-
-## 第二步: 配置 Go-cqhttp
-> 部署之前我们需要安装redis存储程序
-
+> 这里我们就成功安装好Java啦
+## 第二步: 安装 Redis
 ```bash
 sudo apt update
 sudo apt install redis-server
+```
+> 安装完成后检查服务的状态
+```bash
 sudo systemctl status redis-server
 ```
+![image](https://user-images.githubusercontent.com/52833112/188269275-737bad27-8dcf-43e8-8c7b-84152189e32b.png)
+> 显示运行中就代表安装成功了
+
+## 第三步: 配置 Go-cqhttp
 
 1.在 ZeroKingBot 文件夹内创建 go-cqhttp文件夹
 
@@ -60,7 +64,7 @@ tar -zxvf go-cqhttp_linux_amd64.tar.gz
 
 > 这里我们就配置好Go-cqhttp了
 
-## 第三步: 启动 Go-cqhttp
+## 第四步: 启动 Go-cqhttp
 > 进入go-cqhttp文件夹
 ```bash
 ./go-cqhttp
@@ -68,7 +72,7 @@ tar -zxvf go-cqhttp_linux_amd64.tar.gz
 根据提示登录你的账号
 成功登录上就部署完成了
 
-## 第四步: 部署 ZeroKingBot
+## 第五步: 部署 ZeroKingBot
 
 1.在你喜欢的地方创建 ZeroKingBot 文件夹
 
