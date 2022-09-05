@@ -133,7 +133,7 @@ public class WarframeUtils {
                     //c.setTitle(traService.enToZh(c.getDesc()));
                     daily.add(c);
                 }
-                if (c.getElite()) {
+                if (c.getIsElite()) {
                     c.setDesc(traService.enToZh(c.getDesc()));
                     //c.setTitle(traService.enToZh(c.getDesc()));
                     elite.add(c);

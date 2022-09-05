@@ -106,20 +106,26 @@ public class WarframeMissionSubscribeServiceImpl implements IWarframeMissionSubs
         if (subscribes == null) {
             return 0;
         }
-        String[] users;
+        String[] users = new String[0];
         StringBuilder usert = new StringBuilder();
         for (WarframeMissionSubscribe sub : subscribes) {
             //判断是否是同一个类型
             if (sub.getSubscribeGroup().equals(subscribe.getSubscribeGroup()) && sub.getSubscribeMissionId().equals(subscribe.getSubscribeMissionId())) {
                 users = sub.getSubscribeUser().split("-");
-                for (String user : users) {
-                    if (!user.equals(subscribe.getSubscribeUser())) {
-                        usert.append(user)
-                                .append("-");
+                if(users.length!=0){
+                    for (String user : users) {
+                        if (!user.equals(subscribe.getSubscribeUser())) {
+                            usert.append(user)
+                                    .append("-");
+                        }
                     }
                 }
                 break;
             }
+        }
+        if(users.length==1){
+            subscribe.setSubscribeUser(null);
+            return subscribeMapper.updateWarframeMissionSubscribe(subscribe);
         }
         subscribe.setSubscribeUser(usert.replace(usert.toString().length() - 1, usert.toString().length(), "-").toString());
         return subscribeMapper.updateWarframeMissionSubscribe(subscribe);

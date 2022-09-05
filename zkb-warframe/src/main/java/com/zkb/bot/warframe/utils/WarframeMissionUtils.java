@@ -6,11 +6,9 @@ import com.zkb.bot.warframe.dao.SocketGlobalStates;
 import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.utils.DateUtils;
 import com.zkb.common.utils.spring.SpringUtils;
-import com.zkb.framework.manager.AsyncManager;
 
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimerTask;
 
 import static com.zkb.bot.enums.WarframeTypeEnum.REDIS_MISSION_KEY;
 
@@ -45,12 +43,7 @@ public class WarframeMissionUtils {
         //判断警报是否相同
         if (form.getAlerts() != null && redisForm.getAlerts() != null) {
             if (!form.getAlerts().equals(redisForm.getAlerts())) {
-                AsyncManager.me().execute(new TimerTask() {
-                    @Override
-                    public void run() {
-                        WarframeDataUpdateMission.updateAlerts();
-                    }
-                });
+                WarframeDataUpdateMission.updateAlerts();
             }
         }
 
@@ -58,12 +51,7 @@ public class WarframeMissionUtils {
         if (form.getArbitration() != null && redisForm.getArbitration() != null) {
             if (form.getArbitration().getNode() != null) {
                 if (!form.getArbitration().equals(redisForm.getArbitration())) {
-                    AsyncManager.me().execute(new TimerTask() {
-                        @Override
-                        public void run() {
-                            WarframeDataUpdateMission.updateArbitration();
-                        }
-                    });
+                    WarframeDataUpdateMission.updateArbitration();
                 }
             }
         }
@@ -75,12 +63,7 @@ public class WarframeMissionUtils {
                 if (DateUtils.getDateHour(form.getCetusCycle().getExpiry(), new Date()) == 0) {
                     long date = DateUtils.getDateMin(form.getCetusCycle().getExpiry(), new Date());
                     if (date == 13) {
-                        AsyncManager.me().execute(new TimerTask() {
-                            @Override
-                            public void run() {
-                                WarframeDataUpdateMission.updateCetusCycle(DateUtils.getDate(form.getCetusCycle().getExpiry(), new Date()));
-                            }
-                        });
+                        WarframeDataUpdateMission.updateCetusCycle(DateUtils.getDate(form.getCetusCycle().getExpiry(), new Date()));
                     }
                 }
             }
@@ -89,65 +72,35 @@ public class WarframeMissionUtils {
         if (form.getDailyDeals() != null && redisForm.getDailyDeals() != null) {
             if (form.getDailyDeals().get(0).getItem() != null) {
                 if (!form.getDailyDeals().get(0).getItem().equals(redisForm.getDailyDeals().get(0).getItem())) {
-                    AsyncManager.me().execute(new TimerTask() {
-                        @Override
-                        public void run() {
-                            WarframeDataUpdateMission.updateDailyDeals();
-                        }
-                    });
+                    WarframeDataUpdateMission.updateDailyDeals();
                 }
             }
         }
         //判断活动是否相同
         if (form.getEvents() != null && redisForm.getEvents() != null) {
             if (form.getEvents().retainAll(redisForm.getEvents()) && redisForm.getEvents().retainAll(form.getEvents())) {
-                AsyncManager.me().execute(new TimerTask() {
-                    @Override
-                    public void run() {
-                        WarframeDataUpdateMission.updateEvents();
-                    }
-                });
+                WarframeDataUpdateMission.updateEvents();
             }
         }
         //判断入侵是否相同
         if (form.getInvasions() != null && redisForm.getInvasions() != null) {
             if (form.getInvasions().retainAll(redisForm.getInvasions()) && redisForm.getInvasions().retainAll(form.getInvasions())) {
-                    AsyncManager.me().execute(new TimerTask() {
-                        @Override
-                        public void run() {
-                            WarframeDataUpdateMission.updateInvasions();
-                        }
-                    });
+                WarframeDataUpdateMission.updateInvasions();
             }
         }
         //判断钢铁轮换是否相同
         if (form.getSteelPath() != null && redisForm.getSteelPath() != null) {
             if (!form.getSteelPath().equals(redisForm.getSteelPath())) {
-                AsyncManager.me().execute(new TimerTask() {
-                    @Override
-                    public void run() {
-                        WarframeDataUpdateMission.updateSteelPath();
-                    }
-                });
+                WarframeDataUpdateMission.updateSteelPath();
             }
         }
         //判断虚空商人是否相同
         if (form.getVoidTrader() != null && redisForm.getVoidTrader() != null) {
             if (!form.getVoidTrader().equals(redisForm.getVoidTrader())) {
                 if (form.getVoidTrader().getInventory().size() == 0 && !form.getVoidTrader().getActive()) {
-                    AsyncManager.me().execute(new TimerTask() {
-                        @Override
-                        public void run() {
-                            WarframeDataUpdateMission.updateVoidTrader("奸商走了！\n下次会带来什么好东西呢？");
-                        }
-                    });
+                    WarframeDataUpdateMission.updateVoidTrader("奸商走了！\n下次会带来什么好东西呢？");
                 } else {
-                    AsyncManager.me().execute(new TimerTask() {
-                        @Override
-                        public void run() {
-                            WarframeDataUpdateMission.updateVoidTrader("奸商又来了！\n这次又带来了什么坏东西呢？\n奸商刺杀1等3");
-                        }
-                    });
+                    WarframeDataUpdateMission.updateVoidTrader("奸商又来了！\n这次又带来了什么坏东西呢？\n奸商刺杀1等3");
                 }
             }
         }

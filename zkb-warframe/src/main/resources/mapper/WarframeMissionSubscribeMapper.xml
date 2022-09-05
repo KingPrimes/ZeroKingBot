@@ -59,7 +59,7 @@
             parameterType="com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe">
         UPDATE wf_subscribe
         <trim prefix="SET" suffixOverrides=",">
-            <if test="subscribeUser != '' and subscribeUser != null">subscribe_user = #{subscribeUser},</if>
+            subscribe_user = #{subscribeUser},
         </trim>
         WHERE subscribe_group = #{subscribeGroup} AND subscribe_mission_id = #{subscribeMissionId}
         <if test="subscriberBot != 0 and subscriberBot != null">

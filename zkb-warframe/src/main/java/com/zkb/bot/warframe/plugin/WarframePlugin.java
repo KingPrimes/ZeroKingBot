@@ -46,8 +46,7 @@ import static com.zkb.bot.enums.WarframeTypeEnum.*;
  */
 @Component
 public class WarframePlugin extends BotPlugin {
-    @Autowired
-    IWarframeMissionSubscribeService service;
+
     @Autowired
     IWarframeTranslationService traService;
 
@@ -242,123 +241,7 @@ public class WarframePlugin extends BotPlugin {
                 e.printStackTrace();
             }
         }
-        if ("订阅列表".equals(StringUtils.substring(event.getRawMessage(), 0, "订阅列表".length()))) {
-            bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/subscriber/" + UUID.fastUUID() + "/getSubscriberHelp").build(), false);
-            return MESSAGE_BLOCK;
-        }
-        if ("取消订阅".equals(StringUtils.substring(event.getRawMessage(), 0, "取消订阅".length()))) {
-            String str = event.getRawMessage().replace("取消订阅", "").trim();
-            if (str.length() == 0) {
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().text("请在订阅后方填写要订阅的数字\n详情发送[订阅列表]查看").build(), false);
-                return MESSAGE_BLOCK;
-            }
-            if (!StringUtils.isNumber(str)) {
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().text("请在订阅后方填写要订阅的整数数字\n详情发送[订阅列表]查看").build(), false);
-                return MESSAGE_BLOCK;
-            }
-            WarframeSubscribeEnums enums = WarframeDataUpdateMission.getSubscribeEnums(Integer.valueOf(str));
-            if (enums.ordinal() == 0) {
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().text("订阅数字不正确，请发送[订阅列表] 查看具体数值").build(), false);
-                return MESSAGE_BLOCK;
-            }
-            WarframeMissionSubscribe subscribe1 = new WarframeMissionSubscribe(event.getGroupId(), "", bot.getSelfId(), enums.ordinal());
-            List<WarframeMissionSubscribe> subscribes = service.selectWarframeMissionSubscribeList(subscribe1);
-            if (subscribes.size() != 0) {
-                if (!GroupAddApi.isAdmin(bot, event)) {
-                    for (WarframeMissionSubscribe subscribe : subscribes) {
-                        if (subscribe.getSubscribeUser() != null) {
-                            if (subscribe.getSubscribeUser().length() != 0) {
-                                Msg.builder().text("不可以取消群订阅！\n群内有其它玩家订阅了此内容！").sendToGroup(bot, event);
-                                return MESSAGE_BLOCK;
-                            }
-                        }
-                    }
-                }
-            }
-            int i = service.deleteWarframeMissionSubscribe(subscribe1);
-            if (i > 0) {
-                Msg.builder().text("成功取消 [" + enums.getName() + "] 订阅").sendToGroup(bot, event);
-                return MESSAGE_BLOCK;
-            } else {
-                Msg.builder().text("从未有过此订阅").sendToGroup(bot, event);
-                return MESSAGE_BLOCK;
-            }
-        }
-        if ("私人订阅".equals(StringUtils.substring(event.getRawMessage(), 0, "私人订阅".length()))) {
-            String str = event.getRawMessage().replace("私人订阅", "").trim();
-            if (str.length() == 0) {
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().at(event.getUserId()).text("请在订阅后方填写要订阅的数字\n详情发送[订阅列表]查看").build(), false);
-                return MESSAGE_BLOCK;
-            }
-            if (!StringUtils.isNumber(str)) {
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().at(event.getUserId()).text("请在订阅后方填写要订阅的整数数字\n详情发送[订阅列表]查看").build(), false);
-                return MESSAGE_BLOCK;
-            }
-
-            WarframeSubscribeEnums enums = WarframeDataUpdateMission.getSubscribeEnums(Integer.valueOf(str));
-            if (enums.ordinal() == 0) {
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().at(event.getUserId()).text("订阅数字不正确，请发送[订阅列表] 查看具体数值").build(), false);
-                return MESSAGE_BLOCK;
-            }
-            int i = service.updateWarframeMissionSubscribeUser(new WarframeMissionSubscribe(event.getGroupId(), String.valueOf(event.getUserId()), bot.getSelfId(), enums.ordinal()));
-            if (i > 0) {
-                Msg.builder().at(event.getUserId()).text("成功订阅 : " + enums.getName()).sendToGroup(bot, event);
-                return MESSAGE_BLOCK;
-            } else {
-                Msg.builder().at(event.getUserId()).text(enums.getName() + ",已经订阅过了").sendToGroup(bot, event);
-                return MESSAGE_BLOCK;
-            }
-        }
-        if ("取消私人订阅".equals(StringUtils.substring(event.getRawMessage(), 0, "取消私人订阅".length()))) {
-            String str = event.getRawMessage().replace("取消私人订阅", "").trim();
-            if (str.length() == 0) {
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().at(event.getUserId()).text("请在订阅后方填写要订阅的数字\n详情发送[订阅列表]查看").build(), false);
-                return MESSAGE_BLOCK;
-            }
-            if (!StringUtils.isNumber(str)) {
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().at(event.getUserId()).text("请在订阅后方填写要订阅的整数数字\n详情发送[订阅列表]查看").build(), false);
-                return MESSAGE_BLOCK;
-            }
-            WarframeSubscribeEnums enums = WarframeDataUpdateMission.getSubscribeEnums(Integer.valueOf(str));
-            if (enums.ordinal() == 0) {
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().at(event.getUserId()).text("订阅数字不正确，请发送[订阅列表] 查看具体数值").build(), false);
-                return MESSAGE_BLOCK;
-            }
-            WarframeMissionSubscribe subscribe1 = new WarframeMissionSubscribe(event.getGroupId(), String.valueOf(event.getUserId()), bot.getSelfId(), enums.ordinal());
-            int i = service.deleteWarframeMissionSubscribeUser(subscribe1);
-            if (i > 0) {
-                Msg.builder().at(event.getUserId()).text("成功取消 [" + enums.getName() + "] 订阅").sendToGroup(bot, event);
-                return MESSAGE_BLOCK;
-            } else {
-                Msg.builder().at(event.getUserId()).text("从未有过此订阅").sendToGroup(bot, event);
-                return MESSAGE_BLOCK;
-            }
-        }
-        if ("订阅".equals(StringUtils.substring(event.getRawMessage(), 0, "订阅".length()))) {
-            String str = event.getRawMessage().replace("订阅", "").trim();
-            if (str.length() == 0) {
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().text("请在订阅后方填写要订阅的数字\n详情发送[订阅列表]查看").build(), false);
-                return MESSAGE_BLOCK;
-            }
-            if (!StringUtils.isNumber(str)) {
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().text("请在订阅后方填写要订阅的整数数字\n详情发送[订阅列表]查看").build(), false);
-                return MESSAGE_BLOCK;
-            }
-            WarframeSubscribeEnums enums = WarframeDataUpdateMission.getSubscribeEnums(Integer.valueOf(str));
-            if (enums.ordinal() == 0) {
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().text("订阅数字不正确，请发送[订阅列表] 查看具体数值").build(), false);
-                return MESSAGE_BLOCK;
-            }
-            int i = service.updateWarframeMissionSubscribeUser(new WarframeMissionSubscribe(event.getGroupId(), "", bot.getSelfId(), enums.ordinal()));
-            if (i > 0) {
-                Msg.builder().text("成功订阅 : " + enums.getName()).sendToGroup(bot, event);
-                return MESSAGE_BLOCK;
-            } else {
-                Msg.builder().text(enums.getName() + ",已经订阅过了").sendToGroup(bot, event);
-                return MESSAGE_BLOCK;
-            }
-        }
-        return MESSAGE_IGNORE;
+       return MESSAGE_IGNORE;
     }
 
     @Override
