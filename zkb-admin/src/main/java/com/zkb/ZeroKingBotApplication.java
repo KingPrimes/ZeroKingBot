@@ -15,7 +15,7 @@ public class ZeroKingBotApplication {
     private static final Logger log = LoggerFactory.getLogger(ZeroKingBotApplication.class);
     public static void main(String[] args) {
         SpringApplication.run(ZeroKingBotApplication.class, args);
-        //OkHttpWebSocket.init();
+        OkHttpWebSocket.init();
         log.info("启动成功！");
     }
 }
