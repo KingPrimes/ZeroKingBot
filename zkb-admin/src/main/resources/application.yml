@@ -66,6 +66,7 @@ shiro:
     - com.zkb.bot.warframe.plugin.WarframePlugin
     - com.zkb.bot.warframe.plugin.WarframeSubscribePlugin
     - com.zkb.bot.imagetogif.plugin.GifImagePlugin
+    - com.zkb.plugin.ImagePlugin
 
 
 task:

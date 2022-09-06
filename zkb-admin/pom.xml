@@ -65,7 +65,11 @@
             <artifactId>zkb-image-togif</artifactId>
         </dependency>
 
-
+        <!--图片模块-->
+        <dependency>
+            <groupId>com.zkb</groupId>
+            <artifactId>zkb-images</artifactId>
+        </dependency>
 
         <!--JavaX 模块-->
         <dependency>

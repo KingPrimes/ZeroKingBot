@@ -12,7 +12,7 @@
     <name>ZeroKingBot</name>
 
     <properties>
-        <zkb.version>4.1.7.7</zkb.version>
+        <zkb.version>4.1.7.8</zkb.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -150,11 +150,13 @@
                 <version>${zkb.version}</version>
             </dependency>
 
+            <!--图片模块-->
             <dependency>
                 <groupId>com.zkb</groupId>
-                <artifactId>zkb-image</artifactId>
+                <artifactId>zkb-images</artifactId>
                 <version>${zkb.version}</version>
             </dependency>
+
             <!--Bot关键词回复模块-->
             <dependency>
                 <groupId>com.zkb</groupId>
@@ -246,6 +248,7 @@
         <module>zkb-warframe</module>
         <module>zkb-aiml</module>
         <module>zkb-image-togif</module>
+        <module>zkb-images</module>
     </modules>
 
 

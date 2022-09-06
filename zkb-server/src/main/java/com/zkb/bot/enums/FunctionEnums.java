@@ -13,6 +13,9 @@ public enum FunctionEnums {
     FUNCTION_AI("ai"),
 
     FUNCTION_GIF("gif"),
+
+    FUNCTION_IMAGE("image"),
+
     /**
      * 开启WF
      */
@@ -21,10 +24,13 @@ public enum FunctionEnums {
      * 开启AI
      */
     ON_AI("开启AI"),
+
     /**
      * 开启Gif图片生成
      */
     ON_GIF("开启GIF"),
+
+    ON_IMAGE("开启涩图"),
 
     /**
      * 关闭WF
@@ -38,6 +44,9 @@ public enum FunctionEnums {
      * 关闭Gif图片生成
      */
     OFF_GIF("关闭GIF"),
+
+    OFF_IMAGE("关闭涩图"),
+
 
     ;
     private final String type;
