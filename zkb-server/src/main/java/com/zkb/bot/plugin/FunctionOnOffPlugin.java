@@ -56,6 +56,35 @@ public class FunctionOnOffPlugin extends BotPlugin {
             }
         }
 
+        //开启涩图
+        if (ON_IMAGE.getType().equals(event.getRawMessage().toUpperCase(Locale.ROOT))) {
+            if (GroupAddApi.isAdmin(bot, event)) {
+                int i = SpringUtils.getBean(GroupFunctionOnOffServer.class).updateGroupFunctionOnOff(new GroupFunctionOnOff(event.getGroupId(), String.valueOf(FUNCTION_IMAGE.ordinal())));
+                if (i > 0) {
+                    bot.sendGroupMsg(event.getGroupId(), "开启涩图功能", false);
+                } else {
+                    bot.sendGroupMsg(event.getGroupId(), "已开启过了", false);
+                }
+                return MESSAGE_BLOCK;
+            } else {
+                Msg.builder().text("没有权限！").sendToGroup(bot, event);
+                return MESSAGE_BLOCK;
+            }
+        }
+        //关闭涩图
+        if (ON_IMAGE.getType().equals(event.getRawMessage().toUpperCase(Locale.ROOT))) {
+            if (GroupAddApi.isAdmin(bot, event)) {
+                int i = SpringUtils.getBean(GroupFunctionOnOffServer.class).deleteGroupFunctionOnOff(new GroupFunctionOnOff(event.getGroupId(), String.valueOf(FUNCTION_IMAGE.ordinal())));
+                if (i > 0) {
+                    bot.sendGroupMsg(event.getGroupId(), "已关闭涩图功能", false);
+                }
+                return MESSAGE_BLOCK;
+            } else {
+                Msg.builder().text("没有权限！").sendToGroup(bot, event);
+                return MESSAGE_BLOCK;
+            }
+        }
+
         //开启AI
         if (ON_AI.getType().equals(event.getRawMessage().toUpperCase(Locale.ROOT))) {
             if (GroupAddApi.isAdmin(bot, event)) {
@@ -116,7 +145,6 @@ public class FunctionOnOffPlugin extends BotPlugin {
         }
 
         if ("help".equals(event.getRawMessage().toLowerCase(Locale.ROOT))) {
-
             Msg.builder()
                     .text("语雀文档:\nhttps://www.yuque.com/kingprimes/twgbot\n")
                     .text("B站主页:\nhttps://space.bilibili.com/16131052\n")

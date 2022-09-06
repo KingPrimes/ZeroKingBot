@@ -15,7 +15,9 @@ import javax.annotation.PreDestroy;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Properties;
 
 @Component
@@ -89,6 +91,19 @@ public class LoadConfig {
                 Files.copy(in, file.toPath());
             } catch (Exception e) {
                 log.error("创建db数据库失败，错误信息：{}",e.getMessage());
+            }
+
+        }else{
+            try{
+                long lastModifiedCopy = file.lastModified();
+                long last = new File(Objects.requireNonNull(LoadConfig.class.getResource("/data.db3")).toURI()).lastModified();
+                if (last>lastModifiedCopy){
+                    InputStream in = LoadConfig.class.getResourceAsStream("/data.db3");
+                    assert in != null;
+                    Files.copy(in, file.toPath());
+                }
+            }catch (Exception e){
+                log.error(e.getMessage());
             }
 
         }
