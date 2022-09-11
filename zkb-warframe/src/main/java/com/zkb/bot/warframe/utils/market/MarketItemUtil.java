@@ -23,6 +23,7 @@ import com.zkb.bot.warframe.service.IWarframeMarketItemsService;
 import com.zkb.bot.warframe.task.RivenDispositionUpdatesTask;
 import com.zkb.bot.warframe.utils.WarframeStringUtils;
 import com.zkb.common.load.LoadConfig;
+import com.zkb.common.load.ReadAdminConfig;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.http.HttpUtils;
 import com.zkb.common.utils.ip.GetServerPort;
@@ -209,7 +210,7 @@ public class MarketItemUtil {
      * 给管理员发送可能恶意使用指令的消息
      */
     private static void toErrMsg(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
-        long admin = LoadConfig.getAdmin();
+        long admin = ReadAdminConfig.getAdmin();
         if (admin != 0)
             bot.sendPrivateMsg(admin, StringUtils.format("昵称:{}\n{}:在查询" + event.getRawMessage() + "时没有查询到物品\n群号:{}", PrivateAddApi.getPrivateNick(event.getUserId()), event.getUserId(), event.getGroupId()), false);
     }

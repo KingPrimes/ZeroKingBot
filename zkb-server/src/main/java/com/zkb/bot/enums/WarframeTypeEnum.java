@@ -1,6 +1,14 @@
 package com.zkb.bot.enums;
 
 
+import com.zkb.common.load.ReadWarframeConfig;
+
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Properties;
+
 public enum WarframeTypeEnum {
     /**
      * Market 赤毒武器搜索
@@ -48,25 +56,22 @@ public enum WarframeTypeEnum {
     TYPE_RES_RM("更新RM紫卡"),
     TYPE_CODE("指令"),
     REDIS_MISSION_KEY("warframe-data-the-provided-plat"),
-    ADMIN_QQ(1417333181),
     ;
 
     private String type;
-    private long l;
 
     WarframeTypeEnum(String s) {
         type = s;
     }
 
-    WarframeTypeEnum(long s) {
-        l = s;
-    }
 
     public String getType() {
         return type;
     }
 
-    public long getL() {
-        return l;
+    public WarframeTypeEnum setType(String type){
+        this.type = type;
+        return this;
     }
+
 }

@@ -63,6 +63,7 @@ shiro:
   plugin-list:
     - com.zkb.bot.plugin.FunctionOnOffPlugin
     - com.zkb.bot.group.plugin.JoinGroupVerifyCodePlugin
+    - com.zkb.bot.warframe.plugin.WarframeAdminPlugin
     - com.zkb.bot.warframe.plugin.WarframePlugin
     - com.zkb.bot.warframe.plugin.WarframeSubscribePlugin
     - com.zkb.bot.imagetogif.plugin.GifImagePlugin

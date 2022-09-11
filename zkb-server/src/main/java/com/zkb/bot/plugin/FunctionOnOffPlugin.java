@@ -3,6 +3,7 @@ package com.zkb.bot.plugin;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.core.BotPlugin;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
+import com.mikuac.shiro.dto.event.message.PrivateMessageEvent;
 import com.zkb.bot.domain.GroupFunctionOnOff;
 import com.zkb.bot.server.GroupFunctionOnOffServer;
 import com.zkb.bot.utils.GroupAddApi;
@@ -24,7 +25,6 @@ public class FunctionOnOffPlugin extends BotPlugin {
 
 
     @Override
-
     public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
 
         //开启WF
@@ -131,7 +131,6 @@ public class FunctionOnOffPlugin extends BotPlugin {
         }
         if (OFF_GIF.getType().equals(event.getRawMessage().toUpperCase(Locale.ROOT))) {
             if (GroupAddApi.isAdmin(bot, event)) {
-
                 int i = SpringUtils.getBean(GroupFunctionOnOffServer.class).deleteGroupFunctionOnOff(new GroupFunctionOnOff(event.getGroupId(), String.valueOf(FUNCTION_GIF.ordinal())));
                 if (i > 0) {
                     bot.sendGroupMsg(event.getGroupId(), "关闭GIF功能", false);
@@ -155,5 +154,6 @@ public class FunctionOnOffPlugin extends BotPlugin {
 
         return MESSAGE_IGNORE;
     }
+
 
 }

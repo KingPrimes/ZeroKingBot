@@ -27,7 +27,8 @@ public class LoadConfig {
     private static final Logger log = LoggerFactory.getLogger(LoadConfig.class);
 
     private static final String HTML_PATH = "./ZKBotHtml";
-    public static Properties prop = new Properties();
+
+
 
     @PostConstruct
     public void init(){
@@ -42,29 +43,19 @@ public class LoadConfig {
 
     }
 
-    private static void initConfig() {
-        try {
-            prop.load(Files.newInputStream(Paths.get(System.getProperty("user.dir") + "/config.ini")));
-        } catch (Exception e) {
-            log.error("读取config.ini文件出错，错误信息：{}", e.getMessage());
-        }
 
-    }
-
-    public static long getAdmin() {
-        initConfig();
-        String admin = prop.getProperty("admin");
-        if (StringUtils.isNumber(admin)) return Long.parseLong(admin);
-        return 0;
-    }
 
     //判断配置文件是否存在不存在则新建一个配置文件
     @PostConstruct
     public void WriteConfigFile() {
         //config
-        File file = new File("./config.ini");
+        File file = new File("./config/config.ini");
         if (!file.isFile()) {
             try {
+                File db = new File("./config");
+                if (!db.isFile()) {
+                    db.mkdirs();
+                }
                 InputStream in = LoadConfig.class.getResourceAsStream("/cfg.txt");
                 assert in != null;
                 Files.copy(in, file.toPath());
@@ -75,6 +66,27 @@ public class LoadConfig {
 
         }
 
+    }
+
+    //创建Warframe指令配置文件
+    @PostConstruct
+    public void WriteWarframeConfigFile(){
+        File file = new File("./config/warframeConfig.ini");
+        if (!file.isFile()) {
+            try {
+                File db = new File("./config");
+                if (!db.isFile()) {
+                    db.mkdirs();
+                }
+                InputStream in = LoadConfig.class.getResourceAsStream("/warframe.yml");
+                assert in != null;
+                Files.copy(in, file.toPath());
+
+            } catch (Exception e) {
+                log.error("创建warframeConfig.ini失败，错误信息：{}",e.getMessage());
+            }
+
+        }
     }
 
     @PostConstruct

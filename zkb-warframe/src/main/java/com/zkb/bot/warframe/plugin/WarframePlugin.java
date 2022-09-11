@@ -6,23 +6,19 @@ import com.mikuac.shiro.core.BotPlugin;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.mikuac.shiro.dto.event.message.PrivateMessageEvent;
 import com.zkb.bot.enums.FunctionEnums;
-import com.zkb.bot.enums.WarframeSubscribeEnums;
+import com.zkb.bot.enums.WarframeTypeEnum;
 import com.zkb.bot.utils.ErroSendMessage;
-import com.zkb.bot.utils.GroupAddApi;
 import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.SelectGroupFunctionOnOff;
-import com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe;
-import com.zkb.bot.warframe.service.IWarframeMissionSubscribeService;
 import com.zkb.bot.warframe.service.IWarframeTranslationService;
 import com.zkb.bot.warframe.task.RivenDispositionUpdatesTask;
-import com.zkb.bot.warframe.utils.WarframeDataUpdateMission;
 import com.zkb.bot.warframe.utils.WarframeStringUtils;
 import com.zkb.bot.warframe.utils.WarframeTraUtils;
 import com.zkb.bot.warframe.utils.market.MarketItemUtil;
 import com.zkb.bot.warframe.utils.market.MarketLichAndSisterUtil;
 import com.zkb.bot.warframe.utils.market.MarketRivenUtil;
 import com.zkb.bot.warframe.utils.market.RenewMarketUtil;
-import com.zkb.common.load.LoadConfig;
+import com.zkb.common.load.ReadAdminConfig;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.spring.SpringUtils;
@@ -34,7 +30,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimerTask;
 
@@ -244,46 +239,6 @@ public class WarframePlugin extends BotPlugin {
        return MESSAGE_IGNORE;
     }
 
-    @Override
-    public int onPrivateMessage(@NotNull Bot bot, @NotNull PrivateMessageEvent event) {
-        if (event.getUserId() == LoadConfig.getAdmin()) {
-            if (TYPE_RES_MARKET_ITEMS.getType().equals(event.getRawMessage())) {
-                int x = RenewMarketUtil.resMarketItems();
-                bot.sendPrivateMsg(event.getUserId(), "更新成功，共更新" + x + "条数据!", false);
-            }
-            if (TYPE_RES_MARKET_RIVEN.getType().equals(event.getRawMessage())) {
-                int x = RenewMarketUtil.resMarketRiven();
-                bot.sendPrivateMsg(event.getUserId(), "更新成功，共更新" + x + "条数据!", false);
-            }
-            if ("更新紫卡倾向变动".equals(event.getRawMessage())) {
-                try {
-                    new RivenDispositionUpdatesTask().renewRivenDisposition();
-                    bot.sendPrivateMsg(event.getUserId(), "已执行请稍后，在群内使用 紫卡倾向变动查看", false);
-                    return 1;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            if ("更新信条".equals(event.getRawMessage())) {
-                Msg msg = new Msg();
-                int[] i = RenewMarketUtil.resMarketSister();
-                msg.text("更新信条武器条数：" + i[0])
-                        .text("\n更新信条幻纹条数：" + i[1])
-                        .build();
-                bot.sendPrivateMsg(event.getUserId(), msg.build(), false);
-            }
-            if ("更新翻译".equals(event.getRawMessage())) {
-                bot.sendPrivateMsg(event.getUserId(), "正在准备更新", false);
-                int i = SpringUtils.getBean(WarframeTraUtils.class).getUserDict();
-                bot.sendPrivateMsg(event.getUserId(), "更新完成，共更新：" + i + "条数据", false);
 
-            }
-            if (TYPE_CODE.getType().equals(event.getRawMessage())) {
-                bot.sendPrivateMsg(event.getUserId(), "更新WM物品\n更新WM紫卡\n更新信条\n更新翻译\n更新紫卡倾向变动", false);
-            }
-
-        }
-        return 0;
-    }
 
 }
