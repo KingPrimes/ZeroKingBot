@@ -23,6 +23,7 @@
 项目介绍
 ---
 ---
+
 - <p>原名 <a href="https://github.com/KingPrimes/TWGBot">TWGBot</a> 现已更名为 <a href="https://github.com/KingPrimes/ZeroKingBot">ZeroKingBot</a></p>
 - 图片渲染
   <br/>
@@ -34,29 +35,32 @@
 更新计划
 ---
 ---
+
 - 作者最近在找工作可能有一段时间不会更新此机器人了
 
 项目部署
 ---
 ---
+
 - [Windows部署文档](./readme/win.md)
 - [Linux部署文档](./readme/4173%2B/liunx.md)
 - [最新视频部署教程](https://b23.tv/tnLP86i)
 
-
 使用文档
 ---
 ---
-- [文档链接](https://www.yuque.com/kingprimes/twgbot)
 
+- [文档链接](https://www.yuque.com/kingprimes/twgbot)
+- [WarframeMarket战甲别名](./readme/warframe-alias.md)
 
 服务器资源推荐
 ---
+
 - [阿里云优惠](https://www.aliyun.com/minisite/goods?userCode=8dt5pt0g&share_source=copy_link)
 - [腾讯云优惠](https://cloud.tencent.com/act/pro/cps_3?fromSource=gwzcw.6688284.6688284.6688284&cps_key=ae3b8b6e55495d8bc53f2227ea0273d8)
 - [腾讯云免费体验](https://cloud.tencent.com/act/free)
 
-贡献者  ✨
+贡献者 ✨
 ---
 ---
 
@@ -76,6 +80,7 @@
             <br />
             <sub><b>Wapriaily</b></sub>
         </a>
+        <p>Linux文档编辑</p>
     </td></tr>
 </table>
 <!-- readme: collaborators,contributors -end -->
@@ -90,6 +95,7 @@
 鸣谢
 ---
 ---
+
 - Thanks [JetBrains](https://www.jetbrains.com/?from=Shiro) Provide Free License Support OpenSource Project
 
 [<img src="https://mikuac.com/images/jetbrains-variant-3.png" width="200"/>](https://www.jetbrains.com/?from=mirai)
