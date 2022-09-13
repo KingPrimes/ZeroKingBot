@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkb.bot.warframe.mapper.WarframeMissionSubscribeMapper">
+
+    <resultMap type="com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe"
+               id="WarframeMissionSubscribeResult">
+        <result property="subscribeGroup" column="subscribe_group"/>
+        <result property="subscribeUser" column="subscribe_user"/>
+        <result property="subscriberBot" column="subscribe_bot"/>
+        <result property="subscribeMissionId" column="subscribe_mission_id"/>
+    </resultMap>
+
+    <sql id="selectWarframeMissionSubscribeVo">
+        SELECT subscribe_group,subscribe_user,subscribe_bot,subscribe_mission_id FROM wf_subscribe
+    </sql>
+
+    <!--条件查询,无条件则返回所有列表-->
+    <select id="selectWarframeMissionSubscribeList"
+            parameterType="com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe"
+            resultMap="WarframeMissionSubscribeResult">
+        <include refid="selectWarframeMissionSubscribeVo"/>
+        <where>
+            <if test="subscribeGroup != 0 and subscribeGroup != null">
+                AND subscribe_group = #{subscribeGroup}
+            </if>
+            <if test="subscribeUser != '' and subscribeUser != null">
+                AND subscribe_user like '%'||#{subscribeUser}||'%'
+            </if>
+            <if test="subscriberBot != 0 and subscriberBot != null">
+                AND subscribe_bot = #{subscriberBot}
+            </if>
+            <if test="subscribeMissionId != '' and subscribeMissionId != null">
+                AND subscribe_mission_id = #{subscribeMissionId}
+            </if>
+        </where>
+    </select>
+
+    <!--添加订阅-->
+    <insert id="insertWarframeMissionSubscribe"
+            parameterType="com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe">
+        INSERT OR IGNORE INTO wf_subscribe
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="subscribeGroup != 0 and subscribeGroup != null">subscribe_group,</if>
+            <if test="subscribeUser != '' and subscribeUser != null">subscribe_user,</if>
+            <if test="subscriberBot != 0 and subscriberBot != null">subscribe_bot,</if>
+            <if test="subscribeMissionId != null">subscribe_mission_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="subscribeGroup != 0 and subscribeGroup != null">#{subscribeGroup},</if>
+            <if test="subscribeUser != '' and subscribeUser != null">#{subscribeUser},</if>
+            <if test="subscriberBot != 0 and subscriberBot != null">#{subscriberBot},</if>
+            <if test="subscribeMissionId != null">#{subscribeMissionId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateWarframeMissionSubscribe"
+            parameterType="com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe">
+        UPDATE wf_subscribe
+        <trim prefix="SET" suffixOverrides=",">
+            subscribe_user = #{subscribeUser},
+        </trim>
+        WHERE subscribe_group = #{subscribeGroup} AND subscribe_mission_id = #{subscribeMissionId}
+        <if test="subscriberBot != 0 and subscriberBot != null">
+            AND subscribe_bot = #{subscriberBot}
+        </if>
+    </update>
+
+    <!--移除订阅-->
+    <delete id="deleteWarframeMissionSubscribe"
+            parameterType="com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe">
+        DELETE FROM wf_subscribe WHERE subscribe_group = #{subscribeGroup} AND
+        subscribe_mission_id = #{subscribeMissionId}
+        <if test="subscriberBot != 0 and subscriberBot != null">
+            AND subscribe_bot = #{subscriberBot}
+        </if>
+    </delete>
+
+</mapper>

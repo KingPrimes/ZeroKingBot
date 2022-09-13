@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkb.bot.aiml.mapper.IssueReplyMapper">
+
+    <resultMap type="com.zkb.bot.aiml.domain.IssueReply" id="IssueReplyResult">
+        <result property="msgId" column="msg_id"/>
+        <result property="msgIssue" column="msg_issue"/>
+        <result property="msgIssueImage" column="msg_issue_image"/>
+        <result property="msgIssueFace" column="msg_issue_face"/>
+        <result property="msgReply" column="msg_reply"/>
+        <result property="msgReplyImage" column="msg_reply_image"/>
+        <result property="msgCreateTime" column="msg_create_time"/>
+        <result property="msgCreateGroup" column="msg_create_group"/>
+        <result property="msgCreateMember" column="msg_create_member"/>
+    </resultMap>
+
+    <resultMap id="LeaderboardResult" type="com.zkb.bot.aiml.domain.Leaderboard">
+        <result property="count" column="c"/>
+        <result property="msgCreateGroup" column="msg_create_group"/>
+        <result property="msgCreateMember" column="msg_create_member"/>
+    </resultMap>
+
+    <sql id="selectIssueReplyVo">
+        select msg_id, msg_issue, msg_issue_image, msg_issue_face, msg_reply, msg_reply_image, msg_create_time,
+        msg_create_group, msg_create_member from bot_issue_reply
+    </sql>
+
+    <select id="selectIssueReplyList" parameterType="IssueReply" resultMap="IssueReplyResult">
+        <include refid="selectIssueReplyVo"/>
+        <where>
+            <if test="msgIssue != null and msgIssue != ''">
+                INSTR(#{msgIssue},msg_issue)
+            </if>
+            <if test="msgIssueImage != null and msgIssueImage != ''">and msg_issue_image = #{msgIssueImage}</if>
+            <if test="msgIssueFace != null and msgIssueFace != ''">and msg_issue_face = #{msgIssueFace}</if>
+            <if test="msgReply != null and msgReply != ''">and INSTR(#{msgReply},msg_reply)</if>
+            <if test="msgReplyImage != null and msgReplyImage != ''">and msg_reply_image = #{msgReplyImage}</if>
+            <if test="msgCreateTime != null ">and msg_create_time = #{msgCreateTime}</if>
+            <if test="msgCreateGroup != null and msgCreateGroup != ''">and msg_create_group = #{msgCreateGroup}</if>
+            <if test="msgCreateMember != null and msgCreateMember != ''">and msg_create_member = #{msgCreateMember}</if>
+        </where>
+    </select>
+
+    <select id="selectIssueReplyByMsgIssue" parameterType="IssueReply" resultMap="IssueReplyResult">
+        <include refid="selectIssueReplyVo"/>
+        <where>
+            <if test="msgIssue != null">
+                INSTR(#{msgIssue},msg_issue)
+            </if>
+            <if test="msgIssueImage != null">
+                and INSTR(#{msgIssueImage},msg_issue_image)
+            </if>
+            <if test="msgIssueFace != null">
+                and INSTR(#{msgIssueFace},msg_issue_face)
+            </if>
+        </where>
+    </select>
+
+    <select id="selectIssueReplyBuMsgId" parameterType="Integer" resultMap="IssueReplyResult">
+        <include refid="selectIssueReplyVo"/>
+        <where>
+            <if test="msgId != null">
+                msg_id = #{msgId}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selectIssueReplyLeaderboardList" resultMap="LeaderboardResult">
+        SELECT
+        a.msg_create_group,
+        count(*) AS c,
+        a.msg_create_member
+        FROM
+        ( SELECT * FROM bot_issue_reply WHERE DATEDIFF( msg_create_time, NOW())=- 1 ) AS a
+        GROUP BY
+        a.msg_create_group,
+        a.msg_create_member
+        ORDER BY
+        c DESC
+    </select>
+
+    <insert id="insertIssueReply" parameterType="IssueReply" useGeneratedKeys="true">
+        insert OR IGNORE into bot_issue_reply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="msgId != null and msgId != ''">msg_id,</if>
+            <if test="msgIssue != null and msgIssue != ''">msg_issue,</if>
+            <if test="msgIssueImage != null and msgIssueImage != ''">msg_issue_image,</if>
+            <if test="msgIssueFace != null and msgIssueFace != ''">msg_issue_face,</if>
+            <if test="msgReply != null and msgReply != ''">msg_reply,</if>
+            <if test="msgReplyImage != null and msgReplyImage != ''">msg_reply_image,</if>
+            <if test="msgCreateTime != null">msg_create_time,</if>
+            <if test="msgCreateGroup != null and msgCreateGroup != ''">msg_create_group,</if>
+            <if test="msgCreateMember != null and msgCreateMember != ''">msg_create_member,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="msgId != null and msgId != ''">#{msgId},</if>
+            <if test="msgIssue != null and msgIssue != ''">#{msgIssue},</if>
+            <if test="msgIssueImage != null and msgIssueImage != ''">#{msgIssueImage},</if>
+            <if test="msgIssueFace != null and msgIssueFace != ''">#{msgIssueFace},</if>
+            <if test="msgReply != null and msgReply != ''">#{msgReply},</if>
+            <if test="msgReplyImage != null and msgReplyImage != ''">#{msgReplyImage,jdbcType=BLOB},</if>
+            <if test="msgCreateTime != null">#{msgCreateTime},</if>
+            <if test="msgCreateGroup != null and msgCreateGroup != ''">#{msgCreateGroup},</if>
+            <if test="msgCreateMember != null and msgCreateMember != ''">#{msgCreateMember},</if>
+        </trim>
+    </insert>
+
+    <update id="updateIssueReply" parameterType="IssueReply">
+        update bot_issue_reply
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="msgIssue != null and msgIssue != ''">msg_issue = #{msgIssue},</if>
+            <if test="msgIssueImage != null and msgIssueImage != ''">msg_issue_image = #{msgIssueImage},</if>
+            <if test="msgIssueFace != null and msgIssueFace != ''">msg_issue_face = #{msgIssueFace},</if>
+            <if test="msgReply != null and msgReply != ''">msg_reply = #{msgReply},</if>
+            <if test="msgReplyImage != null and msgReplyImage != ''">msg_reply_image = #{msgReplyImage},</if>
+            <if test="msgCreateGroup != null and msgCreateGroup != ''">msg_create_group = #{msgCreateGroup},</if>
+            <if test="msgCreateMember != null and msgCreateMember != ''">msg_create_member = #{msgCreateMember},</if>
+        </trim>
+        where msg_id = #{msgId}
+    </update>
+
+    <delete id="deleteIssueReplyByMsgId" parameterType="Integer">
+        delete from bot_issue_reply where msg_id = #{msgId}
+    </delete>
+
+    <delete id="deleteIssueReplyByMsgIds" parameterType="String">
+        delete from bot_issue_reply where msg_id in
+        <foreach item="msgId" collection="array" open="(" separator="," close=")">
+            #{msgId}
+        </foreach>
+    </delete>
+</mapper>

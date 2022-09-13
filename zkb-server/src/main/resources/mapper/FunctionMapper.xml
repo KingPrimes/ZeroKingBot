@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkb.bot.mapper.FunctionMapper">
+
+    <resultMap type="com.zkb.bot.domain.Function" id="FunctionResult">
+        <result property="functionId" column="function_id"/>
+        <result property="functionName" column="function_name"/>
+        <result property="functionIntroduction" column="function_introduction"/>
+    </resultMap>
+
+    <sql id="selectFunctionVo">
+        select function_id, function_name, function_introduction from bot_function
+    </sql>
+
+    <select id="selectFunctionList" parameterType="Function" resultMap="FunctionResult">
+        <include refid="selectFunctionVo"/>
+        <where>
+            <if test="functionId != null and functionId != ''">
+                AND function_id = #{functionId}
+            </if>
+            <if test="functionName != null and functionName != ''">
+                AND function_name = #{functionName}
+            </if>
+            <if test="functionIntroduction != null and functionIntroduction != ''">
+                AND function_introduction = #{functionIntroduction}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectFunctionByName" parameterType="String" resultMap="FunctionResult">
+        <include refid="selectFunctionVo"/>
+        where function_name = #{functionName}
+    </select>
+
+    <insert id="insertFunction" parameterType="com.zkb.bot.domain.Function" useGeneratedKeys="true">
+        insert OR IGNORE into bot_function
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="functionId != null and functionId != ''">function_id,</if>
+            <if test="functionName != null and functionName != ''">function_name,</if>
+            <if test="functionIntroduction != null and functionIntroduction != ''">function_introduction,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="functionId != null and functionId != ''">#{functionId},</if>
+            <if test="functionName != null and functionName != ''">#{functionName},</if>
+            <if test="functionIntroduction != null and functionIntroduction != ''">#{functionIntroduction},</if>
+        </trim>
+    </insert>
+
+
+</mapper>

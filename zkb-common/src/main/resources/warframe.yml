@@ -1,0 +1,43 @@
+# Warframe 指令配置 所有命令都不区分大小写
+TYPE_ASSAULT_PLUGIN : 突击
+TYPE_ARBITRATION_PLUGIN : 仲裁
+TYPE_ALL_CYCLE_PLUGIN : 平原
+TYPE_DAILY_DEALS_PLUGIN : 每日特惠
+TYPE_INVASIONS_PLUGIN : 入侵
+TYPE_FISSUES_PLUGIN : 裂隙
+TYPE_NIGH_TWAVE_PLUGIN : 电波
+TYPE_RIVEN_DIS_UPDATE_PLUGIN : 紫卡倾向变动
+TYPE_TRA_PLUGIN : 翻译
+TYPE_VOID_PLUGIN : 奸商
+TYPE_STEEL_PATH_PLUGIN : 钢铁
+TYPE_RELICS_PLUGIN : 核桃
+#--------------------------------------------------
+
+# Warframe Market 指令
+TYPE_WM_PLUGIN : /WM
+TYPE_MARKET_MAX : 满级
+TYPE_MARKET_BY : 买家
+TYPE_MARKET_SET : 卖家
+#--------------------------------------------------
+
+# Warframe Market Riven紫卡查询指令
+TYPE_WR_PLUGIN : /WR
+#--------------------------------------------------
+
+#Warframe Market 赤毒/信条 武器查询指令
+TYPE_C_PLUGIN : /C
+TYPE_X_PLUGIN : /X
+#--------------------------------------------------
+
+# Wiki指令
+TYPE_WIKI_PLUGIN : /WIKI
+#--------------------------------------------------
+
+# 查询 金银垃圾
+TYPE_MARKET_GOD_DUMP : 金垃圾
+TYPE_MARKET_SILVER_DUMP : 银垃圾
+#--------------------------------------------------
+
+# 模拟开核桃指令
+TYPE_OPEN_RELICS_PLUGIN : 开核桃
+#--------------------------------------------------

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkb.bot.warframe.mapper.WarframeMarketRivenTionMapper">
+
+    <resultMap type="com.zkb.bot.warframe.domain.market.WarframeMarketRivenTion" id="WarframeMarketRivenTionResult">
+        <result property="effect" column="effect"/>
+        <result property="exclusiveTo" column="exclusive_to"/>
+        <result property="group" column="group"/>
+        <result property="negativeOnly" column="negative_only"/>
+        <result property="positiveIsNegative" column="positive_is_negative"/>
+        <result property="prefix" column="prefix"/>
+        <result property="searchOnly" column="search_only"/>
+        <result property="suffix" column="suffix"/>
+        <result property="units" column="units"/>
+        <result property="urlName" column="url_name"/>
+    </resultMap>
+
+    <sql id="selectWarframeMarketRivenTionVo">
+        select effect,
+        exclusive_to,
+        `group`,
+        negative_only,
+        positive_is_negative,
+        prefix,
+        search_only,
+        suffix,
+        units,
+        url_name
+        from wf_market_riven_tion
+    </sql>
+
+    <select id="selectWarframeMarketRivenTionList"
+            parameterType="com.zkb.bot.warframe.domain.market.WarframeMarketRivenTion"
+            resultMap="WarframeMarketRivenTionResult">
+        <include refid="selectWarframeMarketRivenTionVo"/>
+        <where>
+            <if test="effect != null  and effect != ''">and effect like concat('%', #{effect}, '%')</if>
+            <if test="group != null  and group != ''">and `group` like '%'||#{group}||'%'</if>
+            <if test="urlName != null  and urlName != ''">and url_name like '%'||#{urlName}||'%'</if>
+        </where>
+    </select>
+
+    <select id="selectWarframeMarketRivenTionByUrlName" parameterType="String"
+            resultMap="WarframeMarketRivenTionResult">
+        <include refid="selectWarframeMarketRivenTionVo"/>
+        where url_name = #{urlName}
+    </select>
+
+    <select id="selectWarframeMarketRivenTionByEffect" parameterType="String" resultMap="WarframeMarketRivenTionResult">
+        <include refid="selectWarframeMarketRivenTionVo"/>
+        where upper(replace(effect,' ','')) like UPPER(replace('%'||#{effect}||'%',' ',''))
+    </select>
+
+    <insert id="insertWarframeMarketRivenTion" parameterType="java.util.List">
+        insert OR IGNORE into wf_market_riven_tion
+        (effect, exclusive_to, `group`, negative_only,positive_is_negative,prefix,search_only,suffix,units,url_name)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.effect},
+            #{item.exclusiveTo},
+            #{item.group},
+            #{item.negativeOnly},
+            #{item.positiveIsNegative},
+            #{item.prefix},
+            #{item.searchOnly},
+            #{item.suffix},
+            #{item.units},
+            #{item.urlName}
+            )
+        </foreach>
+    </insert>
+
+</mapper>
