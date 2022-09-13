@@ -80,7 +80,6 @@
             <br />
             <sub><b>Wapriaily</b></sub>
         </a>
-        <p>Linux文档编辑</p>
     </td></tr>
 </table>
 <!-- readme: collaborators,contributors -end -->
