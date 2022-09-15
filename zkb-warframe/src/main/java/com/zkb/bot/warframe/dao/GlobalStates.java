@@ -59,6 +59,7 @@ public class GlobalStates {
     @JsonProperty("fissures")
     private List<Fissures> fissures;
 
+
     @JsonProperty("globalUpgrades")
     private List<GlobalUpgrades> globalUpgrades;
 
@@ -145,6 +146,8 @@ public class GlobalStates {
         @JsonProperty("expiry")
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
         private Date expiry;
+        @JsonProperty("isHard")
+        private Boolean isHard;
         @JsonProperty("isStorm")
         private Boolean isStorm;
         @JsonProperty("active")

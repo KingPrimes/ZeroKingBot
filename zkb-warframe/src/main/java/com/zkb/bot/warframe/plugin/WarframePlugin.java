@@ -6,6 +6,7 @@ import com.mikuac.shiro.core.BotPlugin;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.mikuac.shiro.dto.event.message.PrivateMessageEvent;
 import com.zkb.bot.enums.FunctionEnums;
+import com.zkb.bot.enums.WarframeFissureTypeEnum;
 import com.zkb.bot.enums.WarframeTypeEnum;
 import com.zkb.bot.utils.ErroSendMessage;
 import com.zkb.bot.utils.Msg;
@@ -132,7 +133,25 @@ public class WarframePlugin extends BotPlugin {
         //裂隙
         if (TYPE_FISSUES_PLUGIN.getType().equals(event.getRawMessage()) || TYPE_FISSUESX_PLUGIN.getType().equals(event.getRawMessage())) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage").build(), false);
+                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/"+ WarframeFissureTypeEnum.ORDINARY).build(), false);
+            } else {
+                return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
+            }
+        }
+
+        //九重天裂隙
+        if (TYPE_FISSUES_EMPYREAN_PLUGIN.getType().equals(event.getRawMessage()) || TYPE_FISSUES_EMPYREAN_PLUGIN.getType().equals(event.getRawMessage())) {
+            if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
+                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/"+ WarframeFissureTypeEnum.STORM).build(), false);
+            } else {
+                return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
+            }
+        }
+
+        //钢铁裂隙
+        if (TYPE_FISSUES_PATH_PLUGIN.getType().equals(event.getRawMessage()) || TYPE_FISSUES_PATH_PLUGIN.getType().equals(event.getRawMessage())) {
+            if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
+                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/"+ WarframeFissureTypeEnum.HARD).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }

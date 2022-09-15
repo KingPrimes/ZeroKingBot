@@ -1,14 +1,6 @@
 package com.zkb.bot.enums;
 
 
-import com.zkb.common.load.ReadWarframeConfig;
-
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Properties;
-
 public enum WarframeTypeEnum {
     /**
      * Market 赤毒武器搜索
@@ -25,6 +17,10 @@ public enum WarframeTypeEnum {
     TYPE_DAILY_DEALS_PLUGIN("每日特惠"),
     TYPE_INVASIONS_PLUGIN("入侵"),
     TYPE_FISSUES_PLUGIN("裂隙"),
+
+    TYPE_FISSUES_EMPYREAN_PLUGIN("九重天裂隙"),
+
+    TYPE_FISSUES_PATH_PLUGIN("钢铁裂隙"),
     TYPE_FISSUESX_PLUGIN("裂缝"),
     TYPE_ALL_CYCLE_PLUGIN("平原"),
     TYPE_NIGH_TWAVE_PLUGIN("电波"),
