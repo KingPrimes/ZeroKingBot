@@ -7,11 +7,13 @@ import com.zkb.bot.domain.GroupFunctionOnOff;
 import com.zkb.bot.server.GroupFunctionOnOffServer;
 import com.zkb.bot.utils.GroupAddApi;
 import com.zkb.bot.utils.Msg;
+import com.zkb.common.utils.JarManifest;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
+import java.util.jar.Manifest;
 
 import static com.zkb.bot.enums.FunctionEnums.*;
 
@@ -143,6 +145,12 @@ public class FunctionOnOffPlugin extends BotPlugin {
                 return MESSAGE_BLOCK;
             }
 
+        }
+        if("版本".equals(event.getRawMessage())){
+            Manifest manifestFromClasspath = JarManifest.getManifestFromClasspath(FunctionOnOffPlugin.class);
+            assert manifestFromClasspath != null;
+            Msg.builder().text("ZeroKingBot的版本号为："+manifestFromClasspath.getMainAttributes().getValue("ZeroKingBot-Version")).sendToGroup(bot, event);
+            return MESSAGE_BLOCK;
         }
 
         if ("help".equals(event.getRawMessage().toLowerCase(Locale.ROOT))) {

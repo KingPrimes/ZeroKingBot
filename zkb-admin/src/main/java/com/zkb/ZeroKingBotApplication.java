@@ -19,4 +19,5 @@ public class ZeroKingBotApplication {
         OkHttpWebSocket.init();
         log.info("启动成功！");
     }
+
 }

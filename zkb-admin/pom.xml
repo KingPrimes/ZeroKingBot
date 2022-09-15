@@ -117,28 +117,6 @@
                 </executions>
 
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                        </manifest>
-                        <manifestEntries>
-                            <!--
-                                自定义MANIFEST.MF中的键值对，
-                                <键>值</键>
-                            -->
-                            <ZeroKingBot-Version>4.1.7.9</ZeroKingBot-Version>
-                        </manifestEntries>
-                    </archive>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <warName>${project.artifactId}</warName>
-                </configuration>
-            </plugin>
         </plugins>
 
         <finalName>ZeroKingBot</finalName>
