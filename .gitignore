@@ -30,7 +30,7 @@ temp-png/
 gocqhttp/
 target/
 db/
-config/
+./config/
 *.iml
 testJson
 *.rdb
