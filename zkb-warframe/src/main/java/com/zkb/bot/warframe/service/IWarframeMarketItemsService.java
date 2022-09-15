@@ -34,6 +34,7 @@ public interface IWarframeMarketItemsService {
 
     /**
      * 根据Id获取物品详情
+     *
      * @param id ID
      * @return 详细信息
      */

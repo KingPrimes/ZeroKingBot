@@ -16,8 +16,7 @@ import java.util.List;
  * @date 2021-05-26
  */
 @Service
-public class WarframeRelicsServiceImpl implements IWarframeRelicsService
-{
+public class WarframeRelicsServiceImpl implements IWarframeRelicsService {
     @Autowired
     private WarframeRelicsMapper WarframeRelicsMapper;
 
@@ -28,8 +27,7 @@ public class WarframeRelicsServiceImpl implements IWarframeRelicsService
      * @return 【请填写功能名称】
      */
     @Override
-    public WarframeRelics selectWarframeRelicsById(Integer relicsKeyId)
-    {
+    public WarframeRelics selectWarframeRelicsById(Integer relicsKeyId) {
         return WarframeRelicsMapper.selectWarframeRelicsById(relicsKeyId);
     }
 
@@ -40,15 +38,13 @@ public class WarframeRelicsServiceImpl implements IWarframeRelicsService
      * @return 【请填写功能名称】
      */
     @Override
-    public List<WarframeRelics> selectWarframeRelicsList(WarframeRelics WarframeRelics)
-    {
+    public List<WarframeRelics> selectWarframeRelicsList(WarframeRelics WarframeRelics) {
         return WarframeRelicsMapper.selectWarframeRelicsList(WarframeRelics);
     }
 
     /**
      * 根据key查询物品
-     *
-     * */
+     */
     @Override
     public List<WarframeRelics> selectWarframeRelicsByAll(String key) {
         return WarframeRelicsMapper.selectWarframeRelicsByAll(key);
@@ -61,8 +57,7 @@ public class WarframeRelicsServiceImpl implements IWarframeRelicsService
      * @return 结果
      */
     @Override
-    public int insertWarframeRelics(WarframeRelics WarframeRelics)
-    {
+    public int insertWarframeRelics(WarframeRelics WarframeRelics) {
         return WarframeRelicsMapper.insertWarframeRelics(WarframeRelics);
     }
 
@@ -94,8 +89,7 @@ public class WarframeRelicsServiceImpl implements IWarframeRelicsService
      * @return 结果
      */
     @Override
-    public int updateWarframeRelics(WarframeRelics WarframeRelics)
-    {
+    public int updateWarframeRelics(WarframeRelics WarframeRelics) {
         return WarframeRelicsMapper.updateWarframeRelics(WarframeRelics);
     }
 
@@ -106,8 +100,7 @@ public class WarframeRelicsServiceImpl implements IWarframeRelicsService
      * @return 结果
      */
     @Override
-    public int deleteWarframeRelicsByIds(Integer[] relicsKeyIds)
-    {
+    public int deleteWarframeRelicsByIds(Integer[] relicsKeyIds) {
         return WarframeRelicsMapper.deleteWarframeRelicsByIds(relicsKeyIds);
     }
 
@@ -128,8 +121,7 @@ public class WarframeRelicsServiceImpl implements IWarframeRelicsService
      * @return 结果
      */
     @Override
-    public int deleteWarframeRelicsById(Integer relicsKeyId)
-    {
+    public int deleteWarframeRelicsById(Integer relicsKeyId) {
         return WarframeRelicsMapper.deleteWarframeRelicsById(relicsKeyId);
     }
 }

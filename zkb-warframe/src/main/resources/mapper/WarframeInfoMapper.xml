@@ -11,7 +11,8 @@
     </resultMap>
 
     <sql id="selectWarframeInfoVo">
-        select info_id, info_why, info_inse from wf_info
+        select info_id, info_why, info_inse
+        from wf_info
     </sql>
 
     <select id="selectWarframeInfoList" parameterType="WarframeInfo" resultMap="WarframeInfoResult">
@@ -50,7 +51,9 @@
     </update>
 
     <delete id="deleteWarframeInfoById" parameterType="Long">
-        delete from wf_info where info_id = #{aliasId}
+        delete
+        from wf_info
+        where info_id = #{aliasId}
     </delete>
 
     <delete id="deleteWarframeInfoByIds" parameterType="String">

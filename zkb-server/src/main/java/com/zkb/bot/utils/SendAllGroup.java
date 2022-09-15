@@ -17,7 +17,7 @@ public class SendAllGroup {
      */
     public static void sendAllGroup(Msg msg, FunctionEnums function) {
         Map<Long, Bot> bots = SpringUtils.getBean(BotContainer.class).robots;
-        try{
+        try {
             for (long botId : bots.keySet()) {
                 for (GroupInfoResp group : bots.get(botId).getGroupList().getData()) {
                     Thread.sleep(3000L);
@@ -27,7 +27,7 @@ public class SendAllGroup {
 
                 }
             }
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

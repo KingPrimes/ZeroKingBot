@@ -27,7 +27,7 @@ public class CapooTGifImageController {
     @GetMapping(value = "/{uuid}/getImage/{id}/{ms}")
     public void getImage(@PathVariable("id") long id, @PathVariable("ms") int ms, HttpServletResponse response) throws Exception {
         response.setHeader("Content-Type", "image/gif");
-        if (GitPng.getInitPng()){
+        if (GitPng.getInitPng()) {
             return;
         }
         //Gif图像组
@@ -36,7 +36,7 @@ public class CapooTGifImageController {
         BufferedImage prk = ImageIO.read(new URL(PrivateAddApi.getPrivateHeadImage(id)));
         for (int i = 1; i <= 8; i++) {
             //素材地址
-            String path = GitPng.PATH+ "\\capoo\\t\\" + i + ".png";
+            String path = GitPng.PATH + "\\capoo\\t\\" + i + ".png";
             //加载素材到内存
             BufferedImage s = ImageUtils.getImagePath(path);
             //加载素材到内存

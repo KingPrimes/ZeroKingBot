@@ -13,7 +13,8 @@
     </resultMap>
 
     <sql id="selectWarframeMissionSubscribeVo">
-        SELECT subscribe_group,subscribe_user,subscribe_bot,subscribe_mission_id FROM wf_subscribe
+        SELECT subscribe_group, subscribe_user, subscribe_bot, subscribe_mission_id
+        FROM wf_subscribe
     </sql>
 
     <!--条件查询,无条件则返回所有列表-->

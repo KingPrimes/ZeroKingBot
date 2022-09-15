@@ -15,8 +15,14 @@
     </resultMap>
 
     <sql id="selectWarframeMarketSisterVo">
-        select sister_id, sister_item_name, sister_url_name, sister_icon_format, sister_thumb, sister_icon,
-        sister_element from wf_market_sister
+        select sister_id,
+               sister_item_name,
+               sister_url_name,
+               sister_icon_format,
+               sister_thumb,
+               sister_icon,
+               sister_element
+        from wf_market_sister
     </sql>
 
     <select id="selectWarframeMarketSisterList" parameterType="WarframeMarketLichOrSister"
@@ -89,7 +95,9 @@
     </update>
 
     <delete id="deleteWarframeMarketSisterById" parameterType="String">
-        delete from wf_market_sister where sister_id = #{id}
+        delete
+        from wf_market_sister
+        where sister_id = #{id}
     </delete>
 
     <delete id="deleteWarframeMarketSisterByIds" parameterType="String">

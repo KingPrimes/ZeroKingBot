@@ -11,7 +11,8 @@
     </resultMap>
 
     <sql id="selectWarframeMarketRivenTionNickVo">
-        select nick_en, nick_ch from wf_market_riven_tion_nick
+        select nick_en, nick_ch
+        from wf_market_riven_tion_nick
     </sql>
 
     <select id="selectWarframeMarketRivenTionNickByNickCh" parameterType="String"

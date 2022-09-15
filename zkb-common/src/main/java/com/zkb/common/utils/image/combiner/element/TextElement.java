@@ -55,7 +55,7 @@ public class TextElement extends CombineElement<TextElement> {
 
     public Double getWidth() {
         if (this.width == null) {
-            this.width = this.font.getStringBounds(this.text,this.metrics).getWidth();
+            this.width = this.font.getStringBounds(this.text, this.metrics).getWidth();
         }
 
         return this.width;
@@ -75,7 +75,7 @@ public class TextElement extends CombineElement<TextElement> {
 
     public int getDrawY() {
         if (this.drawY == 0) {
-            Rectangle2D rec = this.font.getStringBounds("",this.metrics);
+            Rectangle2D rec = this.font.getStringBounds("", this.metrics);
             this.drawY = (int) (this.getY() + (this.getLineHeight() - rec.getHeight()) / 2);
         }
 
@@ -134,7 +134,7 @@ public class TextElement extends CombineElement<TextElement> {
 
     public Double getLineHeight() {
         if (this.lineHeight == null) {
-            Rectangle2D rec = this.font.getStringBounds("",this.metrics);
+            Rectangle2D rec = this.font.getStringBounds("", this.metrics);
             this.lineHeight = rec.getHeight();
         }
 
@@ -205,7 +205,7 @@ public class TextElement extends CombineElement<TextElement> {
 
     private FontRenderContext getMetrics() {
         if (this.metrics == null) {
-            this.metrics = new FontRenderContext(new AffineTransform(),true,true);
+            this.metrics = new FontRenderContext(new AffineTransform(), true, true);
 
         }
 
@@ -256,8 +256,8 @@ public class TextElement extends CombineElement<TextElement> {
             }
 
             if (hasWord) {
-                Rectangle2D rec = this.font.getStringBounds(strToComputer,this.metrics);
-                Rectangle2D recw = this.font.getStringBounds(word,this.metrics);
+                Rectangle2D rec = this.font.getStringBounds(strToComputer, this.metrics);
+                Rectangle2D recw = this.font.getStringBounds(word, this.metrics);
                 double originWidth = rec.getWidth();
                 double wordWidth = recw.getWidth();
                 strToComputer = strToComputer + word;

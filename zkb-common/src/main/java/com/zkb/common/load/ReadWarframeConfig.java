@@ -12,9 +12,8 @@ import java.util.Properties;
 @Component
 public class ReadWarframeConfig {
 
-    private static final Logger log = LoggerFactory.getLogger(ReadAdminConfig.class);
-
     public static final Properties WARFRAME = new Properties();
+    private static final Logger log = LoggerFactory.getLogger(ReadAdminConfig.class);
 
     @PostConstruct
     public static void initWarframeConfig() {

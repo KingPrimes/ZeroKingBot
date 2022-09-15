@@ -13,7 +13,8 @@
     </resultMap>
 
     <sql id="selectWarframeTranslationVo">
-        select tra_id, tra_en, tra_ch, tra_prime, tra_set from wf_translation
+        select tra_id, tra_en, tra_ch, tra_prime, tra_set
+        from wf_translation
     </sql>
 
     <select id="selectWarframeTranslationList" parameterType="WarframeTranslation"
@@ -33,34 +34,35 @@
     </select>
 
     <select id="enToZh" parameterType="String" resultType="String">
-        select tra_ch from wf_translation
+        select tra_ch
+        from wf_translation
         where tra_en = #{traEn}
     </select>
 
     <select id="zhToEn" parameterType="String" resultType="String">
-        select tra_en from wf_translation
+        select tra_en
+        from wf_translation
         where tra_ch = #{tra_ch}
     </select>
 
     <select id="zhToEnList" parameterType="String" resultMap="WarframeTranslationResult">
-        select tra_en, tra_ch from wf_translation
-        where REPLACE(tra_en,' ','') like REPLACE('%'||#{traEn}||'%',' ','') limit 5
+        select tra_en, tra_ch
+        from wf_translation
+        where REPLACE(tra_en, ' ', '') like REPLACE('%' || #{traEn} || '%', ' ', '') limit 5
     </select>
 
     <select id="enToZhList" parameterType="String" resultMap="WarframeTranslationResult">
-        select tra_en, tra_ch from wf_translation
-        where REPLACE(tra_ch,' ','') like REPLACE('%'||#{traCh}||'%',' ','') limit 5
+        select tra_en, tra_ch
+        from wf_translation
+        where REPLACE(tra_ch, ' ', '') like REPLACE('%' || #{traCh} || '%', ' ', '') limit 5
     </select>
 
     <select id="enAndZhToList" parameterType="String" resultMap="WarframeTranslationResult">
-        SELECT
-        tra_en,
-        tra_ch
-        FROM
-        wf_translation
-        WHERE
-        REPLACE ( tra_ch, ' ', '' ) LIKE REPLACE ( '%' || #{traCh} || '%', ' ', '' )
-        OR REPLACE ( tra_en, ' ', '' ) LIKE REPLACE ( '%' || #{traCh} || '%', ' ', '' )
+        SELECT tra_en,
+               tra_ch
+        FROM wf_translation
+        WHERE REPLACE(tra_ch, ' ', '') LIKE REPLACE('%' || #{traCh} || '%', ' ', '')
+           OR REPLACE(tra_en, ' ', '') LIKE REPLACE('%' || #{traCh} || '%', ' ', '')
     </select>
 
     <select id="enOrzh" parameterType="String" resultMap="WarframeTranslationResult">
@@ -118,7 +120,9 @@
     </update>
 
     <delete id="deleteWarframeTranslationById" parameterType="Long">
-        delete from wf_translation where tra_id = #{traId}
+        delete
+        from wf_translation
+        where tra_id = #{traId}
     </delete>
 
     <delete id="deleteWarframeTranslationByIds" parameterType="String">

@@ -6,13 +6,13 @@
     <groupId>com.zkb</groupId>
     <artifactId>ZeroKingBot</artifactId>
     <packaging>pom</packaging>
-    <version>${zkb.version}</version>
+    <version>4.1.7.9</version>
 
 
     <name>ZeroKingBot</name>
 
     <properties>
-        <zkb.version>4.1.7.9</zkb.version>
+        <zbk.version>4.1.8.0</zbk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -111,7 +111,7 @@
             <dependency>
                 <groupId>com.zkb</groupId>
                 <artifactId>zkb-framework</artifactId>
-                <version>${zkb.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
 
@@ -119,49 +119,49 @@
             <dependency>
                 <groupId>com.zkb</groupId>
                 <artifactId>zkb-common</artifactId>
-                <version>${zkb.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <!--Bot 服务核心-->
             <dependency>
                 <groupId>com.zkb</groupId>
                 <artifactId>zkb-server</artifactId>
-                <version>${zkb.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <!--Bot 群管 模块-->
             <dependency>
                 <groupId>com.zkb</groupId>
                 <artifactId>zkb-group</artifactId>
-                <version>${zkb.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <!--Bot Warframe 模块-->
             <dependency>
                 <groupId>com.zkb</groupId>
                 <artifactId>zkb-warframe</artifactId>
-                <version>${zkb.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <!--Gif表情包模块-->
             <dependency>
                 <groupId>com.zkb</groupId>
                 <artifactId>zkb-image-togif</artifactId>
-                <version>${zkb.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <!--图片模块-->
             <dependency>
                 <groupId>com.zkb</groupId>
                 <artifactId>zkb-images</artifactId>
-                <version>${zkb.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <!--Bot关键词回复模块-->
             <dependency>
                 <groupId>com.zkb</groupId>
                 <artifactId>zkb-aiml</artifactId>
-                <version>${zkb.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <!--GIF绘图核心-->
@@ -262,6 +262,7 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+
                 </configuration>
             </plugin>
         </plugins>

@@ -11,7 +11,8 @@
     </resultMap>
 
     <sql id="selectFunctionVo">
-        select function_id, function_name, function_introduction from bot_function
+        select function_id, function_name, function_introduction
+        from bot_function
     </sql>
 
     <select id="selectFunctionList" parameterType="Function" resultMap="FunctionResult">

@@ -25,7 +25,6 @@ import java.io.IOException;
 public class MarektImageController {
 
 
-
     @GetMapping(value = "/{uuid}/getMarektImage/{key}/{seBy}/{isMax}/{form}", produces = MediaType.IMAGE_PNG_VALUE)
     public synchronized void getImage(@NotNull HttpServletResponse response, @PathVariable String key, @PathVariable Boolean seBy, @PathVariable Boolean isMax, @PathVariable String form) throws IOException {
         response.setHeader("Content-Type", "image/png");

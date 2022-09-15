@@ -21,21 +21,20 @@ import java.util.List;
 @Component
 public class WarframeSubscribePlugin extends BotPlugin {
 
+    private static final String SUB_LIST = "订阅列表";
+    private static final String SUB_END = "取消订阅";
+    private static final String SUB_RIVE_END = "取消私人订阅";
+    private static final String SUB = "订阅";
+    private static final String SUB_RIVE = "私人订阅";
     @Autowired
     IWarframeMissionSubscribeService service;
-
-    private static final String SUB_LIST= "订阅列表";
-    private static final String SUB_END= "取消订阅";
-    private static final String SUB_RIVE_END = "取消私人订阅";
-    private static final String SUB= "订阅";
-    private static final String SUB_RIVE = "私人订阅";
 
     @Override
     public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
 
-       if(event.getRawMessage().trim().length()==0){
-           return MESSAGE_IGNORE;
-       }
+        if (event.getRawMessage().trim().length() == 0) {
+            return MESSAGE_IGNORE;
+        }
 
         if (SUB_LIST.equals(event.getRawMessage().trim())) {
             bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/subscriber/" + UUID.fastUUID() + "/getSubscriberHelp").build(), false);
@@ -44,7 +43,7 @@ public class WarframeSubscribePlugin extends BotPlugin {
 
         if (SUB_END.equals(StringUtils.substring(event.getRawMessage(), 0, SUB_END.length()))) {
             String str = event.getRawMessage().replace("取消订阅", "").trim();
-            if(err(bot, event.getGroupId(), str)){
+            if (err(bot, event.getGroupId(), str)) {
                 return MESSAGE_BLOCK;
             }
             WarframeSubscribeEnums enums = WarframeDataUpdateMission.getSubscribeEnums(Integer.valueOf(str));
@@ -73,7 +72,7 @@ public class WarframeSubscribePlugin extends BotPlugin {
 
         if (SUB_RIVE_END.contains(StringUtils.substring(event.getRawMessage(), 0, SUB_RIVE_END.length()))) {
             String str = event.getRawMessage().replace("取消私人订阅", "").trim();
-            if(err(bot, event.getGroupId(), str)){
+            if (err(bot, event.getGroupId(), str)) {
                 return MESSAGE_BLOCK;
             }
             WarframeSubscribeEnums enums = WarframeDataUpdateMission.getSubscribeEnums(Integer.valueOf(str));
@@ -89,7 +88,7 @@ public class WarframeSubscribePlugin extends BotPlugin {
 
         if (SUB_RIVE.equals(StringUtils.substring(event.getRawMessage(), 0, SUB_RIVE.length()))) {
             String str = event.getRawMessage().replace("私人订阅", "").trim();
-            if(err(bot, event.getGroupId(), str)){
+            if (err(bot, event.getGroupId(), str)) {
                 return MESSAGE_BLOCK;
             }
             WarframeSubscribeEnums enums = WarframeDataUpdateMission.getSubscribeEnums(Integer.valueOf(str));
@@ -105,7 +104,7 @@ public class WarframeSubscribePlugin extends BotPlugin {
 
         if (SUB.equals(StringUtils.substring(event.getRawMessage(), 0, SUB.length()))) {
             String str = event.getRawMessage().replace("订阅", "").trim();
-            if(err(bot, event.getGroupId(), str)){
+            if (err(bot, event.getGroupId(), str)) {
                 return MESSAGE_BLOCK;
             }
             WarframeSubscribeEnums enums = WarframeDataUpdateMission.getSubscribeEnums(Integer.valueOf(str));
@@ -122,7 +121,7 @@ public class WarframeSubscribePlugin extends BotPlugin {
         return MESSAGE_IGNORE;
     }
 
-    private boolean err(@NotNull Bot bot, long GroupId,String str){
+    private boolean err(@NotNull Bot bot, long GroupId, String str) {
         if (str.length() == 0) {
             bot.sendGroupMsg(GroupId, Msg.builder().text("请在订阅后方填写要订阅的数字\n详情发送[订阅列表]查看").build(), false);
             return true;

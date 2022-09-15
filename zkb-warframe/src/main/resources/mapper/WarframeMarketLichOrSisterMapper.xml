@@ -15,7 +15,8 @@
     </resultMap>
 
     <sql id="selectWarframeMarketLichVo">
-        select id, item_name, url_name, icon_format, thumb, icon, element from wf_market_lich
+        select id, item_name, url_name, icon_format, thumb, icon, element
+        from wf_market_lich
     </sql>
 
     <select id="selectWarframeMarketLichList" parameterType="WarframeMarketLichOrSister"
@@ -88,7 +89,9 @@
     </update>
 
     <delete id="deleteWarframeMarketLichById" parameterType="String">
-        delete from wf_market_lich where id = #{id}
+        delete
+        from wf_market_lich
+        where id = #{id}
     </delete>
 
     <delete id="deleteWarframeMarketLichByIds" parameterType="String">

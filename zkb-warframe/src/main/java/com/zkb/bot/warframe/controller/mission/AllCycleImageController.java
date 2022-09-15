@@ -24,7 +24,6 @@ public class AllCycleImageController {
     RedisCache redisCache;
 
 
-
     @GetMapping(value = "/{uuid}/getAllCycleImage")
     public void getImage(HttpServletResponse response) throws Exception {
         response.setHeader("Content-Type", "image/png");

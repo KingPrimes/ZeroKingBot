@@ -23,8 +23,16 @@
     </resultMap>
 
     <sql id="selectIssueReplyVo">
-        select msg_id, msg_issue, msg_issue_image, msg_issue_face, msg_reply, msg_reply_image, msg_create_time,
-        msg_create_group, msg_create_member from bot_issue_reply
+        select msg_id,
+               msg_issue,
+               msg_issue_image,
+               msg_issue_face,
+               msg_reply,
+               msg_reply_image,
+               msg_create_time,
+               msg_create_group,
+               msg_create_member
+        from bot_issue_reply
     </sql>
 
     <select id="selectIssueReplyList" parameterType="IssueReply" resultMap="IssueReplyResult">
@@ -69,17 +77,13 @@
 
 
     <select id="selectIssueReplyLeaderboardList" resultMap="LeaderboardResult">
-        SELECT
-        a.msg_create_group,
-        count(*) AS c,
-        a.msg_create_member
-        FROM
-        ( SELECT * FROM bot_issue_reply WHERE DATEDIFF( msg_create_time, NOW())=- 1 ) AS a
-        GROUP BY
-        a.msg_create_group,
-        a.msg_create_member
-        ORDER BY
-        c DESC
+        SELECT a.msg_create_group,
+               count(*) AS c,
+               a.msg_create_member
+        FROM (SELECT * FROM bot_issue_reply WHERE DATEDIFF(msg_create_time, NOW()) = - 1) AS a
+        GROUP BY a.msg_create_group,
+                 a.msg_create_member
+        ORDER BY c DESC
     </select>
 
     <insert id="insertIssueReply" parameterType="IssueReply" useGeneratedKeys="true">
@@ -123,7 +127,9 @@
     </update>
 
     <delete id="deleteIssueReplyByMsgId" parameterType="Integer">
-        delete from bot_issue_reply where msg_id = #{msgId}
+        delete
+        from bot_issue_reply
+        where msg_id = #{msgId}
     </delete>
 
     <delete id="deleteIssueReplyByMsgIds" parameterType="String">

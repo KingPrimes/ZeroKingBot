@@ -58,11 +58,11 @@ public class MarketLichAndSisterUtil {
                         false);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
-                log.error("调用赤毒武器查询错误：{}",e.getMessage());
+                log.error("调用赤毒武器查询错误：{}", e.getMessage());
             }
         } else {
             //提醒未开启此功能
-             ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
+            ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
         }
     }
 
@@ -92,7 +92,7 @@ public class MarketLichAndSisterUtil {
                         false);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
-                log.error("调用信条武器查询错误：{}",e.getMessage());
+                log.error("调用信条武器查询错误：{}", e.getMessage());
             }
         } else {
             //提醒未开启此功能
@@ -140,7 +140,7 @@ public class MarketLichAndSisterUtil {
 
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("赤毒武器数据获取出错：{}",e.getMessage());
+            log.error("赤毒武器数据获取出错：{}", e.getMessage());
             return null;
         }
     }
@@ -183,7 +183,7 @@ public class MarketLichAndSisterUtil {
             return marketSister;
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("信条武器数据获取出错：{}",e.getMessage());
+            log.error("信条武器数据获取出错：{}", e.getMessage());
             return null;
         }
     }

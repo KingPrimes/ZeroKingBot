@@ -1,48 +1,76 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zkb.bot.warframe.mapper.WarframeRelicsMapper">
 
     <resultMap type="WarframeRelics" id="WarframeRelicsResult">
-        <result property="relicsKeyId"    column="relics_key_id"    />
-        <result property="relicsId"    column="relics_id"    />
-        <result property="relicsTier"    column="relics_tier"    />
-        <result property="relicsTierD"    column="relics_tierd"    />
-        <result property="relicsName"    column="relics_name"    />
-        <result property="relicsState"    column="relics_state"    />
-        <result property="relicsItemId"    column="relics_item_id"    />
-        <result property="relicsItemName"    column="relics_item_name"    />
-        <result property="relicsItemRarity"    column="relics_item_rarity"    />
-        <result property="relicsItemChance"    column="relics_item_chance"    />
-        <result property="traCh"    column="tra_ch"    />
+        <result property="relicsKeyId" column="relics_key_id"/>
+        <result property="relicsId" column="relics_id"/>
+        <result property="relicsTier" column="relics_tier"/>
+        <result property="relicsTierD" column="relics_tierd"/>
+        <result property="relicsName" column="relics_name"/>
+        <result property="relicsState" column="relics_state"/>
+        <result property="relicsItemId" column="relics_item_id"/>
+        <result property="relicsItemName" column="relics_item_name"/>
+        <result property="relicsItemRarity" column="relics_item_rarity"/>
+        <result property="relicsItemChance" column="relics_item_chance"/>
+        <result property="traCh" column="tra_ch"/>
     </resultMap>
 
     <sql id="selectWarframeRelicsVo">
-        select relics_key_id,relics_id, relics_tier, relics_name, relics_state, relics_item_id, relics_item_name, relics_item_rarity, relics_item_chance,tra_ch from wf_relics,wf_translation
+        select relics_key_id,
+               relics_id,
+               relics_tier,
+               relics_name,
+               relics_state,
+               relics_item_id,
+               relics_item_name,
+               relics_item_rarity,
+               relics_item_chance,
+               tra_ch
+        from wf_relics,
+             wf_translation
     </sql>
 
     <sql id="selectWarframeRelicsOVo">
-        select relics_key_id,relics_id, relics_tier, relics_name, relics_state, relics_item_id, relics_item_name, relics_item_rarity, relics_item_chance from wf_relics
+        select relics_key_id,
+               relics_id,
+               relics_tier,
+               relics_name,
+               relics_state,
+               relics_item_id,
+               relics_item_name,
+               relics_item_rarity,
+               relics_item_chance
+        from wf_relics
     </sql>
 
     <select id="selectWarframeRelicsList" parameterType="WarframeRelics" resultMap="WarframeRelicsResult">
         <include refid="selectWarframeRelicsVo"/>
         <where>
             wf_relics.relics_item_name = wf_translation.tra_en
-            <if test="relicsTier != null  and relicsTier != ''"> and relics_tier = #{relicsTier}</if>
-            <if test="relicsName != null  and relicsName != ''"> and relics_name like concat('%', #{relicsName}, '%')</if>
-            <if test="relicsState != null  and relicsState != ''"> and relics_state = #{relicsState}</if>
-            <if test="relicsItemName != null  and relicsItemName != ''"> and relics_item_name like concat('%', #{relicsItemName}, '%')</if>
-            <if test="traCh != null  and traCh != ''"> and tra_ch like concat('%', #{traCh}, '%')</if>
-            <if test="relicsItemRarity != null  and relicsItemRarity != ''"> and relics_item_rarity = #{relicsItemRarity}</if>
-            <if test="relicsItemChance != null  and relicsItemChance != ''"> and relics_item_chance = #{relicsItemChance}</if>
+            <if test="relicsTier != null  and relicsTier != ''">and relics_tier = #{relicsTier}</if>
+            <if test="relicsName != null  and relicsName != ''">and relics_name like concat('%', #{relicsName}, '%')
+            </if>
+            <if test="relicsState != null  and relicsState != ''">and relics_state = #{relicsState}</if>
+            <if test="relicsItemName != null  and relicsItemName != ''">and relics_item_name like concat('%',
+                #{relicsItemName}, '%')
+            </if>
+            <if test="traCh != null  and traCh != ''">and tra_ch like concat('%', #{traCh}, '%')</if>
+            <if test="relicsItemRarity != null  and relicsItemRarity != ''">and relics_item_rarity =
+                #{relicsItemRarity}
+            </if>
+            <if test="relicsItemChance != null  and relicsItemChance != ''">and relics_item_chance =
+                #{relicsItemChance}
+            </if>
         </where>
         GROUP BY relics_key_id ORDER BY relics_tier,relics_name,relics_state,relics_item_rarity
     </select>
 
     <select id="selectWarframeRelicsMaxId" resultMap="WarframeRelicsResult">
-        select MAX(relics_key_id) as relics_key_id  from wf_relics
+        select MAX(relics_key_id) as relics_key_id
+        from wf_relics
     </select>
 
 
@@ -52,54 +80,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="selectWarframeRelicsToTraById" parameterType="Integer" resultMap="WarframeRelicsResult">
-        SELECT
-        *
-        FROM
-        (
-        SELECT
-        r.relics_key_id,
-        r.relics_item_chance,
-        r.relics_item_name,
-        t2.tra_ch as tra_ch
-        FROM
-        wf_relics r
-        INNER JOIN wf_translation t2 ON t2.tra_en = r.relics_item_name
-        ) AS a
-        WHERE
-        a.relics_key_id = #{relicsKeyId}
+        SELECT *
+        FROM (SELECT r.relics_key_id,
+                     r.relics_item_chance,
+                     r.relics_item_name,
+                     t2.tra_ch as tra_ch
+              FROM wf_relics r
+                       INNER JOIN wf_translation t2 ON t2.tra_en = r.relics_item_name) AS a
+        WHERE a.relics_key_id = #{relicsKeyId}
     </select>
 
     <!--根据条件查询某个遗物对应的物品-->
     <select id="selectWarframeRelicsByAll" parameterType="String" resultMap="WarframeRelicsResult">
-       SELECT
-        *
-        FROM
-        (
-        SELECT
-        r.relics_key_id,
-        r.relics_id,
-        r.relics_tier,
-        t1.tra_ch AS relics_tierd,
-        t1.tra_ch||' '||r.relics_name as name,
-        r.relics_name,
-        r.relics_item_chance,
-        t2.tra_ch AS relics_item_name,
-        t3.tra_ch AS relics_item_rarity
-        FROM
-        wf_relics r
-        INNER JOIN wf_translation t1 ON t1.tra_en = r.relics_tier
-        INNER JOIN wf_translation t2 ON t2.tra_en = r.relics_item_name
-        INNER JOIN wf_translation t3 ON t3.tra_en = r.relics_item_rarity
-        ) AS a
-        WHERE
-        a.relics_name LIKE '%' ||#{ traCh }|| '%'
-        OR a.relics_item_name LIKE '%' ||#{ traCh }|| '%'
-        OR a.relics_item_rarity LIKE '%' ||#{ traCh }|| '%'
-        or a.name like '%'||#{ traCh }||'%'
+        SELECT *
+        FROM (SELECT r.relics_key_id,
+                     r.relics_id,
+                     r.relics_tier,
+                     t1.tra_ch AS                         relics_tierd,
+                     t1.tra_ch || ' ' || r.relics_name as name,
+                     r.relics_name,
+                     r.relics_item_chance,
+                     t2.tra_ch AS                         relics_item_name,
+                     t3.tra_ch AS                         relics_item_rarity
+              FROM wf_relics r
+                       INNER JOIN wf_translation t1 ON t1.tra_en = r.relics_tier
+                       INNER JOIN wf_translation t2 ON t2.tra_en = r.relics_item_name
+                       INNER JOIN wf_translation t3 ON t3.tra_en = r.relics_item_rarity) AS a
+        WHERE a.relics_name LIKE '%' || #{ traCh } || '%'
+           OR a.relics_item_name LIKE '%' || #{ traCh } || '%'
+           OR a.relics_item_rarity LIKE '%' || #{ traCh } || '%'
+           or a.name like '%' || #{ traCh } || '%'
 
-        ORDER BY
-        relics_id,
-        relics_item_chance DESC
+        ORDER BY relics_id,
+                 relics_item_chance DESC
 
     </select>
 
@@ -114,7 +127,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="relicsItemName != null and relicsItemName != ''">relics_item_name,</if>
             <if test="relicsItemRarity != null and relicsItemRarity != ''">relics_item_rarity,</if>
             <if test="relicsItemChance != null and relicsItemChance != ''">relics_item_chance,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="relicsId != null">#{relicsId},</if>
             <if test="relicsTier != null and relicsTier != ''">#{relicsTier},</if>
@@ -124,7 +137,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="relicsItemName != null and relicsItemName != ''">#{relicsItemName},</if>
             <if test="relicsItemRarity != null and relicsItemRarity != ''">#{relicsItemRarity},</if>
             <if test="relicsItemChance != null and relicsItemChance != ''">#{relicsItemChance},</if>
-         </trim>
+        </trim>
     </insert>
 
     <insert id="insertWarframeRelicsList" parameterType="java.util.List">
@@ -153,14 +166,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="relicsState != null and relicsState != ''">relics_state = #{relicsState},</if>
             <if test="relicsItemId != null">relics_item_id = #{relicsItemId},</if>
             <if test="relicsItemName != null and relicsItemName != ''">relics_item_name = #{relicsItemName},</if>
-            <if test="relicsItemRarity != null and relicsItemRarity != ''">relics_item_rarity = #{relicsItemRarity},</if>
-            <if test="relicsItemChance != null and relicsItemChance != ''">relics_item_chance = #{relicsItemChance},</if>
+            <if test="relicsItemRarity != null and relicsItemRarity != ''">relics_item_rarity = #{relicsItemRarity},
+            </if>
+            <if test="relicsItemChance != null and relicsItemChance != ''">relics_item_chance = #{relicsItemChance},
+            </if>
         </trim>
         where relics_key_id = #{relicsKeyId}
     </update>
 
     <delete id="deleteWarframeRelicsById" parameterType="Integer">
-        delete from wf_relics where relics_key_id = #{relicsKeyId}
+        delete
+        from wf_relics
+        where relics_key_id = #{relicsKeyId}
     </delete>
 
     <delete id="deleteWarframeRelicsByIds" parameterType="Integer">
@@ -171,7 +188,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteWarframeRelics">
-        delete from wf_relics
+        delete
+        from wf_relics
     </delete>
 
 </mapper>

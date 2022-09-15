@@ -20,9 +20,9 @@ public class WarframeMissionUtils {
 
     public static void isUpdated(SocketGlobalStates states) {
         SocketGlobalStates redisState;
-        try{
-            redisState  = SpringUtils.getBean(RedisCache.class).getCacheObject(REDIS_MISSION_KEY.getType());
-        }catch (Exception e){
+        try {
+            redisState = SpringUtils.getBean(RedisCache.class).getCacheObject(REDIS_MISSION_KEY.getType());
+        } catch (Exception e) {
             SpringUtils.getBean(RedisCache.class).deleteObject(REDIS_MISSION_KEY.getType());
             redisState = states;
         }

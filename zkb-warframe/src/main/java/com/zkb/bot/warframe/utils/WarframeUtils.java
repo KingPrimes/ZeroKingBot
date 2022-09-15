@@ -39,44 +39,45 @@ public class WarframeUtils {
 
     /**
      * 获取裂隙类型并分类
+     *
      * @param fissures 裂隙
      * @return Map集合
      * ordinary：普通
      * storm：九重天
      * hard：钢铁
      */
-    private Map<WarframeFissureTypeEnum,List<GlobalStates.Fissures>> fissType(List<GlobalStates.Fissures> fissures){
-        Map<WarframeFissureTypeEnum,List<GlobalStates.Fissures>> fiss = new HashMap<>();
+    private Map<WarframeFissureTypeEnum, List<GlobalStates.Fissures>> fissType(List<GlobalStates.Fissures> fissures) {
+        Map<WarframeFissureTypeEnum, List<GlobalStates.Fissures>> fiss = new HashMap<>();
         List<GlobalStates.Fissures> ordinary = new ArrayList<>();
         List<GlobalStates.Fissures> storm = new ArrayList<>();
         List<GlobalStates.Fissures> hard = new ArrayList<>();
-        for (GlobalStates.Fissures f:fissures){
-            if(f.getActive()){
-                if(!f.getIsStorm()&&!f.getIsHard()){
+        for (GlobalStates.Fissures f : fissures) {
+            if (f.getActive()) {
+                if (!f.getIsStorm() && !f.getIsHard()) {
                     ordinary.add(f);
                 }
             }
         }
 
-        for (GlobalStates.Fissures f:fissures){
-            if(f.getActive()){
-                if(f.getIsStorm()){
+        for (GlobalStates.Fissures f : fissures) {
+            if (f.getActive()) {
+                if (f.getIsStorm()) {
                     storm.add(f);
                 }
             }
         }
 
-        for (GlobalStates.Fissures f:fissures){
-            if(f.getActive()){
-                if(f.getIsHard()){
+        for (GlobalStates.Fissures f : fissures) {
+            if (f.getActive()) {
+                if (f.getIsHard()) {
                     hard.add(f);
                 }
             }
         }
 
-        fiss.put(WarframeFissureTypeEnum.ORDINARY,ordinary);
-        fiss.put(WarframeFissureTypeEnum.STORM,storm);
-        fiss.put(WarframeFissureTypeEnum.HARD,hard);
+        fiss.put(WarframeFissureTypeEnum.ORDINARY, ordinary);
+        fiss.put(WarframeFissureTypeEnum.STORM, storm);
+        fiss.put(WarframeFissureTypeEnum.HARD, hard);
 
         return fiss;
 
@@ -84,10 +85,11 @@ public class WarframeUtils {
 
     /**
      * 获取裂隙的等级并分类
+     *
      * @param fissures 裂隙集合
      * @return 分类好的实体类
      */
-    private FissureList getFissureListType(List<GlobalStates.Fissures> fissures){
+    private FissureList getFissureListType(List<GlobalStates.Fissures> fissures) {
         List<GlobalStates.Fissures> T1 = new ArrayList<>();
         List<GlobalStates.Fissures> T2 = new ArrayList<>();
         List<GlobalStates.Fissures> T3 = new ArrayList<>();

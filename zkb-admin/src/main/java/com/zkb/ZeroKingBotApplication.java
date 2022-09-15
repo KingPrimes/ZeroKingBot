@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class ZeroKingBotApplication {
     private static final Logger log = LoggerFactory.getLogger(ZeroKingBotApplication.class);
+
     public static void main(String[] args) {
         SpringApplication.run(ZeroKingBotApplication.class, args);
         OkHttpWebSocket.init();

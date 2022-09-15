@@ -21,7 +21,7 @@ public class WarframeAdminPlugin extends BotPlugin {
 
     @Override
     public int onPrivateMessage(@NotNull Bot bot, @NotNull PrivateMessageEvent event) {
-        if(event.getRawMessage().trim().length()==0){
+        if (event.getRawMessage().trim().length() == 0) {
             return MESSAGE_IGNORE;
         }
 
@@ -55,7 +55,7 @@ public class WarframeAdminPlugin extends BotPlugin {
                 bot.sendPrivateMsg(event.getUserId(), "更新完成，共更新：" + i + "条数据", false);
 
             }
-            if("更新WF指令".equals(event.getRawMessage())){
+            if ("更新WF指令".equals(event.getRawMessage())) {
                 bot.sendPrivateMsg(event.getUserId(), "正在准备更新", false);
                 ReadWarframeConfig.initWarframeConfig();
                 InitConfigs.initWarframeConfig();

@@ -59,7 +59,7 @@ public class WarframeMarketItemsServiceImpl implements IWarframeMarketItemsServi
     @Override
     public WarframeMarketItems selectWarframeMarketItemsById(String id) {
         WarframeMarketItems items = itemsMapper.selectWarframeMarketItemsById(id);
-        if(items == null){
+        if (items == null) {
             items = new WarframeMarketItems();
             items.setItemName("未知物品");
         }

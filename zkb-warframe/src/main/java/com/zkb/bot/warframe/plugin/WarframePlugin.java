@@ -4,25 +4,18 @@ package com.zkb.bot.warframe.plugin;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.core.BotPlugin;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
-import com.mikuac.shiro.dto.event.message.PrivateMessageEvent;
 import com.zkb.bot.enums.FunctionEnums;
 import com.zkb.bot.enums.WarframeFissureTypeEnum;
-import com.zkb.bot.enums.WarframeTypeEnum;
 import com.zkb.bot.utils.ErroSendMessage;
 import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.SelectGroupFunctionOnOff;
 import com.zkb.bot.warframe.service.IWarframeTranslationService;
-import com.zkb.bot.warframe.task.RivenDispositionUpdatesTask;
 import com.zkb.bot.warframe.utils.WarframeStringUtils;
-import com.zkb.bot.warframe.utils.WarframeTraUtils;
 import com.zkb.bot.warframe.utils.market.MarketItemUtil;
 import com.zkb.bot.warframe.utils.market.MarketLichAndSisterUtil;
 import com.zkb.bot.warframe.utils.market.MarketRivenUtil;
-import com.zkb.bot.warframe.utils.market.RenewMarketUtil;
-import com.zkb.common.load.ReadAdminConfig;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.ip.GetServerPort;
-import com.zkb.common.utils.spring.SpringUtils;
 import com.zkb.common.utils.uuid.UUID;
 import com.zkb.framework.manager.AsyncManager;
 import org.jetbrains.annotations.NotNull;
@@ -49,7 +42,7 @@ public class WarframePlugin extends BotPlugin {
     @Override
     public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
 
-        if(event.getRawMessage().trim().length()==0){
+        if (event.getRawMessage().trim().length() == 0) {
             return MESSAGE_IGNORE;
         }
 
@@ -108,7 +101,7 @@ public class WarframePlugin extends BotPlugin {
         }
 
         //模拟开核桃
-        if (TYPE_OPEN_RELICS_PLUGIN.getType().equals(event.getRawMessage())||TYPE_OPEN1_RELICS_PLUGIN.getType().equals(event.getRawMessage())) {
+        if (TYPE_OPEN_RELICS_PLUGIN.getType().equals(event.getRawMessage()) || TYPE_OPEN1_RELICS_PLUGIN.getType().equals(event.getRawMessage())) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
                 bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getRelicsToy").build(), false);
             } else {
@@ -119,12 +112,12 @@ public class WarframePlugin extends BotPlugin {
         //核桃
         if (TYPE_RELICS_PLUGIN.getType().equals(StringUtils.substring(event.getRawMessage(), 0, TYPE_RELICS_PLUGIN.getType().length()).toUpperCase(Locale.ROOT))) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
-                String key = event.getRawMessage().replaceAll(TYPE_RELICS_PLUGIN.getType(),"");
-                if(key.trim().length()==0){
-                    bot.sendGroupMsg(event.getGroupId(),Msg.builder().text("请输入 遗物名称如 A1").build(),false);
+                String key = event.getRawMessage().replaceAll(TYPE_RELICS_PLUGIN.getType(), "");
+                if (key.trim().length() == 0) {
+                    bot.sendGroupMsg(event.getGroupId(), Msg.builder().text("请输入 遗物名称如 A1").build(), false);
                     return 0;
                 }
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getRelics/"+key).build(), false);
+                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getRelics/" + key).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -133,7 +126,7 @@ public class WarframePlugin extends BotPlugin {
         //裂隙
         if (TYPE_FISSUES_PLUGIN.getType().equals(event.getRawMessage()) || TYPE_FISSUESX_PLUGIN.getType().equals(event.getRawMessage())) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/"+ WarframeFissureTypeEnum.ORDINARY).build(), false);
+                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/" + WarframeFissureTypeEnum.ORDINARY).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -142,7 +135,7 @@ public class WarframePlugin extends BotPlugin {
         //九重天裂隙
         if (TYPE_FISSUES_EMPYREAN_PLUGIN.getType().equals(event.getRawMessage()) || TYPE_FISSUES_EMPYREAN_PLUGIN.getType().equals(event.getRawMessage())) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/"+ WarframeFissureTypeEnum.STORM).build(), false);
+                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/" + WarframeFissureTypeEnum.STORM).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -151,7 +144,7 @@ public class WarframePlugin extends BotPlugin {
         //钢铁裂隙
         if (TYPE_FISSUES_PATH_PLUGIN.getType().equals(event.getRawMessage()) || TYPE_FISSUES_PATH_PLUGIN.getType().equals(event.getRawMessage())) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/"+ WarframeFissureTypeEnum.HARD).build(), false);
+                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/" + WarframeFissureTypeEnum.HARD).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -259,9 +252,8 @@ public class WarframePlugin extends BotPlugin {
                 e.printStackTrace();
             }
         }
-       return MESSAGE_IGNORE;
+        return MESSAGE_IGNORE;
     }
-
 
 
 }

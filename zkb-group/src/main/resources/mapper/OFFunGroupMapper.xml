@@ -10,7 +10,8 @@
     </resultMap>
 
     <sql id="selectOFFunGroupVo">
-        select group_uuid, fun_id from of_fun_group
+        select group_uuid, fun_id
+        from of_fun_group
     </sql>
 
     <select id="selectOFFunGroupList" parameterType="OFFunGroup" resultMap="OFFunGroupResult">
@@ -44,6 +45,8 @@
     </update>
 
     <delete id="deleteOFFunGroupById" parameterType="Integer">
-        delete from of_fun_group where group_uuid = #{gorupUuid}
+        delete
+        from of_fun_group
+        where group_uuid = #{gorupUuid}
     </delete>
 </mapper>

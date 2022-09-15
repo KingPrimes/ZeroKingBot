@@ -6,7 +6,6 @@ import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.enums.FunctionEnums;
 import com.zkb.bot.enums.WarframeTypeEnum;
 import com.zkb.bot.utils.ErroSendMessage;
-import com.zkb.bot.utils.GetProxyOnClons;
 import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.SelectGroupFunctionOnOff;
 import com.zkb.bot.warframe.dao.MarketRiven;
@@ -94,7 +93,7 @@ public class MarketRivenUtil {
             return JSONObject.parseObject(json, MarketRiven.class);
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("api.warframe.market查询紫卡错误：{}",e.getMessage());
+            log.error("api.warframe.market查询紫卡错误：{}", e.getMessage());
             return null;
         }
 

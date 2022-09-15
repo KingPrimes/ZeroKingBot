@@ -56,7 +56,7 @@ public class RivenDispositionUpdatesImage {
         try {
             ImageIO.write(ImageUtils.getBufferedImage(image, seatList), "jpg", new File("./renew-riven-disposition.jpg"));
         } catch (IOException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
     }
 

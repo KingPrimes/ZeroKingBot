@@ -29,6 +29,7 @@ public class DucatUtil {
 
     /**
      * 格式化并限制 数量
+     *
      * @param ducats 数据
      * @return 格式化之后的数据
      */

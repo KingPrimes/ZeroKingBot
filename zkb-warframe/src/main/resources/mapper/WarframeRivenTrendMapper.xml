@@ -16,7 +16,9 @@
     </resultMap>
 
     <sql id="selectWarframeRivenTrendVo">
-        select a.*,b.tra_ch from wf_riven_trend as a LEFT JOIN wf_translation as b on a.riven_trend_name = b.tra_en
+        select a.*, b.tra_ch
+        from wf_riven_trend as a
+                 LEFT JOIN wf_translation as b on a.riven_trend_name = b.tra_en
     </sql>
 
     <select id="selectWarframeRivenTrendList" parameterType="WarframeRivenTrend" resultMap="WarframeRivenTrendResult">
@@ -102,7 +104,9 @@
     </update>
 
     <delete id="deleteWarframeRivenTrendById" parameterType="Long">
-        delete from wf_riven_trend where riven_trend_id = #{rivenTrendId}
+        delete
+        from wf_riven_trend
+        where riven_trend_id = #{rivenTrendId}
     </delete>
 
     <delete id="deleteWarframeRivenTrendByIds" parameterType="String">

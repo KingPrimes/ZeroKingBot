@@ -275,16 +275,16 @@ public class ImageUtils {
             assert in != null;
             return ImageIO.read(in);
         } catch (IOException e) {
-            log.error("InputStream获取图片出错：{}",e.getMessage());
+            log.error("InputStream获取图片出错：{}", e.getMessage());
             return null;
         }
     }
 
-    public static BufferedImage getImagePath(String path){
-        try{
+    public static BufferedImage getImagePath(String path) {
+        try {
             return ImageIO.read(new File(path));
-        }catch (Exception e){
-            log.error("从路径读取图片报错：{}",e.getMessage());
+        } catch (Exception e) {
+            log.error("从路径读取图片报错：{}", e.getMessage());
             return null;
         }
     }

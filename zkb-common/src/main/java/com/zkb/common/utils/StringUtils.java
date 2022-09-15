@@ -732,14 +732,15 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
     /**
      * 全局匹配正则表达式
-     * @param str 字符串
+     *
+     * @param str   字符串
      * @param regex 正则表达式
      * @return
      */
-    public static boolean regexG(String str,String regex){
+    public static boolean regexG(String str, String regex) {
         Pattern p = Pattern.compile(regex);
-        Matcher m =p.matcher(str);
-        while (m.find()){
+        Matcher m = p.matcher(str);
+        while (m.find()) {
             return true;
         }
         return false;
@@ -747,15 +748,16 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
     /**
      * 随机的字符串
+     *
      * @param len 字符串长度
      * @return 字符串
      */
-    public static String getRandomString(int len){
+    public static String getRandomString(int len) {
         /*RAND_STR*/
         Random r = new Random();
         int rl = RAND_STR.length();
         StringBuilder str = new StringBuilder();
-        for(int i=0;i<len;i++){
+        for (int i = 0; i < len; i++) {
             str.append(RAND_STR.charAt(r.nextInt(rl)));
         }
         return str.toString();
@@ -763,12 +765,12 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
     /**
      * 获取随机的字符串 4-17位
+     *
      * @return 字符串
      */
-    public static String getRandomString(){
-        return getRandomString(new Random().nextInt(14)+4);
+    public static String getRandomString() {
+        return getRandomString(new Random().nextInt(14) + 4);
     }
-
 
 
 }

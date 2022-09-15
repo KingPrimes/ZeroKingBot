@@ -11,7 +11,8 @@
     </resultMap>
 
     <sql id="selectWarframeAliasVo">
-        select alias_id, alias_en, alias_ch from wf_alias
+        select alias_id, alias_en, alias_ch
+        from wf_alias
     </sql>
 
     <select id="selectWarframeAliasList" parameterType="WarframeAlias" resultMap="WarframeAliasResult">
@@ -50,7 +51,9 @@
     </update>
 
     <delete id="deleteWarframeAliasById" parameterType="Integer">
-        delete from wf_alias where alias_id = #{aliasId}
+        delete
+        from wf_alias
+        where alias_id = #{aliasId}
     </delete>
 
     <delete id="deleteWarframeAliasByIds" parameterType="String">

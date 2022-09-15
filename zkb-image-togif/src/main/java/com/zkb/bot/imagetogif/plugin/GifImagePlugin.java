@@ -18,7 +18,7 @@ public class GifImagePlugin extends BotPlugin {
     @Override
     public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
 
-        if(event.getRawMessage().trim().length()==0){
+        if (event.getRawMessage().trim().length() == 0) {
             return MESSAGE_IGNORE;
         }
 

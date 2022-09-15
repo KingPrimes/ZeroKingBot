@@ -25,7 +25,6 @@ public class ArbitrationImageController {
     RedisCache redisCache;
 
 
-
     @GetMapping(value = "/{uuid}/getArbitrationImage")
     public void getImage(HttpServletResponse response) throws IOException {
         response.setHeader("Content-Type", "image/png");

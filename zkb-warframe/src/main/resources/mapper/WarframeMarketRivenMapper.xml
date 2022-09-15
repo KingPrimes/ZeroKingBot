@@ -16,7 +16,15 @@
     </resultMap>
 
     <sql id="selectWarframeMarketRivenVo">
-        select thumb, riven_type, `group`, id,icon_format,url_name,item_name,icon from wf_market_riven
+        select thumb,
+               riven_type,
+               `group`,
+               id,
+               icon_format,
+               url_name,
+               item_name,
+               icon
+        from wf_market_riven
     </sql>
 
     <select id="selectWarframeMarketRivenList" parameterType="WarframeMarketRiven"

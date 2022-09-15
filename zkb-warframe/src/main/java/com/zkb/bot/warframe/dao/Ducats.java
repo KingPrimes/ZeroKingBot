@@ -26,6 +26,36 @@ public class Ducats {
         return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).append("ducats", ducats).toString();
     }
 
+    /**
+     * 获取银垃圾列表
+     *
+     * @return
+     */
+    public List<Ducat> getSilverDump() {
+        if (this.ducats.size() == 0) return new ArrayList<>();
+        List<Ducat> silver = new ArrayList<>();
+        for (Ducat ducat : this.ducats) {
+            if (ducat.getDucats() == 45) silver.add(ducat);
+        }
+        silver.sort((((o1, o2) -> o2.getDucatsPerPlatinumWa().compareTo(o1.getDucatsPerPlatinumWa()))));
+        return silver;
+    }
+
+    /**
+     * 获取金垃圾列表
+     *
+     * @return
+     */
+    public List<Ducat> getGodDump() {
+        if (this.ducats.size() == 0) return new ArrayList<>();
+        List<Ducat> silver = new ArrayList<>();
+        for (Ducat ducat : this.ducats) {
+            if (ducat.getDucats() == 100) silver.add(ducat);
+        }
+        silver.sort((((o1, o2) -> o2.getDucatsPerPlatinumWa().compareTo(o1.getDucatsPerPlatinumWa()))));
+        return silver;
+    }
+
     public static class Ducat {
         /**
          * 时间
@@ -357,36 +387,5 @@ public class Ducats {
         }
 
 
-    }
-
-
-    /**
-     * 获取银垃圾列表
-     *
-     * @return
-     */
-    public List<Ducat> getSilverDump() {
-        if (this.ducats.size() == 0) return new ArrayList<>();
-        List<Ducat> silver = new ArrayList<>();
-        for (Ducat ducat : this.ducats) {
-            if (ducat.getDucats() == 45) silver.add(ducat);
-        }
-        silver.sort((((o1, o2) -> o2.getDucatsPerPlatinumWa().compareTo(o1.getDucatsPerPlatinumWa()))));
-        return silver;
-    }
-
-    /**
-     * 获取金垃圾列表
-     *
-     * @return
-     */
-    public List<Ducat> getGodDump() {
-        if (this.ducats.size() == 0) return new ArrayList<>();
-        List<Ducat> silver = new ArrayList<>();
-        for (Ducat ducat : this.ducats) {
-            if (ducat.getDucats() == 100) silver.add(ducat);
-        }
-        silver.sort((((o1, o2) -> o2.getDucatsPerPlatinumWa().compareTo(o1.getDucatsPerPlatinumWa()))));
-        return silver;
     }
 }

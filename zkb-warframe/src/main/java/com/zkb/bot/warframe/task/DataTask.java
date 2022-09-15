@@ -11,7 +11,6 @@ import com.zkb.bot.warframe.service.impl.WarframeRelicsServiceImpl;
 import com.zkb.bot.warframe.service.impl.WarframeTranslationServiceImpl;
 import com.zkb.bot.warframe.service.impl.WfAllTranslNoImpl;
 import com.zkb.common.core.redis.RedisCache;
-import com.zkb.common.load.LoadConfig;
 import com.zkb.common.utils.http.HttpUtils;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.slf4j.Logger;
@@ -47,7 +46,7 @@ public class DataTask {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("获取遗物Hash出错，错误信息：{}",e.getMessage());
+            log.error("获取遗物Hash出错，错误信息：{}", e.getMessage());
             SpringUtils.getBean(RedisCache.class).setCacheObject("datahash", d);
         }
 

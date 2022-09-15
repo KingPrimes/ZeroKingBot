@@ -22,6 +22,7 @@ import java.util.List;
 public class RenewMarketUtil {
 
     private static final Logger log = LoggerFactory.getLogger(RenewMarketUtil.class);
+
     /**
      * 更新Market紫卡词典
      *
@@ -38,7 +39,7 @@ public class RenewMarketUtil {
             }
             return i;
         } catch (Exception e) {
-            log.error("更新Market紫卡词典：{}",e.getMessage());
+            log.error("更新Market紫卡词典：{}", e.getMessage());
             return 0;
         }
     }
@@ -61,7 +62,7 @@ public class RenewMarketUtil {
             }
             return i;
         } catch (Exception e) {
-            log.error("更新Market紫卡词条词典：{}",e.getMessage());
+            log.error("更新Market紫卡词条词典：{}", e.getMessage());
             return 0;
         }
     }
@@ -81,7 +82,7 @@ public class RenewMarketUtil {
         for (List<WarframeMarketItems> mrs : lists) {
             i += SpringUtils.getBean(IWarframeMarketItemsService.class).insertWarframeMarketItems(mrs);
         }
-        log.info("更新Market物品词典 条{}数据",i);
+        log.info("更新Market物品词典 条{}数据", i);
         return i;
     }
 
@@ -108,7 +109,7 @@ public class RenewMarketUtil {
         for (WarframeMarketLichOrSister sister : sisters) {
             i += SpringUtils.getBean(IWarframeMarketSisterService.class).insertWarframeMarketSister(sister);
         }
-        log.info("更新Market 信条 武器 共更新条{}数据",i);
+        log.info("更新Market 信条 武器 共更新条{}数据", i);
         return i;
     }
 
@@ -125,7 +126,7 @@ public class RenewMarketUtil {
         for (WarframeMarketLichOrSister sister : sisters) {
             i += SpringUtils.getBean(IWarframeMarketSisterService.class).insertWarframeMarketSister(sister);
         }
-        log.info("更新Market 信条 幻纹 共更新条{}数据",i);
+        log.info("更新Market 信条 幻纹 共更新条{}数据", i);
         return i;
     }
 

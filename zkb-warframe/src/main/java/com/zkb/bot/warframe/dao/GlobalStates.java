@@ -159,7 +159,7 @@ public class GlobalStates {
     @NoArgsConstructor
     @Data
     @EqualsAndHashCode(of = {"start", "end", "upgrade"})
-    public static class GlobalUpgrades{
+    public static class GlobalUpgrades {
 
         //开始时间
         @JsonProperty("start")
@@ -727,10 +727,11 @@ public class GlobalStates {
         @JsonProperty("state")
         private String state;
     }
+
     @NoArgsConstructor
     @Data
     @EqualsAndHashCode(of = {"isCorpus", "state"})
-    public static class ZarimanCycle{
+    public static class ZarimanCycle {
         @JsonProperty("id")
         private String id;
 

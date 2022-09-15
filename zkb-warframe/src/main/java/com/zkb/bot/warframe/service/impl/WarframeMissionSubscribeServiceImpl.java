@@ -112,7 +112,7 @@ public class WarframeMissionSubscribeServiceImpl implements IWarframeMissionSubs
             //判断是否是同一个类型
             if (sub.getSubscribeGroup().equals(subscribe.getSubscribeGroup()) && sub.getSubscribeMissionId().equals(subscribe.getSubscribeMissionId())) {
                 users = sub.getSubscribeUser().split("-");
-                if(users.length!=0){
+                if (users.length != 0) {
                     for (String user : users) {
                         if (!user.equals(subscribe.getSubscribeUser())) {
                             usert.append(user)
@@ -123,7 +123,7 @@ public class WarframeMissionSubscribeServiceImpl implements IWarframeMissionSubs
                 break;
             }
         }
-        if(users.length==1){
+        if (users.length == 1) {
             subscribe.setSubscribeUser(null);
             return subscribeMapper.updateWarframeMissionSubscribe(subscribe);
         }

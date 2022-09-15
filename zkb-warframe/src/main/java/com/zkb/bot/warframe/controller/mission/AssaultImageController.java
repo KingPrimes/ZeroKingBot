@@ -25,7 +25,6 @@ public class AssaultImageController {
     RedisCache redisCache;
 
 
-
     @GetMapping(value = "/{uuid}/getAssaultImage")
     public void getImage(HttpServletResponse response) throws IOException {
         response.setHeader("Content-Type", "image/png");

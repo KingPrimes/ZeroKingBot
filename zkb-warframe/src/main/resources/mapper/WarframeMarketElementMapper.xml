@@ -10,7 +10,8 @@
     </resultMap>
 
     <sql id="selectWarframeMarketElementVo">
-        select element_en, element_ch from wf_market_element
+        select element_en, element_ch
+        from wf_market_element
     </sql>
 
     <select id="selectWarframeMarketElementLikeEn" parameterType="String" resultMap="WarframeMarketElementResult">
@@ -58,7 +59,9 @@
     </update>
 
     <delete id="deleteWarframeMarketElementByElementEn" parameterType="String">
-        delete from wf_market_element where element_en = #{elementEn}
+        delete
+        from wf_market_element
+        where element_en = #{elementEn}
     </delete>
 
     <delete id="deleteWarframeMarketElementByElementEns" parameterType="String">

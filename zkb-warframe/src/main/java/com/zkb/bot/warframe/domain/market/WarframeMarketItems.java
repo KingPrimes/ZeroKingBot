@@ -47,8 +47,8 @@ public class WarframeMarketItems {
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
-                .append("id",getId())
-                .append("thumb",getThumb())
+                .append("id", getId())
+                .append("thumb", getThumb())
                 .append("item_name", getItemName())
                 .append("url_name", getUrlName())
                 .toString();

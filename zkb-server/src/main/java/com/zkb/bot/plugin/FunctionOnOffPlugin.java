@@ -3,7 +3,6 @@ package com.zkb.bot.plugin;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.core.BotPlugin;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
-import com.mikuac.shiro.dto.event.message.PrivateMessageEvent;
 import com.zkb.bot.domain.GroupFunctionOnOff;
 import com.zkb.bot.server.GroupFunctionOnOffServer;
 import com.zkb.bot.utils.GroupAddApi;
@@ -26,7 +25,7 @@ public class FunctionOnOffPlugin extends BotPlugin {
 
     @Override
     public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
-        if(event.getRawMessage().trim().length()==0){
+        if (event.getRawMessage().trim().length() == 0) {
             return MESSAGE_IGNORE;
         }
 

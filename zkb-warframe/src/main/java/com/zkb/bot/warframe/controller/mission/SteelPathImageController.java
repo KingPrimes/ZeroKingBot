@@ -24,7 +24,6 @@ public class SteelPathImageController {
     private RedisCache redisCache;
 
 
-
     @GetMapping(value = "/{uuid}/getSteelPathImage")
     public void getImage(HttpServletResponse response) throws IOException {
         response.setHeader("Content-Type", "image/png");

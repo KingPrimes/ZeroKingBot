@@ -85,6 +85,7 @@ public interface IWarframeRelicsService {
 
     /**
      * 清空表格
+     *
      * @return 影响行数
      */
     int deleteWarframeRelics();

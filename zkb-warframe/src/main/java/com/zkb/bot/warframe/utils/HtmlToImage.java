@@ -1411,9 +1411,9 @@ public class HtmlToImage {
                     str.append("Neuroptics");
                 } else if (item.contains("systems")) {
                     str.append("Systems");
-                } else if(item.contains("adapter")){
+                } else if (item.contains("adapter")) {
                     str.append("Adapter");
-                }else{
+                } else {
                     String[] s = warframeRelics.getRelicsItemName().split(" ");
                     str.append(s[s.length - 1]);
                 }

@@ -18,62 +18,46 @@
     <!--查询任务未翻译的列表-->
     <select id="selectAllNoMission" parameterType="com.zkb.bot.warframe.domain.WfAllTranslNo"
             resultMap="WfAllNoTrasResult">
-        SELECT
-        miss_id,
-        wf_mission_rewards.miss_rewards_name
-        FROM
-        wf_mission_rewards
-        LEFT JOIN wf_translation AS b ON wf_mission_rewards.miss_rewards_name = b.tra_en
-        WHERE
-        b.tra_en IS NULL
+        SELECT miss_id,
+               wf_mission_rewards.miss_rewards_name
+        FROM wf_mission_rewards
+                 LEFT JOIN wf_translation AS b ON wf_mission_rewards.miss_rewards_name = b.tra_en
+        WHERE b.tra_en IS NULL
 
-        GROUP BY
-        miss_id
+        GROUP BY miss_id
     </select>
 
     <!--查询遗物未翻译的列表-->
     <select id="selectAllNoRelics" parameterType="com.zkb.bot.warframe.domain.WfAllTranslNo"
             resultMap="WfAllNoTrasResult">
-        SELECT
-        a.relics_key_id,
-        a.relics_item_name
-        FROM
-        wf_relics AS a
-        LEFT JOIN wf_translation AS b ON a.relics_item_name = b.tra_en
-        WHERE
-        b.tra_en IS NULL
-        GROUP BY
-        a.relics_key_id
+        SELECT a.relics_key_id,
+               a.relics_item_name
+        FROM wf_relics AS a
+                 LEFT JOIN wf_translation AS b ON a.relics_item_name = b.tra_en
+        WHERE b.tra_en IS NULL
+        GROUP BY a.relics_key_id
     </select>
 
     <!--查询交易市场未翻译的列表-->
     <select id="selectAllNoMarket" parameterType="com.zkb.bot.warframe.domain.WfAllTranslNo"
             resultMap="WfAllNoTrasResult">
-        SELECT
-        a.market_id,
-        a.market_item_name
-        FROM
-        wf_market AS a
-        LEFT JOIN wf_translation AS b ON a.market_item_name = b.tra_en
-        WHERE
-        b.tra_en IS NULL
-        GROUP BY
-        a.market_id
+        SELECT a.market_id,
+               a.market_item_name
+        FROM wf_market AS a
+                 LEFT JOIN wf_translation AS b ON a.market_item_name = b.tra_en
+        WHERE b.tra_en IS NULL
+        GROUP BY a.market_id
     </select>
 
     <!--查询紫卡倾向未翻译的列表-->
     <select id="selectAllNoTrend" parameterType="com.zkb.bot.warframe.domain.WfAllTranslNo"
             resultMap="WfAllNoTrasResult">
-        SELECT
-        a.riven_trend_id,
-        a.riven_trend_name
-        FROM
-        wf_riven_trend AS a
-        LEFT JOIN wf_translation AS b ON a.riven_trend_name = b.tra_en
-        WHERE
-        b.tra_en IS NULL
-        GROUP BY
-        a.riven_trend_id
+        SELECT a.riven_trend_id,
+               a.riven_trend_name
+        FROM wf_riven_trend AS a
+                 LEFT JOIN wf_translation AS b ON a.riven_trend_name = b.tra_en
+        WHERE b.tra_en IS NULL
+        GROUP BY a.riven_trend_id
     </select>
 
 </mapper>

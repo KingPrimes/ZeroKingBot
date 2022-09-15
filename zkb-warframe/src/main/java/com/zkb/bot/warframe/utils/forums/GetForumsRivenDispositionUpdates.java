@@ -10,12 +10,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 
 /**
@@ -31,7 +27,7 @@ public class GetForumsRivenDispositionUpdates {
      */
     private static List<String> getRivenDispositionUpdateUrl() {
         String html = HttpUtils.sendGetOkHttp(
-                        "https://forums.warframe.com/search/?&q=Riven&type=forums_topic&quick=1&nodes=123&search_and_or=and&search_in=titles&sortby=relevancy");
+                "https://forums.warframe.com/search/?&q=Riven&type=forums_topic&quick=1&nodes=123&search_and_or=and&search_in=titles&sortby=relevancy");
 
         //返回变量
         List<String> newRiven = new ArrayList<>();

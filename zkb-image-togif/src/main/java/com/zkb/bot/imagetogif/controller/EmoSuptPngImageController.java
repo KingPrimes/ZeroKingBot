@@ -27,14 +27,14 @@ public class EmoSuptPngImageController {
     @GetMapping(value = "/{uuid}/getImage/{id}/{ms}")
     public void getImage(@PathVariable("id") long id, @PathVariable("ms") int ms, HttpServletResponse response) throws Exception {
         response.setHeader("Content-Type", MediaType.IMAGE_PNG_VALUE);
-        if (GitPng.getInitPng()){
+        if (GitPng.getInitPng()) {
             return;
         }
         //获取用户头像
         BufferedImage prk = new ImageCombiner(ImageIO.read(new URL(PrivateAddApi.getPrivateHeadHDImage(id))), OutputFormat.PNG).combine();
         RotateFilter filter = new RotateFilter();
         filter.setAngle(0.40F);
-        ImageCombiner combiner = new ImageCombiner(Objects.requireNonNull(ImageUtils.getImagePath(GitPng.PATH+"\\emo-supt\\emo.png")), OutputFormat.PNG);
+        ImageCombiner combiner = new ImageCombiner(Objects.requireNonNull(ImageUtils.getImagePath(GitPng.PATH + "\\emo-supt\\emo.png")), OutputFormat.PNG);
         combiner.addImageElement(
                 Thumbnails.of(filter.filter(prk)).size(1600, 1600).keepAspectRatio(false).asBufferedImage(),
                 -145,

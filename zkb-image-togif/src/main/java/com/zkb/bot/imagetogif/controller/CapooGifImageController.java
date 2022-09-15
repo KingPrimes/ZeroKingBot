@@ -29,7 +29,7 @@ public class CapooGifImageController {
     @GetMapping(value = "/{uuid}/getImage/{id}/{ms}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_PNG_VALUE})
     public void getImage(@PathVariable("id") long id, @PathVariable("ms") int ms, HttpServletResponse response) throws Exception {
         response.setHeader("Content-Type", "image/gif");
-        if (GitPng.getInitPng()){
+        if (GitPng.getInitPng()) {
             return;
         }
         //Gif图像组
@@ -44,7 +44,7 @@ public class CapooGifImageController {
         //遍历Png素材
         for (int i = 1; i <= 43; i++) {
             //素材地址
-            String path = GitPng.PATH+"capoo\\ding\\" + i + ".png";
+            String path = GitPng.PATH + "capoo\\ding\\" + i + ".png";
             //加载素材到内存
             BufferedImage s = ImageUtils.getImagePath(path);
             //加载素材到内存

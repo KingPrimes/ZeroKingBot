@@ -13,7 +13,8 @@
 
 
     <sql id="selectWarframeMarketItemsVo">
-        select item_id,item_name, url_name,item_thumb from wf_market_items
+        select item_id, item_name, url_name, item_thumb
+        from wf_market_items
     </sql>
 
     <select id="selectWarframeMarketItemsList" parameterType="WarframeMarketItems"

@@ -65,7 +65,7 @@ public enum WarframeTypeEnum {
         return type;
     }
 
-    public WarframeTypeEnum setType(String type){
+    public WarframeTypeEnum setType(String type) {
         this.type = type;
         return this;
     }

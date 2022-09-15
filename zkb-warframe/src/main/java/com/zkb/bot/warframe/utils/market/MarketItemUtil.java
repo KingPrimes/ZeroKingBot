@@ -20,9 +20,7 @@ import com.zkb.bot.warframe.domain.market.WarframeMarketItems;
 import com.zkb.bot.warframe.domain.market.WarframeMarketItemsRegular;
 import com.zkb.bot.warframe.service.IWarframeAliasService;
 import com.zkb.bot.warframe.service.IWarframeMarketItemsService;
-import com.zkb.bot.warframe.task.RivenDispositionUpdatesTask;
 import com.zkb.bot.warframe.utils.WarframeStringUtils;
-import com.zkb.common.load.LoadConfig;
 import com.zkb.common.load.ReadAdminConfig;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.http.HttpUtils;
@@ -182,7 +180,7 @@ public class MarketItemUtil {
             return marketKey;
             //以上两种都为查询到结果 报 Null 异常
         } catch (Exception e) {
-            log.error("获取Warframe.Market Item 出错:{}",e.getMessage());
+            log.error("获取Warframe.Market Item 出错:{}", e.getMessage());
             try {
                 //查询用户可能想要查询的物品
                 List<WarframeMarketItems> items = itemsService.selectWarframeMarketItemsLikeList(String.valueOf(key.charAt(0)));
@@ -200,7 +198,7 @@ public class MarketItemUtil {
                 marketKey.setErrorWM(errorWm);
                 return marketKey;
             } catch (Exception ex) {
-                log.error("获取 可能查询的物品名称 报错：{}",ex.getMessage());
+                log.error("获取 可能查询的物品名称 报错：{}", ex.getMessage());
             }
         }
         return null;

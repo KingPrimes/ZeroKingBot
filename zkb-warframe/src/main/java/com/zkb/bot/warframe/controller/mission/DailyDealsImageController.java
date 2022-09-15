@@ -25,7 +25,6 @@ public class DailyDealsImageController {
     RedisCache redisCache;
 
 
-
     @GetMapping(value = "/{uuid}/getDailyDealsImage")
     public void getImage(HttpServletResponse response) throws IOException {
         response.setHeader("Content-Type", "image/png");

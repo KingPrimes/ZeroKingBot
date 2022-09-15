@@ -28,7 +28,7 @@ public class EmailFunnyImageController {
     @GetMapping(value = "/{uuid}/getImage/{id}/{ms}")
     public void getImage(@PathVariable("id") long id, @PathVariable("ms") int ms, HttpServletResponse response) throws Exception {
         response.setHeader("Content-Type", "image/gif");
-        if (GitPng.getInitPng()){
+        if (GitPng.getInitPng()) {
             return;
         }
         //Gif图像组
@@ -44,7 +44,7 @@ public class EmailFunnyImageController {
         //遍历Png素材
         for (int i = 1; i <= 16; i++) {
             //素材地址
-            String path = GitPng.PATH+"\\email-funny\\" + i + ".png";
+            String path = GitPng.PATH + "\\email-funny\\" + i + ".png";
             //加载素材到内存
             BufferedImage s = ImageUtils.getImagePath(path);
             //加载素材到内存
