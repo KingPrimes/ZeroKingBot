@@ -16,9 +16,9 @@ import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.spring.SpringUtils;
 import com.zkb.common.utils.uuid.UUID;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Locale;
 
 import static com.zkb.bot.aiml.enums.OrderEnum.ORDER_REPLY;
@@ -31,7 +31,7 @@ import static com.zkb.bot.aiml.enums.OrderEnum.ORDER_TEACHING;
 @Component
 public class IssueReplyPlugin {
 
-    @Autowired
+ @Resource
     private IssueReplyService service;
 
     @GroupMessageHandler

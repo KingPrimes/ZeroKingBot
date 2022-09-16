@@ -14,9 +14,9 @@ import com.zkb.common.utils.http.HttpUtils;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -35,7 +35,7 @@ import static com.zkb.common.utils.StringUtils.isNumberAndDouble;
 @Component
 public class TeachingUtils {
 
-    @Autowired
+ @Resource
     RedisCache redisCache;
 
     /**

@@ -52,6 +52,8 @@ public class FunctionOnOffPlugin extends BotPlugin {
                 int i = SpringUtils.getBean(GroupFunctionOnOffServer.class).deleteGroupFunctionOnOff(new GroupFunctionOnOff(event.getGroupId(), String.valueOf(FUNCTION_WARFRAME.ordinal())));
                 if (i > 0) {
                     bot.sendGroupMsg(event.getGroupId(), "已关闭Warframe功能", false);
+                }else{
+                    bot.sendGroupMsg(event.getGroupId(),"没有开启过Warframe功能",false);
                 }
                 return MESSAGE_BLOCK;
             } else {
@@ -76,11 +78,13 @@ public class FunctionOnOffPlugin extends BotPlugin {
             }
         }
         //关闭涩图
-        if (ON_IMAGE.getType().equals(event.getRawMessage().toUpperCase(Locale.ROOT))) {
+        if (OFF_IMAGE.getType().equals(event.getRawMessage().toUpperCase(Locale.ROOT))) {
             if (GroupAddApi.isAdmin(bot, event)) {
                 int i = SpringUtils.getBean(GroupFunctionOnOffServer.class).deleteGroupFunctionOnOff(new GroupFunctionOnOff(event.getGroupId(), String.valueOf(FUNCTION_IMAGE.ordinal())));
                 if (i > 0) {
                     bot.sendGroupMsg(event.getGroupId(), "已关闭涩图功能", false);
+                }else{
+                    bot.sendGroupMsg(event.getGroupId(),"没有开启过涩图功能",false);
                 }
                 return MESSAGE_BLOCK;
             } else {
@@ -110,6 +114,8 @@ public class FunctionOnOffPlugin extends BotPlugin {
                 int i = SpringUtils.getBean(GroupFunctionOnOffServer.class).deleteGroupFunctionOnOff(new GroupFunctionOnOff(event.getGroupId(), String.valueOf(FUNCTION_AI.ordinal())));
                 if (i > 0) {
                     bot.sendGroupMsg(event.getGroupId(), "关闭AI功能", false);
+                }else{
+                    bot.sendGroupMsg(event.getGroupId(),"没有开启过AI功能",false);
                 }
                 return MESSAGE_BLOCK;
             } else {
@@ -138,6 +144,8 @@ public class FunctionOnOffPlugin extends BotPlugin {
                 int i = SpringUtils.getBean(GroupFunctionOnOffServer.class).deleteGroupFunctionOnOff(new GroupFunctionOnOff(event.getGroupId(), String.valueOf(FUNCTION_GIF.ordinal())));
                 if (i > 0) {
                     bot.sendGroupMsg(event.getGroupId(), "关闭GIF功能", false);
+                }else{
+                    bot.sendGroupMsg(event.getGroupId(),"没有开启过GIF功能",false);
                 }
                 return MESSAGE_BLOCK;
             } else {

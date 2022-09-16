@@ -4,15 +4,15 @@ package com.zkb.bot.group.service.impl;
 import com.zkb.bot.group.domain.OFFunGroup;
 import com.zkb.bot.group.mapper.OFFunGroupMapper;
 import com.zkb.bot.group.service.IOFFunGroupService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class OFFunGroupImpl implements IOFFunGroupService {
 
-    @Autowired
+ @Resource
     private OFFunGroupMapper of;
 
     @Override

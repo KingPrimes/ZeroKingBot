@@ -17,8 +17,7 @@
     </resultMap>
 
     <sql id="selectGroupFunctionOnOffVo">
-        select `group`, function_id
-        from bot_group_function_onoff
+        select `group`,function_id from bot_group_function_onoff
     </sql>
 
     <select id="selectGroupFunctionOnOffList" parameterType="GroupFunctionOnOff" resultMap="GroupFunctionOnOffResult">
@@ -39,15 +38,13 @@
                f.function_introduction,
                o.`group`
         FROM bot_function AS f,
-             bot_group_function_onoff AS o,
-             bot_group_time AS g
-        WHERE g.`group` = o.`group`
-          AND o.function_id = f.function_id
+             bot_group_function_onoff AS o
+        WHERE o.function_id = f.function_id
           AND o.`group` = #{group}
     </select>
 
     <insert id="insertGroupFunctionOnOff" parameterType="GroupFunctionOnOff" useGeneratedKeys="true">
-        insert OR IGNORE into bot_group_function_onoff
+        insert or IGNORE into bot_group_function_onoff
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="group != null and group != ''">`group`,</if>
             <if test="functionId != null and functionId != ''">function_id,</if>
@@ -61,16 +58,12 @@
     <update id="updateGroupFunctionOnOff" parameterType="GroupFunctionOnOff">
         update bot_group_function_onoff
         set function_id = #{functionId}
-        where `group` = #{group}
+        where "group" = #{group}
     </update>
 
     <delete id="deleteGroupFunctionOnOff" parameterType="GroupFunctionOnOff">
         delete from bot_group_function_onoff
-        <where>
-            <if test="group != null and group != ''">
-                AND `group` = #{group}
-            </if>
-        </where>
+        where "group" = #{group}
     </delete>
 
 </mapper>

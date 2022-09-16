@@ -29,7 +29,7 @@ jobs:
       # 设置 jobs Maven pom 版本环境变量
       - name: Set Release version env variable
         run: |
-          echo "RELEASE_VERSION=4.1.7.9" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
       - name: "Build & test"
         run: |
           echo "done!"
@@ -37,8 +37,8 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{ env.RELEASE_VERSION }}"
+          automatic_release_tag: "4.1.8.0"
           prerelease: false
-          title: "ZeroKingBot-v${{ env.RELEASE_VERSION }}"
+          title: "ZeroKingBot-v4.1.8.0"
           files: |
             staging/*.jar

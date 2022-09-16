@@ -14,10 +14,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xhtmlrenderer.simple.Graphics2DRenderer;
 
+import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -30,13 +30,13 @@ public class HtmlToImage {
     private static final Logger log = LoggerFactory.getLogger(HtmlToImage.class);
 
     private static final String HTML_PATH = "./ZKBotHtml/";
-    @Autowired
+    @Resource
     IWarframeTranslationService trans;
 
-    @Autowired
+    @Resource
     IWarframeMarketRivenTionService rts;
 
-    @Autowired
+    @Resource
     IWarframeRelicsService relics;
 
     /**
@@ -1491,7 +1491,7 @@ public class HtmlToImage {
         try {
             File htmlFile = new File(htmlFilePath);
             String url = htmlFile.toURI().toURL().toExternalForm();
-            BufferedImage image = Graphics2DRenderer.renderToImageAutoSize(url, width, BufferedImage.TYPE_INT_ARGB);
+            BufferedImage image = Graphics2DRenderer.renderToImageAutoSize(url, width, BufferedImage.TYPE_INT_ARGB_PRE);
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             ImageIO.write(image, "png", os);
             return os;

@@ -5,15 +5,15 @@ import com.zkb.bot.warframe.domain.market.WarframeMarketItems;
 import com.zkb.bot.warframe.domain.market.WarframeMarketItemsRegular;
 import com.zkb.bot.warframe.mapper.WarframeMarketItemsMapper;
 import com.zkb.bot.warframe.service.IWarframeMarketItemsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class WarframeMarketItemsServiceImpl implements IWarframeMarketItemsService {
 
-    @Autowired
+    @Resource
     WarframeMarketItemsMapper itemsMapper;
 
 

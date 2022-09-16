@@ -13,9 +13,9 @@ import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.uuid.UUID;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Component
@@ -26,7 +26,7 @@ public class WarframeSubscribePlugin extends BotPlugin {
     private static final String SUB_RIVE_END = "取消私人订阅";
     private static final String SUB = "订阅";
     private static final String SUB_RIVE = "私人订阅";
-    @Autowired
+    @Resource
     IWarframeMissionSubscribeService service;
 
     @Override

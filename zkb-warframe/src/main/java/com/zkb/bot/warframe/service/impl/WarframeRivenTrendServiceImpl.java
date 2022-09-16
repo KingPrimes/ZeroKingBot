@@ -4,9 +4,9 @@ package com.zkb.bot.warframe.service.impl;
 import com.zkb.bot.warframe.domain.WarframeRivenTrend;
 import com.zkb.bot.warframe.mapper.WarframeRivenTrendMapper;
 import com.zkb.bot.warframe.service.IWarframeRivenTrendService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Service
 public class WarframeRivenTrendServiceImpl implements IWarframeRivenTrendService {
-    @Autowired
+    @Resource
     private WarframeRivenTrendMapper trendMapper;
 
     /**

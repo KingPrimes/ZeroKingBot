@@ -18,9 +18,9 @@ import com.zkb.common.utils.VerifyCodeUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -28,9 +28,9 @@ import java.util.concurrent.TimeUnit;
 public class JoinGroupVerifyCodePlugin extends BotPlugin {
 
     private static final Logger log = LoggerFactory.getLogger(JoinGroupVerifyCodePlugin.class);
-    @Autowired
+ @Resource
     private RedisCache redisCache;
-    @Autowired
+ @Resource
     private BotContainer botContainer;
 
     @Override

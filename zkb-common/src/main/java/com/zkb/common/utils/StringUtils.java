@@ -746,6 +746,12 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return false;
     }
 
+    public static boolean regex(String str, String regex) {
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
+
     /**
      * 随机的字符串
      *

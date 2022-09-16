@@ -7,12 +7,12 @@ import com.zkb.bot.warframe.utils.HtmlToImage;
 import com.zkb.bot.warframe.utils.WarframeUtils;
 import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.utils.spring.SpringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import java.io.IOException;
 @RequestMapping("/warframe/mission")
 public class FissuesImageController {
 
-    @Autowired
+    @Resource
     RedisCache redisCache;
 
 

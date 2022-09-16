@@ -9,7 +9,6 @@ import com.zkb.bot.enums.WarframeFissureTypeEnum;
 import com.zkb.bot.utils.ErroSendMessage;
 import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.SelectGroupFunctionOnOff;
-import com.zkb.bot.warframe.service.IWarframeTranslationService;
 import com.zkb.bot.warframe.utils.WarframeStringUtils;
 import com.zkb.bot.warframe.utils.market.MarketItemUtil;
 import com.zkb.bot.warframe.utils.market.MarketLichAndSisterUtil;
@@ -19,7 +18,6 @@ import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.uuid.UUID;
 import com.zkb.framework.manager.AsyncManager;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
@@ -35,9 +33,6 @@ import static com.zkb.bot.enums.WarframeTypeEnum.*;
  */
 @Component
 public class WarframePlugin extends BotPlugin {
-
-    @Autowired
-    IWarframeTranslationService traService;
 
     @Override
     public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {

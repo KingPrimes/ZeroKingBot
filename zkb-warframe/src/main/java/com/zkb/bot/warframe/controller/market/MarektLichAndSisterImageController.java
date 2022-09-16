@@ -7,13 +7,13 @@ import com.zkb.bot.warframe.service.IWarframeMarketSisterService;
 import com.zkb.bot.warframe.utils.HtmlToImage;
 import com.zkb.bot.warframe.utils.market.MarketLichAndSisterUtil;
 import com.zkb.common.utils.spring.SpringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,9 +26,9 @@ import java.net.URLDecoder;
 @RequestMapping("/warframe/market")
 public class MarektLichAndSisterImageController {
 
-    @Autowired
+    @Resource
     IWarframeMarketLichOrSisterService lichService;
-    @Autowired
+    @Resource
     IWarframeMarketSisterService sisterService;
 
 

@@ -4,9 +4,9 @@ package com.zkb.bot.warframe.service.impl;
 import com.zkb.bot.warframe.domain.market.WarframeMarketLichOrSister;
 import com.zkb.bot.warframe.mapper.WarframeMarketLichOrSisterMapper;
 import com.zkb.bot.warframe.service.IWarframeMarketLichOrSisterService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Service
 public class WarframeMarketLichOrSisterServiceImpl implements IWarframeMarketLichOrSisterService {
-    @Autowired
+    @Resource
     private WarframeMarketLichOrSisterMapper warframeMarketLichOrSisterMapper;
 
     /**

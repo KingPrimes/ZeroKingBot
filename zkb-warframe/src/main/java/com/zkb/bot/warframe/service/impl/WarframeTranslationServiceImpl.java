@@ -4,9 +4,9 @@ package com.zkb.bot.warframe.service.impl;
 import com.zkb.bot.warframe.domain.WarframeTranslation;
 import com.zkb.bot.warframe.mapper.WarframeTranslationMapper;
 import com.zkb.bot.warframe.service.IWarframeTranslationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Service
 public class WarframeTranslationServiceImpl implements IWarframeTranslationService {
-    @Autowired
+    @Resource
     private WarframeTranslationMapper warframeTranslationMapper;
 
     /**

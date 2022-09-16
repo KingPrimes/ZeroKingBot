@@ -4,9 +4,9 @@ import com.zkb.bot.aiml.domain.IssueReply;
 import com.zkb.bot.aiml.domain.Leaderboard;
 import com.zkb.bot.aiml.mapper.IssueReplyMapper;
 import com.zkb.bot.aiml.service.IssueReplyService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Random;
 
@@ -15,7 +15,7 @@ import java.util.Random;
  */
 @Service
 public class IssueReplyServiceImpl implements IssueReplyService {
-    @Autowired
+ @Resource
     private IssueReplyMapper issueReplyMapper;
 
 

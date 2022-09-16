@@ -4,9 +4,9 @@ package com.zkb.bot.warframe.service.impl;
 import com.zkb.bot.warframe.domain.WarframeRelics;
 import com.zkb.bot.warframe.mapper.WarframeRelicsMapper;
 import com.zkb.bot.warframe.service.IWarframeRelicsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Service
 public class WarframeRelicsServiceImpl implements IWarframeRelicsService {
-    @Autowired
+    @Resource
     private WarframeRelicsMapper WarframeRelicsMapper;
 
     /**

@@ -48,13 +48,15 @@
     <select id="zhToEnList" parameterType="String" resultMap="WarframeTranslationResult">
         select tra_en, tra_ch
         from wf_translation
-        where REPLACE(tra_en, ' ', '') like REPLACE('%' || #{traEn} || '%', ' ', '') limit 5
+        where REPLACE(tra_en, ' ', '') like REPLACE('%' || #{traEn} || '%', ' ', '')
+        limit 5
     </select>
 
     <select id="enToZhList" parameterType="String" resultMap="WarframeTranslationResult">
         select tra_en, tra_ch
         from wf_translation
-        where REPLACE(tra_ch, ' ', '') like REPLACE('%' || #{traCh} || '%', ' ', '') limit 5
+        where REPLACE(tra_ch, ' ', '') like REPLACE('%' || #{traCh} || '%', ' ', '')
+        limit 5
     </select>
 
     <select id="enAndZhToList" parameterType="String" resultMap="WarframeTranslationResult">

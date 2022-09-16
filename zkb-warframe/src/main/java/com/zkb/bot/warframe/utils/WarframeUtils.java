@@ -10,9 +10,9 @@ import com.zkb.bot.warframe.service.IWarframeTranslationService;
 import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.utils.DateUtils;
 import com.zkb.common.utils.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 import static com.zkb.bot.enums.WarframeTypeEnum.REDIS_MISSION_KEY;
@@ -21,9 +21,9 @@ import static com.zkb.bot.enums.WarframeTypeEnum.REDIS_MISSION_KEY;
 public class WarframeUtils {
 
 
-    @Autowired
+    @Resource
     RedisCache redisCache;
-    @Autowired
+    @Resource
     IWarframeTranslationService traService;
 
     /**

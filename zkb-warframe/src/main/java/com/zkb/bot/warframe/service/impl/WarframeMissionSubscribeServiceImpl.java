@@ -4,15 +4,15 @@ package com.zkb.bot.warframe.service.impl;
 import com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe;
 import com.zkb.bot.warframe.mapper.WarframeMissionSubscribeMapper;
 import com.zkb.bot.warframe.service.IWarframeMissionSubscribeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class WarframeMissionSubscribeServiceImpl implements IWarframeMissionSubscribeService {
 
-    @Autowired
+    @Resource
     WarframeMissionSubscribeMapper subscribeMapper;
 
     /**

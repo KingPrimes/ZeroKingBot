@@ -13,8 +13,10 @@ public class SocketGlobalStates {
     private Packet packet;
     @JsonProperty("status")
     private int status;
+
     public SocketGlobalStates() {
     }
+
     public SocketGlobalStates(String event, Packet packet, int status) {
         this.event = event;
         this.packet = packet;
@@ -61,8 +63,10 @@ public class SocketGlobalStates {
         private String platform;
         @JsonProperty("data")
         private GlobalStates data;
+
         public Packet() {
         }
+
         public Packet(String language, String platform, GlobalStates data) {
             this.language = language;
             this.platform = platform;

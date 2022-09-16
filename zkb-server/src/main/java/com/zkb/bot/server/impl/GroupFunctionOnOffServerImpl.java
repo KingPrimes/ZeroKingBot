@@ -7,10 +7,10 @@ import com.zkb.bot.domain.GroupFunctionOnOff;
 import com.zkb.bot.mapper.GroupFunctionOnOffMapper;
 import com.zkb.bot.server.GroupFunctionOnOffServer;
 import com.zkb.common.core.redis.RedisCache;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,10 +20,10 @@ import java.util.List;
 @Service
 public class GroupFunctionOnOffServerImpl implements GroupFunctionOnOffServer {
 
-    @Autowired
+ @Resource
     GroupFunctionOnOffMapper offMapper;
 
-    @Autowired
+ @Resource
     RedisCache redisCache;
 
 
@@ -52,7 +52,7 @@ public class GroupFunctionOnOffServerImpl implements GroupFunctionOnOffServer {
     @Override
     public int deleteGroupFunctionOnOff(GroupFunctionOnOff groupFunctionOnOff) {
         if (!redisCache.exists("group_function:" + groupFunctionOnOff.getGroup())) {
-            return 1;
+            return 0;
         }
         GroupFunctionOnOff gf = redisCache.getCacheObject("group_function:" + groupFunctionOnOff.getGroup());
         List<Integer> fs = JSONArray.parseArray(gf.getFunctionId()).toJavaList(Integer.class);
