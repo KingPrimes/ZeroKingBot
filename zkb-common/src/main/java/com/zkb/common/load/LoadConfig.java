@@ -194,6 +194,8 @@ public class LoadConfig {
         }
     }
 
+
+
     public void initWinRedis() {
         String x = "cmd /c start " + System.getProperty("user.dir") + "\\Redis\\redis-server.exe " + System.getProperty("user.dir") + "\\Redis\\redis.windows.conf";
         try {
