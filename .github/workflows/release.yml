@@ -31,10 +31,6 @@ jobs:
         run: mvn -B package --file pom.xml
       # 将打包好的 Jar 包 放到 staging 文件夹
       - run: mkdir staging && cp /home/runner/work/ZeroKingBot/ZeroKingBot/zkb-admin/target/ZeroKingBot.jar staging
-      # 设置 jobs Maven pom 版本环境变量
-      - name: Set Release version env variable
-        run: |
-          echo "RELEASE_VERSION=$(4.1.8.2)" >> $GITHUB_ENV
       - name: "Build & test"
         run: |
           echo "done!"
@@ -42,8 +38,8 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{ env.RELEASE_VERSION }}"
+          automatic_release_tag: "${{ 4.1.8.2 }}"
           prerelease: false
-          title: "ZeroKingBot-v${{ env.RELEASE_VERSION }}"
+          title: "ZeroKingBot-v${{ 4.1.8.2 }}"
           files: |
             staging/*.jar
