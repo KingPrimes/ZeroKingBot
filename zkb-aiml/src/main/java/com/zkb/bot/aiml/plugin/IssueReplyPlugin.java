@@ -43,7 +43,7 @@ public class IssueReplyPlugin {
             }
 
             //触发概率 不准确
-            if (OtherUtils.random(30)) {
+            if (OtherUtils.randomEx(30)) {
                 Msg msg = new Msg();
                 IssueReply issueReply = SpringUtils.getBean(TeachingUtils.class).getIssue(event.getRawMessage());
                 issueReply = service.selectIssueReplyByMsgIssue(issueReply);
@@ -53,7 +53,6 @@ public class IssueReplyPlugin {
                         for (String url : urls) {
                             msg.img(url.trim());
                         }
-                        //msg.img("http://localhost:" + GetServerPort.getPort() + "/issue/" + UUID.fastUUID() + "/getImage/" + issueReply.getMsgId());
                     }
                     if (issueReply.getMsgReplyFace()!=null){
                         String[] ids = issueReply.getMsgReplyFace().replaceAll("\\[","").replaceAll("]","").trim().split(",");
