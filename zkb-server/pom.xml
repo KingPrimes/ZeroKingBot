@@ -15,14 +15,8 @@
     <dependencies>
         <dependency>
             <groupId>com.zkb</groupId>
-            <artifactId>zkb-framework</artifactId>
+            <artifactId>zkb-bilibli</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.zkb</groupId>
-            <artifactId>zkb-common</artifactId>
-        </dependency>
-
         <!--JavaX 模块-->
         <dependency>
             <groupId>javax.xml.bind</groupId>

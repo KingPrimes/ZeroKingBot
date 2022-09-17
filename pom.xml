@@ -164,6 +164,13 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <!--BiliBili爬虫-->
+            <dependency>
+                <groupId>com.zkb</groupId>
+                <artifactId>zkb-bilibli</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!--GIF绘图核心-->
             <dependency>
                 <groupId>com.madgag</groupId>
@@ -249,6 +256,8 @@
         <module>zkb-aiml</module>
         <module>zkb-image-togif</module>
         <module>zkb-images</module>
+        <module>Test</module>
+        <module>zkb-bilibli</module>
     </modules>
 
 
@@ -280,7 +289,7 @@
                                 自定义MANIFEST.MF中的键值对，
                                 <键>值</键>
                             -->
-                            <ZeroKingBot-Version>4.1.8.1</ZeroKingBot-Version>
+                            <ZeroKingBot-Version>4.1.8.2</ZeroKingBot-Version>
                         </manifestEntries>
                     </archive>
                 </configuration>

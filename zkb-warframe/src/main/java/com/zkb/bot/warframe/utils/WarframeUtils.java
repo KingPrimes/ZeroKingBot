@@ -1,6 +1,9 @@
 package com.zkb.bot.warframe.utils;
 
 
+import com.zkb.bilibili.dao.BiliBili;
+import com.zkb.bilibili.enums.BiliBliTypeEnum;
+import com.zkb.bilibili.utils.UpUtils;
 import com.zkb.bot.enums.WarframeFissureTypeEnum;
 import com.zkb.bot.warframe.dao.FissureList;
 import com.zkb.bot.warframe.dao.GlobalStates;
@@ -19,7 +22,6 @@ import static com.zkb.bot.enums.WarframeTypeEnum.REDIS_MISSION_KEY;
 
 @Component
 public class WarframeUtils {
-
 
     @Resource
     RedisCache redisCache;
@@ -200,6 +202,26 @@ public class WarframeUtils {
         nightwaves.setElite(elite);
         nightwaves.setStartString(DateUtils.getDate(new Date(), nightwave.getActivation()));
         return nightwaves;
+    }
+
+    public String getSister(){
+        BiliBili bili = UpUtils.getUpDynamic(16730771L);
+        BiliBili.BDataDao.Items item = new BiliBili.BDataDao.Items();
+        long isTime = new Date().getTime();
+        for(BiliBili.BDataDao.Items items:bili.getData().getItems()){
+            if(items.getType().equals(BiliBliTypeEnum.DYNAMIC_TYPE_DRAW)){
+                long time = items.getModules().getModuleAuthor().getPubTs();
+                BiliBili.BDataDao.Items.Modules.ModuleDynamic.Desc desc = items.getModules().getModuleDynamic().getDesc();
+                if((isTime-time)<isTime){
+                    if(desc!=null){
+                        if(desc.getText().contains("信条近战武器")){
+                            item = items;
+                        }
+                    }
+                }
+            }
+        }
+        return item.getModules().getModuleDynamic().getDesc().getText()+"\n数据来自B站Up："+item.getModules().getModuleAuthor().getName();
     }
 
 

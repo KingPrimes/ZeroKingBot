@@ -39,6 +39,8 @@ public enum WarframeTypeEnum {
     TYPE_X_PLUGIN("/X"),
     TYPE_WIKI_PLUGIN("/WIKI"),
 
+    TYPE_SISTER_PLUGIN("信条"),
+
     TYPE_MARKET_GOD_DUMP("金垃圾"),
 
     TYPE_RELICS_PLUGIN("核桃"),

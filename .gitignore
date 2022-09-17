@@ -20,7 +20,7 @@
 *.rar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-
+Test/
 zerokingbot-gif/
 .idea
 zero-king-bot-logs/

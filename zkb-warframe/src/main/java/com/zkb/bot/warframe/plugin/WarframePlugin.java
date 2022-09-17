@@ -10,11 +10,13 @@ import com.zkb.bot.utils.ErroSendMessage;
 import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.SelectGroupFunctionOnOff;
 import com.zkb.bot.warframe.utils.WarframeStringUtils;
+import com.zkb.bot.warframe.utils.WarframeUtils;
 import com.zkb.bot.warframe.utils.market.MarketItemUtil;
 import com.zkb.bot.warframe.utils.market.MarketLichAndSisterUtil;
 import com.zkb.bot.warframe.utils.market.MarketRivenUtil;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.ip.GetServerPort;
+import com.zkb.common.utils.spring.SpringUtils;
 import com.zkb.common.utils.uuid.UUID;
 import com.zkb.framework.manager.AsyncManager;
 import org.jetbrains.annotations.NotNull;
@@ -237,6 +239,10 @@ public class WarframePlugin extends BotPlugin {
                 }
             });
             return 0;
+        }
+
+        if(TYPE_SISTER_PLUGIN.getType().equals(event.getRawMessage())){
+            bot.sendGroupMsg(event.getGroupId(),Msg.builder().text(SpringUtils.getBean(WarframeUtils.class).getSister()).build(), false);
         }
 
         //WIKI
