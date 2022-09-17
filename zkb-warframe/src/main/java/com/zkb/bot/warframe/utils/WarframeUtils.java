@@ -204,15 +204,17 @@ public class WarframeUtils {
         return nightwaves;
     }
 
-    public String getSister(){
+    public static String getSister(){
         BiliBili bili = UpUtils.getUpDynamic(16730771L);
         BiliBili.BDataDao.Items item = new BiliBili.BDataDao.Items();
         long isTime = new Date().getTime();
+        long num = isTime;
         for(BiliBili.BDataDao.Items items:bili.getData().getItems()){
             if(items.getType().equals(BiliBliTypeEnum.DYNAMIC_TYPE_DRAW)){
                 long time = items.getModules().getModuleAuthor().getPubTs();
                 BiliBili.BDataDao.Items.Modules.ModuleDynamic.Desc desc = items.getModules().getModuleDynamic().getDesc();
-                if((isTime-time)<isTime){
+                if((isTime-time)<num){
+                    num = num-time;
                     if(desc!=null){
                         if(desc.getText().contains("信条近战武器")){
                             item = items;
@@ -223,6 +225,8 @@ public class WarframeUtils {
         }
         return item.getModules().getModuleDynamic().getDesc().getText()+"\n数据来自B站Up："+item.getModules().getModuleAuthor().getName();
     }
+
+
 
 
 }
