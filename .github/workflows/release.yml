@@ -1,10 +1,7 @@
 name: Java CI with Maven Package Release
 
 # 检测到 src 文件内 .java 文件有变动执行编译
-on:
-  push:
-    paths:
-      - '**/*src/**/*.java'
+on: [push]
 
 jobs:
   build:
