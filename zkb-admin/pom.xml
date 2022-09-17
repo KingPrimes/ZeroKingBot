@@ -70,7 +70,11 @@
             <groupId>com.zkb</groupId>
             <artifactId>zkb-images</artifactId>
         </dependency>
-
+        <!--BiliBili爬虫-->
+        <dependency>
+            <groupId>com.zkb</groupId>
+            <artifactId>zkb-bilibli</artifactId>
+        </dependency>
         <!--JavaX 模块-->
         <dependency>
             <groupId>javax.xml.bind</groupId>

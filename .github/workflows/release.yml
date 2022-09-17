@@ -37,7 +37,7 @@ jobs:
       # 设置 jobs Maven pom 版本环境变量
       - name: Set Release version env variable
         run: |
-          echo VERSION = "4.1.8.2"
+          echo “VERSION = '4.1.8.2'”
       - name: "Build & test"
         run: |
           echo "done!"
