@@ -209,21 +209,25 @@ public class WarframeUtils {
         BiliBili.BDataDao.Items item = new BiliBili.BDataDao.Items();
         long isTime = new Date().getTime();
         long num = isTime;
-        boolean falg = true;
+        boolean flag = true;
+
         for(BiliBili.BDataDao.Items items:bili.getData().getItems()){
-            if(items.getType().equals(BiliBliTypeEnum.DYNAMIC_TYPE_DRAW)){
-                long time = items.getModules().getModuleAuthor().getPubTs();
-                BiliBili.BDataDao.Items.Modules.ModuleDynamic.Desc desc = items.getModules().getModuleDynamic().getDesc();
-                if(desc!=null){
-                    if(desc.getText().contains("信条近战武器")&&(isTime-time)<num){
-                        num = num-time;
-                        item = items;
-                        falg = false;
+            if(items.getType()!=null){
+                if(items.getType().equals(BiliBliTypeEnum.DYNAMIC_TYPE_DRAW)){
+                    long time = items.getModules().getModuleAuthor().getPubTs();
+                    BiliBili.BDataDao.Items.Modules.ModuleDynamic.Desc desc = items.getModules().getModuleDynamic().getDesc();
+                    if(desc!=null){
+                        if(desc.getText().contains("信条近战武器")&&(isTime-time)<num){
+                            num = num-time;
+                            item = items;
+                            flag = false;
+                        }
                     }
                 }
             }
+
         }
-        if(falg){
+        if(flag){
             return getSister(bili.getData().getOffset());
         }
         return item.getModules().getModuleDynamic().getDesc().getText()+"\n数据来自B站Up："+item.getModules().getModuleAuthor().getName();

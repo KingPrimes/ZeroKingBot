@@ -8,5 +8,7 @@ public enum BiliBliTypeEnum {
     //动态
     DYNAMIC_TYPE_DRAW,
     //转发
-    DYNAMIC_TYPE_FORWARD
+    DYNAMIC_TYPE_FORWARD,
+    //直播
+    DYNAMIC_TYPE_LIVE_RCMD
 }
