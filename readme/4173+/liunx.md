@@ -98,7 +98,7 @@ tar -zxvf go-cqhttp_linux_amd64.tar.gz
 3.终端输入 java -jar ZeroKingBot.jar 启动 ZeroKingBot
 
 ```bash
-java -jar ZeroKingBot.jar
+nohup java -jar ZeroKingBot.jar >out.log &
 ```
 
 ![image](https://user-images.githubusercontent.com/52833112/188266172-91bceae4-cb33-43ac-894c-9b415752e3f9.png)
