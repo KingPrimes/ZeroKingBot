@@ -51,6 +51,17 @@ public class WarframeRelicsServiceImpl implements IWarframeRelicsService {
     }
 
     /**
+     * 根据遗物Id获取遗物信息
+     *
+     * @param relicsId ID
+     * @return 信息
+     */
+    @Override
+    public List<WarframeRelics> selectWarframeRelicsByRelicsId(String relicsId) {
+        return WarframeRelicsMapper.selectWarframeRelicsByRelicsId(relicsId);
+    }
+
+    /**
      * 新增【请填写功能名称】
      *
      * @param WarframeRelics 【请填写功能名称】

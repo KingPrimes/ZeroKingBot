@@ -1299,61 +1299,61 @@ public class HtmlToImage {
         return tmpHtmlToImageByteArray("relics", html, width);
     }
 
-    public ByteArrayOutputStream relics(List<WarframeRelics> relics) {
+    public ByteArrayOutputStream relics(Map<String, List<WarframeRelics>> relics) {
         String html = FileUtils.getFileString(HTML_PATH + "html/relics.html");
         int width = getWidth(html);
         html = outH(html);
-        if (relics.size() == 0 || relics.size() > 90) return NotImage();
         if (html.contains("#table")) {
             StringBuilder str = new StringBuilder();
             str.append("<tr>");
             int x = 0;
-            String tempName = "", tempTier = "";
-            for (WarframeRelics relic : relics) {
-                if (!tempName.equals(relic.getRelicsName()) && !tempTier.equals(relic.getRelicsTier()) && x != 0) {
-                    str.append("</table></td>");
-                    if (x % 4 == 0) {
-                        str.append("</tr>");
-                        if (x < relics.size()) str.append("<tr>");
+            String tempName = "";
+            for (String key : relics.keySet()) {
+                if (x % 5 == 0) {
+                    str.append("</tr><tr>");
+                }
+                str.append("<td>");
+                for (WarframeRelics r : relics.get(key)) {
+                    if(!tempName.equals(r.getRelicsName())){
+                        str
+                                .append("<table class=\"relics\"><caption about=\"top\" class=\"relics-")
+                                .append(r.getRelicsTier())
+                                .append("\"> [")
+                                .append(r.getRelicsTierD())
+                                .append(" ")
+                                .append(r.getRelicsName())
+                                .append(" 遗物] </caption>")
+                        ;
+                        tempName = r.getRelicsName();
                     }
-                }
 
-                if (!tempName.equals(relic.getRelicsName()) && !tempTier.equals(relic.getRelicsTier())) {
+                    str.append("<tr><td class=\"");
+                    if (r.getRelicsItemChance().equals("11")) {
+                        str.append("relics-y\">");
+                    }
+                    if (r.getRelicsItemChance().equals("2")) {
+                        str.append("relics-j\">");
+                    }
+                    if (r.getRelicsItemChance().equals("25.33")) {
+                        str.append("relics-t\">");
+                    }
                     str
-                            .append("<td><table class=\"relics\"><caption about=\"top\" class=\"relics-")
-                            .append(relic.getRelicsTier())
-                            .append("\"> [")
-                            .append(relic.getRelicsTierD())
-                            .append(" ")
-                            .append(relic.getRelicsName())
-                            .append(" 遗物] </caption>")
-                    ;
-                    tempName = relic.getRelicsName();
-                    tempTier = relic.getRelicsTier();
-                }
-                str.append("<tr><td class=\"");
-                if (relic.getRelicsItemChance().equals("11")) {
-                    str.append("relics-y\">");
-                }
-                if (relic.getRelicsItemChance().equals("2")) {
-                    str.append("relics-j\">");
-                }
-                if (relic.getRelicsItemChance().equals("25.33")) {
-                    str.append("relics-t\">");
-                }
-                str
 
-                        .append(relic.getRelicsItemName())
-                        .append("</td></tr>");
+                            .append(r.getRelicsItemName().replace("&","-"))
+                            .append("</td></tr>");
 
-                if (x == relics.size() - 1) {
-                    str.append("</table></td></tr>");
+
                 }
+                str.append("</table>").append("</td>");
                 x++;
             }
-            /* str.append("</table>");*/
+            String outStr = str.toString();
+            if (!StringUtils.substring(outStr,outStr.length()-5,outStr.length()).equals("</tr>")){
+                str.append("</tr>");
+                outStr = str.toString();
+            }
 
-            html = html.replaceAll("#table", str.toString());
+            html = html.replaceAll("#table",outStr);
         }
         return tmpHtmlToImageByteArray("relics", html, width);
     }

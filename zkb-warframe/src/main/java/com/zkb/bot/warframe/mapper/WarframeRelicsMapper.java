@@ -44,6 +44,13 @@ public interface WarframeRelicsMapper {
     WarframeRelics selectWarframeRelicsToTraById(Integer relicsKeyId);
 
     /**
+     * 根据遗物Id获取遗物信息
+     * @param relicsId ID
+     * @return 信息
+     */
+    List<WarframeRelics> selectWarframeRelicsByRelicsId(String relicsId);
+
+    /**
      * 新增【请填写功能名称】
      *
      * @param WarframeRelics 【请填写功能名称】

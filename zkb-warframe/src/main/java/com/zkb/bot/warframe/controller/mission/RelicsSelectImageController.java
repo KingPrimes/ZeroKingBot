@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/warframe/mission")
@@ -29,15 +31,24 @@ public class RelicsSelectImageController {
     public void getImage(HttpServletResponse response, @PathVariable String key) throws IOException {
         response.setHeader("Content-Type", "image/png");
         key = URLDecoder.decode(key, "UTF-8").trim();
-        System.out.println(key);
         List<WarframeRelics> rs = rels.selectWarframeRelicsByAll(key);
         if (StringUtils.regex(key, "^[A-z][1-9]+$")) {
             ByteArrayOutputStream out = SpringUtils.getBean(HtmlToImage.class).relicsSelect(rs);
             response.getOutputStream().write(out.toByteArray());
         } else {
-            System.out.println(rs.toString());
-            ByteArrayOutputStream out = SpringUtils.getBean(HtmlToImage.class).relics(rs);
-            response.getOutputStream().write(out.toByteArray());
+            if (rs.size()!=0){
+                Map<String,List<WarframeRelics>> rsMap = new HashMap<>();
+                for(WarframeRelics r:rs){
+                    List<WarframeRelics> rsl = rels.selectWarframeRelicsByRelicsId(r.getRelicsId());
+                    rsMap.put(r.getRelicsTier()+" "+r.getRelicsName(),rsl);
+                }
+                ByteArrayOutputStream out = SpringUtils.getBean(HtmlToImage.class).relics(rsMap);
+                response.getOutputStream().write(out.toByteArray());
+            }else{
+                ByteArrayOutputStream out = SpringUtils.getBean(HtmlToImage.class).NotImage();
+                response.getOutputStream().write(out.toByteArray());
+            }
+
         }
 
 
