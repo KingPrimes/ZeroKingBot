@@ -16,7 +16,6 @@ import com.zkb.bot.warframe.utils.market.MarketLichAndSisterUtil;
 import com.zkb.bot.warframe.utils.market.MarketRivenUtil;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.ip.GetServerPort;
-import com.zkb.common.utils.spring.SpringUtils;
 import com.zkb.common.utils.uuid.UUID;
 import com.zkb.framework.manager.AsyncManager;
 import org.jetbrains.annotations.NotNull;
@@ -242,7 +241,7 @@ public class WarframePlugin extends BotPlugin {
         }
 
         if(TYPE_SISTER_PLUGIN.getType().equals(event.getRawMessage())){
-            bot.sendGroupMsg(event.getGroupId(),Msg.builder().text(SpringUtils.getBean(WarframeUtils.class).getSister()).build(), false);
+            bot.sendGroupMsg(event.getGroupId(),Msg.builder().text(WarframeUtils.getSister("")).build(), false);
         }
 
         //WIKI
