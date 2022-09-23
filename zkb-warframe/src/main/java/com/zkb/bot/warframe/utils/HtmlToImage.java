@@ -14,10 +14,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xhtmlrenderer.simple.Graphics2DRenderer;
 
-import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -30,13 +30,13 @@ public class HtmlToImage {
     private static final Logger log = LoggerFactory.getLogger(HtmlToImage.class);
 
     private static final String HTML_PATH = "./ZKBotHtml/";
-    @Resource
+    @Autowired
     IWarframeTranslationService trans;
 
-    @Resource
+    @Autowired
     IWarframeMarketRivenTionService rts;
 
-    @Resource
+    @Autowired
     IWarframeRelicsService relics;
 
     /**
@@ -820,7 +820,7 @@ public class HtmlToImage {
                 for (GlobalStates.VoidTrader.Inventory inventory : v.getInventory()) {
                     str
                             .append("<tr><td>")
-                            .append(trans.enToZh(inventory.getItem()))
+                            .append(trans.enToZh(inventory.getItem().replace("&","-")))
                             .append("</td><td>")
                             .append(inventory.getCredits() / 1000)
                             .append("k</td><td>")
