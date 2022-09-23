@@ -820,7 +820,7 @@ public class HtmlToImage {
                 for (GlobalStates.VoidTrader.Inventory inventory : v.getInventory()) {
                     str
                             .append("<tr><td>")
-                            .append(trans.enToZh(inventory.getItem().replace("&","-")))
+                            .append(trans.enToZh(inventory.getItem().replace("&","&amp;")))
                             .append("</td><td>")
                             .append(inventory.getCredits() / 1000)
                             .append("k</td><td>")
@@ -1339,7 +1339,7 @@ public class HtmlToImage {
                     }
                     str
 
-                            .append(r.getRelicsItemName().replace("&","-"))
+                            .append(r.getRelicsItemName().replace("&","&amp;"))
                             .append("</td></tr>");
 
 
@@ -1420,7 +1420,7 @@ public class HtmlToImage {
 
                 str.append(".png\" width=\"128\" height=\"128\"/>")
                         .append("<p>")
-                        .append(warframeRelics.getTraCh().replace("&", "-"))
+                        .append(warframeRelics.getTraCh().replace("&","&amp;"))
                         .append("</p></div><p>")
                         .append(StringUtils.getRandomString())
                         .append("</p></td>");
