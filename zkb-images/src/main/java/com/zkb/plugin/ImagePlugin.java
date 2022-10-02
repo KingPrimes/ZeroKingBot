@@ -1,8 +1,9 @@
 package com.zkb.plugin;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.mikuac.shiro.annotation.GroupMessageHandler;
+import com.mikuac.shiro.annotation.Shiro;
 import com.mikuac.shiro.core.Bot;
-import com.mikuac.shiro.core.BotPlugin;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.enums.FunctionEnums;
 import com.zkb.bot.enums.ImageEnum;
@@ -13,9 +14,13 @@ import com.zkb.common.utils.http.HttpUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
+import static com.mikuac.shiro.core.BotPlugin.MESSAGE_BLOCK;
+import static com.mikuac.shiro.core.BotPlugin.MESSAGE_IGNORE;
+
+@Shiro
 @Component
-public class ImagePlugin extends BotPlugin {
-    @Override
+public class ImagePlugin {
+    @GroupMessageHandler
     public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
 
         if (event.getRawMessage().trim().length() == 0) {

@@ -11,7 +11,7 @@ import java.util.TimeZone;
 /**
  * 程序注解配置
  *
- * @author ruoyi
+ * @author KingPrimes
  */
 @Configuration
 // 表示通过aop框架暴露该代理对象,AopContext能够访问

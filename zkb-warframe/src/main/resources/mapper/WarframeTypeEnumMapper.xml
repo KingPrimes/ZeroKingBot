@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkb.bot.warframe.mapper.WarframeTypeEnumMapper">
+
+    <resultMap type="com.zkb.bot.warframe.domain.TypeEnum"
+               id="WarframeTypeEnumResult">
+        <result property="key" column="key"/>
+        <result property="value" column="value"/>
+    </resultMap>
+
+    <sql id="selectWarframeTypeEnumVo">
+        SELECT `key`, `value`
+        FROM wf_type_enum
+    </sql>
+
+    <!--条件查询,无条件则返回所有列表-->
+    <select id="selectWarframeTypeEnumList"
+            parameterType="TypeEnum"
+            resultMap="WarframeTypeEnumResult">
+        <include refid="selectWarframeTypeEnumVo"/>
+        <where>
+            <if test="key != '' and key != null">
+                AND `key` = #{key}
+            </if>
+            <if test="value != '' and value != null">
+                AND `value` like '%'||#{value}||'%'
+            </if>
+        </where>
+    </select>
+
+    <!--添加订阅-->
+    <insert id="insertWarframeTypeEnum"
+            parameterType="TypeEnum">
+        INSERT OR IGNORE INTO wf_type_enum
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="key != '' and key != null">`key`,</if>
+            <if test="value != '' and value != null">`value`,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="key != '' and key != null">#{key},</if>
+            <if test="value != '' and value != null">#{value},</if>
+        </trim>
+    </insert>
+
+    <update id="updateWarframeTypeEnum"
+            parameterType="TypeEnum">
+        UPDATE wf_type_enum
+        <trim prefix="SET" suffixOverrides=",">
+            `value` = #{value},
+        </trim>
+        WHERE `key` = #{key}
+    </update>
+</mapper>

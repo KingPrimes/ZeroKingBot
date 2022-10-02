@@ -14,9 +14,8 @@ import com.zkb.bot.utils.SelectGroupFunctionOnOff;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 import static com.zkb.bot.aiml.enums.OrderEnum.ORDER_REPLY;
 import static com.zkb.bot.aiml.enums.OrderEnum.ORDER_TEACHING;
@@ -28,7 +27,7 @@ import static com.zkb.bot.aiml.enums.OrderEnum.ORDER_TEACHING;
 @Component
 public class IssueReplyPlugin {
 
-    @Resource
+    @Autowired
     private IssueReplyService service;
 
     @GroupMessageHandler

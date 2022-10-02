@@ -1,5 +1,6 @@
 package com.zkb.bot.warframe.utils;
 
+
 import com.zkb.bot.enums.WarframeSubscribeEnums;
 import com.zkb.bot.enums.WarframeTypeEnum;
 import com.zkb.bot.warframe.dao.*;
@@ -9,6 +10,7 @@ import com.zkb.bot.warframe.service.*;
 import com.zkb.common.utils.DateUtils;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.file.FileUtils;
+import com.zkb.common.utils.htmltoimage.RenderToImage;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.xhtmlrenderer.simple.Graphics2DRenderer;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -215,7 +216,6 @@ public class HtmlToImage {
                 html = html.replaceAll("#zarimanEnd", DateUtils.getDate((zariman.getExpiry()), new Date()));
             }
         }
-
 
         return tmpHtmlToImageByteArray("allCycle", html, width);
 
@@ -820,7 +820,7 @@ public class HtmlToImage {
                 for (GlobalStates.VoidTrader.Inventory inventory : v.getInventory()) {
                     str
                             .append("<tr><td>")
-                            .append(trans.enToZh(inventory.getItem().replace("&","&amp;")))
+                            .append(trans.enToZh(inventory.getItem()).replace("&", "&amp;"))
                             .append("</td><td>")
                             .append(inventory.getCredits() / 1000)
                             .append("k</td><td>")
@@ -1068,7 +1068,7 @@ public class HtmlToImage {
                     .append("</h2>")
                     .append("<h2>---以下是出售")
                     .append("<span style=\"color: rgb(252, 99, 21);\"> [")
-                    .append(market.getInclude().getItem().getItems_in_set().get(0).getZhHans().getItem_name())
+                    .append(market.getInclude().getItem().getItems_in_set().get(0).getZhhans().getItem_name())
                     .append("] </span>")
                     .append("的玩家---</h2><table class=\"table-css\">")
                     .append("<thead><tr><th>玩家名</th><th>数量</th><th>白金</th></tr></thead><tbody>")
@@ -1085,13 +1085,13 @@ public class HtmlToImage {
                         .append("</td></tr>");
             }
             str.append("</tbody></table><div><h2>---物品介绍---</h2><p style=\"color: rgb(152, 101, 36);\">")
-                    .append(market.getInclude().getItem().getItems_in_set().get(0).getZhHans().getDescription())
+                    .append(market.getInclude().getItem().getItems_in_set().get(0).getZhhans().getDescription())
                     .append("</p></div>");
-            if (market.getInclude().getItem().getItems_in_set().get(0).getZhHans().getDrop().size() != 0) {
+            if (market.getInclude().getItem().getItems_in_set().get(0).getZhhans().getDrop().size() != 0) {
                 str.append("<table><cite><h2>---包含 [")
-                        .append(market.getInclude().getItem().getItems_in_set().get(0).getZhHans().getItem_name())
+                        .append(market.getInclude().getItem().getItems_in_set().get(0).getZhhans().getItem_name())
                         .append(" ]物品的遗物</h2></cite>");
-                for (Market.Drop drop : market.getInclude().getItem().getItems_in_set().get(0).getZhHans().getDrop()) {
+                for (Market.Drop drop : market.getInclude().getItem().getItems_in_set().get(0).getZhhans().getDrop()) {
                     str.append("<tr><td>")
                             .append(drop.getName())
                             .append("</td></tr>");
@@ -1102,7 +1102,7 @@ public class HtmlToImage {
             str.append("<div><h2>---快捷回复指令---</h2><p style=\"color: rgb(46, 112, 167);\"> /w ")
                     .append(market.getPayload().getOrders().get(0).getUser().getIngameName())
                     .append(" Hi I want to buy: ")
-                    .append(StringUtils.convertToCamelCaseK(market.getInclude().getItem().getItems_in_set().get(0).getUrl_name()))
+                    .append(StringUtils.convertToCamelCaseK(market.getInclude().getItem().getItems_in_set().get(0).getUrlName()))
                     .append(" for ")
                     .append(market.getPayload().getOrders().get(0).getPlatinum())
                     .append(" Platinum(Warframe.market)</p></div>")
@@ -1111,6 +1111,139 @@ public class HtmlToImage {
             html = html.replaceAll("#table", str.toString());
 
         }
+
+        return tmpHtmlToImageByteArray("market", html, width);
+    }
+
+    /**
+     * Warframe Market 查询物品
+     *
+     * @param market 数据
+     * @param seBy   买/卖？
+     * @param isMax  满？
+     * @return 图片字节流
+     */
+    public ByteArrayOutputStream marketImage2(Market market, Boolean seBy, Boolean isMax) {
+        String html = FileUtils.getFileString(HTML_PATH + "html/market.html");
+        int width = getWidth(html);
+        html = outH(html);
+        String sell = "<li class=\"nav_li\">卖家</li>",
+                buy = "<li class=\"nav_li\">买家</li>",
+                typeAll = "<li class=\"nav_li\">全部</li>",
+                typeOn = "<li class=\"nav_li\">在线</li>",
+                typeSlm = "<li class=\"nav_li\">离线</li>",
+                idwAll = "<li class=\"nav_li\">全部</li>",
+                idw = "<li class=\"nav_li\">满级</li>";
+
+        //物品名
+        if (html.contains("#title")) {
+            html = html.replaceAll("#title", market.getInclude().getItem().getItems_in_set().get(0).getZhhans().getItem_name());
+        }
+        //头部
+        if (html.contains("#rank") || html.contains("#ducats") || html.contains("#credits") || html.contains("#type")) {
+            String id = market.getInclude().getItem().getId();
+            int ducats = 0, level = 0, tax = 0, modMax = 0;
+
+            String type = "";
+            for (Market.ItemsInSet itemsInSet : market.getInclude().getItem().getItems_in_set()) {
+                if (itemsInSet.getId().equals(id)) {
+                    if (itemsInSet.getDucats() != null) {
+                        ducats = itemsInSet.getDucats();
+                    }
+                    if (itemsInSet.getMasteryLevel() != null) {
+                        level = itemsInSet.getMasteryLevel();
+                    }
+                    if (itemsInSet.getTradingTax() != null) {
+                        tax = itemsInSet.getTradingTax();
+                    }
+                    if (itemsInSet.getRarity() != null) {
+                        type = itemsInSet.getRarity();
+                    }
+                    if (itemsInSet.getModMaxRank() != null) {
+                        modMax = itemsInSet.getModMaxRank();
+                    }
+                    break;
+                }
+            }
+            if (modMax != 0 && type.length() != 0) {
+                html = html.replaceAll("#type", type);
+            } else {
+                html = html.replaceAll("#type", "");
+            }
+
+            if (ducats != 0) {
+                html = html.replaceAll("#ducats", "<img src=\"../img/Ducats.png\" style=\"width: 15px;\" />" + ducats);
+            } else {
+                html = html.replaceAll("#ducats", "");
+            }
+
+            html = html.replaceAll("#rank", String.valueOf(level)).replaceAll("#credits", "<img src=\"../img/Credits.png\" style=\"width: 15px;\" />" + tax);
+
+        }
+
+        //订单
+        if (!seBy) {
+            html = html.replaceAll("#sellorbuy", sell.replace("nav_li", "actv_li") + buy);
+        } else {
+            html = html.replaceAll("#sellorbuy", sell + buy.replace("nav_li", "actv_li"));
+        }
+
+        if (isMax) {
+            html = html.replaceAll("#idw", idwAll + idw.replaceAll("nav_li", "actv_li"));
+        } else {
+            html = html.replaceAll("#idw", idwAll.replaceAll("nav_li", "actv_li") + idw);
+        }
+
+        //具体数据
+        if (html.contains("#table")) {
+            StringBuilder str = new StringBuilder();
+            for (Market.Orders order : market.getPayload().getOrders()) {
+                str
+                        .append("<tr><td class=\"sell\"><div class=\"sell\">卖</div></td>")
+                        .append("<td style=\"text-align: left;\"><div class=\"avatr-image\">")
+                        .append("<img class=\"user__avatar--sAYSu\" src=\"../img/market/default-avatar.png\" /></div>")
+                        .append("<div class=\"avatr-name\"><span class=\"user__name--xF_ju\">")
+                        .append(order.getUser().getIngameName())
+                        .append("</span></div>")
+                        .append("</td><td >")
+                        .append("<span class=\"ingame--OWe2B\">");
+                if (order.getUser().getStatus().equals("online")) {
+                    str.append("在线");
+                }
+                if (order.getUser().getStatus().equals("ingame")) {
+                    str.append("游戏中");
+                }
+                //声誉
+                str
+                        .append("</span></td><td>")
+                        .append("<div class=\"order-row__user-reputation--lGJbY\">");
+                if (order.getUser().getReputation() >= 5) {
+                    str.append("<span style=\"color: #00a96c;\">")
+                            .append(order.getUser().getReputation())
+                            .append("</span>")
+                            .append("<img src=\"../img/market/icon-smile.png\" style=\"width: 15px;\" />");
+                } else {
+                    str.append("<span style=\"color: #739098;\">")
+                            .append(order.getUser().getReputation())
+                            .append("</span>")
+                            .append("<img src=\"../img/market/icon-meh.png\" style=\"width: 15px;\" />");
+                }
+
+                str
+                        .append("</div></td><td>")
+                        .append("<div class=\"price\">")
+                        .append(order.getPlatinum())
+                        .append("<img src=\"../img/market/icon-platinum.png\" style=\"width: 15px;\" /></div></td>")
+                        .append("<td><div class=\"quantity\">")
+                        .append(order.getQuantity())
+                        .append("<img src=\"../img/market/icon-cubes.png\" style=\"width: 15px;\" />")
+                        .append("</div></td><td>")
+                        .append(order.getModRank())
+                        .append("</td></tr>");
+            }
+            html = html.replaceAll("#table", str.toString());
+        }
+
 
         return tmpHtmlToImageByteArray("market", html, width);
     }
@@ -1314,7 +1447,7 @@ public class HtmlToImage {
                 }
                 str.append("<td>");
                 for (WarframeRelics r : relics.get(key)) {
-                    if(!tempName.equals(r.getRelicsName())){
+                    if (!tempName.equals(r.getRelicsName())) {
                         str
                                 .append("<table class=\"relics\"><caption about=\"top\" class=\"relics-")
                                 .append(r.getRelicsTier())
@@ -1339,7 +1472,7 @@ public class HtmlToImage {
                     }
                     str
 
-                            .append(r.getRelicsItemName().replace("&","&amp;"))
+                            .append(r.getRelicsItemName().replace("&", "&amp;"))
                             .append("</td></tr>");
 
 
@@ -1348,12 +1481,12 @@ public class HtmlToImage {
                 x++;
             }
             String outStr = str.toString();
-            if (!StringUtils.substring(outStr,outStr.length()-5,outStr.length()).equals("</tr>")){
+            if (!StringUtils.substring(outStr, outStr.length() - 5, outStr.length()).equals("</tr>")) {
                 str.append("</tr>");
                 outStr = str.toString();
             }
 
-            html = html.replaceAll("#table",outStr);
+            html = html.replaceAll("#table", outStr);
         }
         return tmpHtmlToImageByteArray("relics", html, width);
     }
@@ -1372,13 +1505,13 @@ public class HtmlToImage {
         int p = r.nextInt(3) + 2;
         switch (p) {
             case 2:
-                width = 380;
+                width = 1140;
                 break;
             case 3:
-                width = 500;
+                width = 1500;
                 break;
             case 4:
-                width = 700;
+                width = 2100;
                 break;
         }
         if (html.contains("#table")) {
@@ -1420,7 +1553,7 @@ public class HtmlToImage {
 
                 str.append(".png\" width=\"128\" height=\"128\"/>")
                         .append("<p>")
-                        .append(warframeRelics.getTraCh().replace("&","&amp;"))
+                        .append(warframeRelics.getTraCh().replace("&", "&amp;"))
                         .append("</p></div><p>")
                         .append(StringUtils.getRandomString())
                         .append("</p></td>");
@@ -1487,11 +1620,11 @@ public class HtmlToImage {
      * @param width        生成图片的宽度
      * @return 字节流
      */
-    private ByteArrayOutputStream convertHtmlToImage(String htmlFilePath, int width) {
+    public static ByteArrayOutputStream convertHtmlToImage(String htmlFilePath, int width) {
         try {
             File htmlFile = new File(htmlFilePath);
             String url = htmlFile.toURI().toURL().toExternalForm();
-            BufferedImage image = Graphics2DRenderer.renderToImageAutoSize(url, width, BufferedImage.TYPE_INT_ARGB_PRE);
+            BufferedImage image = RenderToImage.renderToImageAutoSize(url, width, BufferedImage.TYPE_INT_ARGB_PRE);
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             ImageIO.write(image, "png", os);
             return os;
@@ -1499,6 +1632,19 @@ public class HtmlToImage {
             log.error("html渲染字节流出错，文件路径：{}\n\t\t错误信息：{}", htmlFilePath, e.getMessage());
         }
         return null;
+    }
+
+    public static void convertHtmlToImage2(String htmlFilePath, int width) {
+        try {
+            File htmlFile = new File(htmlFilePath);
+            String url = htmlFile.toURI().toURL().toExternalForm();
+            BufferedImage image = RenderToImage.renderToImageAutoSize(url, width, BufferedImage.TYPE_INT_ARGB_PRE);
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", new File("C:\\Users\\15066\\Desktop\\market\\1.png"));
+
+        } catch (IOException e) {
+            log.error("html渲染字节流出错，文件路径：{}\n\t\t错误信息：{}", htmlFilePath, e.getMessage());
+        }
     }
 
     private ByteArrayOutputStream tmpHtmlToImageByteArray(String name, String html, int width) {

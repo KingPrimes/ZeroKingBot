@@ -49,7 +49,7 @@ public class MarketLichAndSisterUtil {
                         GetServerPort.getPort() +
                         "/warframe/market/" + UUID.fastUUID() + "/getLichOrSisterImage/" +
                         URLEncoder.encode(key, "UTF-8") +
-                        "/" + WarframeTypeEnum.TYPE_MARKET_CD;
+                        "/" + WarframeTypeEnum.TYPE_MARKET_CD + "/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + key;
                 //发送消息
                 bot.sendGroupMsg(event.getGroupId(), Msg
                                 .builder()
@@ -83,7 +83,7 @@ public class MarketLichAndSisterUtil {
                         GetServerPort.getPort() +
                         "/warframe/market/" + UUID.fastUUID() + "/getLichOrSisterImage/" +
                         URLEncoder.encode(key, "UTF-8") +
-                        "/" + WarframeTypeEnum.TYPE_MARKET_XT;
+                        "/" + WarframeTypeEnum.TYPE_MARKET_XT + "/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + event.getRawMessage();
                 //发送消息
                 bot.sendGroupMsg(event.getGroupId(), Msg
                                 .builder()

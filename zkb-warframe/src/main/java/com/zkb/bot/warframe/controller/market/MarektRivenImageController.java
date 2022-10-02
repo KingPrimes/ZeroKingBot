@@ -5,6 +5,9 @@ import com.zkb.bot.warframe.dao.MarketRiven;
 import com.zkb.bot.warframe.dao.MarketRivenParameter;
 import com.zkb.bot.warframe.utils.HtmlToImage;
 import com.zkb.bot.warframe.utils.market.MarketRivenUtil;
+import com.zkb.common.annotation.LogInfo;
+import com.zkb.common.enums.BusinessType;
+import com.zkb.common.enums.TitleType;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +24,9 @@ import java.net.URLDecoder;
 @RequestMapping("/warframe/market")
 public class MarektRivenImageController {
 
-
-    @GetMapping(value = "/{uuid}/getMarektRivenImage/{key}", produces = MediaType.IMAGE_PNG_VALUE)
-    public void getImage(HttpServletResponse response, @PathVariable String key) throws IOException {
+    @LogInfo(title = TitleType.Warframe,orderType = "WR",businessType = BusinessType.SELECT)
+    @GetMapping(value = "/{uuid}/getMarektRivenImage/{key}/{bot}/{user}/{group}/{rawMsg}", produces = MediaType.IMAGE_PNG_VALUE)
+    public void getImage(HttpServletResponse response, @PathVariable String key, @PathVariable long bot,@PathVariable long user,@PathVariable long group,@PathVariable String rawMsg) throws IOException {
         response.setHeader("Content-Type", "image/png");
         MarketRivenParameter parameter = MarketRivenUtil.toMarketRiven(URLDecoder.decode(key, "UTF-8"));
         MarketRiven riven = MarketRivenUtil.marketRiven(parameter);

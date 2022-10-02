@@ -6,15 +6,15 @@ import com.zkb.bot.warframe.dao.UserDict;
 import com.zkb.bot.warframe.domain.WarframeTranslation;
 import com.zkb.bot.warframe.service.impl.WarframeTranslationServiceImpl;
 import com.zkb.common.utils.http.HttpUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.Set;
 
 @Component
 public class WarframeTraUtils {
 
-    @Resource
+    @Autowired
     WarframeTranslationServiceImpl translate;
 
 

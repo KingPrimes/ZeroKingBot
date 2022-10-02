@@ -19,11 +19,6 @@
     <dependencies>
         <dependency>
             <groupId>com.zkb</groupId>
-            <artifactId>zkb-common</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.zkb</groupId>
             <artifactId>zkb-framework</artifactId>
         </dependency>
     </dependencies>

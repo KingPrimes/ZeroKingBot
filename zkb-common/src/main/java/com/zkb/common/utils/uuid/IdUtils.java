@@ -3,7 +3,7 @@ package com.zkb.common.utils.uuid;
 /**
  * ID生成器工具类
  *
- * @author ruoyi
+ * @author KingPrimes
  */
 public class IdUtils {
     /**

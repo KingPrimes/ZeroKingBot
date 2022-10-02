@@ -1,13 +1,15 @@
 package com.zkb.bot.group.plugin;
 
 
+import com.mikuac.shiro.annotation.GroupDecreaseHandler;
+import com.mikuac.shiro.annotation.GroupIncreaseHandler;
+import com.mikuac.shiro.annotation.GroupMessageHandler;
+import com.mikuac.shiro.annotation.Shiro;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.core.BotContainer;
-import com.mikuac.shiro.core.BotPlugin;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.mikuac.shiro.dto.event.notice.GroupDecreaseNoticeEvent;
 import com.mikuac.shiro.dto.event.notice.GroupIncreaseNoticeEvent;
-import com.mikuac.shiro.dto.event.request.GroupAddRequestEvent;
 import com.zkb.bot.group.doa.GroupVerify;
 import com.zkb.bot.utils.GroupAddApi;
 import com.zkb.bot.utils.Msg;
@@ -18,23 +20,28 @@ import com.zkb.common.utils.VerifyCodeUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import static com.mikuac.shiro.core.BotPlugin.MESSAGE_BLOCK;
+import static com.mikuac.shiro.core.BotPlugin.MESSAGE_IGNORE;
+
+@Shiro
 @Component
-public class JoinGroupVerifyCodePlugin extends BotPlugin {
+public class JoinGroupVerifyCodePlugin {
 
     private static final Logger log = LoggerFactory.getLogger(JoinGroupVerifyCodePlugin.class);
- @Resource
+    @Autowired
     private RedisCache redisCache;
- @Resource
+    @Autowired
     private BotContainer botContainer;
 
-    @Override
-    public int onGroupDecreaseNotice(@NotNull Bot bot, @NotNull GroupDecreaseNoticeEvent event) {
+
+    @GroupDecreaseHandler
+    public void onGroupDecreaseNotice(@NotNull Bot bot, @NotNull GroupDecreaseNoticeEvent event) {
         bot.sendGroupMsg(
                 event.getGroupId(),
                 Msg.builder()
@@ -44,13 +51,12 @@ public class JoinGroupVerifyCodePlugin extends BotPlugin {
                                         + PrivateAddApi.getPrivateNick(event.getUserId())
                                         + "退群了").build(),
                 false);
-        return super.onGroupDecreaseNotice(bot, event);
     }
 
     /**
      * 给新入群的人员提示验证码消息
      */
-    @Override
+    @GroupIncreaseHandler
     public int onGroupIncreaseNotice(@NotNull Bot bot, @NotNull GroupIncreaseNoticeEvent event) {
         if (GroupAddApi.isAdmin(bot, event.getGroupId())) {
             for (Long bottle : botContainer.robots.keySet()) {
@@ -89,8 +95,7 @@ public class JoinGroupVerifyCodePlugin extends BotPlugin {
     /**
      * 核查验证码是否正确
      */
-
-    @Override
+    @GroupMessageHandler
     public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
         try {
             //如果是当前群组则取出待验证用户
@@ -119,15 +124,6 @@ public class JoinGroupVerifyCodePlugin extends BotPlugin {
             //未验证
             return MESSAGE_IGNORE;
         }
-        return MESSAGE_IGNORE;
-    }
-
-    /**
-     * 自动批准用户入群
-     */
-    @Override
-    public int onGroupAddRequest(@NotNull Bot bot, @NotNull GroupAddRequestEvent event) {
-        bot.setGroupAddRequest(event.getFlag(), event.getSubType(), true, "");
         return MESSAGE_IGNORE;
     }
 }

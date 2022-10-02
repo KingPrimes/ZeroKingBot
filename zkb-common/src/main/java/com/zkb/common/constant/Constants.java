@@ -1,7 +1,7 @@
 package com.zkb.common.constant;
 
 
-public class Constants {
+public class Constants extends com.google.code.kaptcha.Constants{
     /**
      * UTF-8 字符集
      */
@@ -137,4 +137,24 @@ public class Constants {
      * LDAP 远程方法调用
      */
     public static final String LOOKUP_LDAP = "ldap://";
+    /**
+     * 系统用户授权缓存
+     */
+    public static final String SYS_AUTH_CACHE = "sys-authCache";
+
+    /**
+     * 参数管理 cache name
+     */
+    public static final String SYS_CONFIG_CACHE = "sys-config";
+
+
+    /**
+     * 字典管理 cache name
+     */
+    public static final String SYS_DICT_CACHE = "sys-dict";
+
+    /**
+     * LDAPS 远程方法调用
+     */
+    public static final String LOOKUP_LDAPS = "ldaps:";
 }

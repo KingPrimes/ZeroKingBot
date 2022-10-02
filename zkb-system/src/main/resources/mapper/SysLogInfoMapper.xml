@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkb.system.mapper.SysLogInfoMapper">
+
+    <resultMap type="com.zkb.system.domain.SysLogInfo" id="SysLogInfoResult">
+        <id property="logId" column="log_id"/>
+        <result property="logTitle" column="log_title"/>
+        <result property="logOrderType" column="log_order_type"/>
+        <result property="logBusinessType" column="log_business_type"/>
+        <result property="logBot" column="log_bot"/>
+        <result property="logGroup" column="log_group"/>
+        <result property="logUser" column="log_user"/>
+        <result property="logRawMsg" column="log_raw_msg"/>
+        <result property="logUrl" column="log_url"/>
+        <result property="logParam" column="log_param"/>
+        <result property="logMethod" column="log_method"/>
+        <result property="logRequestMethod" column="log_request_method"/>
+        <result property="logResult" column="log_result"/>
+        <result property="logStatus" column="log_status"/>
+        <result property="logErrorMsg" column="log_error_msg"/>
+        <result property="logTime" column="log_time"/>
+        <result property="logRunTime" column="log_run_time"/>
+    </resultMap>
+
+    <sql id="selectSysLogInfoVo">
+        select log_id,
+               log_title,
+               log_order_type,
+               log_business_type,
+               log_bot,
+               log_group,
+               log_user,
+               log_raw_msg,
+               log_url,
+               log_param,log_method,log_request_method,
+               log_result,
+               log_status,
+               log_error_msg,
+               log_time,log_run_time
+        from sys_log
+    </sql>
+
+    <insert id="insertSyslogInfo" parameterType="com.zkb.system.domain.SysLogInfo">
+        insert into sys_log(log_title,
+                            log_order_type,
+                            log_business_type,
+                            log_bot,
+                            log_group,
+                            log_user,
+                            log_raw_msg,
+                            log_url,
+                            log_param,log_method,log_request_method,
+                            log_result,
+                            log_status,
+                            log_error_msg,
+                            log_time,log_run_time)
+        values (#{logTitle}, #{logOrderType}, #{logBusinessType},#{logBot}, #{logGroup}, #{logUser},#{logRawMsg}, #{logUrl},
+                #{logParam},#{logMethod},#{logRequestMethod}, #{logResult}, #{logStatus}, #{logErrorMsg}, datetime('now', 'localtime'),#{logRunTime})
+    </insert>
+
+    <select id="selectSysLogInfoList" parameterType="com.zkb.system.domain.SysLogInfo" resultMap="SysLogInfoResult">
+        <include refid="selectSysLogInfoVo"/>
+        <where>
+            <if test="logTitle != null and logTitle != ''">
+                AND log_title = #{logTitle}
+            </if>
+            <if test="logOrderType != null and logOrderType != ''">
+                AND log_order_type = #{logOrderType}
+            </if>
+            <if test="logBusinessType != null">
+                AND log_business_type = #{logBusinessType}
+            </if>
+            <if test="logBot != null">
+                AND log_bot = #{logBot}
+            </if>
+            <if test="logGroup != null">
+                AND log_group = #{logGroup}
+            </if>
+            <if test="logUser != null">
+                AND log_user = #{logUser}
+            </if>
+            <if test="logUrl != null and logUrl != ''">
+                AND log_url like '%'||#{logUrl} ||'%'
+            </if>
+            <if test="logParam != null and logParam != ''">
+                AND log_param like '%'||#{logParam} ||'%'
+            </if>
+            <if test="logStatus != null">
+                AND log_status = #{logStatus}
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and log_run_time &gt;= #{params.beginTime}
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                and log_run_time &lt;= #{params.endTime}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteSysLogInfoByIds" parameterType="String">
+        delete from sys_log where log_id in
+        <foreach collection="array" item="logId" open="(" separator="," close=")">
+            #{logId}
+        </foreach>
+    </delete>
+
+    <select id="selectSysLogInfoById" parameterType="Long" resultMap="SysLogInfoResult">
+        <include refid="selectSysLogInfoVo"/>
+        where log_id = #{logId}
+    </select>
+
+    <delete id="deleteAll">
+        delete from sys_log
+    </delete>
+
+    <delete id="deleteSequen">
+        delete from sqlite_sequence where name = 'sys_log'
+    </delete>
+
+</mapper> 

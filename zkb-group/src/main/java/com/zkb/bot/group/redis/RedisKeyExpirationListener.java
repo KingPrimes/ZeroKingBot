@@ -7,20 +7,19 @@ import com.zkb.bot.utils.PrivateAddApi;
 import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.utils.StaticFinal;
 import com.zkb.common.utils.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.listener.KeyExpirationEventMessageListener;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
-
 @Component
 public class RedisKeyExpirationListener extends KeyExpirationEventMessageListener {
 
- @Resource
+ @Autowired
     private BotContainer botContainer;
 
- @Resource
+ @Autowired
     private RedisCache redisCache;
 
     public RedisKeyExpirationListener(RedisMessageListenerContainer listenerContainer) {

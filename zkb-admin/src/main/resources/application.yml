@@ -1,22 +1,58 @@
+# 日志配置
 logging:
   level:
     com.zkb: info
     org.springframework: warn
 
+# 环境配置
 server:
   port: 8080
   servlet:
     context-path: /
-  tomcat:
-    # tomcat的URI编码
-    uri-encoding: UTF-8
-    # tomcat最大线程数，默认为200
-    max-threads: 600
-    # Tomcat启动初始化的线程数，默认值25
-    min-spare-threads: 30
-    #Tomcat超时时间
-    connection-timeout: 60s
+  undertow:
+    # 编码配置
+    url-charset: UTF-8
+    threads:
+      # 系统线程执行任务得阻塞系数，默认是IO线程*8
+      worker: 2000
+      # IO线程设置
+      io: 32
+    # 每块Buffer得空间大小，越小得空间被利用越充分，不要设置过大，以免影响其他应用
+    buffer-size: 1024
+    # 是否分配得直接内存(NIO直接分配的堆外内存)
+    direct-buffers: true
+
+# Spring 配置
 spring:
+  main:
+    allow-circular-references: true
+  # 模板引擎配置
+  thymeleaf:
+    # 后缀名
+    mode: HTML
+    # 编码格式
+    encoding: UTF-8
+    # 禁用缓存
+    cache: false
+
+ # 资源信息
+  messages:
+    # 国际化资源文件路径
+    basename: static/i18n/messages
+
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  profiles:
+    active: bruid
+
+  # 服务模块
+  devtools:
+    restart:
+      # 热部署开关
+      enabled: true
+
   task:
     execution:
       pool:
@@ -28,11 +64,16 @@ spring:
     scheduling:
       shutdown:
         await-termination: false
+
+
+  # 数据源 配置
   datasource:
     username:
     password:
     url: jdbc:sqlite:./db/data.db3
     driver-class-name: org.sqlite.JDBC
+
+  # Redis 配置
   redis:
     host: localhost
     port: 6379
@@ -49,6 +90,21 @@ spring:
         max-active: 8
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
+
+
+# 分页插件
+pagehelper:
+  helperDialect: mysql
+  supportMethodsArguments: true
+  params: count=countSql
+
+
+# 用户配置
+user:
+  password:
+    # 密码错误{maxRetryCount}次锁定10分钟
+    maxRetryCount: 5
+
 # MyBatis配置
 mybatis:
   # 搜索指定包别名
@@ -57,16 +113,43 @@ mybatis:
   mapperLocations: classpath*:mapper/**/*Mapper.xml
   # 加载全局的配置文件
   configLocation: classpath:mybatis/mybatis-config.xml
-#Bot插件列表(有序) 如果插件返回0，继续执行剩余插件，如果插件返回1，终止剩余插件执行
+
 shiro:
-  plugin-list:
-    - com.zkb.bot.plugin.FunctionOnOffPlugin
-    - com.zkb.bot.group.plugin.JoinGroupVerifyCodePlugin
-    - com.zkb.bot.warframe.plugin.WarframeAdminPlugin
-    - com.zkb.bot.warframe.plugin.WarframePlugin
-    - com.zkb.bot.warframe.plugin.WarframeSubscribePlugin
-    - com.zkb.bot.imagetogif.plugin.GifImagePlugin
-    - com.zkb.plugin.ImagePlugin
+  user:
+    # 登录地址
+    loginUrl: /login
+    # 权限认证失败地址
+    unauthorizedUrl: /unauth
+    # 首页地址
+    indexUrl: /index
+    # 验证码开关
+    captchaEnabled: false
+    # 验证码类型 math 数组计算 char 字符
+    captchaType: math
+  cookie:
+    # 设置Cookie的域名 默认空，即当前访问的域名
+    domain:
+    # 设置cookie的有效访问路径
+    path: /
+    # 设置HttpOnly属性
+    httpOnly: true
+    # 设置Cookie的过期时间，天为单位
+    maxAge: 30
+    # 设置密钥，务必保持唯一性（生成方式，直接拷贝到main运行即可）Base64.encodeToString(CipherUtils.generateNewKey(128, "AES").getEncoded()) （默认启动生成随机秘钥，随机秘钥会导致之前客户端RememberMe Cookie无效，如设置固定秘钥RememberMe Cookie则有效）
+    cipherKey:
+  session:
+    # Session超时时间，-1代表永不过期（默认30分钟）
+    expireTime: 30
+    # 同步session到数据库的周期（默认1分钟）
+    dbSyncPeriod: 1
+    # 相隔多久检查一次session的有效性，默认就是10分钟
+    validationInterval: 10
+    # 同一个用户最大会话数，比如2的意思是同一个账号允许最多同时两个人登录（默认-1不限制）
+    maxSession: -1
+    # 踢出之前登录的/之后登录的用户，默认踢出之前登录的用户
+    kickoutAfter: false
+  limiter:
+    enable: true
 
 
 task:

@@ -47,7 +47,7 @@ public class WarframeStringUtils {
      */
     public static int getRivenUpdate(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
         if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
-            Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/forums/riven/" + UUID.fastUUID() + "/getNewsImage").sendToGroup(bot, event);
+            Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/forums/riven/" + UUID.fastUUID() + "/getNewsImage/"+bot.getSelfId()+"/"+event.getUserId()+"/"+event.getGroupId()+"/"+event.getRawMessage()).sendToGroup(bot, event);
         } else {
             return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
         }

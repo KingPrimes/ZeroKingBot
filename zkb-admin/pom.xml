@@ -23,6 +23,18 @@
             <optional>true</optional> <!-- 表示依赖不会传递 -->
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--SpringBoot集成Thymeleaf模板-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
         <!--Spring Test测试-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  * Warframe.Market 上的赤毒武器与信条武器拍卖
  *
- * @author ruoyi
+ * @author KingPrimes
  * @date 2021-11-24
  */
 public class WarframeMarketLichOrSister {

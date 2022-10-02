@@ -94,7 +94,7 @@ public class MarketItemUtil {
                 builder.proxy(false);
                 builder.cache(false);
                 builder.timeout(30);
-                builder.file("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektImage/" + key + "/" + seBy + "/" + isMax + "/" + form);
+                builder.file("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektImage/" + key + "/" + seBy + "/" + isMax + "/" + form+"/"+bot.getSelfId()+"/"+event.getUserId()+"/"+event.getGroupId()+"/"+tra);
                 msgId = bot.sendGroupMsg(event.getGroupId(), Msg.builder().img(builder.build()).build(), false).getData().getMessageId();
 
             }
@@ -235,7 +235,7 @@ public class MarketItemUtil {
             market.getPayload().setOrders(orders(market, seBy, isMax));
 
             for (Market.ItemsInSet items : market.getInclude().getItem().getItems_in_set()) {
-                if (items.getUrl_name().equals(key)) {
+                if (items.getUrlName().equals(key)) {
                     List<Market.ItemsInSet> itemsInSets = new ArrayList<>();
                     itemsInSets.add(items);
                     market.getInclude().getItem().setItems_in_set(itemsInSets);

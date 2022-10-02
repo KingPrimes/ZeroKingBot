@@ -4,15 +4,15 @@ package com.zkb.bot.warframe.service.impl;
 import com.zkb.bot.warframe.domain.market.WarframeMarketRivenTion;
 import com.zkb.bot.warframe.mapper.WarframeMarketRivenTionMapper;
 import com.zkb.bot.warframe.service.IWarframeMarketRivenTionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class WarframeMarketRivenTionServiceImpl implements IWarframeMarketRivenTionService {
 
-    @Resource
+    @Autowired
     WarframeMarketRivenTionMapper tionMapper;
 
     @Override

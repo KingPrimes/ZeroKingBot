@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * lichMapper接口
  *
- * @author ruoyi
+ * @author KingPrimes
  * @Date 2021-11-24
  */
 public interface WarframeMarketLichOrSisterMapper {

@@ -1,7 +1,8 @@
 package com.zkb.bot.warframe.plugin;
 
+import com.mikuac.shiro.annotation.PrivateMessageHandler;
+import com.mikuac.shiro.annotation.Shiro;
 import com.mikuac.shiro.core.Bot;
-import com.mikuac.shiro.core.BotPlugin;
 import com.mikuac.shiro.dto.event.message.PrivateMessageEvent;
 import com.zkb.bot.utils.InitConfigs;
 import com.zkb.bot.utils.Msg;
@@ -14,12 +15,14 @@ import com.zkb.common.utils.spring.SpringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
+import static com.mikuac.shiro.core.BotPlugin.MESSAGE_IGNORE;
 import static com.zkb.bot.enums.WarframeTypeEnum.*;
 
+@Shiro
 @Component
-public class WarframeAdminPlugin extends BotPlugin {
+public class WarframeAdminPlugin {
 
-    @Override
+    @PrivateMessageHandler
     public int onPrivateMessage(@NotNull Bot bot, @NotNull PrivateMessageEvent event) {
         if (event.getRawMessage().trim().length() == 0) {
             return MESSAGE_IGNORE;

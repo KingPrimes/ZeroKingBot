@@ -6,14 +6,17 @@ import com.zkb.bot.warframe.service.IWarframeMarketLichOrSisterService;
 import com.zkb.bot.warframe.service.IWarframeMarketSisterService;
 import com.zkb.bot.warframe.utils.HtmlToImage;
 import com.zkb.bot.warframe.utils.market.MarketLichAndSisterUtil;
+import com.zkb.common.annotation.LogInfo;
+import com.zkb.common.enums.BusinessType;
+import com.zkb.common.enums.TitleType;
 import com.zkb.common.utils.spring.SpringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,14 +29,14 @@ import java.net.URLDecoder;
 @RequestMapping("/warframe/market")
 public class MarektLichAndSisterImageController {
 
-    @Resource
+    @Autowired
     IWarframeMarketLichOrSisterService lichService;
-    @Resource
+    @Autowired
     IWarframeMarketSisterService sisterService;
 
-
-    @GetMapping(value = "/{uuid}/getLichOrSisterImage/{key}/{type}", produces = MediaType.IMAGE_PNG_VALUE)
-    public void getImage(HttpServletResponse response, @PathVariable String key, @PathVariable WarframeTypeEnum type) throws IOException {
+    @LogInfo(title = TitleType.Warframe,orderType = "赤毒/信条 武器查询",businessType = BusinessType.SELECT)
+    @GetMapping(value = "/{uuid}/getLichOrSisterImage/{key}/{type}/{bot}/{user}/{group}/{rawMsg}", produces = MediaType.IMAGE_PNG_VALUE)
+    public void getImage(HttpServletResponse response, @PathVariable String key, @PathVariable WarframeTypeEnum type, @PathVariable long bot,@PathVariable long user,@PathVariable long group,@PathVariable String rawMsg) throws IOException {
         response.setHeader("Content-Type", "image/png");
         // 查询 赤毒武器/幻纹 拍卖详情
         MarketLichOrSister licksOrSister;

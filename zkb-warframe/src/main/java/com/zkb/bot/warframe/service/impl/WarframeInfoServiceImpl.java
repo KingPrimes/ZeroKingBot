@@ -4,9 +4,9 @@ package com.zkb.bot.warframe.service.impl;
 import com.zkb.bot.warframe.domain.WarframeInfo;
 import com.zkb.bot.warframe.mapper.WarframeInfoMapper;
 import com.zkb.bot.warframe.service.IWarframeInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Service
 public class WarframeInfoServiceImpl implements IWarframeInfoService {
-    @Resource
+    @Autowired
     private WarframeInfoMapper infoMapper;
 
     /**

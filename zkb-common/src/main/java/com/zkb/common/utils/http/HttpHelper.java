@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * 通用http工具封装
  *
- * @author ruoyi
+ * @author KingPrimes
  */
 public class HttpHelper {
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpHelper.class);

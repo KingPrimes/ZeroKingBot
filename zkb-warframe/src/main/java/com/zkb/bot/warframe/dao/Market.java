@@ -372,131 +372,303 @@ public class Market {
     }
 
     public static class ItemsInSet {
+        //图片地址
         String thumb;
+        //url查询名称
         String urlName;
+        //标签
         List<String> tags;
+        //段位等级
         Integer masteryLevel;
+        //图片icon
         String icon;
+        //交易税
         Integer tradingTax;
         String subIcon;
+        //物品id
         String id;
+        //价值多少杜卡币
         Integer ducats;
+        //icon来自哪里
         String iconFormat;
         Boolean setRoot;
         Laguage zhhans;
+        //mod最大等级
+        Integer modMaxRank;
+        //稀有程度
+        String rarity;
 
-        public String getThumb() {
-            return thumb;
+
+        @Override
+        public String toString() {
+            return new ToStringBuilder(this,ToStringStyle.JSON_STYLE)
+                    .append("thumb", getThumb())
+                    .append("urlName", getUrlName())
+                    .append("tags", getTags())
+                    .append("masteryLevel", getMasteryLevel())
+                    .append("icon", getIcon())
+                    .append("tradingTax", getTradingTax())
+                    .append("subIcon", getSubIcon())
+                    .append("id", getId())
+                    .append("ducats", getDucats())
+                    .append("iconFormat", getIconFormat())
+                    .append("setRoot", getSetRoot())
+                    .append("zhhans", getZhhans())
+                    .append("modMaxRank", getModMaxRank())
+                    .append("rarity", getRarity())
+                    .toString();
         }
 
+        /**
+         * 获取 图片地址
+         *
+         * @return thumb 图片地址
+         */
+        public String getThumb() {
+            return this.thumb;
+        }
+
+        /**
+         * 设置 图片地址
+         *
+         * @param thumb 图片地址
+         */
         public void setThumb(String thumb) {
             this.thumb = thumb;
         }
 
-        public String getUrl_name() {
-            return urlName;
+        /**
+         * 获取 url查询名称
+         *
+         * @return urlName url查询名称
+         */
+        public String getUrlName() {
+            return this.urlName;
         }
 
-        public void setUrl_name(String url_name) {
-            this.urlName = url_name;
+        /**
+         * 设置 url查询名称
+         *
+         * @param urlName url查询名称
+         */
+        public void setUrlName(String urlName) {
+            this.urlName = urlName;
         }
 
-        public Integer getMastery_level() {
-            return masteryLevel;
-        }
-
-        public void setMastery_level(Integer mastery_level) {
-            this.masteryLevel = mastery_level;
-        }
-
-        public String getIcon() {
-            return icon;
-        }
-
-        public void setIcon(String icon) {
-            this.icon = icon;
-        }
-
-        public Integer getTrading_tax() {
-            return tradingTax;
-        }
-
-        public void setTrading_tax(Integer trading_tax) {
-            this.tradingTax = trading_tax;
-        }
-
-        public String getSub_icon() {
-            return subIcon;
-        }
-
-        public void setSub_icon(String sub_icon) {
-            this.subIcon = sub_icon;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public Integer getDucats() {
-            return ducats;
-        }
-
-        public void setDucats(Integer ducats) {
-            this.ducats = ducats;
-        }
-
-        public String getIcon_format() {
-            return iconFormat;
-        }
-
-        public void setIcon_format(String icon_format) {
-            this.iconFormat = icon_format;
-        }
-
-        public Boolean getSet_root() {
-            return setRoot;
-        }
-
-        public void setSet_root(Boolean set_root) {
-            this.setRoot = set_root;
-        }
-
-        public Laguage getZhHans() {
-            return zhhans;
-        }
-
-        public void setZhHans(Laguage zhHans) {
-            this.zhhans = zhHans;
-        }
-
+        /**
+         * 获取 标签
+         *
+         * @return tags 标签
+         */
         public List<String> getTags() {
-            return tags;
+            return this.tags;
         }
 
+        /**
+         * 设置 标签
+         *
+         * @param tags 标签
+         */
         public void setTags(List<String> tags) {
             this.tags = tags;
         }
 
-        @Override
-        public String toString() {
-            return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
-                    .append("id", getId())
-                    .append("thumb", getThumb())
-                    .append("url_name", getUrl_name())
-                    .append("icon", getIcon())
-                    .append("sub_icon", getSub_icon())
-                    .append("icon_format", getIcon_format())
-                    .append("tags", getTags())
-                    .append("mastery_level", getMastery_level())
-                    .append("trading_tax", getTrading_tax())
-                    .append("ducats", getDucats())
-                    .append("set_root", getSet_root())
-                    .append("zh-hans", getZhHans())
-                    .toString();
+        /**
+         * 获取 段位等级
+         *
+         * @return masteryLevel 段位等级
+         */
+        public Integer getMasteryLevel() {
+            return this.masteryLevel;
+        }
+
+        /**
+         * 设置 段位等级
+         *
+         * @param masteryLevel 段位等级
+         */
+        public void setMasteryLevel(Integer masteryLevel) {
+            this.masteryLevel = masteryLevel;
+        }
+
+        /**
+         * 获取 图片icon
+         *
+         * @return icon 图片icon
+         */
+        public String getIcon() {
+            return this.icon;
+        }
+
+        /**
+         * 设置 图片icon
+         *
+         * @param icon 图片icon
+         */
+        public void setIcon(String icon) {
+            this.icon = icon;
+        }
+
+        /**
+         * 获取 交易税
+         *
+         * @return tradingTax 交易税
+         */
+        public Integer getTradingTax() {
+            return this.tradingTax;
+        }
+
+        /**
+         * 设置 交易税
+         *
+         * @param tradingTax 交易税
+         */
+        public void setTradingTax(Integer tradingTax) {
+            this.tradingTax = tradingTax;
+        }
+
+        /**
+         * 获取
+         *
+         * @return subIcon
+         */
+        public String getSubIcon() {
+            return this.subIcon;
+        }
+
+        /**
+         * 设置
+         *
+         * @param subIcon
+         */
+        public void setSubIcon(String subIcon) {
+            this.subIcon = subIcon;
+        }
+
+        /**
+         * 获取 物品id
+         *
+         * @return id 物品id
+         */
+        public String getId() {
+            return this.id;
+        }
+
+        /**
+         * 设置 物品id
+         *
+         * @param id 物品id
+         */
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        /**
+         * 获取 价值多少杜卡币
+         *
+         * @return ducats 价值多少杜卡币
+         */
+        public Integer getDucats() {
+            return this.ducats;
+        }
+
+        /**
+         * 设置 价值多少杜卡币
+         *
+         * @param ducats 价值多少杜卡币
+         */
+        public void setDucats(Integer ducats) {
+            this.ducats = ducats;
+        }
+
+        /**
+         * 获取 icon来自哪里
+         *
+         * @return iconFormat icon来自哪里
+         */
+        public String getIconFormat() {
+            return this.iconFormat;
+        }
+
+        /**
+         * 设置 icon来自哪里
+         *
+         * @param iconFormat icon来自哪里
+         */
+        public void setIconFormat(String iconFormat) {
+            this.iconFormat = iconFormat;
+        }
+
+        /**
+         * 获取
+         *
+         * @return setRoot
+         */
+        public Boolean getSetRoot() {
+            return this.setRoot;
+        }
+
+        /**
+         * 设置
+         *
+         * @param setRoot
+         */
+        public void setSetRoot(Boolean setRoot) {
+            this.setRoot = setRoot;
+        }
+
+        /**
+         * 获取
+         *
+         * @return zhhans
+         */
+        public Laguage getZhhans() {
+            return this.zhhans;
+        }
+
+        /**
+         * 设置
+         *
+         * @param zhhans
+         */
+        public void setZhhans(Laguage zhhans) {
+            this.zhhans = zhhans;
+        }
+
+        /**
+         * 获取 mod最大等级
+         *
+         * @return modMaxRank mod最大等级
+         */
+        public Integer getModMaxRank() {
+            return this.modMaxRank;
+        }
+
+        /**
+         * 设置 mod最大等级
+         *
+         * @param modMaxRank mod最大等级
+         */
+        public void setModMaxRank(Integer modMaxRank) {
+            this.modMaxRank = modMaxRank;
+        }
+
+        /**
+         * 获取 稀有程度
+         *
+         * @return rarity 稀有程度
+         */
+        public String getRarity() {
+            return this.rarity;
+        }
+
+        /**
+         * 设置 稀有程度
+         *
+         * @param rarity 稀有程度
+         */
+        public void setRarity(String rarity) {
+            this.rarity = rarity;
         }
     }
 

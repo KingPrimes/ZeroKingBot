@@ -1,7 +1,8 @@
 package com.zkb.bot.warframe.plugin;
 
+import com.mikuac.shiro.annotation.GroupMessageHandler;
+import com.mikuac.shiro.annotation.Shiro;
 import com.mikuac.shiro.core.Bot;
-import com.mikuac.shiro.core.BotPlugin;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.enums.WarframeSubscribeEnums;
 import com.zkb.bot.utils.GroupAddApi;
@@ -13,23 +14,27 @@ import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.uuid.UUID;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.List;
 
+import static com.mikuac.shiro.core.BotPlugin.MESSAGE_BLOCK;
+import static com.mikuac.shiro.core.BotPlugin.MESSAGE_IGNORE;
+
+@Shiro
 @Component
-public class WarframeSubscribePlugin extends BotPlugin {
+public class WarframeSubscribePlugin {
 
     private static final String SUB_LIST = "订阅列表";
     private static final String SUB_END = "取消订阅";
     private static final String SUB_RIVE_END = "取消私人订阅";
     private static final String SUB = "订阅";
     private static final String SUB_RIVE = "私人订阅";
-    @Resource
+    @Autowired
     IWarframeMissionSubscribeService service;
 
-    @Override
+    @GroupMessageHandler
     public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
 
         if (event.getRawMessage().trim().length() == 0) {

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('Warframe指令配置')"/>
+    <th:block th:include="include :: datetimepicker-css"/>
+</head>
+<body class="white-bg">
+
+<form class="form-horizontal m" id="form-user-resetPwd">
+    <div class="row">
+        <center>
+            <h3>
+                <span style="color: red">
+                    <b>
+                        更改完之后请点击下方得更新按钮。不然指令不会生效
+                    </b>
+                </span>
+            </h3>
+        </center>
+        <input type="hidden" id="size"  th:value="${WarframeKey.size}">
+        <div class="col-sm-6" th:each="map,stat:${WarframeKey}" style="padding-bottom: 10px">
+            <label class="col-sm-5" style="vertical-align: middle" th:text="${map.getKey()}"/>
+            <input class="col-sm-5" th:onchange="'change_type('+${stat.index}+')'" style="vertical-align: middle " type="text" th:id="${stat.index}" th:name="${map.getKey()}" th:value="${map.value}"/>
+        </div>
+
+    </div>
+</form>
+<button class="btn btn-success btn-block" onclick="put()" data-loading="正在更新数据，请稍候...">更新</button>
+<th:block th:include="include :: footer"/>
+<script>
+    const mapT = new Map();
+    $(function (){
+            let size = $("#size").val();
+            for(let i=0; i<size; i++){
+                const type = document.getElementById(i);
+                mapT.set(type.name,type.value)
+            }
+        },
+    );
+    function _strMapToObj(map1){
+        let obj = Object.create(null);
+        for(let[k,v] of map1){
+            obj[k] = v;
+        }
+        return obj;
+    }
+    function put(){
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json;charset=utf-8',
+            url: "/config/warframe/warframe-config",
+            dataType: 'json',
+            data: JSON.stringify(_strMapToObj(mapT))
+        })
+    }
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -26,7 +26,7 @@ import java.util.Random;
 /**
  * 通用http发送方法
  *
- * @author ruoyi
+ * @author KingPrimes
  */
 public class HttpUtils {
     public static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
@@ -388,7 +388,7 @@ public class HttpUtils {
      * @return JSON格式的数据
      */
     public static String sendPostFile(File file, String imageName, MediaType mediaTypet) {
-        RequestBody fileBody = RequestBody.create(mediaTypet, file);
+        RequestBody fileBody = RequestBody.create(file,mediaTypet);
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("file", imageName, fileBody)
@@ -436,21 +436,7 @@ public class HttpUtils {
      */
     public static String sendGetOkHttp(String url, String param, Headers.Builder headers) {
         try {
-            headers.add("User-Agent", getUserAgent());
-            String urlNameString;
-            if (param.length() != 0) {
-                urlNameString = url + "?" + param;
-            } else {
-                urlNameString = url;
-            }
-
-            Request request;
-            request = new Request.Builder()
-                    .url(urlNameString)
-                    .get()
-                    .headers(headers.build())
-                    .build();
-            Response response = httpClient.newCall(request).execute();
+            Response response = httpClient.newCall(send(url, param, headers)).execute();
             String tmp = Objects.requireNonNull(response.body()).string();
             response.close();
             return tmp;
@@ -467,21 +453,7 @@ public class HttpUtils {
 
     public static String sendGetOkHttpProxy(String url, String param, Headers.Builder headers) {
         try {
-            headers.add("User-Agent", getUserAgent());
-            String urlNameString;
-            if (param.length() != 0) {
-                urlNameString = url + "?" + param;
-            } else {
-                urlNameString = url;
-            }
-
-            Request request;
-            request = new Request.Builder()
-                    .url(urlNameString)
-                    .get()
-                    .headers(headers.build())
-                    .build();
-            Response response = CLIENT_PROXY.newCall(request).execute();
+            Response response = CLIENT_PROXY.newCall(send(url, param, headers)).execute();
             String tmp = (response.body()).string();
             response.close();
             if (tmp == null) {
@@ -495,6 +467,22 @@ public class HttpUtils {
             return "";
         }
 
+    }
+
+    private static Request send(String url, String param, Headers.Builder headers) {
+        headers.add("User-Agent", getUserAgent());
+        String urlNameString;
+        if (param.length() != 0) {
+            urlNameString = url + "?" + param;
+        } else {
+            urlNameString = url;
+        }
+
+        return new Request.Builder()
+               .url(urlNameString)
+               .get()
+               .headers(headers.build())
+               .build();
     }
 
     /**
@@ -521,7 +509,7 @@ public class HttpUtils {
     public static String sendPostOkHttp(String url, String data, Headers headers) {
         try {
             Request request;
-            RequestBody body = RequestBody.create(MEDIA_TYPE_JSON, data);
+            RequestBody body = RequestBody.create(data,MEDIA_TYPE_JSON);
             if (headers != null) {
                 request = new Request.Builder()
                         .url(url)

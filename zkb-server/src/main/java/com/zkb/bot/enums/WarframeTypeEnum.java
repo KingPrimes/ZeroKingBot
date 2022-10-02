@@ -53,6 +53,7 @@ public enum WarframeTypeEnum {
     TYPE_RES_MARKET_RIVEN("更新WM紫卡"),
     TYPE_RES_RM("更新RM紫卡"),
     TYPE_CODE("指令"),
+
     REDIS_MISSION_KEY("warframe-data-the-provided-plat"),
     ;
 

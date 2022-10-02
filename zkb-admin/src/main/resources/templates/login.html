@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>ZeroKingBot</title>
+    <meta name="description" content="ZeroKingBot">
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+    <link href="../static/css/style.min.css" th:href="@{/css/style.min.css}" rel="stylesheet"/>
+    <link href="../static/css/login.min.css" th:href="@{/css/login.min.css}" rel="stylesheet"/>
+    <link href="../static/zkb/css/zkb-ui.css" th:href="@{/zkb/css/zkb-ui.css?v=4.7.5}" rel="stylesheet"/>
+    <!-- 360浏览器急速模式 -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style type="text/css">label.error {
+        position: inherit;
+    }</style>
+    <script>
+        if (window.top !== window.self) {
+            alert('未登录或登录超时。请重新登录');
+            window.top.location = window.location
+        }
+    </script>
+</head>
+<body class="signin">
+<div class="signinpanel">
+    <div class="row">
+        <div class="col-sm-5">
+            <center>
+                <div class="signin-info">
+                    <div class="logopanel m-b">
+                        <h1><img alt="[ ZeroKingBot ]" src="../static/ico.png" th:src="@{/ico.png}" width="60%"></h1>
+                    </div>
+                </div>
+            </center>
+        </div>
+        <div class="col-sm-5">
+            <form id="signupForm" autocomplete="off">
+                <h3 class="no-margins" align="center">登录</h3>
+                <p class="m-t-md" align="center">欢迎使用 ---- ZeroKingBot</p>
+                <input type="text" name="username" class="form-control uname" placeholder="用户名:admin"/>
+                <input type="password" name="password" class="form-control pword" placeholder="密码:admin123"/>
+                <button class="btn btn-success btn-block" id="btnSubmit" data-loading="正在验证登录，请稍候...">登录
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    var ctx = [[@{/}]];
+    var captchaType = [[${captchaType}]]; </script>
+<!--[if lte IE 8]>
+<script>window.location.href = ctx + 'html/ie.html';</script><![endif]-->
+<!-- 全局js -->
+<script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+<script src="../static/ajax/libs/validate/jquery.validate.min.js"
+        th:src="@{/ajax/libs/validate/jquery.validate.min.js}"></script>
+<script src="../static/ajax/libs/layer/layer.min.js" th:src="@{/ajax/libs/layer/layer.min.js}"></script>
+<script src="../static/ajax/libs/blockUI/jquery.blockUI.js" th:src="@{/ajax/libs/blockUI/jquery.blockUI.js}"></script>
+<script src="../static/zkb/js/zkb-ui.js" th:src="@{/zkb/js/zkb-ui.js?v=4.7.5}"></script>
+<script src="../static/zkb/login.js" th:src="@{/zkb/login.js}"></script>
+</body>
+</html>

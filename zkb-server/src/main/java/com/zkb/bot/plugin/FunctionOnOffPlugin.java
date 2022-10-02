@@ -1,7 +1,8 @@
 package com.zkb.bot.plugin;
 
+import com.mikuac.shiro.annotation.GroupMessageHandler;
+import com.mikuac.shiro.annotation.Shiro;
 import com.mikuac.shiro.core.Bot;
-import com.mikuac.shiro.core.BotPlugin;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.domain.GroupFunctionOnOff;
 import com.zkb.bot.server.GroupFunctionOnOffServer;
@@ -15,17 +16,18 @@ import org.springframework.stereotype.Component;
 import java.util.Locale;
 import java.util.jar.Manifest;
 
+import static com.mikuac.shiro.core.BotPlugin.MESSAGE_BLOCK;
+import static com.mikuac.shiro.core.BotPlugin.MESSAGE_IGNORE;
 import static com.zkb.bot.enums.FunctionEnums.*;
 
 
 /**
  * @author KingPrimes
  */
+@Shiro
 @Component
-public class FunctionOnOffPlugin extends BotPlugin {
-
-
-    @Override
+public class FunctionOnOffPlugin {
+    @GroupMessageHandler
     public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
         if (event.getRawMessage().trim().length() == 0) {
             return MESSAGE_IGNORE;
@@ -172,6 +174,5 @@ public class FunctionOnOffPlugin extends BotPlugin {
 
         return MESSAGE_IGNORE;
     }
-
 
 }

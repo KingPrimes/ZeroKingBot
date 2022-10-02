@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * lichService接口
  *
- * @author ruoyi
+ * @author KingPrimes
  * @Date 2021-11-24
  */
 public interface IWarframeMarketLichOrSisterService {

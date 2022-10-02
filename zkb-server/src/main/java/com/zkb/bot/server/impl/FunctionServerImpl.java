@@ -4,10 +4,10 @@ import com.zkb.bot.domain.Function;
 import com.zkb.bot.mapper.FunctionMapper;
 import com.zkb.bot.server.FunctionServer;
 import com.zkb.common.core.redis.RedisCache;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
 
@@ -17,10 +17,10 @@ import java.util.List;
 @Service
 public class FunctionServerImpl implements FunctionServer {
 
- @Resource
+ @Autowired
     FunctionMapper functionMapper;
 
- @Resource
+ @Autowired
     RedisCache redisCache;
 
     //项目加载时 加载缓存

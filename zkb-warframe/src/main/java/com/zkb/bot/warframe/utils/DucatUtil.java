@@ -5,9 +5,9 @@ import com.zkb.bot.warframe.dao.DucatDumps;
 import com.zkb.bot.warframe.dao.Ducats;
 import com.zkb.bot.warframe.service.impl.WarframeMarketItemsServiceImpl;
 import com.zkb.common.utils.http.HttpUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 public class DucatUtil {
 
-    @Resource
+    @Autowired
     WarframeMarketItemsServiceImpl mis;
 
     public DucatDumps getDucats() {

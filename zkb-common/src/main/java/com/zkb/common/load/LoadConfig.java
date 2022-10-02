@@ -1,5 +1,7 @@
 package com.zkb.common.load;
 
+import com.zkb.common.utils.file.FileUtils;
+import com.zkb.common.utils.http.HttpUtils;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.RepositoryCache;
@@ -97,7 +99,7 @@ public class LoadConfig {
     }
 
     //创建Warframe指令配置文件
-    @PostConstruct
+    //@PostConstruct
     public void WriteWarframeConfigFile() {
         File file = new File("./config/warframeConfig.ini");
         if (!file.isFile()) {
@@ -181,6 +183,8 @@ public class LoadConfig {
     @PostConstruct
     public void initHtml() {
         File file = new File(HTML_PATH);
+        String versionNew = HttpUtils.sendGetOkHttp( "https://gitee.com/KingPrime/ZKBotHtml/raw/main/version.txt");
+        String version = "";
         if (!file.exists()) {
             try {
                 Git.cloneRepository()
@@ -190,7 +194,20 @@ public class LoadConfig {
             } catch (GitAPIException e) {
                 log.error("下载Html文件失败：{}", e.getMessage());
             }
-
+        }else{
+            version = FileUtils.getFileString(HTML_PATH+"/version.txt");
+            if(!versionNew.equals(version)){
+                try {
+                    if(FileUtils.delAllFile(HTML_PATH)){
+                        Git.cloneRepository()
+                                .setURI("https://gitee.com/KingPrime/ZKBotHtml.git")
+                                .setDirectory(file)
+                                .call();
+                    }
+                } catch (Exception e) {
+                    log.error("下载Html文件失败：{}", e.getMessage());
+                }
+            }
         }
     }
 

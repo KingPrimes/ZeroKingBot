@@ -1,8 +1,9 @@
 package com.zkb.bot.imagetogif.plugin;
 
 
+import com.mikuac.shiro.annotation.GroupMessageHandler;
+import com.mikuac.shiro.annotation.Shiro;
 import com.mikuac.shiro.core.Bot;
-import com.mikuac.shiro.core.BotPlugin;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.imagetogif.utils.SendGifUtil;
 import org.jetbrains.annotations.NotNull;
@@ -10,12 +11,14 @@ import org.springframework.stereotype.Component;
 
 import java.util.Locale;
 
+import static com.mikuac.shiro.core.BotPlugin.MESSAGE_IGNORE;
 import static com.zkb.bot.enums.GifEnums.*;
 
+@Shiro
 @Component
-public class GifImagePlugin extends BotPlugin {
+public class GifImagePlugin{
 
-    @Override
+    @GroupMessageHandler
     public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
 
         if (event.getRawMessage().trim().length() == 0) {

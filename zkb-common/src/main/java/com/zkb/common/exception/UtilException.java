@@ -3,7 +3,7 @@ package com.zkb.common.exception;
 /**
  * 工具类异常
  *
- * @author ruoyi
+ * @author KingPrimes
  */
 public class UtilException extends RuntimeException {
     private static final long serialVersionUID = 8247610319171014183L;

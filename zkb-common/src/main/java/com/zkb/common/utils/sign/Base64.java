@@ -3,7 +3,7 @@ package com.zkb.common.utils.sign;
 /**
  * Base64工具类
  *
- * @author ruoyi
+ * @author KingPrimes
  */
 public final class Base64 {
     static private final int BASELENGTH = 128;
