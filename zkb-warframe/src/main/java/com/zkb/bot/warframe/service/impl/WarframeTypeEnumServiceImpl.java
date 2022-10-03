@@ -4,21 +4,24 @@ import com.zkb.bot.enums.WarframeTypeEnum;
 import com.zkb.bot.warframe.domain.TypeEnum;
 import com.zkb.bot.warframe.mapper.WarframeTypeEnumMapper;
 import com.zkb.bot.warframe.service.IWarframeTypeEnumService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
 public class WarframeTypeEnumServiceImpl implements IWarframeTypeEnumService {
 
+    private static final Logger log = LoggerFactory.getLogger(WarframeTypeEnumServiceImpl.class);
+
     @Autowired
     WarframeTypeEnumMapper typeEnumMapper;
 
     //初始化
-    @PostConstruct
     public void init(){
+        log.info("开始初始化Warframe指令……");
         List<TypeEnum> tes = typeEnumMapper.selectWarframeTypeEnumList(null);
         if(tes==null || tes.size()==0){
             for(WarframeTypeEnum key:WarframeTypeEnum.values()){
@@ -39,6 +42,7 @@ public class WarframeTypeEnumServiceImpl implements IWarframeTypeEnumService {
                 }
             }
         }
+        log.info("Warframe指令初始化完成……");
     }
 
     /**

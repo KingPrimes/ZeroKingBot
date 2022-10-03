@@ -64,13 +64,10 @@ public class LoadConfig {
 
     @PostConstruct
     public void init() {
-        log.info("开始初始化！请稍等……");
         int os = isOs();
-
         if (os == 1) {
             initQQ();
             initWinRedis();
-
         }
 
     }
@@ -78,6 +75,7 @@ public class LoadConfig {
     //判断配置文件是否存在不存在则新建一个配置文件
     @PostConstruct
     public void WriteConfigFile() {
+        log.info("开始初始化配置文件……");
         //config
         File file = new File("./config/config.ini");
         if (!file.isFile()) {
@@ -93,8 +91,8 @@ public class LoadConfig {
             } catch (Exception e) {
                 log.error("创建config.ini失败，错误信息：{}", e.getMessage());
             }
-
         }
+        log.info("配置文件初始化完毕……");
 
     }
 
@@ -121,21 +119,9 @@ public class LoadConfig {
 
     @PostConstruct
     public void WriteSqlite() {
+        log.info("开始初始化数据库文件……");
         File file = new File("./db/data.db3");
-        if (!file.isFile()) {
-            try {
-                File db = new File("./db");
-                if (!db.isFile()) {
-                    db.mkdirs();
-                }
-                InputStream in = LoadConfig.class.getResourceAsStream("/data.db3");
-                assert in != null;
-                Files.copy(in, file.toPath());
-            } catch (Exception e) {
-                log.error("创建db数据库失败，错误信息：{}", e.getMessage());
-            }
-
-        } else {
+        if (file.isFile()) {
             try {
                 long lastModifiedCopy = file.lastModified();
                 long last = new File(Objects.requireNonNull(LoadConfig.class.getResource("/data.db3")).toURI()).lastModified();
@@ -147,11 +133,24 @@ public class LoadConfig {
             } catch (Exception e) {
                 log.error(e.getMessage());
             }
-
+        } else {
+            try {
+                File db = new File("./db");
+                if (!db.isFile()) {
+                    db.mkdirs();
+                }
+                InputStream in = LoadConfig.class.getResourceAsStream("/data.db3");
+                assert in != null;
+                Files.copy(in, file.toPath());
+            } catch (Exception e) {
+                log.error("创建db数据库失败，错误信息：{}", e.getMessage());
+            }
         }
+        log.info("数据库文件初始化完毕……");
     }
 
     public void initQQ() {
+        log.info("开始初始化GoCqHttp……");
         String x = System.getProperty("user.dir") + "\\gocqhttp\\go-cqhttp.bat";
         try {
             File file = new File("./gocqhttp");
@@ -178,10 +177,12 @@ public class LoadConfig {
         } catch (GitAPIException | IOException e) {
             log.error("初始化Go-cqhttp失败！错误信息：{}\n请自行下载Go-cqhttp: https://github.com/Mrs4s/go-cqhttp/releases", e.getMessage());
         }
+        log.info("GoCqHttp初始化完毕……");
     }
 
     @PostConstruct
     public void initHtml() {
+        log.info("开始初始化Html渲染模板……");
         File file = new File(HTML_PATH);
         String versionNew = HttpUtils.sendGetOkHttp( "https://gitee.com/KingPrime/ZKBotHtml/raw/main/version.txt");
         String version = "";
@@ -209,11 +210,13 @@ public class LoadConfig {
                 }
             }
         }
+        log.info("Html渲染模板初始化完毕……");
     }
 
 
 
     public void initWinRedis() {
+        log.info("开始初始化Redis……");
         String x = "cmd /c start " + System.getProperty("user.dir") + "\\Redis\\redis-server.exe " + System.getProperty("user.dir") + "\\Redis\\redis.windows.conf";
         try {
             File file = new File("./Redis");
@@ -239,6 +242,7 @@ public class LoadConfig {
         } catch (GitAPIException | IOException e) {
             log.error("初始化Redis失败！{}", e.getMessage());
         }
+        log.info("初始化Redis完毕……");
     }
 
 
