@@ -53,6 +53,8 @@ public class WarframeConfigController extends BaseController {
         return toAjax(true);
     }
 
+
+
     private Map<String,String> getType(){
         Map<String,String> type = new HashMap<>();
         for(WarframeTypeEnum key:WarframeTypeEnum.values()){

@@ -37,6 +37,11 @@
             }
         },
     );
+    //不要删除这个函数，此函数用于更新map
+    function change_type(index){
+        const type = document.getElementById(index);
+        mapT.set(type.name,type.value);
+    }
     function _strMapToObj(map1){
         let obj = Object.create(null);
         for(let[k,v] of map1){
