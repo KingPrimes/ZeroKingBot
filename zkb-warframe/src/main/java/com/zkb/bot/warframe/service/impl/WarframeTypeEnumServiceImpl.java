@@ -23,7 +23,7 @@ public class WarframeTypeEnumServiceImpl implements IWarframeTypeEnumService {
     public void init(){
         log.info("开始初始化Warframe指令……");
         List<TypeEnum> tes = typeEnumMapper.selectWarframeTypeEnumList(null);
-        if(tes==null || tes.size()==0){
+        if(tes==null || tes.size()==0 || tes.size()!=WarframeTypeEnum.values().length){
             for(WarframeTypeEnum key:WarframeTypeEnum.values()){
                 if(WarframeTypeEnum.valueOf(key.name()).getType()!=null && WarframeTypeEnum.valueOf(key.name()).getType().trim().length()!=0 && !key.name().equals("REDIS_MISSION_KEY")){
                    TypeEnum typeEnum = new TypeEnum();

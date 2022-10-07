@@ -38,6 +38,9 @@ public class Jvm
      */
     private String home;
 
+    /**
+     * 当前JVM占用的内存总数(M)
+     */
     public double getTotal()
     {
         return Arith.div(total, (1024 * 1024), 2);
@@ -47,7 +50,9 @@ public class Jvm
     {
         this.total = total;
     }
-
+    /**
+     * JVM最大可用内存总数(M)
+     */
     public double getMax()
     {
         return Arith.div(max, (1024 * 1024), 2);
@@ -58,6 +63,9 @@ public class Jvm
         this.max = max;
     }
 
+    /**
+     * JVM空闲内存(M)
+     */
     public double getFree()
     {
         return Arith.div(free, (1024 * 1024), 2);
@@ -86,6 +94,9 @@ public class Jvm
         return ManagementFactory.getRuntimeMXBean().getVmName();
     }
 
+    /**
+     * JDK版本
+     */
     public String getVersion()
     {
         return version;
@@ -95,7 +106,9 @@ public class Jvm
     {
         this.version = version;
     }
-
+    /**
+     * JDK路径
+     */
     public String getHome()
     {
         return home;

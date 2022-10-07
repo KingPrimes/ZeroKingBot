@@ -24,7 +24,9 @@ public class Mem
      * 剩余内存
      */
     private double free;
-
+    /**
+     * 内存总量
+     */
     public double getTotal()
     {
         return Arith.div(total, (1024 * 1024 * 1024), 2);
@@ -34,7 +36,9 @@ public class Mem
     {
         this.total = total;
     }
-
+    /**
+     * 已用内存
+     */
     public double getUsed()
     {
         return Arith.div(used, (1024 * 1024 * 1024), 2);
@@ -44,7 +48,9 @@ public class Mem
     {
         this.used = used;
     }
-
+    /**
+     * 剩余内存
+     */
     public double getFree()
     {
         return Arith.div(free, (1024 * 1024 * 1024), 2);

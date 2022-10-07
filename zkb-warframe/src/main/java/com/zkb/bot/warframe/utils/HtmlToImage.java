@@ -397,7 +397,107 @@ public class HtmlToImage {
                 }
             }
         }
+
         return tmpHtmlToImageByteArray("assault", html, width);
+    }
+
+    /**
+     * 执政官突击
+     * @param archonHunt 数据
+     * @return 图片字节流
+     */
+    public ByteArrayOutputStream archonHuntImage(GlobalStates.ArchonHunt archonHunt){
+        String html = FileUtils.getFileString(HTML_PATH + "html/assault.html");
+        int width = getWidth(html);
+        html = outH(html);
+        if (html.contains("#table")) {
+            StringBuilder str = new StringBuilder();
+            str
+
+                    .append("<h3>本次的执政官突击是由：[")
+                    .append(archonHunt.getBoss())
+                    .append("]主导</h3>")
+                    .append("<h3>派系：[")
+                    .append(archonHunt.getFaction())
+                    .append("]</h3>")
+                    .append("<h3>任务结束：")
+                    .append(DateUtils.getDate((archonHunt.getExpiry()), new Date()))
+                    .append("</h3>")
+                    .append("<h3>---任务详情---</h3>")
+                    .append("<div class=\"assault\">")
+
+            ;
+            for (GlobalStates.ArchonHunt.Mission variant : archonHunt.getMissions()) {
+                str.append("<table>")
+                        .append("<tr><td>任务地址：")
+                        .append(variant.getNode()
+                                .replace(
+                                        StringUtils.quStr(
+                                                variant.getNode()),
+                                        trans.enToZh(StringUtils.quStr(variant.getNode()))))
+                        .append("</td></tr>")
+                        .append("<tr><td>任务类型：")
+                        .append(trans.enToZh(variant.getType()))
+                        .append("</td></tr>")
+                        .append("</table>");
+            }
+
+            str
+                    .append("</div>")
+            ;
+            html = html.replaceAll("#table", str.toString());
+        }
+
+        if (!html.contains("#table")) {
+            if (html.contains("#Boss")) {
+                html = html.replaceAll("#Boss", archonHunt.getBoss());
+            }
+
+            if (html.contains("#Ene")) {
+                html = html.replaceAll("#Ene", archonHunt.getFaction());
+            }
+            if (html.contains("#End")) {
+                html = html.replaceAll("#End", DateUtils.getDate((archonHunt.getExpiry()), new Date()));
+            }
+            if (html.contains("#Deta")) {
+                StringBuilder str = new StringBuilder();
+                for (GlobalStates.ArchonHunt.Mission variant : archonHunt.getMissions()) {
+                    str.append("<table>")
+                            .append("<tr><td>任务地址：")
+                            .append(variant.getNode()
+                                    .replace(
+                                            StringUtils.quStr(
+                                                    variant.getNode()),
+                                            trans.enToZh(StringUtils.quStr(variant.getNode()))))
+                            .append("</td></tr>")
+                            .append("<tr><td>任务类型：")
+                            .append(trans.enToZh(variant.getType()))
+                            .append("</td></tr>")
+                            .append("</table>");
+                }
+                html = html.replaceAll("#Deta", str.toString());
+            } else {
+                int i = 1;
+                for (GlobalStates.ArchonHunt.Mission variant : archonHunt.getMissions()) {
+                    String node = variant.getNode()
+                            .replace(
+                                    StringUtils.quStr(
+                                            variant.getNode()),
+                                    trans.enToZh(StringUtils.quStr(variant.getNode())));
+
+                    if (html.contains("#Node" + i)) {
+                        html = html.replaceAll("#Node" + i, node);
+                    }
+
+                    if (html.contains("#Type" + i)) {
+                        html = html.replaceAll("#Type" + i, trans.enToZh(variant.getType()));
+                    }
+                    i++;
+                }
+            }
+        }
+
+        return tmpHtmlToImageByteArray("assault",html,width);
     }
 
     /**

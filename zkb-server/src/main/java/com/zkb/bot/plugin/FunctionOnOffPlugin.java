@@ -2,6 +2,7 @@ package com.zkb.bot.plugin;
 
 import com.mikuac.shiro.annotation.GroupMessageHandler;
 import com.mikuac.shiro.annotation.Shiro;
+import com.mikuac.shiro.common.utils.OneBotMedia;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.domain.GroupFunctionOnOff;
@@ -9,6 +10,7 @@ import com.zkb.bot.server.GroupFunctionOnOffServer;
 import com.zkb.bot.utils.GroupAddApi;
 import com.zkb.bot.utils.Msg;
 import com.zkb.common.utils.JarManifest;
+import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
@@ -156,10 +158,15 @@ public class FunctionOnOffPlugin {
             }
 
         }
-        if("版本".equals(event.getRawMessage())){
+        if("运行状态".equals(event.getRawMessage())){
             Manifest manifestFromClasspath = JarManifest.getManifestFromClasspath(FunctionOnOffPlugin.class);
             assert manifestFromClasspath != null;
-            Msg.builder().text("ZeroKingBot的版本号为："+manifestFromClasspath.getMainAttributes().getValue("ZeroKingBot-Version")).sendToGroup(bot, event);
+            OneBotMedia.Builder builder = new OneBotMedia.Builder();
+            builder.proxy(false);
+            builder.cache(false);
+            builder.timeout(30);
+            builder.file("http://localhost:" + GetServerPort.getPort() +"/server");
+            Msg.builder().img(builder.build()).sendToGroup(bot, event);
             return MESSAGE_BLOCK;
         }
 

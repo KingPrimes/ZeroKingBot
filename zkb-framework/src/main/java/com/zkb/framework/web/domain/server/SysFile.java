@@ -41,7 +41,9 @@ public class SysFile
      * 资源的使用率
      */
     private double usage;
-
+    /**
+     * 盘符路径
+     */
     public String getDirName()
     {
         return dirName;
@@ -51,7 +53,9 @@ public class SysFile
     {
         this.dirName = dirName;
     }
-
+    /**
+     * 盘符类型
+     */
     public String getSysTypeName()
     {
         return sysTypeName;
@@ -61,7 +65,9 @@ public class SysFile
     {
         this.sysTypeName = sysTypeName;
     }
-
+    /**
+     * 文件类型
+     */
     public String getTypeName()
     {
         return typeName;
@@ -71,7 +77,9 @@ public class SysFile
     {
         this.typeName = typeName;
     }
-
+    /**
+     * 总大小
+     */
     public String getTotal()
     {
         return total;
@@ -81,7 +89,9 @@ public class SysFile
     {
         this.total = total;
     }
-
+    /**
+     * 剩余大小
+     */
     public String getFree()
     {
         return free;
@@ -92,6 +102,9 @@ public class SysFile
         this.free = free;
     }
 
+    /**
+     * 已经使用量
+     */
     public String getUsed()
     {
         return used;
@@ -101,7 +114,9 @@ public class SysFile
     {
         this.used = used;
     }
-
+    /**
+     * 资源的使用率
+     */
     public double getUsage()
     {
         return usage;

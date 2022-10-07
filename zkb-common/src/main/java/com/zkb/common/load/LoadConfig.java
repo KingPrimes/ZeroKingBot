@@ -66,7 +66,7 @@ public class LoadConfig {
     public void init() {
         int os = isOs();
         if (os == 1) {
-            initQQ();
+            //initQQ();
             initWinRedis();
         }
 
@@ -197,7 +197,7 @@ public class LoadConfig {
             }
         }else{
             version = FileUtils.getFileString(HTML_PATH+"/version.txt");
-            if(!versionNew.equals(version)){
+            if(!versionNew.equals(version) && versionNew.trim().length() != 0){
                 try {
                     if(FileUtils.delAllFile(HTML_PATH)){
                         Git.cloneRepository()

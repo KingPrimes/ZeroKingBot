@@ -59,6 +59,15 @@ public class WarframePlugin {
             }
         }
 
+        //执政官突击
+        if (TYPE_ARCHON_HUNT_PLUGIN.getType().equals(rawMsg)) {
+            if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
+                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getArchonHuntImage/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+            } else {
+                return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
+            }
+        }
+
         //入侵
         if (TYPE_INVASIONS_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {

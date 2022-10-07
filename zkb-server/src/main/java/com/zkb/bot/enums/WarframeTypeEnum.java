@@ -11,6 +11,8 @@ public enum WarframeTypeEnum {
      */
     TYPE_MARKET_XT(""),
     TYPE_ASSAULT_PLUGIN("突击"),
+
+    TYPE_ARCHON_HUNT_PLUGIN("执政官突击"),
     TYPE_VOID_PLUGIN("奸商"),
     TYPE_ARBITRATION_PLUGIN("仲裁"),
     TYPE_STEEL_PATH_PLUGIN("钢铁"),

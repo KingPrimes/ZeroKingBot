@@ -31,7 +31,9 @@ public class Sys
      * 系统架构
      */
     private String osArch;
-
+    /**
+     * 服务器名称
+     */
     public String getComputerName()
     {
         return computerName;
@@ -41,7 +43,9 @@ public class Sys
     {
         this.computerName = computerName;
     }
-
+    /**
+     * 服务器Ip
+     */
     public String getComputerIp()
     {
         return computerIp;
@@ -51,7 +55,9 @@ public class Sys
     {
         this.computerIp = computerIp;
     }
-
+    /**
+     * 项目路径
+     */
     public String getUserDir()
     {
         return userDir;
@@ -61,7 +67,9 @@ public class Sys
     {
         this.userDir = userDir;
     }
-
+    /**
+     * 操作系统
+     */
     public String getOsName()
     {
         return osName;
@@ -71,7 +79,9 @@ public class Sys
     {
         this.osName = osName;
     }
-
+    /**
+     * 系统架构
+     */
     public String getOsArch()
     {
         return osArch;

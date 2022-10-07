@@ -14,18 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author zkb
  */
 @Controller
-@RequestMapping("/monitor/server")
+@RequestMapping("/server/info")
 public class ServerController extends BaseController
 {
-
-
     @GetMapping()
     public String server(ModelMap mmap) throws Exception
     {
         Server server = new Server();
+        //初始化信息
         server.copyTo();
         mmap.put("server", server);
-        String prefix = "monitor/server";
-        return prefix + "/server";
+        return "server/server";
     }
 }

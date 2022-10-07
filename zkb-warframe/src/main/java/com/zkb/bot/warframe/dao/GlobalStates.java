@@ -60,6 +60,7 @@ public class GlobalStates {
     private List<Fissures> fissures;
 
 
+    //
     @JsonProperty("globalUpgrades")
     private List<GlobalUpgrades> globalUpgrades;
 
@@ -88,6 +89,11 @@ public class GlobalStates {
      */
     @JsonProperty("sortie")
     private Sortie sortie;
+
+    //执政官突击
+    @JsonProperty("archonHunt")
+    private ArchonHunt archonHunt;
+
     /**
      * 钢铁兑换轮换
      */
@@ -616,6 +622,51 @@ public class GlobalStates {
         private Boolean isTargetActive;
         @JsonProperty("asString")
         private String asString;
+    }
+
+    @NoArgsConstructor
+    @Data
+    @EqualsAndHashCode(of = {"boss","mission"})
+    public static class ArchonHunt{
+        @JsonProperty("id")
+        private String id;
+        @JsonProperty("activation")
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+        private Date activation;
+        @JsonProperty("expiry")
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+        private Date expiry;
+        @JsonProperty("startString")
+        private String startString;
+        @JsonProperty("actice")
+        private Boolean actice;
+        @JsonProperty("rewardPool")
+        private String rewardPool;
+        @JsonProperty("missions")
+        private List<Mission> missions;
+        @JsonProperty("boss")
+        private String boss;
+        @JsonProperty("faction")
+        private String faction;
+        @JsonProperty("factionKey")
+        private String factionKey;
+        @JsonProperty("expired")
+        private Boolean expired;
+        @JsonProperty("eta")
+        private String eta;
+
+        @Data
+        @NoArgsConstructor
+        public static class Mission{
+            @JsonProperty("node")
+            private String node;
+            @JsonProperty("nodeKey")
+            private String nodeKey;
+            @JsonProperty("type")
+            private String type;
+            @JsonProperty("typeKey")
+            private String typeKey;
+        }
     }
 
     @NoArgsConstructor
