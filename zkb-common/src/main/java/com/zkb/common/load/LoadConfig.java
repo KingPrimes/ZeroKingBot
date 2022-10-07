@@ -66,7 +66,7 @@ public class LoadConfig {
     public void init() {
         int os = isOs();
         if (os == 1) {
-            //initQQ();
+            initQQ();
             initWinRedis();
         }
 
