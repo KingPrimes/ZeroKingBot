@@ -39,6 +39,9 @@ public class WarframeConfigController extends BaseController {
     @Log(title = "WarframeConfig",businessType = BusinessType.UPDATE,operatorType = OperatorType.MANAGE)
     @PostMapping("/warframe-config")
     public AjaxResult putConfig(Model mmap,@RequestBody Map<String,String> map){
+        if(map.isEmpty()){
+            return toAjax(false);
+        }
         Set<String> keys = map.keySet();
         for(WarframeTypeEnum keyEnum: WarframeTypeEnum.values()){
             for(String key:keys){

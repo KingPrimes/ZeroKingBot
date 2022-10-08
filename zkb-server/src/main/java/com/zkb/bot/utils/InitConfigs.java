@@ -4,12 +4,11 @@ import com.zkb.bot.enums.WarframeTypeEnum;
 import com.zkb.common.load.ReadWarframeConfig;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 
 @Component
 public class InitConfigs {
-    @PostConstruct
+
     public static void initWarframeConfig() {
         for (WarframeTypeEnum key : WarframeTypeEnum.values()) {
             //转码

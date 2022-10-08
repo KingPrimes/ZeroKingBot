@@ -23,7 +23,8 @@
                icon_format,
                url_name,
                item_name,
-               icon
+               icon,
+               length(item_name) as le
         from wf_market_riven
     </sql>
 
@@ -36,11 +37,13 @@
             <if test="urlName != null  and urlName != ''">and url_name like '%'||#{urlName}||'%'</if>
             <if test="itemName != null  and itemName != ''">and item_name like '%'||#{itemName}||'%'</if>
         </where>
+        ORDER BY le
     </select>
 
     <select id="selectWarframeMarketRivenByItemName" parameterType="String" resultMap="WarframeMarketRivenResult">
         <include refid="selectWarframeMarketRivenVo"/>
         where upper(replace(item_name,' ','')) like UPPER(replace('%'||#{itemName}||'%',' ',''))
+        ORDER BY le
         LIMIT 10
     </select>
 
