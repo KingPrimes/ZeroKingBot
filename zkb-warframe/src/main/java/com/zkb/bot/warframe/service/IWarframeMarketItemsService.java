@@ -48,6 +48,14 @@ public interface IWarframeMarketItemsService {
      */
     WarframeMarketItems selectWarframeMarketItemsByItemName(String itemName);
 
+    /**
+     * 根据名称模糊查询数据
+     *
+     * @param itemName 名称
+     * @return 结果
+     */
+    WarframeMarketItems selectWarframeMarketItemsByItemNameSet(String itemName);
+
 
     /**
      * 根据名称正则查询数据

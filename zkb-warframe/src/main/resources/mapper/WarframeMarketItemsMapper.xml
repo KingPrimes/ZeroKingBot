@@ -30,14 +30,20 @@
     <select id="selectWarframeMarketItemsByItemName" parameterType="String" resultMap="WarframeMarketItemsResult">
         <include refid="selectWarframeMarketItemsVo"/>
         where UPPER(replace(item_name,' ','')) like UPPER(replace('%'||#{itemName}||'%',' ','')) LIMIT 1
-        ORDER BY le
+    </select>
+
+    <select id="selectWarframeMarketItemsByItemNameSet" parameterType="String" resultMap="WarframeMarketItemsResult">
+        <include refid="selectWarframeMarketItemsVo"/>
+        WHERE
+        UPPER( REPLACE ( item_name, ' ', '' ) ) LIKE UPPER( REPLACE ( '%' || #{itemName} || '%', ' ', '' ) )
+        AND url_name GLOB '*set'
     </select>
 
     <select id="selectWarframeMarketItemByItemNameToRegular"
             parameterType="com.zkb.bot.warframe.domain.market.WarframeMarketItemsRegular"
             resultMap="WarframeMarketItemsResult">
         <include refid="selectWarframeMarketItemsVo"/>
-        where `item_name` REGEXP '^'||#{regulaHeader}||'.*'||#{regulaEnd}  ORDER BY le limit 1
+        where `item_name` REGEXP '^'||#{regulaHeader}||'.*'||#{regulaEnd}  limit 1
     </select>
 
     <select id="selectWarframeMarketItemsLikeList" parameterType="String" resultMap="WarframeMarketItemsResult">

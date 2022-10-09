@@ -626,7 +626,7 @@ public class GlobalStates {
 
     @NoArgsConstructor
     @Data
-    @EqualsAndHashCode(of = {"boss","mission"})
+    @EqualsAndHashCode(of = {"boss","missions"})
     public static class ArchonHunt{
         @JsonProperty("id")
         private String id;

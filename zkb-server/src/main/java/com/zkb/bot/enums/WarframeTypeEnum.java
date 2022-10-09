@@ -2,14 +2,7 @@ package com.zkb.bot.enums;
 
 
 public enum WarframeTypeEnum {
-    /**
-     * Market 赤毒武器搜索
-     */
-    TYPE_MARKET_CD(""),
-    /**
-     * Market 信条武器搜索
-     */
-    TYPE_MARKET_XT(""),
+
     TYPE_ASSAULT_PLUGIN("突击"),
 
     TYPE_ARCHON_HUNT_PLUGIN("执政官突击"),
@@ -56,7 +49,7 @@ public enum WarframeTypeEnum {
     TYPE_RES_RM("更新RM紫卡"),
     TYPE_CODE("指令"),
 
-    REDIS_MISSION_KEY("warframe-data-the-provided-plat"),
+
     ;
 
     private String type;

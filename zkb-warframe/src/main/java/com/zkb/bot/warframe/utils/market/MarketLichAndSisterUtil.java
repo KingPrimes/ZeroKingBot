@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.enums.FunctionEnums;
+import com.zkb.bot.enums.WarframeEnum;
 import com.zkb.bot.enums.WarframeTypeEnum;
 import com.zkb.bot.utils.ErroSendMessage;
 import com.zkb.bot.utils.Msg;
@@ -49,7 +50,7 @@ public class MarketLichAndSisterUtil {
                         GetServerPort.getPort() +
                         "/warframe/market/" + UUID.fastUUID() + "/getLichOrSisterImage/" +
                         URLEncoder.encode(key, "UTF-8") +
-                        "/" + WarframeTypeEnum.TYPE_MARKET_CD + "/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + key;
+                        "/" + WarframeEnum.TYPE_MARKET_CD + "/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + key;
                 //发送消息
                 bot.sendGroupMsg(event.getGroupId(), Msg
                                 .builder()
@@ -83,7 +84,7 @@ public class MarketLichAndSisterUtil {
                         GetServerPort.getPort() +
                         "/warframe/market/" + UUID.fastUUID() + "/getLichOrSisterImage/" +
                         URLEncoder.encode(key, "UTF-8") +
-                        "/" + WarframeTypeEnum.TYPE_MARKET_XT + "/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + event.getRawMessage();
+                        "/" + WarframeEnum.TYPE_MARKET_XT + "/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + event.getRawMessage();
                 //发送消息
                 bot.sendGroupMsg(event.getGroupId(), Msg
                                 .builder()

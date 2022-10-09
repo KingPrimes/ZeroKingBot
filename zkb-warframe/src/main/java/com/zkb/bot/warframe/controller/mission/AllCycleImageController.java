@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 
-import static com.zkb.bot.enums.WarframeTypeEnum.REDIS_MISSION_KEY;
+import static com.zkb.bot.enums.WarframeEnum.REDIS_MISSION_KEY;
 
 @RestController
 @RequestMapping("/warframe/mission")

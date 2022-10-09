@@ -10,7 +10,7 @@ import com.zkb.common.utils.spring.SpringUtils;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.zkb.bot.enums.WarframeTypeEnum.REDIS_MISSION_KEY;
+import static com.zkb.bot.enums.WarframeEnum.REDIS_MISSION_KEY;
 
 /**
  * @description: Warframe 全局状态查询

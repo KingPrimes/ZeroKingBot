@@ -135,9 +135,10 @@ public class MarketItemUtil {
         //创建 Alias Service 实体类 用于匹配用户输入的别名
         IWarframeAliasService aliasService = SpringUtils.getBean(IWarframeAliasService.class);
         //把用户输入的值全部转换成小写
-        key = key.toLowerCase(Locale.ROOT);
+        key = key.toLowerCase(Locale.ROOT).replace("总图","蓝图");
         try {
-            //未查询到结果 假设用户使用了别名
+            WarframeMarketItems items = new WarframeMarketItems();
+            //假设用户使用了别名
             //匹配是否使用了别名 查出所有的别名列表并迭代查询
             List<WarframeAlias> aliases = aliasService.selectWarframeAliasList(null);
             //迭代判断 是否使用了别名
@@ -147,13 +148,20 @@ public class MarketItemUtil {
                     break;
                 }
             }
+            //使用别名直接模糊查询
+            items = itemsService.selectWarframeMarketItemsByItemNameSet(key);
+            if(items!=null){
+                marketKey.setKey(items.getUrlName());
+                marketKey.setItemName(items.getItemName());
+                return marketKey;
+            }
             //截取用户输入的除最后一个字符所有字符
             String header = key.substring(0, key.length() - 1);
             //取用户输入的最后一个字符
             String end = key.substring(key.length() - 1);
 
             //使用正则查询
-            WarframeMarketItems items = itemsService.selectWarframeMarketItemByItemNameToRegular(new WarframeMarketItemsRegular(header, end));
+            items = itemsService.selectWarframeMarketItemByItemNameToRegular(new WarframeMarketItemsRegular(header, end));
             if (items != null) {
                 marketKey.setKey(items.getUrlName());
                 marketKey.setItemName(items.getItemName());
@@ -173,7 +181,7 @@ public class MarketItemUtil {
                 key = key.replace("p", "Prime");
             }
             //正则未查询到结果 就是用模糊查询
-            items = itemsService.selectWarframeMarketItemsByItemName(key);
+            items = itemsService.selectWarframeMarketItemsByItemNameSet(key);
             marketKey.setKey(items.getUrlName());
             marketKey.setItemName(items.getItemName());
             //返回结果

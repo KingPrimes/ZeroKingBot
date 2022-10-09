@@ -1,8 +1,8 @@
 package com.zkb.bot.warframe.utils;
 
 
+import com.zkb.bot.enums.WarframeEnum;
 import com.zkb.bot.enums.WarframeSubscribeEnums;
-import com.zkb.bot.enums.WarframeTypeEnum;
 import com.zkb.bot.warframe.dao.*;
 import com.zkb.bot.warframe.domain.WarframeRelics;
 import com.zkb.bot.warframe.domain.WarframeTranslation;
@@ -1061,7 +1061,7 @@ public class HtmlToImage {
      * @param licksOrSister 数据
      * @return 图片字节流
      */
-    public ByteArrayOutputStream marketLichAndSisterImage(MarketLichOrSister licksOrSister, WarframeTypeEnum type) {
+    public ByteArrayOutputStream marketLichAndSisterImage(MarketLichOrSister licksOrSister, WarframeEnum type) {
         String html = FileUtils.getFileString(HTML_PATH + "html/marketLichAndSister.html");
         int width = getWidth(html);
         html = outH(html);
@@ -1077,7 +1077,7 @@ public class HtmlToImage {
                 String ephemera = "无";
                 String topBid = "无";
                 if (lick.getItem().getHavingEphemera()) {
-                    if (WarframeTypeEnum.TYPE_MARKET_CD == type) {
+                    if (WarframeEnum.TYPE_MARKET_CD == type) {
                         ephemera = SpringUtils.getBean(IWarframeMarketLichOrSisterService.class).selectWarframeMarketLichByElement(lick.getItem().getElement()).getItemName();
                     } else {
                         ephemera = SpringUtils.getBean(IWarframeMarketSisterService.class).selectWarframeMarketSisterByElement(lick.getItem().getElement()).getItemName();
@@ -1113,7 +1113,7 @@ public class HtmlToImage {
             re.append("/w ")
                     .append(licksOrSister.getPayload().getAuctions().get(0).getOwner().getIngameName())
                     .append(" Hi! ");
-            if (WarframeTypeEnum.TYPE_MARKET_CD == type) {
+            if (WarframeEnum.TYPE_MARKET_CD == type) {
                 re.append("I want to buy: ")
                         .append(StringUtils.convertToCamelCaseK(licksOrSister.getPayload().getAuctions().get(0).getItem().getWeaponUrlName()))
                         .append("(Kuva Lich),");

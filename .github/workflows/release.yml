@@ -40,8 +40,8 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "4.1.8.4"
+          automatic_release_tag: "4.1.8.5"
           prerelease: false
-          title: "ZeroKingBot-v4.1.8.4"
+          title: "ZeroKingBot-v4.1.8.5"
           files: |
             staging/*.jar

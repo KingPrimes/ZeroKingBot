@@ -126,9 +126,11 @@ public class LoadConfig {
                 long lastModifiedCopy = file.lastModified();
                 long last = new File(Objects.requireNonNull(LoadConfig.class.getResource("/data.db3")).toURI()).lastModified();
                 if (last > lastModifiedCopy) {
-                    InputStream in = LoadConfig.class.getResourceAsStream("/data.db3");
-                    assert in != null;
-                    Files.copy(in, file.toPath());
+                   if( file.delete()){
+                       InputStream in = LoadConfig.class.getResourceAsStream("/data.db3");
+                       assert in != null;
+                       Files.copy(in, file.toPath());
+                   }
                 }
             } catch (Exception e) {
                 log.error(e.getMessage());
@@ -139,6 +141,7 @@ public class LoadConfig {
                 if (!db.isFile()) {
                     db.mkdirs();
                 }
+
                 InputStream in = LoadConfig.class.getResourceAsStream("/data.db3");
                 assert in != null;
                 Files.copy(in, file.toPath());

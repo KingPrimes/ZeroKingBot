@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-import static com.zkb.bot.enums.WarframeTypeEnum.REDIS_MISSION_KEY;
+import static com.zkb.bot.enums.WarframeEnum.REDIS_MISSION_KEY;
 
 @Component
 public class WarframeUtils {

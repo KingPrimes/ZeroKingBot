@@ -78,6 +78,21 @@ public class WarframeMarketItemsServiceImpl implements IWarframeMarketItemsServi
     }
 
     /**
+     * 根据名称模糊查询数据
+     *
+     * @param itemName 名称
+     * @return 结果
+     */
+    @Override
+    public WarframeMarketItems selectWarframeMarketItemsByItemNameSet(String itemName) {
+        WarframeMarketItems warframeMarketItems = itemsMapper.selectWarframeMarketItemsByItemNameSet(itemName);
+        if(warframeMarketItems == null){
+            warframeMarketItems = itemsMapper.selectWarframeMarketItemsByItemName(itemName);
+        }
+        return warframeMarketItems;
+    }
+
+    /**
      * 根据名称正则查询数据
      *
      * @param regular 正则
