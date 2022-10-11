@@ -4,6 +4,7 @@ import com.zkb.bot.aiml.domain.IssueReply;
 import com.zkb.bot.aiml.domain.Leaderboard;
 import com.zkb.bot.aiml.mapper.IssueReplyMapper;
 import com.zkb.bot.aiml.service.IssueReplyService;
+import com.zkb.common.core.text.Convert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +61,7 @@ public class IssueReplyServiceImpl implements IssueReplyService {
     }
 
     @Override
-    public int deleteIssueReplyByMsgIds(Integer[] msgIds) {
-        return issueReplyMapper.deleteIssueReplyByMsgIds(msgIds);
+    public int deleteIssueReplyByMsgIds(String msgIds) {
+        return issueReplyMapper.deleteIssueReplyByMsgIds(Convert.toStrArray(msgIds));
     }
 }

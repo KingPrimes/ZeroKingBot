@@ -11,14 +11,10 @@ import com.zkb.bot.aiml.utils.TeachingUtils;
 import com.zkb.bot.enums.FunctionEnums;
 import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.SelectGroupFunctionOnOff;
-import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import static com.zkb.bot.aiml.enums.OrderEnum.ORDER_REPLY;
-import static com.zkb.bot.aiml.enums.OrderEnum.ORDER_TEACHING;
 
 /**
  * @author KingPrimes
@@ -34,13 +30,6 @@ public class IssueReplyPlugin {
     public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
 
         if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_AI)) {
-            if (ORDER_TEACHING.equals(StringUtils.substring(event.getRawMessage(), 0, ORDER_TEACHING.length()))) {
-                return SpringUtils.getBean(TeachingUtils.class).teaching(bot, event);
-            }
-            if (ORDER_REPLY.equals(StringUtils.substring(event.getRawMessage(), 0, ORDER_REPLY.length()))) {
-                return SpringUtils.getBean(TeachingUtils.class).reply(bot, event);
-            }
-
             //触发概率 不准确
             if (OtherUtils.randomEx(30)) {
                 Msg msg = new Msg();

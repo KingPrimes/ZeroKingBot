@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="include :: header('修改词库')" />
+</head>
+<body>
+<div class="white-bg">
+  <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-ir-edit" th:object="${ir}">
+      <input name="msgId" type="hidden" th:field="*{msgId}">
+      <div class="form-group">
+        <label class="col-sm-3 control-label">问题：</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <input class="form-control" type="text" id="msgIssue" name="msgIssue" th:field="*{msgIssue}">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">图片：</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <input class="form-control" type="text" id="msgIssueImage" name="msgIssueImage" th:field="*{msgIssueImage}" disabled="disabled">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">表情ID：</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <input class="form-control" type="text" id="msgIssueFace" name="msgIssueFace" th:field="*{msgIssueFace}" disabled="disabled">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">文字回答：</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <input class="form-control" type="text" id="msgReply" name="msgReply" th:field="*{msgReply}" >
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">回答图片地址：</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <input class="form-control" type="text" id="msgReplyImage" name="msgReplyImage" th:field="*{msgReplyImage}" disabled="disabled">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">回答表情ID：</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <input class="form-control" type="text" id="msgReplyFace" name="msgReplyFace" th:field="*{msgReplyFace}" disabled="disabled">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">创建日期：</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <input class="form-control" type="text" id="msgCreateTime" name="msgCreateTime" th:field="*{msgCreateTime}" disabled="disabled">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">创建群：</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <input class="form-control" type="text" id="msgCreateGroup" name="msgCreateGroup" th:field="*{msgCreateGroup}" disabled="disabled">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">创建人：</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <input class="form-control" type="text" id="msgCreateMember" name="msgCreateMember" th:field="*{msgCreateMember}" disabled="disabled">
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+<th:block th:include="include :: footer" />
+<script type="text/javascript">
+  const prefix = ctx + "bot/ai/thesaurus";
+
+  function submitHandler() {
+    if ($.validate.form()) {
+      $.operate.save(prefix + "/edit", $('#form-ir-edit').serialize());
+    }
+  }
+
+  function doSubmit(index, layero){
+    const tree = layero.find("iframe")[0].contentWindow.$._tree;
+    if ($.tree.notAllowLastLevel(tree)) {
+      const body = $.modal.getChildFrame(index);
+      $("#msgId").val(body.find('#msgId').val());
+      $.modal.close(index);
+    }
+  }
+</script>
+</body>
+</html>

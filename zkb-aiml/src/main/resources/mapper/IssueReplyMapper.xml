@@ -30,6 +30,7 @@
                msg_issue_face,
                msg_reply,
                msg_reply_image,
+               msg_reply_face,
                msg_create_time,
                msg_create_group,
                msg_create_member
@@ -96,6 +97,7 @@
             <if test="msgIssueFace != null and msgIssueFace != ''">msg_issue_face,</if>
             <if test="msgReply != null and msgReply != ''">msg_reply,</if>
             <if test="msgReplyImage != null and msgReplyImage != ''">msg_reply_image,</if>
+            <if test="msgReplyFace != null and msgReplyFace != ''">msg_reply_face,</if>
             <if test="msgCreateTime != null">msg_create_time,</if>
             <if test="msgCreateGroup != null and msgCreateGroup != ''">msg_create_group,</if>
             <if test="msgCreateMember != null and msgCreateMember != ''">msg_create_member,</if>
@@ -107,6 +109,7 @@
             <if test="msgIssueFace != null and msgIssueFace != ''">#{msgIssueFace},</if>
             <if test="msgReply != null and msgReply != ''">#{msgReply},</if>
             <if test="msgReplyImage != null and msgReplyImage != ''">#{msgReplyImage,jdbcType=BLOB},</if>
+            <if test="msgReplyFace != null and msgReplyFace != ''">#{msgReplyFace},</if>
             <if test="msgCreateTime != null">#{msgCreateTime},</if>
             <if test="msgCreateGroup != null and msgCreateGroup != ''">#{msgCreateGroup},</if>
             <if test="msgCreateMember != null and msgCreateMember != ''">#{msgCreateMember},</if>
@@ -121,6 +124,7 @@
             <if test="msgIssueFace != null and msgIssueFace != ''">msg_issue_face = #{msgIssueFace},</if>
             <if test="msgReply != null and msgReply != ''">msg_reply = #{msgReply},</if>
             <if test="msgReplyImage != null and msgReplyImage != ''">msg_reply_image = #{msgReplyImage},</if>
+            <if test="msgReplyFace != null and msgReplyFace != ''">msg_reply_face = #{msgReplyFace},</if>
             <if test="msgCreateGroup != null and msgCreateGroup != ''">msg_create_group = #{msgCreateGroup},</if>
             <if test="msgCreateMember != null and msgCreateMember != ''">msg_create_member = #{msgCreateMember},</if>
         </trim>

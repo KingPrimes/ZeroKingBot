@@ -30,7 +30,7 @@ public class GroupFunctionOnOffServerImpl implements GroupFunctionOnOffServer {
     //加载时设置缓存
     @PostConstruct
     public void init() {
-        loadingGroupFunction();
+        resetGroupFunction();
     }
 
 

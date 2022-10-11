@@ -67,5 +67,5 @@ public interface IssueReplyService {
      * @param msgIds 需要删除的数据主键集合
      * @return 结果
      */
-    int deleteIssueReplyByMsgIds(Integer[] msgIds);
+    int deleteIssueReplyByMsgIds(String msgIds);
 }
