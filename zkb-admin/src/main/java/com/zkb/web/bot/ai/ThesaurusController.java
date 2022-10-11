@@ -20,11 +20,11 @@ public class ThesaurusController extends BaseController {
 
     @Autowired
     private IssueReplyService replyService;
-    private final String PREFIX = "/bot/ai";
+    private final String PREFIX = "bot/ai/";
 
     @GetMapping()
     public String info(){
-        return PREFIX+"/thesaurus";
+        return PREFIX+"thesaurus";
     }
 
     @PostMapping("/list")
