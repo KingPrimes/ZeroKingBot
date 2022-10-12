@@ -2,6 +2,8 @@ package com.zkb.bot.aiml.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.Objects;
+
 /**
  * @author KingPrimes
  */
@@ -46,6 +48,43 @@ public class IssueReply {
                 .toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        IssueReply that = (IssueReply) o;
+
+        if (!Objects.equals(msgId, that.msgId)) return false;
+        if (!Objects.equals(msgIssue, that.msgIssue)) return false;
+        if (!Objects.equals(msgIssueImage, that.msgIssueImage))
+            return false;
+        if (!Objects.equals(msgIssueFace, that.msgIssueFace)) return false;
+        if (!Objects.equals(msgReply, that.msgReply)) return false;
+        if (!Objects.equals(msgReplyImage, that.msgReplyImage))
+            return false;
+        if (!Objects.equals(msgReplyFace, that.msgReplyFace)) return false;
+        if (!Objects.equals(msgCreateTime, that.msgCreateTime))
+            return false;
+        if (!Objects.equals(msgCreateGroup, that.msgCreateGroup))
+            return false;
+        return Objects.equals(msgCreateMember, that.msgCreateMember);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = msgId != null ? msgId.hashCode() : 0;
+        result = 31 * result + (msgIssue != null ? msgIssue.hashCode() : 0);
+        result = 31 * result + (msgIssueImage != null ? msgIssueImage.hashCode() : 0);
+        result = 31 * result + (msgIssueFace != null ? msgIssueFace.hashCode() : 0);
+        result = 31 * result + (msgReply != null ? msgReply.hashCode() : 0);
+        result = 31 * result + (msgReplyImage != null ? msgReplyImage.hashCode() : 0);
+        result = 31 * result + (msgReplyFace != null ? msgReplyFace.hashCode() : 0);
+        result = 31 * result + (msgCreateTime != null ? msgCreateTime.hashCode() : 0);
+        result = 31 * result + (msgCreateGroup != null ? msgCreateGroup.hashCode() : 0);
+        result = 31 * result + (msgCreateMember != null ? msgCreateMember.hashCode() : 0);
+        return result;
+    }
 
     /**
      * 获取 msgID

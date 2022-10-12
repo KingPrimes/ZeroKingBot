@@ -23,6 +23,10 @@ public class EscapeUtil {
         TEXT['&'] = "&#38;".toCharArray(); // &符
         TEXT['<'] = "&#60;".toCharArray(); // 小于号
         TEXT['>'] = "&#62;".toCharArray(); // 大于号
+        TEXT['?'] = "&#142;".toCharArray();// 问号
+        TEXT['.'] = "&#46;".toCharArray(); // 点
+
+
     }
 
     /**

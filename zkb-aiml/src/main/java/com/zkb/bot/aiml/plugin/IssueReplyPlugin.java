@@ -11,6 +11,7 @@ import com.zkb.bot.aiml.utils.TeachingUtils;
 import com.zkb.bot.enums.FunctionEnums;
 import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.SelectGroupFunctionOnOff;
+import com.zkb.common.utils.html.EscapeUtil;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,22 +35,24 @@ public class IssueReplyPlugin {
             if (OtherUtils.randomEx(30)) {
                 Msg msg = new Msg();
                 IssueReply issueReply = SpringUtils.getBean(TeachingUtils.class).getIssue(event.getRawMessage());
-                issueReply = service.selectIssueReplyByMsgIssue(issueReply);
+                if(issueReply!=null){
+                    issueReply = service.selectIssueReplyByMsgIssue(issueReply);
+                }
                 if (issueReply != null) {
                     if (issueReply.getMsgReplyImage() != null) {
-                        String[] urls = issueReply.getMsgReplyImage().replaceAll("\\[","").replaceAll("]","").split(",");
+                        String[] urls = issueReply.getMsgReplyImage().replaceAll("\\[", "").replaceAll("]", "").split(",");
                         for (String url : urls) {
                             msg.img(url.trim());
                         }
                     }
-                    if (issueReply.getMsgReplyFace()!=null){
-                        String[] ids = issueReply.getMsgReplyFace().replaceAll("\\[","").replaceAll("]","").trim().split(",");
-                        for (String id:ids){
+                    if (issueReply.getMsgReplyFace() != null) {
+                        String[] ids = issueReply.getMsgReplyFace().replaceAll("\\[", "").replaceAll("]", "").trim().split(",");
+                        for (String id : ids) {
                             msg.face(Integer.parseInt(id));
                         }
                     }
                     if (issueReply.getMsgReply() != null) {
-                        msg.text(issueReply.getMsgReply());
+                        msg.text(EscapeUtil.unescape(issueReply.getMsgReply()));
                     }
                     msg.sendToGroup(bot, event);
                     return 1;

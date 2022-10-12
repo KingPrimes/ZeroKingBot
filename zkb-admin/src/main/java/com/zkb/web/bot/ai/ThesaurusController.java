@@ -7,6 +7,7 @@ import com.zkb.common.core.controller.BaseController;
 import com.zkb.common.core.domain.AjaxResult;
 import com.zkb.common.core.page.TableDataInfo;
 import com.zkb.common.enums.BusinessType;
+import com.zkb.common.utils.html.EscapeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -48,6 +49,7 @@ public class ThesaurusController extends BaseController {
     public String edit(@PathVariable("msgId") Integer msgId, ModelMap mmap)
     {
         IssueReply issueReply = replyService.selectIssueReplyBuMsgId(msgId);
+        issueReply.setMsgIssue(EscapeUtil.escape(EscapeUtil.unescape(issueReply.getMsgIssue())));
         mmap.put("ir", issueReply);
         return PREFIX + "/edit";
     }
@@ -56,6 +58,7 @@ public class ThesaurusController extends BaseController {
     @PostMapping("/update/{issueReply}")
     @ResponseBody
     public AjaxResult update(@PathVariable IssueReply issueReply){
+        issueReply.setMsgIssue(EscapeUtil.escape(EscapeUtil.unescape(issueReply.getMsgIssue())));
         return toAjax(replyService.updateIssueReply(issueReply));
     }
 }

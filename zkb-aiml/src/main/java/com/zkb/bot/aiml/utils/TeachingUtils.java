@@ -10,6 +10,7 @@ import com.zkb.bot.utils.Msg;
 import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.utils.DateUtils;
 import com.zkb.common.utils.StringUtils;
+import com.zkb.common.utils.html.EscapeUtil;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +71,7 @@ public class TeachingUtils {
             issueReply.setMsgIssueFace(CqParse.build(str).getCqFace().toString());
         }
 
-        issueReply.setMsgIssue(CqParse.build(str).reovmCq());
+        issueReply.setMsgIssue(EscapeUtil.escape(CqParse.build(str).reovmCq()));
         issueReply.setMsgCreateTime(DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS));
         issueReply.setMsgCreateGroup(String.valueOf(event.getGroupId()));
         issueReply.setMsgCreateMember(String.valueOf(event.getUserId()));
@@ -120,6 +121,7 @@ public class TeachingUtils {
         return 0;
     }
 
+
     /**
      * 构建Issue实体类
      *
@@ -134,8 +136,11 @@ public class TeachingUtils {
         if (CqMatcher.isCqImage(str)) {
             issueReply.setMsgIssueImage(CqParse.build(str).getCqImageMD5().toString());
         }
-        issueReply.setMsgIssue(CqParse.build(str).reovmCq());
-        return issueReply;
+        String issue = CqParse.build(str).reovmCq();
+        if(issue.length()!=0){
+            issueReply.setMsgIssue(EscapeUtil.escape(issue));
+        }
+        return issueReply.getMsgIssueImage() == null && issueReply.getMsgIssueFace() ==null && issueReply.getMsgIssue() ==null?null:issueReply;
     }
 
 

@@ -56,14 +56,17 @@
     <select id="selectIssueReplyByMsgIssue" parameterType="IssueReply" resultMap="IssueReplyResult">
         <include refid="selectIssueReplyVo"/>
         <where>
-            <if test="msgIssue != null">
+            <if test="msgIssue != null and msgIssue!='' and msgIssue!='null'">
                 INSTR(#{msgIssue},msg_issue) or msg_issue like '%'||#{msgIssue}||'%'
             </if>
-            <if test="msgIssueImage != null">
+            <if test="msgIssueImage != null and msgIssueImage!='' and msgIssueImage!='null'">
                 and INSTR(#{msgIssueImage},msg_issue_image) or msg_issue_image like '%'||#{msgIssueImage}||'%'
             </if>
-            <if test="msgIssueFace != null">
+            <if test="msgIssueFace != null and msgIssueFace!='' and msgIssueFace != 'null'">
                 and INSTR(#{msgIssueFace},msg_issue_face) or msg_issue_face like '%'||#{msgIssueFace}||'%'
+            </if>
+            <if test="msgIssue == null and msgIssue ==''">
+                and 1=2
             </if>
         </where>
     </select>
