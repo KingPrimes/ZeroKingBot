@@ -61,6 +61,10 @@ public enum BusinessType
      * 清空
      */
     CLEAN("清空"),
+    /**
+     * 生成图片
+     */
+    IMAGE("生成图片"),
     ;
     final String type;
     BusinessType(String type){

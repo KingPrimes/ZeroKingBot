@@ -34,8 +34,12 @@ spring:
     encoding: UTF-8
     # 禁用缓存
     cache: false
+    # 路径检查
+    check-template-location: true
+    template-resolver-order: 0
+    suffix: .html
 
- # 资源信息
+  # 资源信息
   messages:
     # 国际化资源文件路径
     basename: static/i18n/messages

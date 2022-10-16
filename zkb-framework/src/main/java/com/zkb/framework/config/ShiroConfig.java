@@ -255,6 +255,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/*.png**", "anon");
         filterChainDefinitionMap.put("/zkb/**","anon");
         filterChainDefinitionMap.put("/server","anon");
+        filterChainDefinitionMap.put("/test/**","anon");
 
         // 机器人相关
         filterChainDefinitionMap.put("/ws/shiro/**", "anon");
