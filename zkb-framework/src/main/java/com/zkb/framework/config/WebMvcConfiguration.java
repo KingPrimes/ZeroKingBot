@@ -9,13 +9,11 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/");
-        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/static/")
+                .addResourceLocations("classpath:/resources/")
+                .addResourceLocations("classpath:/public/")
                 .addResourceLocations("file:"+"./ZKBotHtml/");
-        registry.addResourceHandler("/relics/**")
-                .addResourceLocations("file:"+"./ZKBotHtml/");
-        registry.addResourceHandler("/market/**")
-                .addResourceLocations("file:"+"./ZKBotHtml/");
+        super.addResourceHandlers(registry);
 
     }
 }

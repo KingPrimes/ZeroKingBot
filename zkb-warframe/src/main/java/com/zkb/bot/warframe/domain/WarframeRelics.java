@@ -4,6 +4,8 @@ package com.zkb.bot.warframe.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.util.List;
+
 /**
  * @author KingPrimes
  * @date 2021-05-26
@@ -58,7 +60,23 @@ public class WarframeRelics {
 
     private String traCh;
 
+    private List<String> items;
+
     public WarframeRelics() {
+    }
+
+    public WarframeRelics(WarframeRelics relics) {
+        this.relicsKeyId = relics.relicsKeyId;
+        this.relicsId = relics.relicsId;
+        this.relicsTier = relics.relicsTier;
+        this.relicsName = relics.relicsName;
+        this.relicsState = relics.relicsState;
+        this.relicsItemId = relics.relicsItemId;
+        this.relicsItemName = relics.relicsItemName;
+        this.relicsItemRarity = relics.relicsItemRarity;
+        this.relicsItemChance = relics.relicsItemChance;
+        this.relicsTierD = relics.relicsTierD;
+        this.traCh = relics.traCh;
     }
 
     public WarframeRelics(Integer relicsKeyId, String relicsId, String relicsTier, String relicsName, String relicsState, String relicsItemId, String relicsItemName, String relicsItemRarity, String relicsItemChance, String traCh) {
@@ -254,6 +272,13 @@ public class WarframeRelics {
         this.traCh = traCh;
     }
 
+    public List<String> getItems() {
+        return items;
+    }
+
+    public void setItems(List<String> items) {
+        this.items = items;
+    }
 
     @Override
     public String toString() {

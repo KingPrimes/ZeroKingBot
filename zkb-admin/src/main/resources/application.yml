@@ -26,6 +26,8 @@ server:
 spring:
   main:
     allow-circular-references: true
+  mvc:
+    static-path-pattern: /static/**
   # 模板引擎配置
   thymeleaf:
     # 后缀名
@@ -34,8 +36,6 @@ spring:
     encoding: UTF-8
     # 禁用缓存
     cache: false
-    # 路径检查
-    check-template-location: true
     template-resolver-order: 0
     suffix: .html
 

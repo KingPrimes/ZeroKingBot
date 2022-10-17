@@ -1674,7 +1674,7 @@ public class HtmlToImage {
      * @param html html文档
      * @return 宽度
      */
-    private int getWidth(String html) {
+    private static int getWidth(String html) {
         Document doc = Jsoup.parse(html);
         int width = 500;
         //判断是否添加宽度标签
@@ -1692,7 +1692,7 @@ public class HtmlToImage {
      * @param html html 文档
      * @return 格式化之后的 html文档
      */
-    private String outH(String html) {
+    private static String outH(String html) {
         html = html.replaceAll("<!--", "<xx>").replaceAll("-->", "</xx>");
         Document doc = Jsoup.parse(html);
         if (!doc.getElementsByTag("xx").isEmpty()) {
@@ -1734,12 +1734,11 @@ public class HtmlToImage {
         return null;
     }
 
-    public static void convertHtmlToImage2(String htmlFilePath, int width) {
+    public void convertHtmlToImage2(String htmlFilePath, int width) {
         try {
-            File htmlFile = new File(htmlFilePath);
-            String url = htmlFile.toURI().toURL().toExternalForm();
-            BufferedImage image = RenderToImage.renderToImageAutoSize(url, width, BufferedImage.TYPE_INT_ARGB_PRE);
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
+          /*  File htmlFile = new File(htmlFilePath);
+            String url = htmlFile.toURI().toURL().toExternalForm();*/
+            BufferedImage image = RenderToImage.renderToImageAutoSize(htmlFilePath, width, BufferedImage.TYPE_INT_ARGB_PRE);
             ImageIO.write(image, "png", new File("C:\\Users\\15066\\Desktop\\market\\1.png"));
 
         } catch (IOException e) {
@@ -1747,7 +1746,7 @@ public class HtmlToImage {
         }
     }
 
-    private ByteArrayOutputStream tmpHtmlToImageByteArray(String name, String html, int width) {
+    public ByteArrayOutputStream tmpHtmlToImageByteArray(String name, String html, int width) {
         String path = HTML_PATH;
         FileUtils.isMkdirs(path + "tmp");
         path = path + "tmp/" + name + ".html";

@@ -486,6 +486,8 @@ public class GlobalStates {
         private Boolean archwing;
         @JsonProperty("sharkwing")
         private Boolean sharkwing;
+        @JsonProperty("etc")
+        private String etc;
     }
 
     @NoArgsConstructor
@@ -724,8 +726,16 @@ public class GlobalStates {
         private Date expiry;
         @JsonProperty("currentReward")
         private CurrentReward currentReward;
+        @JsonProperty("isReward")
+        private String isReward;
+        @JsonProperty("nexReward")
+        private String nexReward;
+        @JsonProperty("etc")
+        private String etc;
         @JsonProperty("remaining")
         private String remaining;
+        @JsonProperty("cost")
+        private Integer cost;
         @JsonProperty("rotation")
         private List<Rotation> rotation;
         @JsonProperty("evergreens")
