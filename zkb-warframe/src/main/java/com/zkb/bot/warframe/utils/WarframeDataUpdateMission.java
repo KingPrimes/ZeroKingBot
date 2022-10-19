@@ -31,14 +31,14 @@ public class WarframeDataUpdateMission {
      * 仲裁更新提醒
      */
     public static void updateArbitration() {
-        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_ARBITRATION, "仲裁更新了！", "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getArbitrationImage");
+        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_ARBITRATION, "仲裁更新了！", "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getArbitrationImage/0/0/0/0");
     }
 
     /**
      * 每日特惠更新 提醒
      */
     public static void updateDailyDeals() {
-        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_DAILY_DEALS, "每日特惠更新了!", "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getDailyDealsImage");
+        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_DAILY_DEALS, "每日特惠更新了!", "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getDailyDealsImage/0/0/0/0");
     }
 
     /**
@@ -52,14 +52,14 @@ public class WarframeDataUpdateMission {
      * 新的入侵
      */
     public static void updateInvasions() {
-        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_INVASIONS, "星系又开始骚动了！\n新的入侵已到来！", "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getInvasionsImage");
+        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_INVASIONS, "星系又开始骚动了！\n新的入侵已到来！", "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getInvasionsImage/0/0/0/0");
     }
 
     /**
      * 钢铁之路兑换轮换
      */
     public static void updateSteelPath() {
-        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_STEEL_PATH, "钢铁之路兑换奖励轮换！\n这次的奖励是什么呢？\n是U福马么？", "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getSteelPathImage");
+        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_STEEL_PATH, "钢铁之路兑换奖励轮换！\n这次的奖励是什么呢？\n是U福马么？", "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getSteelPathImage/0/0/0/0");
     }
 
     /**
@@ -68,7 +68,7 @@ public class WarframeDataUpdateMission {
      * @param msg 骚话！
      */
     public static void updateVoidTrader(String msg) {
-        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_VOID, msg, "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getVoidImage");
+        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_VOID, msg, "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getVoidImage/0/0/0/0");
     }
 
     /**
