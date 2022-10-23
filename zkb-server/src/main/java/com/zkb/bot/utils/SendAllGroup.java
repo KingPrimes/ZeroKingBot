@@ -31,4 +31,23 @@ public class SendAllGroup {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 像所有开启某项功能的群组发送消息
+     *
+     * @param msg      Msg
+     */
+    public static void sendAllGroup(Msg msg) {
+        Map<Long, Bot> bots = SpringUtils.getBean(BotContainer.class).robots;
+        try {
+            for (long botId : bots.keySet()) {
+                for (GroupInfoResp group : bots.get(botId).getGroupList().getData()) {
+                    Thread.sleep(3000L);
+                    msg.sendToGroup(bots.get(botId), group.getGroupId());
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

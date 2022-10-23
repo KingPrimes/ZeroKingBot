@@ -20,7 +20,7 @@ public class RenderToImage {
         g2r.setDocument(url);
         SharedContext sharedContext = g2r.getSharedContext();
         //设置图片清晰度
-        sharedContext.setDPI(523);
+        sharedContext.setDPI(72);
         sharedContext.setDotsPerPixel(3);
         Dimension dim = new Dimension(width, 1000);
         BufferedImage buff = new BufferedImage((int)dim.getWidth(), (int)dim.getHeight(), bufferedImageType);

@@ -51,7 +51,6 @@ public class ServerImageController {
         Mem mem = server.getMem();
         Sys sys = server.getSys();
         String version = manifestFromClasspath.getMainAttributes().getValue("ZeroKingBot-Version");
-        //String version = "4.1.8.4-beta2";
         String path = "./ZKBotHtml/tmp";
         FileUtils.isMkdirs(path);
         path = path + "/server.html";

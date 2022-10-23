@@ -396,7 +396,7 @@
                                 自定义MANIFEST.MF中的键值对，
                                 <键>值</键>
                             -->
-                            <ZeroKingBot-Version>4.1.8.7</ZeroKingBot-Version>
+                            <ZeroKingBot-Version>4.1.8.8</ZeroKingBot-Version>
                         </manifestEntries>
                     </archive>
                 </configuration>

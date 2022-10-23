@@ -7,16 +7,15 @@ import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.domain.GroupFunctionOnOff;
 import com.zkb.bot.server.GroupFunctionOnOffServer;
+import com.zkb.bot.task.UpdateTask;
 import com.zkb.bot.utils.GroupAddApi;
 import com.zkb.bot.utils.Msg;
-import com.zkb.common.utils.JarManifest;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
-import java.util.jar.Manifest;
 
 import static com.mikuac.shiro.core.BotPlugin.MESSAGE_BLOCK;
 import static com.mikuac.shiro.core.BotPlugin.MESSAGE_IGNORE;
@@ -158,9 +157,32 @@ public class FunctionOnOffPlugin {
             }
 
         }
+
+        if (ON_UPDATE.getType().equals(event.getRawMessage().toUpperCase(Locale.ROOT))) {
+            if (GroupAddApi.isAdmin(bot, event)) {
+                UpdateTask.flag = true;
+                bot.sendGroupMsg(event.getGroupId(),"已开启更新通知...",false);
+                return MESSAGE_BLOCK;
+            } else {
+                Msg.builder().text("没有权限！").sendToGroup(bot, event);
+                return MESSAGE_BLOCK;
+            }
+
+        }
+
+        if (OFF_UPDATE.getType().equals(event.getRawMessage().toUpperCase(Locale.ROOT))) {
+            if (GroupAddApi.isAdmin(bot, event)) {
+                UpdateTask.flag = false;
+                bot.sendGroupMsg(event.getGroupId(),"已关闭更新通知...",false);
+                return MESSAGE_BLOCK;
+            } else {
+                Msg.builder().text("没有权限！").sendToGroup(bot, event);
+                return MESSAGE_BLOCK;
+            }
+
+        }
+
         if("运行状态".equals(event.getRawMessage())){
-            Manifest manifestFromClasspath = JarManifest.getManifestFromClasspath(FunctionOnOffPlugin.class);
-            assert manifestFromClasspath != null;
             OneBotMedia.Builder builder = new OneBotMedia.Builder();
             builder.proxy(false);
             builder.cache(false);

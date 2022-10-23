@@ -1,5 +1,7 @@
 package com.zkb.common.load;
 
+import com.zkb.common.utils.JarManifest;
+import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.file.FileUtils;
 import com.zkb.common.utils.http.HttpUtils;
 import org.eclipse.jgit.api.Git;
@@ -16,6 +18,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.jar.Manifest;
 
 @Component
 @Configuration
@@ -24,6 +27,8 @@ public class LoadConfig {
     private static final Logger log = LoggerFactory.getLogger(LoadConfig.class);
 
     private static final String HTML_PATH = "./ZKBotHtml";
+
+    private static final Manifest manifestFromClasspath = JarManifest.getManifestFromClasspath(LoadConfig.class);
 
     /**
      * 获取操作系统
@@ -126,11 +131,11 @@ public class LoadConfig {
                 long lastModifiedCopy = file.lastModified();
                 long last = new File(Objects.requireNonNull(LoadConfig.class.getResource("/data.db3")).toURI()).lastModified();
                 if (last > lastModifiedCopy) {
-                   if( file.delete()){
-                       InputStream in = LoadConfig.class.getResourceAsStream("/data.db3");
-                       assert in != null;
-                       Files.copy(in, file.toPath());
-                   }
+                    if (file.delete()) {
+                        InputStream in = LoadConfig.class.getResourceAsStream("/data.db3");
+                        assert in != null;
+                        Files.copy(in, file.toPath());
+                    }
                 }
             } catch (Exception e) {
                 log.error(e.getMessage());
@@ -187,8 +192,8 @@ public class LoadConfig {
     public void initHtml() {
         log.info("开始初始化Html渲染模板……");
         File file = new File(HTML_PATH);
-        String versionNew = HttpUtils.sendGetOkHttp( "https://gitee.com/KingPrime/ZKBotHtml/raw/main/version.txt");
-        String version = "";
+        long versionNew = Long.parseLong(HttpUtils.sendGetOkHttp("https://gitee.com/KingPrime/ZKBotHtml/raw/main/version.txt").replace(".", "").trim());
+        long version = 0;
         if (!file.exists()) {
             try {
                 Git.cloneRepository()
@@ -198,11 +203,12 @@ public class LoadConfig {
             } catch (GitAPIException e) {
                 log.error("下载Html文件失败：{}", e.getMessage());
             }
-        }else{
-            version = FileUtils.getFileString(HTML_PATH+"/version.txt");
-            if(!versionNew.equals(version) && versionNew.trim().length() != 0){
+        } else {
+            version = Long.parseLong(FileUtils.getFileString(HTML_PATH + "/version.txt").replace(".", "").trim());
+            if (versionNew > version && versionNew != 0) {
+                log.info("当前版本：{} 最新版本：{} 检测到新版Html模板，选择是否更新", version, versionNew);
                 try {
-                    if(FileUtils.delAllFile(HTML_PATH)){
+                    if (FileUtils.delAllFile(HTML_PATH)) {
                         Git.cloneRepository()
                                 .setURI("https://gitee.com/KingPrime/ZKBotHtml.git")
                                 .setDirectory(file)
@@ -217,6 +223,20 @@ public class LoadConfig {
     }
 
 
+    @PostConstruct
+    public void updateJar() {
+        String version = manifestFromClasspath.getMainAttributes().getValue("ZeroKingBot-Version").replace(".", "").trim();
+        String newVersion = HttpUtils.sendGetOkHttp("https://gitee.com/KingPrime/zero-king-bot/blob/main/version.txt").replace(".", "").trim();
+        if (version != null && newVersion != null) {
+            if (StringUtils.isNumber(version) && StringUtils.isNumber(newVersion)) {
+                long v = Long.parseLong(version),nv = Long.parseLong(newVersion);
+                if(nv>v){
+                    log.info("有版本更新，请访问 https://github.com/KingPrimes/ZeroKingBot 下载最新版本！！！");
+                }
+            }
+        }
+
+    }
 
     public void initWinRedis() {
         log.info("开始初始化Redis……");

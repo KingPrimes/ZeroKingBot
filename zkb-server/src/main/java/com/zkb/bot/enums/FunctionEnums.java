@@ -32,6 +32,8 @@ public enum FunctionEnums {
 
     ON_IMAGE("开启涩图"),
 
+    ON_UPDATE("开启更新通知"),
+
     /**
      * 关闭WF
      */
@@ -47,6 +49,7 @@ public enum FunctionEnums {
 
     OFF_IMAGE("关闭涩图"),
 
+    OFF_UPDATE("关闭更新通知"),
 
     ;
     private final String type;

@@ -159,8 +159,8 @@ shiro:
 task:
   cron:
     #Data 定时更新
-    dataTask: 0 0 * * * ?
+    dataTask: 0 0 2 * * ?
     #Riven紫卡倾向定时查询
-    rivenTask: 0 0 0 * * ?
+    rivenTask: 0 0 5 * * ?
     #定时获取词典
     traTask: 0 0 0 1/7 * *

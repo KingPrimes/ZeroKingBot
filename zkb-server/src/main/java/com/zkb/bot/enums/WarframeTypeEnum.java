@@ -44,10 +44,7 @@ public enum WarframeTypeEnum {
     TYPE_OPEN1_RELICS_PLUGIN("砸核桃"),
 
     TYPE_MARKET_SILVER_DUMP("银垃圾"),
-    TYPE_RES_MARKET_ITEMS("更新WM物品"),
-    TYPE_RES_MARKET_RIVEN("更新WM紫卡"),
-    TYPE_RES_RM("更新RM紫卡"),
-    TYPE_CODE("指令"),
+
 
 
     ;
