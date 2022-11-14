@@ -404,7 +404,7 @@
         </plugins>
     </build>
 
-    <repositories>
+    <!--<repositories>
         <repository>
             <id>public</id>
             <name>aliyun nexus</name>
@@ -427,7 +427,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
-    </pluginRepositories>
+    </pluginRepositories>-->
 
     <distributionManagement>
         <repository>
