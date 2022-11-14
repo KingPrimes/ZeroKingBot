@@ -1,6 +1,7 @@
 package com.zkb.common.load;
 
 import com.zkb.common.utils.JarManifest;
+import com.zkb.common.utils.JarUtils;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.file.FileUtils;
 import com.zkb.common.utils.http.HttpUtils;
@@ -225,15 +226,20 @@ public class LoadConfig {
 
     @PostConstruct
     public void updateJar() {
-        String version = manifestFromClasspath.getMainAttributes().getValue("ZeroKingBot-Version").replace(".", "").trim();
-        String newVersion = HttpUtils.sendGetOkHttp("https://gitee.com/KingPrime/zero-king-bot/blob/main/version.txt").replace(".", "").trim();
-        if (version != null && newVersion != null) {
-            if (StringUtils.isNumber(version) && StringUtils.isNumber(newVersion)) {
-                long v = Long.parseLong(version),nv = Long.parseLong(newVersion);
-                if(nv>v){
-                    log.info("有版本更新，请访问 https://github.com/KingPrimes/ZeroKingBot 下载最新版本！！！");
+        //判断启动模式
+        if (JarUtils.isStartupFromJarEx(LoadConfig.class)) {
+            assert manifestFromClasspath != null;
+            String version = manifestFromClasspath.getMainAttributes().getValue("ZeroKingBot-Version").replace(".", "").trim();
+            String newVersion = HttpUtils.sendGetOkHttp("https://gitee.com/KingPrime/zero-king-bot/blob/main/version.txt").replace(".", "").trim();
+            if (version != null && newVersion != null) {
+                if (StringUtils.isNumber(version) && StringUtils.isNumber(newVersion)) {
+                    long v = Long.parseLong(version), nv = Long.parseLong(newVersion);
+                    if (nv > v) {
+                        log.info("有版本更新，请访问 https://github.com/KingPrimes/ZeroKingBot 下载最新版本！！！");
+                    }
                 }
             }
+
         }
 
     }

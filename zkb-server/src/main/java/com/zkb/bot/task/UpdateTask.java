@@ -4,6 +4,7 @@ import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.SendAllGroup;
 import com.zkb.common.load.LoadConfig;
 import com.zkb.common.utils.JarManifest;
+import com.zkb.common.utils.JarUtils;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.file.FileUtils;
 import com.zkb.common.utils.http.HttpUtils;
@@ -26,7 +27,8 @@ public class UpdateTask {
 
 
     @Async("taskExecutor")
-    @Scheduled(cron = "0 0 8 * * *",initialDelayString = "#{ T(java.util.concurrent.ThreadLocalRandom).current().nextInt(10*1200*1000)}")
+    @Scheduled(cron = "0 0 8 * * *")
+    //@Scheduled(cron = "0 0 8 * * *",initialDelayString = "#{ T(java.util.concurrent.ThreadLocalRandom).current().nextInt(10*1200*1000)}")
     public void updateHtml() {
         try {
             if(flag){
@@ -56,9 +58,10 @@ public class UpdateTask {
     }
 
     @Async("taskExecutor")
-    @Scheduled(cron = "0 0 9 * * *",initialDelayString = "#{ T(java.util.concurrent.ThreadLocalRandom).current().nextInt(10*1200*1000)}")
+    @Scheduled(cron = "0 0 9 * * *")
+    //@Scheduled(cron = "0 0 9 * * *",initialDelayString = "#{ T(java.util.concurrent.ThreadLocalRandom).current().nextInt(10*1200*1000)}")
     public void updateJar() {
-        if(flag){
+        if(flag && JarUtils.isStartupFromJarEx(UpdateTask.class)){
             try{
                 String version = manifestFromClasspath.getMainAttributes().getValue("ZeroKingBot-Version").replace(".", "").trim();
                 String newVersion = HttpUtils.sendGetOkHttp("https://gitee.com/KingPrime/zero-king-bot/blob/main/version.txt").replace(".", "").trim();

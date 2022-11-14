@@ -1,6 +1,7 @@
 package com.zkb.bot.controller;
 
 import com.zkb.common.utils.JarManifest;
+import com.zkb.common.utils.JarUtils;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.file.FileUtils;
 import com.zkb.common.utils.htmltoimage.RenderToImage;
@@ -50,7 +51,10 @@ public class ServerImageController {
         Jvm jvm = server.getJvm();
         Mem mem = server.getMem();
         Sys sys = server.getSys();
-        String version = manifestFromClasspath.getMainAttributes().getValue("ZeroKingBot-Version");
+        String version = "";
+        if(JarUtils.isStartupFromJarEx(ServerImageController.class)){
+            version = manifestFromClasspath.getMainAttributes().getValue("ZeroKingBot-Version");
+        }
         String path = "./ZKBotHtml/tmp";
         FileUtils.isMkdirs(path);
         path = path + "/server.html";

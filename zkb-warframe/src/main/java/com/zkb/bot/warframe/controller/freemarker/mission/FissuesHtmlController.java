@@ -26,6 +26,7 @@ public class FissuesHtmlController {
     public String getImage(@PathVariable("type") WarframeFissureTypeEnum type, Model model) {
         FissureList fissureList = SpringUtils.getBean(WarframeUtils.class).getFissureList(type);
         model.addAttribute("fiss",fissureList);
+        model.addAttribute("type",type.ordinal());
         return "html/fissues";
 
     }

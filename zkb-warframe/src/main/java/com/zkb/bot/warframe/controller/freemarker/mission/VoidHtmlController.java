@@ -44,6 +44,7 @@ public class VoidHtmlController {
             inventory.setCredits(inventory.getCredits() / 1000);
         }
         v.setEndString(DateUtils.getDate(v.getExpiry(), new Date()));
+        v.setStartString(DateUtils.getDate(v.getActivation(), new Date()));
         model.addAttribute("vo", v);
         return "html/voidTrader";
     }
