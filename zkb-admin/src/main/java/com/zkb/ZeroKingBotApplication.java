@@ -19,7 +19,7 @@ public class ZeroKingBotApplication {
         SpringApplication.run(ZeroKingBotApplication.class, args);
         LoadConfig.index();
         OkHttpWebSocket.init();
-        log.info("启动成功！ 指令，管理员配置请访问：   http://localhost:8080/  进行设置");
+        log.info("启动成功！ 指令，管理员配置请访问：   http://localhost:8080/ 进行设置");
 
     }
 
