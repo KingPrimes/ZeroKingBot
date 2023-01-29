@@ -1,6 +1,7 @@
 package com.zkb;
 
 import com.zkb.bot.warframe.socket.OkHttpWebSocket;
+import com.zkb.common.load.LoadConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -16,8 +17,10 @@ public class ZeroKingBotApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ZeroKingBotApplication.class, args);
+        LoadConfig.index();
         OkHttpWebSocket.init();
-        log.info("启动成功！");
+        log.info("启动成功！ 指令，管理员配置请访问：   http://localhost:8080/  进行设置");
+
     }
 
 }

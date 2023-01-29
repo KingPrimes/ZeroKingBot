@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="include :: header('修改管理员')" />
+</head>
+<body>
+<div class="white-bg">
+  <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-bot-admin-edit" th:object="${ir}">
+      <input name="uid" type="hidden" th:field="*{uid}">
+      <div class="form-group">
+        <label class="col-sm-3 control-label">机器人QQ：</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <input class="form-control" type="text" id="botUid" name="botUid" th:field="*{botUid}" disabled="disabled">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">管理员QQ：</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <input class="form-control" type="text" id="botAdminUid" name="botAdminUid" th:field="*{botAdminUid}" disabled="disabled">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">权限等级：</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <select id="botPrivilege" name="botPrivilege">
+              <option  th:each="k:${keys}" th:value="${k.key}" th:text="${k.value}" th:field="*{botPrivilege}"></option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<th:block th:include="include :: footer" />
+<script type="text/javascript">
+  const prefix = ctx + "bot/admin";
+
+  function submitHandler() {
+    if ($.validate.form()) {
+      $.operate.save(prefix + "/update", $('#form-bot-admin-edit').serialize());
+    }
+  }
+
+  function doSubmit(index, layero){
+    const tree = layero.find("iframe")[0].contentWindow.$._tree;
+    if ($.tree.notAllowLastLevel(tree)) {
+      const body = $.modal.getChildFrame(index);
+      $("#uid").val(body.find('#uid').val());
+      $.modal.close(index);
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="include :: header('添加管理员')" />
+</head>
+<body>
+<div class="white-bg">
+  <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-bot-admin-add">
+      <div class="form-group">
+        <label class="col-sm-3 control-label">机器人QQ：</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <input class="form-control" type="text" id="botUid" name="botUid" required>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">管理员QQ：</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <input class="form-control" type="text" id="botAdminUid" name="botAdminUid" required>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">权限等级：</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <select id="botPrivilege" name="botPrivilege">
+              <option  th:each="k:${keys}" th:value="${k.key}" th:text="${k.value}"></option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<th:block th:include="include :: footer" />
+<script type="text/javascript">
+  const prefix = ctx + "bot/admin";
+
+$.validator.addMethod("qq", function(value,element,param){
+  var qqPattern = /^[1-9][0-9]{4,10}$/;
+  return new RegExp(qqPattern).test(value);
+ }, "请输入5-11位的QQ账号");
+
+  $("#form-bot-admin-add").validate({
+      rules:{
+          botUid:{
+            required:true,
+            qq:true,
+          },
+          botAdminUid:{
+            required:true,
+            qq:true,
+          }
+      },
+      messages:{
+        botUid:{
+          required:"请输入机器人的QQ账号",
+        },
+        botAdminUid:{
+          required:"请输入管理员的QQ账号",
+        }
+      },
+      focusCleanup: true
+  });
+
+  function submitHandler() {
+    if ($.validate.form()) {
+      $.operate.save(prefix + "/add", $('#form-bot-admin-add').serialize());
+    }
+  }
+
+
+
+</script>
+</body>
+</html>

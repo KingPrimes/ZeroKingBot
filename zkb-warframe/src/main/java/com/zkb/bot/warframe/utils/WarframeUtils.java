@@ -215,14 +215,13 @@ public class WarframeUtils {
         long isTime = new Date().getTime();
         long num = isTime;
         boolean flag = true;
-
         for (BiliBili.BDataDao.Items items : bili.getData().getItems()) {
             if (items.getType() != null) {
                 if (items.getType().equals(BiliBliTypeEnum.DYNAMIC_TYPE_DRAW)) {
                     long time = items.getModules().getModuleAuthor().getPubTs();
                     BiliBili.BDataDao.Items.Modules.ModuleDynamic.Desc desc = items.getModules().getModuleDynamic().getDesc();
                     if (desc != null) {
-                        if (desc.getText().contains("信条近战武器") && (isTime - time) < num) {
+                        if (desc.getText().contains("佩兰数列") && (isTime - time) < num) {
                             num = num - time;
                             item = items;
                             flag = false;

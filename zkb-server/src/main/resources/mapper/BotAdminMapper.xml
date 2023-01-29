@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkb.bot.mapper.BotAdminsMapper">
+
+    <resultMap type="com.zkb.bot.domain.BotAdmins" id="BotAdminsResult">
+        <result property="uid" column="uid"/>
+        <result property="botUid" column="bot_uid"/>
+        <result property="botAdminUid" column="bot_admin_uid"/>
+        <result property="botPrivilege" column="bot_privilege"/>
+    </resultMap>
+
+    <sql id="selectBotAdminsVo">
+        select uid, bot_uid, bot_admin_uid,bot_privilege
+        from bot_admins
+    </sql>
+
+    <select id="selectBotAdminsList" parameterType="BotAdmins" resultMap="BotAdminsResult">
+        <include refid="selectBotAdminsVo"/>
+        <where>
+            <if test="uid != null and uid != ''">
+                AND uid = #{uid}
+            </if>
+            <if test="botUid != null and botUid != ''">
+                AND bot_uid = #{botUid}
+            </if>
+            <if test="botAdminUid != null and botAdminUid != ''">
+                AND bot_admin_uid = #{botAdminUid}
+            </if>
+            <if test="botPrivilege != null and botPrivilege != ''">
+                AND bot_privilege = #{botPrivilege}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectBotAdminsToUid" parameterType="Long" resultMap="BotAdminsResult">
+        <include refid="selectBotAdminsVo"/>
+        <where>
+            <if test="uid != null and uid != ''">
+                AND uid = #{uid}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertBotAdmin" parameterType="com.zkb.bot.domain.BotAdmins" useGeneratedKeys="true">
+        insert OR IGNORE into bot_admins
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null and uid != ''">uid,</if>
+            <if test="botUid != null and botUid != ''">bot_uid,</if>
+            <if test="botAdminUid != null and botAdminUid != ''">bot_admin_uid,</if>
+            <if test="botPrivilege != null and botPrivilege != ''">bot_privilege,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null and uid != ''">#{uid},</if>
+            <if test="botUid != null and botUid != ''">#{botUid},</if>
+            <if test="botAdminUid != null and botAdminUid != ''">#{botAdminUid},</if>
+            <if test="botPrivilege != null and botPrivilege != ''">#{botPrivilege},</if>
+        </trim>
+    </insert>
+
+    <delete id="deleteBotAdmins" parameterType="com.zkb.bot.domain.BotAdmins">
+        delete from bot_admins where uid=#{uid}
+    </delete>
+
+    <update id="updateBotAdmins">
+        update bot_admins
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="botUid != null and botUid != ''">bot_uid = #{botUid},</if>
+            <if test="botAdminUid != null and botAdminUid != ''">bot_admin_uid = #{botAdminUid},</if>
+            <if test="botPrivilege != null and botPrivilege != ''">bot_privilege = #{botPrivilege},</if>
+        </trim>
+        where uid = #{uid}
+    </update>
+
+
+</mapper>

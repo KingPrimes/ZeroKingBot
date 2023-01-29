@@ -55,9 +55,9 @@ public class ThesaurusController extends BaseController {
     }
 
     @Log(title = "词库", businessType = BusinessType.UPDATE)
-    @PostMapping("/update/{issueReply}")
+    @PostMapping("/update")
     @ResponseBody
-    public AjaxResult update(@PathVariable IssueReply issueReply){
+    public AjaxResult update(IssueReply issueReply){
         issueReply.setMsgIssue(EscapeUtil.escape(EscapeUtil.unescape(issueReply.getMsgIssue())));
         return toAjax(replyService.updateIssueReply(issueReply));
     }

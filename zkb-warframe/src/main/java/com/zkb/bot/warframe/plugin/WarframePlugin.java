@@ -7,6 +7,7 @@ import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.enums.FunctionEnums;
 import com.zkb.bot.enums.WarframeFissureTypeEnum;
+import com.zkb.bot.enums.WarframeTypeEnum;
 import com.zkb.bot.utils.ErroSendMessage;
 import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.SelectGroupFunctionOnOff;
@@ -269,6 +270,17 @@ public class WarframePlugin {
                 e.printStackTrace();
             }
         }
+
+        if("help".equals(rawMsg) || "指令".equals(rawMsg) || "命令".equals(rawMsg) || "救命".equals(rawMsg)){
+            Msg msg = new Msg();
+            msg.text("以下是Warframe指令表：\n");
+            for (WarframeTypeEnum value : values()) {
+                msg.text(value.getType()+"\n");
+            }
+            msg.sendToGroup(bot, event);
+        }
+
+
         return MESSAGE_IGNORE;
     }
 

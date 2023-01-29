@@ -1,5 +1,6 @@
 package com.zkb.common.utils.ip;
 
+import com.zkb.common.utils.ShiroUtils;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.html.EscapeUtil;
 
@@ -145,6 +146,14 @@ public class IpUtils {
             return null;
         }
         return bytes;
+    }
+
+    /**
+     * 判断是否是本地
+     * @return
+     */
+    public static boolean isHost(){
+        return ShiroUtils.getIp().equals("127.0.0.1") || ShiroUtils.getIp().equals("localhost") || ShiroUtils.getIp().equals("::1");
     }
 
     public static String getHostIp() {

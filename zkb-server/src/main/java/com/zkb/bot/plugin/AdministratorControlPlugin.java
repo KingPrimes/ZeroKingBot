@@ -6,6 +6,8 @@ import com.mikuac.shiro.annotation.Shiro;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.core.BotPlugin;
 import com.mikuac.shiro.dto.event.message.PrivateMessageEvent;
+import com.zkb.bot.domain.BotAdmins;
+import com.zkb.bot.server.BotAdminsServer;
 import com.zkb.common.load.LoadConfig;
 import com.zkb.common.load.ReadAdminConfig;
 import com.zkb.common.utils.file.FileUtils;
@@ -13,6 +15,7 @@ import org.eclipse.jgit.api.Git;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -25,6 +28,9 @@ import static com.zkb.bot.enums.AdminControlEnum.UPDATE_HTML;
 @Shiro
 public class AdministratorControlPlugin extends BotPlugin {
 
+    @Autowired
+    BotAdminsServer adminsServer;
+
     private static final Logger log = LoggerFactory.getLogger(LoadConfig.class);
 
     private static final String HTML_PATH = "./ZKBotHtml";
@@ -35,7 +41,7 @@ public class AdministratorControlPlugin extends BotPlugin {
             return MESSAGE_IGNORE;
         }
 
-        if (event.getUserId() == ReadAdminConfig.getAdmin()) {
+        if (adminsServer.checkIsAdmin(new BotAdmins(bot.getSelfId(),event.getUserId()),true)) {
 
             if(UPDATE_HTML.getType().equals(event.getRawMessage().toLowerCase(Locale.ROOT))){
                     bot.sendPrivateMsg(event.getUserId(),"正在准备更新Html模板，请稍后...",false);

@@ -84,4 +84,5 @@ public class SysPasswordService
     {
         return new Md5Hash(loginName + password + salt).toHex();
     }
+
 }

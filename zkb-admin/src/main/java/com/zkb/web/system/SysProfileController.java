@@ -75,6 +75,9 @@ public class SysProfileController extends BaseController
     public AjaxResult resetPwd(String oldPassword, String newPassword)
     {
         SysUser user = getSysUser();
+        if(user.getUserName().equals("localhost")){
+            return error("本地免密登录账户不可操作");
+        }
         if (!passwordService.matches(user, oldPassword))
         {
             return error("修改密码失败，旧密码错误");

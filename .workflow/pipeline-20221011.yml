@@ -68,7 +68,7 @@ stages:
         name: publish_release_artifacts
         displayName: 发布
         dependArtifact: KingZeroBot
-        version: 4.1.8.5
+        version: 4.1.9.0
         autoIncrement: true
         notify: []
         strategy:

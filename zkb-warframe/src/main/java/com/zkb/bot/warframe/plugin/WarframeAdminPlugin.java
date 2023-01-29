@@ -4,6 +4,8 @@ import com.mikuac.shiro.annotation.PrivateMessageHandler;
 import com.mikuac.shiro.annotation.Shiro;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.PrivateMessageEvent;
+import com.zkb.bot.domain.BotAdmins;
+import com.zkb.bot.server.BotAdminsServer;
 import com.zkb.bot.utils.Msg;
 import com.zkb.bot.warframe.task.RivenDispositionUpdatesTask;
 import com.zkb.bot.warframe.utils.WarframeTraUtils;
@@ -11,6 +13,7 @@ import com.zkb.bot.warframe.utils.market.RenewMarketUtil;
 import com.zkb.common.load.ReadAdminConfig;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static com.mikuac.shiro.core.BotPlugin.MESSAGE_IGNORE;
@@ -20,13 +23,16 @@ import static com.zkb.bot.enums.AdminControlEnum.*;
 @Component
 public class WarframeAdminPlugin {
 
+    @Autowired
+    BotAdminsServer adminsServer;
+
     @PrivateMessageHandler
     public int onPrivateMessage(@NotNull Bot bot, @NotNull PrivateMessageEvent event) {
         if (event.getRawMessage().trim().length() == 0) {
             return MESSAGE_IGNORE;
         }
 
-        if (event.getUserId() == ReadAdminConfig.getAdmin()) {
+        if (adminsServer.checkIsAdmin(new BotAdmins(bot.getSelfId(),event.getUserId()),true)) {
             if (UPDATE_RES_MARKET_ITEMS.getType().equals(event.getRawMessage())) {
                 int x = RenewMarketUtil.resMarketItems();
                 bot.sendPrivateMsg(event.getUserId(), "更新成功，共更新" + x + "条数据!", false);

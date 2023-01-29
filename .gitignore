@@ -29,7 +29,6 @@ ZKBotHtml/
 temp-png/
 gocqhttp/
 target/
-db/
 ./config/
 *.iml
 testJson

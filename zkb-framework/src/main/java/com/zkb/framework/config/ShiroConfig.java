@@ -23,6 +23,7 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -321,14 +322,14 @@ public class ShiroConfig {
     }
 
     //cookie 属性设置
-    /*public SimpleCookie rememberMeCookie() {
+    public SimpleCookie rememberMeCookie() {
         SimpleCookie cookie = new SimpleCookie("rememberMe");
         cookie.setDomain(domain);
         cookie.setPath(path);
         cookie.setHttpOnly(httpOnly);
         cookie.setMaxAge(maxAge * 24 * 60 * 60);
         return cookie;
-    }*/
+    }
 
     //记住我
    /* public CookieRememberMeManager rememberMeManager() {

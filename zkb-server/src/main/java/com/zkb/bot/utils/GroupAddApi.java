@@ -3,7 +3,12 @@ package com.zkb.bot.utils;
 
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
+import com.zkb.bot.domain.BotAdmins;
+import com.zkb.bot.server.BotAdminsServer;
+import com.zkb.common.utils.spring.SpringUtils;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
@@ -12,6 +17,8 @@ import java.util.Objects;
  * 对于群
  */
 public class GroupAddApi {
+
+
     /**
      * 获取群头像Url地址
      *
@@ -24,7 +31,7 @@ public class GroupAddApi {
     }
 
     /**
-     * 判断用户是否是管理员或者群主
+     * 判断用户是否是管理员或者群主 或系统管理员
      *
      * @param bot   bot
      * @param event event
@@ -35,7 +42,7 @@ public class GroupAddApi {
         if (role == null || role.length() == 0) {
             return false;
         }
-        return role.equals("owner") || role.equals("admin");
+        return role.equals("owner") || role.equals("admin")|| SpringUtils.getBean(BotAdminsServer.class).checkIsAdmin(new BotAdmins(bot.getSelfId(),event.getUserId()),false);
     }
 
     /**

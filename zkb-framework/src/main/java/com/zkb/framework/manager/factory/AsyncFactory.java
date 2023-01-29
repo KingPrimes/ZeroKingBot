@@ -3,6 +3,7 @@ package com.zkb.framework.manager.factory;
 
 import com.zkb.common.constant.Constants;
 import com.zkb.common.utils.*;
+import com.zkb.common.utils.ip.IpUtils;
 import com.zkb.common.utils.spring.SpringUtils;
 import com.zkb.framework.shiro.session.OnlineSession;
 import com.zkb.system.domain.SysLogInfo;
@@ -140,8 +141,11 @@ public class AsyncFactory
                 {
                     logininfor.setStatus(Constants.FAIL);
                 }
-                // 插入数据
-                SpringUtils.getBean(SysLogininforServiceImpl.class).insertLogininfor(logininfor);
+                //不是本地登录则记录登录地址
+                if(!IpUtils.isHost()){
+                    // 插入数据
+                    SpringUtils.getBean(SysLogininforServiceImpl.class).insertLogininfor(logininfor);
+                }
             }
         };
     }
