@@ -48,7 +48,7 @@ public class WarframeConfigController extends BaseController {
     {
         List<TypeEnum> te = typeEnumService.selectWarframeTypeEnumList(new TypeEnum(k));
         mmap.put("ir", te.get(0));
-        return PREFIX + "/edit";
+        return PREFIX + "edit";
     }
 
     @Log(title = "Warframe指令", businessType = BusinessType.UPDATE)
