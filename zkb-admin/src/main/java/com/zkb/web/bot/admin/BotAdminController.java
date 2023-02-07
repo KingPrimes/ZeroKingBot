@@ -14,6 +14,7 @@ import com.zkb.common.utils.html.EscapeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -32,7 +33,7 @@ public class BotAdminController extends BaseController {
     public String info(ModelMap mmp){
         Map<Integer,String> keys = new HashMap<>();
         for(BotAdminPrivilegeEnum e:BotAdminPrivilegeEnum.values()){
-            keys.put(e.ordinal(),e.getType());
+            keys.put(e.ordinal(),e.desc());
         }
         mmp.put("keys", keys);
         return PREFIX+"/admin";
@@ -51,7 +52,6 @@ public class BotAdminController extends BaseController {
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult add(BotAdmins botAdmins){
-
         return toAjax(adminsServer.insertBotAdmin(botAdmins));
     }
 
@@ -59,7 +59,7 @@ public class BotAdminController extends BaseController {
     public String add(ModelMap mmap){
         Map<Integer,String> keys = new HashMap<>();
         for(BotAdminPrivilegeEnum e:BotAdminPrivilegeEnum.values()){
-            keys.put(e.ordinal(),e.getType());
+            keys.put(e.ordinal(),e.desc());
         }
         mmap.put("keys", keys);
         return PREFIX + "/add";
@@ -80,7 +80,7 @@ public class BotAdminController extends BaseController {
         mmap.put("ir", botAdmins);
         Map<Integer,String> keys = new HashMap<>();
         for(BotAdminPrivilegeEnum e:BotAdminPrivilegeEnum.values()){
-            keys.put(e.ordinal(),e.getType());
+            keys.put(e.ordinal(),e.desc());
         }
         mmap.put("keys", keys);
         return PREFIX + "/edit";

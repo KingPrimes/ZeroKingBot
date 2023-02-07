@@ -1,6 +1,7 @@
 package com.zkb.framework.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
@@ -14,6 +15,11 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                 .addResourceLocations("classpath:/public/")
                 .addResourceLocations("file:"+"./ZKBotHtml/");
         super.addResourceHandlers(registry);
+    }
 
+    @Override
+    protected void addFormatters(FormatterRegistry registry) {
+        registry.addConverterFactory(new StringToEnumConverterFactory());
+        super.addFormatters(registry);
     }
 }

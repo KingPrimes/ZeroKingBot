@@ -17,6 +17,10 @@ public class TypeEnum {
         this.value = value;
     }
 
+    public TypeEnum(String key) {
+        this.key = key;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)

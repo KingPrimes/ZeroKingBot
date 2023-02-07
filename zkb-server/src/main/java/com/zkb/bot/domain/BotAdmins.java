@@ -8,7 +8,7 @@ public class BotAdmins {
     Long uid;
     Long botUid;
     Long botAdminUid;
-    BotAdminPrivilegeEnum botPrivilege;
+    Long botPrivilege;
 
     public BotAdmins() {
     }
@@ -18,7 +18,7 @@ public class BotAdmins {
         this.botAdminUid = botAdminUid;
     }
 
-    public BotAdmins(Long botUid, Long botAdminUid, BotAdminPrivilegeEnum botPrivilege) {
+    public BotAdmins(Long botUid, Long botAdminUid, Long botPrivilege) {
         this.botUid = botUid;
         this.botAdminUid = botAdminUid;
         this.botPrivilege = botPrivilege;
@@ -48,11 +48,11 @@ public class BotAdmins {
         this.botAdminUid = botAdminUid;
     }
 
-    public BotAdminPrivilegeEnum getBotPrivilege() {
+    public Long getBotPrivilege() {
         return botPrivilege;
     }
 
-    public void setBotPrivilege(BotAdminPrivilegeEnum botPrivilege) {
+    public void setBotPrivilege(Long botPrivilege) {
         this.botPrivilege = botPrivilege;
     }
 

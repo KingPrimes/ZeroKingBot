@@ -6,63 +6,58 @@
 </head>
 <body class="white-bg">
 
-<form class="form-horizontal m" id="form-user-resetPwd">
+
+<div class="container-div">
     <div class="row">
-        <center>
-            <h3>
-                <span style="color: red">
-                    <b>
-                        更改完之后请点击下方得更新按钮。不然指令不会生效
-                    </b>
-                </span>
-            </h3>
-        </center>
-        <input type="hidden" id="size"  th:value="${WarframeKey.size}">
-        <div class="col-sm-6" th:each="map,stat:${WarframeKey}" style="padding-bottom: 10px">
-            <label class="col-sm-5" style="vertical-align: middle" th:text="${map.getKey()}"/>
-            <input class="col-sm-5" th:onchange="'change_type('+${stat.index}+')'" style="vertical-align: middle " type="text" th:id="${stat.index}" th:name="${map.getKey()}" th:value="${map.value}"/>
+        <div class="container-div">
+            <div class="row">
+                <div class="col-sm-12 select-table table-striped">
+                    <table id="bootstrap-table"></table>
+                </div>
+            </div>
         </div>
-
     </div>
-</form>
-<button class="btn btn-success btn-block" onclick="put()" data-loading="正在更新数据，请稍候...">更新</button>
-<th:block th:include="include :: footer"/>
-<script>
-    const mapT = new Map();
-    $(function (){
-            let size = $("#size").val();
-            for(let i=0; i<size; i++){
-                const type = document.getElementById(i);
-                mapT.set(type.name,type.value)
-            }
-        },
-    );
-    //不要删除这个函数，此函数用于更新map
-    function change_type(index){
-        const type = document.getElementById(index);
-        mapT.set(type.name,type.value);
-    }
-    function _strMapToObj(map1){
-        let obj = Object.create(null);
-        for(let[k,v] of map1){
-            obj[k] = v;
-        }
-        return obj;
-    }
-    function put(){
-        $.ajax({
-            type: 'POST',
-            contentType: 'application/json;charset=utf-8',
-            url: "/config/warframe/warframe-config",
-            dataType: 'json',
-            data: JSON.stringify(_strMapToObj(mapT))
-        })
-    }
-
-
-
-
-
+</div>
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: bootstrap-select-js"/>
+<script th:inline="javascript">
+    var prefix = ctx + "config/warframe"
+    $(function() {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add/{id}",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove/{id}",
+            modalName: "Warframe指令",
+            sortOrder: "desc",
+            escape: true,
+            showPageGo: true,
+            rememberSelected: true,
+            columns: [
+                {
+                    field: 'key',
+                    title: 'Key'
+                },
+                {
+                    field: 'value',
+                    title: 'Value'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        if (row.uid !== 0) {
+                            var actions = [];
+                            actions.push('<a class="btn btn-success btn-xs " href="javascript:void(0)" onclick="$.operate.editStr(\''+row.key+'\')"><i class="fa fa-edit"></i>修改</a> ');
+                            return actions.join('');
+                        }
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
 </script>
+
+
 </body>
 </html>

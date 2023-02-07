@@ -40,6 +40,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import static com.zkb.bot.enums.WarframeMarketEnum.*;
 import static com.zkb.bot.enums.WarframeTypeEnum.*;
 
 
@@ -70,16 +71,16 @@ public class MarketItemUtil {
                 return;
             }
             bot.sendGroupMsg(event.getGroupId(), "正在查询请稍后！", false);
-            if (event.getRawMessage().contains(TYPE_MARKET_MAX.getType())) {
+            if (event.getRawMessage().contains(WM_MAX.getType())) {
                 isMax = true;
-                tra = tra.replace(TYPE_MARKET_MAX.getType(), "").trim();
+                tra = tra.replace(WM_MAX.getType(), "").trim();
             }
-            if (event.getRawMessage().contains(TYPE_MARKET_BY.getType())) {
+            if (event.getRawMessage().contains(WM_BY.getType())) {
                 seBy = true;
-                tra = tra.replace(TYPE_MARKET_BY.getType(), "").trim();
+                tra = tra.replace(WM_BY.getType(), "").trim();
             }
-            if ((event.getRawMessage().contains(TYPE_MARKET_SET.getType()))) {
-                tra = tra.replace(TYPE_MARKET_SET.getType(), "").trim();
+            if ((event.getRawMessage().contains(WM_SET.getType()))) {
+                tra = tra.replace(WM_SET.getType(), "").trim();
             }
             tra = tra.replace(form, "").trim();
             MarketKey marketKey = toMarket(tra);

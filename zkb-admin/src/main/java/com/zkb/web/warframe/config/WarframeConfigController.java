@@ -1,25 +1,24 @@
 package com.zkb.web.warframe.config;
 
 
+import com.zkb.bot.domain.BotAdmins;
+import com.zkb.bot.enums.BotAdminPrivilegeEnum;
 import com.zkb.bot.enums.WarframeTypeEnum;
 import com.zkb.bot.warframe.domain.TypeEnum;
 import com.zkb.bot.warframe.service.IWarframeTypeEnumService;
 import com.zkb.common.annotation.Log;
 import com.zkb.common.core.controller.BaseController;
 import com.zkb.common.core.domain.AjaxResult;
+import com.zkb.common.core.page.TableDataInfo;
 import com.zkb.common.enums.BusinessType;
 import com.zkb.common.enums.OperatorType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/config/warframe")
@@ -31,12 +30,35 @@ public class WarframeConfigController extends BaseController {
     private final String PREFIX = "config/warframe/";
 
     @GetMapping("/warframe-config")
-    public String config(Model mmap){
-        mmap.addAttribute("WarframeKey", getType());
+    public String config(){
         return PREFIX+"warframe-config";
     }
 
-    @Log(title = "WarframeConfig",businessType = BusinessType.UPDATE,operatorType = OperatorType.MANAGE)
+    @PostMapping("/list")
+    @ResponseBody
+    public TableDataInfo list(TypeEnum type)
+    {
+        startPage();
+        List<TypeEnum> list = typeEnumService.selectWarframeTypeEnumList(type);
+        return getDataTable(list);
+    }
+
+    @GetMapping("/edit/{k}")
+    public String edit(@PathVariable String k, ModelMap mmap)
+    {
+        List<TypeEnum> te = typeEnumService.selectWarframeTypeEnumList(new TypeEnum(k));
+        mmap.put("ir", te.get(0));
+        return PREFIX + "/edit";
+    }
+
+    @Log(title = "Warframe指令", businessType = BusinessType.UPDATE)
+    @PostMapping("/update")
+    @ResponseBody
+    public AjaxResult update(TypeEnum t){
+        return toAjax(typeEnumService.updateWarframeTypeEnum(t));
+    }
+
+   /* @Log(title = "WarframeConfig",businessType = BusinessType.UPDATE,operatorType = OperatorType.MANAGE)
     @PostMapping("/warframe-config")
     public AjaxResult putConfig(Model mmap,@RequestBody Map<String,String> map){
         if(map.isEmpty()){
@@ -54,11 +76,9 @@ public class WarframeConfigController extends BaseController {
         }
         mmap.addAttribute("WarframeKey", getType());
         return toAjax(true);
-    }
+    }*/
 
-
-
-    private Map<String,String> getType(){
+    /*private Map<String,String> getType(){
         Map<String,String> type = new HashMap<>();
         for(WarframeTypeEnum key:WarframeTypeEnum.values()){
             if(WarframeTypeEnum.valueOf(key.name()).getType()!=null && WarframeTypeEnum.valueOf(key.name()).getType().trim().length()!=0 && !key.name().equals("REDIS_MISSION_KEY")){
@@ -67,6 +87,6 @@ public class WarframeConfigController extends BaseController {
 
         }
         return type;
-    }
+    }*/
 
 }

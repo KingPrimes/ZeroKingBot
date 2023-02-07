@@ -1160,6 +1160,19 @@ var table = {
                     $.modal.open("修改" + table.options.modalName, $.operate.editUrl(id));
                 }
             },
+            editStr: function(str) {
+                            table.set();
+                            if ($.common.isEmpty(str) && table.options.type == table_type.bootstrapTreeTable) {
+                                if ($.common.isEmpty(row)) {
+                                    $.modal.alertWarning("请至少选择一条记录");
+                                    return;
+                                }
+                                var url = table.options.updateUrl.replace("{id}", str);
+                                $.modal.open("修改" + table.options.modalName, url);
+                            } else {
+                                $.modal.open("修改" + table.options.modalName, $.operate.editUrl(str));
+                            }
+                        },
             // 修改信息，以tab页展现
             editTab: function(id) {
                 table.set();

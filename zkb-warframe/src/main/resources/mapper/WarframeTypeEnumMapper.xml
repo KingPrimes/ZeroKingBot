@@ -52,4 +52,8 @@
         </trim>
         WHERE `key` = #{key}
     </update>
+
+    <delete id="daleteWarframeTypeEnum" parameterType="String">
+        DELETE FROM wf_type_enum WHERE `key` = #{key}
+    </delete>
 </mapper>

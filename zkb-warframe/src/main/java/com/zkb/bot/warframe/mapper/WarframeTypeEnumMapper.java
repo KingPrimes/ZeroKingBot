@@ -25,4 +25,11 @@ public interface WarframeTypeEnumMapper {
      * @return 条数
      */
     int updateWarframeTypeEnum(TypeEnum typeEnum);
+
+    /**
+     * 删除
+     * @param key
+     * @return
+     */
+    int daleteWarframeTypeEnum(String key);
 }
