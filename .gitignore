@@ -33,4 +33,6 @@ target/
 *.iml
 testJson
 *.rdb
+Redis/
+renew-riven-disposition.jpg
 

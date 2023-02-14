@@ -6,6 +6,7 @@ import com.mikuac.shiro.common.utils.ShiroUtils;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.mikuac.shiro.dto.event.message.PrivateMessageEvent;
+import com.zkb.bot.enums.MusicTypeEnum;
 
 import static java.lang.String.format;
 
@@ -75,7 +76,6 @@ public class Msg extends MsgUtils {
         return this;
     }
 
-    @Override
     public Msg record(String record) {
         this.str.append(
                 format(
@@ -229,12 +229,12 @@ public class Msg extends MsgUtils {
         return this;
     }
 
-    @Override
-    public Msg music(String type, long id) {
+
+    public Msg music(MusicTypeEnum type, long id) {
         this.str.append(
                 format(
                         "[CQ:music,type=%s,id=%s]",
-                        ShiroUtils.escape(type),
+                        ShiroUtils.escape(type.desc()),
                         id
                 )
         );

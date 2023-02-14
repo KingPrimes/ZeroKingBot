@@ -1,8 +1,9 @@
-package com.zkb.plugin;
+package com.zkb.bot.plugin;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.mikuac.shiro.annotation.GroupMessageHandler;
-import com.mikuac.shiro.annotation.Shiro;
+import com.mikuac.shiro.annotation.common.Shiro;
+import com.mikuac.shiro.common.utils.OneBotMedia;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.enums.FunctionEnums;
@@ -31,7 +32,12 @@ public class ImagePlugin {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_IMAGE)) {
                 JSONObject object = JSONObject.parseObject(HttpUtils.sendGetOkHttp("https://api.lolicon.app/setu/v2?r18=2"));
                 String url = object.getJSONArray("data").getJSONObject(0).getJSONObject("urls").getString("original");
-                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img(url).build(), false);
+                OneBotMedia oneBotMedia = OneBotMedia.builder()
+                        .cache(false)
+                        .proxy(false)
+                        .timeout(30)
+                        .file(url);
+                bot.sendGroupMsg(event.getGroupId(), Msg.builder().img(oneBotMedia).build(), false);
                 return MESSAGE_BLOCK;
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_IMAGE);

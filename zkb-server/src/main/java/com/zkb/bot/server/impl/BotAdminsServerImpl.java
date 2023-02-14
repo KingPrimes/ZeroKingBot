@@ -78,19 +78,16 @@ public class BotAdminsServerImpl implements BotAdminsServer {
      * @return
      */
     @Override
-    public boolean checkIsAdmin(BotAdmins admins,boolean t) {
-        List<BotAdmins> botAdmins = adminsMapper.selectBotAdminsList(admins);
-        for (BotAdmins admin : botAdmins) {
-            if(admin.getBotUid().equals(admins.getBotAdminUid()) && admin.getBotUid().equals(admins.getBotUid())){
-                if(t){
-                    if(admin.getBotPrivilege().equals(BotAdminPrivilegeEnum.TOP_ADMIN)){
-                        return true;
-                    }
-                }else{
-                    if(admin.getBotPrivilege().equals(BotAdminPrivilegeEnum.ADMIN) || admin.getBotPrivilege().equals(BotAdminPrivilegeEnum.TOP_ADMIN)){
-                        return true;
-                    }
-                }
+    public boolean checkIsAdmin(BotAdmins admins, boolean t) {
+        //查询匹配的管理员列表
+        BotAdmins admin = adminsMapper.selectBotAdminsList(admins).get(0);
+        //判断用户是否时管理员
+        if (admin.getBotAdminUid().equals(admins.getBotAdminUid()) && admin.getBotUid().equals(admins.getBotUid())) {
+            //判断用户是否是顶级管理员
+            if (t) {
+                return BotAdminPrivilegeEnum.TOP_ADMIN.value().equals(admin.getBotPrivilege().shortValue());
+            } else {
+                return BotAdminPrivilegeEnum.OWNER.value().equals(admin.getBotPrivilege().shortValue()) || BotAdminPrivilegeEnum.ADMIN.value().equals(admin.getBotPrivilege().shortValue());
             }
         }
         return false;

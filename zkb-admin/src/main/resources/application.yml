@@ -42,7 +42,7 @@ spring:
   # 资源信息
   messages:
     # 国际化资源文件路径
-    basename: static/i18n/messages
+    basename: i18n/messages
 
   jackson:
     time-zone: GMT+8

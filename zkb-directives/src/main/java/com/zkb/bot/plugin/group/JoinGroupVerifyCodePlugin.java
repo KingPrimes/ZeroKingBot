@@ -1,10 +1,10 @@
-package com.zkb.bot.group.plugin;
+package com.zkb.bot.plugin.group;
 
 
 import com.mikuac.shiro.annotation.GroupDecreaseHandler;
 import com.mikuac.shiro.annotation.GroupIncreaseHandler;
 import com.mikuac.shiro.annotation.GroupMessageHandler;
-import com.mikuac.shiro.annotation.Shiro;
+import com.mikuac.shiro.annotation.common.Shiro;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.core.BotContainer;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
@@ -15,6 +15,7 @@ import com.zkb.bot.utils.GroupAddApi;
 import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.PrivateAddApi;
 import com.zkb.common.core.redis.RedisCache;
+import com.zkb.common.utils.MessageUtils;
 import com.zkb.common.utils.StaticFinal;
 import com.zkb.common.utils.VerifyCodeUtils;
 import org.jetbrains.annotations.NotNull;
@@ -79,7 +80,7 @@ public class JoinGroupVerifyCodePlugin {
             //赋值 当前Bot的账号
             gv.setBotId(bot.getSelfId());
             //发送消息
-            bot.sendGroupMsg(event.getGroupId(), Msg.builder().text("欢迎！").at(event.getUserId()).text("\n请在10分钟内输入一下验证码!\n否则将会移出该群\n").text(code).build(), false);
+            bot.sendGroupMsg(event.getGroupId(), Msg.builder().at(event.getUserId()).text(MessageUtils.message("join.group.msg")).text(code).build(), false);
             //把指存到Redis当中并设置10分钟的倒计时
             redisCache.setCacheObject("code:" + event.getUserId() + "-", "", 10, TimeUnit.MINUTES);
             redisCache.setCacheObject("v-code:" + event.getUserId(), gv);
@@ -108,13 +109,13 @@ public class JoinGroupVerifyCodePlugin {
                     StaticFinal.JOINGROUPVERIFYCODE.remove(event.getUserId());
                     redisCache.deleteObject("v-code:" + event.getUserId());
                     redisCache.deleteObject("code:" + event.getUserId() + "-");
-                    bot.sendGroupMsg(event.getGroupId(), Msg.builder().text("恭喜！").at(event.getUserId()).text("验证码正确！\n尽情的在群内玩耍吧！").build(), false);
+                    bot.sendGroupMsg(event.getGroupId(), Msg.builder().at(event.getUserId()).text(MessageUtils.message("join.group.succ.msg")).build(), false);
                     //返回 继续消息
                     return MESSAGE_IGNORE;
                 } else {
                     bot.deleteMsg(event.getMessageId());
-                    bot.sendGroupMsg(event.getGroupId(), Msg.builder().text("在你未验证时不可以发送其它无关的消息！").build(), false);
-                    bot.sendGroupMsg(event.getGroupId(), Msg.builder().text("验证码有误！\n提示验证码是:" + gv.getCode()).build(), false);
+                    bot.sendGroupMsg(event.getGroupId(), Msg.builder().text(MessageUtils.message("join.group.not.error")).build(), false);
+                    bot.sendGroupMsg(event.getGroupId(), Msg.builder().text(MessageUtils.message("join.group.error.msg") + gv.getCode()).build(), false);
                     bot.setGroupBan(event.getGroupId(), event.getUserId(), 15);
                     //不正确
                     return MESSAGE_BLOCK;

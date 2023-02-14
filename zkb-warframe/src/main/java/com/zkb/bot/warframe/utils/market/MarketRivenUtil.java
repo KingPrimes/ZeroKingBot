@@ -19,6 +19,7 @@ import com.zkb.bot.warframe.service.IWarframeAliasService;
 import com.zkb.bot.warframe.service.IWarframeMarketRivenService;
 import com.zkb.bot.warframe.service.IWarframeMarketRivenTionNickService;
 import com.zkb.bot.warframe.service.IWarframeMarketRivenTionService;
+import com.zkb.common.utils.MessageUtils;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.http.HttpUtils;
 import com.zkb.common.utils.ip.GetServerPort;
@@ -45,16 +46,17 @@ public class MarketRivenUtil {
             String key = event.getRawMessage().toUpperCase(Locale.ROOT).replace(WarframeTypeEnum.TYPE_WR_PLUGIN.getType(), "").replace(WarframeTypeEnum.TYPE_ZKWM_PLUGIN.getType(), "").trim();
             int msgId = 0;
             if ("".equals(key) || key.length() == 0) {
-                bot.sendGroupMsg(event.getGroupId(), "请在指令后面携带关键字", false);
+                bot.sendGroupMsg(event.getGroupId(), MessageUtils.message("warframe.marek.keyNot.error"), false);
                 return;
             }
+            bot.sendGroupMsg(event.getGroupId(), MessageUtils.message("warframe.market.prompt"), false);
             try {
                 msgId = bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektRivenImage/" + URLEncoder.encode(key, "UTF-8")+"/"+bot.getSelfId()+"/"+event.getUserId()+"/"+event.getGroupId()+"/"+key).build(), false).getData().getMessageId();
             } catch (UnsupportedEncodingException ignored) {
 
             }
             if (msgId == 0) {
-                bot.sendGroupMsg(event.getGroupId(), "获取失败！请重试！", false);
+                bot.sendGroupMsg(event.getGroupId(), MessageUtils.message("warframe.marek.wr.get.error"), false);
             }
         } else {
             ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);

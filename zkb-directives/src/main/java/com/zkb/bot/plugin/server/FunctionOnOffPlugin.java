@@ -1,11 +1,12 @@
-package com.zkb.bot.plugin;
+package com.zkb.bot.plugin.server;
 
 import com.mikuac.shiro.annotation.GroupMessageHandler;
-import com.mikuac.shiro.annotation.Shiro;
+import com.mikuac.shiro.annotation.common.Shiro;
 import com.mikuac.shiro.common.utils.OneBotMedia;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.domain.GroupFunctionOnOff;
+import com.zkb.bot.enums.WarframeTypeEnum;
 import com.zkb.bot.server.GroupFunctionOnOffServer;
 import com.zkb.bot.task.UpdateTask;
 import com.zkb.bot.utils.GroupAddApi;
@@ -20,6 +21,7 @@ import java.util.Locale;
 import static com.mikuac.shiro.core.BotPlugin.MESSAGE_BLOCK;
 import static com.mikuac.shiro.core.BotPlugin.MESSAGE_IGNORE;
 import static com.zkb.bot.enums.FunctionEnums.*;
+import static com.zkb.bot.enums.WarframeTypeEnum.values;
 
 
 /**
@@ -183,12 +185,12 @@ public class FunctionOnOffPlugin {
         }
 
         if("运行状态".equals(event.getRawMessage())){
-            OneBotMedia.Builder builder = new OneBotMedia.Builder();
-            builder.proxy(false);
-            builder.cache(false);
-            builder.timeout(30);
-            builder.file("http://localhost:" + GetServerPort.getPort() +"/server");
-            Msg.builder().img(builder.build()).sendToGroup(bot, event);
+            OneBotMedia builder =OneBotMedia.builder().
+                    proxy(false).
+                    cache(false).
+                    timeout(30).
+                    file("http://localhost:" + GetServerPort.getPort() +"/server");
+            Msg.builder().img(builder).sendToGroup(bot, event);
             return MESSAGE_BLOCK;
         }
 
@@ -199,6 +201,15 @@ public class FunctionOnOffPlugin {
                     .text("GitHub:\nhttps://github.com/KingPrimes")
                     .sendToGroup(bot, event);
             return MESSAGE_BLOCK;
+        }
+
+        if("wf指令".equals(event.getRawMessage().toLowerCase(Locale.ROOT))){
+            Msg msg = new Msg();
+            msg.text("以下是Warframe指令表：\n");
+            for (WarframeTypeEnum value : values()) {
+                msg.text(value.getType()+"\n");
+            }
+            msg.sendToGroup(bot, event);
         }
 
         return MESSAGE_IGNORE;

@@ -1,5 +1,6 @@
 package com.zkb.bot.task;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.SendAllGroup;
 import com.zkb.common.load.LoadConfig;
@@ -8,6 +9,7 @@ import com.zkb.common.utils.JarUtils;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.file.FileUtils;
 import com.zkb.common.utils.http.HttpUtils;
+import com.zkb.system.domain.ReleaseDomain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -27,9 +29,9 @@ public class UpdateTask {
 
 
     @Async("taskExecutor")
-    @Scheduled(cron = "0 0 8 * * *")
-    //@Scheduled(cron = "0 0 8 * * *",initialDelayString = "#{ T(java.util.concurrent.ThreadLocalRandom).current().nextInt(10*1200*1000)}")
+    @Scheduled(cron = "0 0 9 * * *")
     public void updateHtml() {
+        log.info("HTML----正在检查是否有新版本……");
         try {
             if(flag){
                 String version = FileUtils.getFileString(HTML_PATH + "/version.txt").replace(".", "").trim(),
@@ -58,22 +60,21 @@ public class UpdateTask {
     }
 
     @Async("taskExecutor")
-    @Scheduled(cron = "0 0 9 * * *")
-    //@Scheduled(cron = "0 0 9 * * *",initialDelayString = "#{ T(java.util.concurrent.ThreadLocalRandom).current().nextInt(10*1200*1000)}")
+    @Scheduled(cron = "0 8 19 * * *")
     public void updateJar() {
+        log.info("正在检查是否有新版本……");
         if(flag && JarUtils.isStartupFromJarEx(UpdateTask.class)){
             try{
+                assert manifestFromClasspath != null;
                 String version = manifestFromClasspath.getMainAttributes().getValue("ZeroKingBot-Version").replace(".", "").trim();
-                String newVersion = HttpUtils.sendGetOkHttp("https://gitee.com/KingPrime/zero-king-bot/blob/main/version.txt").replace(".", "").trim();
-                if (version != null && newVersion != null ) {
-                    if (StringUtils.isNumber(version) && StringUtils.isNumber(newVersion)) {
-                        long v = Long.parseLong(version), nv = Long.parseLong(newVersion);
-                        if (nv > v) {
-                            log.info("有版本更新，请访问 https://github.com/KingPrimes/ZeroKingBot 下载最新版本！！！");
-                            Msg msg = new Msg();
-                            msg.text("当前版本：" + version + "\n最新版本：" + newVersion + "\n有版本更新，请访问 https://github.com/KingPrimes/ZeroKingBot 下载最新版本！！！");
-                            SendAllGroup.sendAllGroup(msg);
-                        }
+                String newVersion = JSONObject.parseObject(HttpUtils.sendGetOkHttp("https://api.github.com/repos/KingPrimes/ZeroKingBot/releases/latest"), ReleaseDomain.class).getTagName().replace(".", "").trim();
+                if (StringUtils.isNumber(version) && StringUtils.isNumber(newVersion)) {
+                    long v = Long.parseLong(version), nv = Long.parseLong(newVersion);
+                    if (nv > v) {
+                        log.info("有版本更新，请访问 https://github.com/KingPrimes/ZeroKingBot 下载最新版本！！！");
+                        Msg msg = new Msg();
+                        msg.text("当前版本：" + version + "\n最新版本：" + newVersion + "\n有版本更新，请访问 https://github.com/KingPrimes/ZeroKingBot 下载最新版本！！！");
+                        SendAllGroup.sendAllGroup(msg);
                     }
                 }
             }catch (Exception e){

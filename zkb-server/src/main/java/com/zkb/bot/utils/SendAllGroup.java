@@ -33,8 +33,7 @@ public class SendAllGroup {
     }
 
     /**
-     * 像所有开启某项功能的群组发送消息
-     *
+     * 向所有群组发送消息
      * @param msg      Msg
      */
     public static void sendAllGroup(Msg msg) {

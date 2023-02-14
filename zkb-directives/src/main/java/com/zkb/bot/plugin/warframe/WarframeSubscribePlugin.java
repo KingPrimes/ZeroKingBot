@@ -1,7 +1,7 @@
-package com.zkb.bot.warframe.plugin;
+package com.zkb.bot.plugin.warframe;
 
 import com.mikuac.shiro.annotation.GroupMessageHandler;
-import com.mikuac.shiro.annotation.Shiro;
+import com.mikuac.shiro.annotation.common.Shiro;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.enums.WarframeSubscribeEnums;
@@ -10,6 +10,7 @@ import com.zkb.bot.utils.Msg;
 import com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe;
 import com.zkb.bot.warframe.service.IWarframeMissionSubscribeService;
 import com.zkb.bot.warframe.utils.WarframeDataUpdateMission;
+import com.zkb.common.utils.MessageUtils;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.uuid.UUID;
@@ -59,7 +60,7 @@ public class WarframeSubscribePlugin {
                     for (WarframeMissionSubscribe subscribe : subscribes) {
                         if (subscribe.getSubscribeUser() != null) {
                             if (subscribe.getSubscribeUser().length() != 0) {
-                                Msg.builder().text("不可以取消群订阅！\n群内有其它玩家订阅了此内容！").sendToGroup(bot, event);
+                                Msg.builder().text(MessageUtils.message("warframe.sb.group.error")).sendToGroup(bot, event);
                                 return MESSAGE_BLOCK;
                             }
                         }
@@ -70,7 +71,7 @@ public class WarframeSubscribePlugin {
             if (i > 0) {
                 Msg.builder().text("成功取消 [" + enums.getName() + "] 订阅").sendToGroup(bot, event);
             } else {
-                Msg.builder().text("从未有过此订阅").sendToGroup(bot, event);
+                Msg.builder().text(MessageUtils.message("warframe.sb.not")).sendToGroup(bot, event);
             }
             return MESSAGE_BLOCK;
         }
@@ -86,7 +87,7 @@ public class WarframeSubscribePlugin {
             if (i > 0) {
                 Msg.builder().at(event.getUserId()).text("成功取消 [" + enums.getName() + "] 订阅").sendToGroup(bot, event);
             } else {
-                Msg.builder().at(event.getUserId()).text("从未有过此订阅").sendToGroup(bot, event);
+                Msg.builder().at(event.getUserId()).text(MessageUtils.message("warframe.sb.not")).sendToGroup(bot, event);
             }
             return MESSAGE_BLOCK;
         }

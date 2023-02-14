@@ -47,6 +47,15 @@
             <artifactId>zkb-framework</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.zkb</groupId>
+            <artifactId>zkb-directives</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zkb</groupId>
+            <artifactId>zkb-music</artifactId>
+        </dependency>
         <!--Bot 服务 核心-->
         <dependency>
             <groupId>com.zkb</groupId>

@@ -1,7 +1,7 @@
-package com.zkb.bot.warframe.plugin;
+package com.zkb.bot.plugin.warframe;
 
 import com.mikuac.shiro.annotation.PrivateMessageHandler;
-import com.mikuac.shiro.annotation.Shiro;
+import com.mikuac.shiro.annotation.common.Shiro;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.PrivateMessageEvent;
 import com.zkb.bot.domain.BotAdmins;
@@ -10,7 +10,6 @@ import com.zkb.bot.utils.Msg;
 import com.zkb.bot.warframe.task.RivenDispositionUpdatesTask;
 import com.zkb.bot.warframe.utils.WarframeTraUtils;
 import com.zkb.bot.warframe.utils.market.RenewMarketUtil;
-import com.zkb.common.load.ReadAdminConfig;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;

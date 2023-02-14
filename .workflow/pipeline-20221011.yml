@@ -5,8 +5,8 @@ triggers:
   trigger: manual
   push:
     branches:
-      prefix:
-        - ''
+      include:
+        - '*.java'
 stages:
   - name: stage-90518fa5
     displayName: Maven构建

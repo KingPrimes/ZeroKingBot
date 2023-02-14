@@ -1,7 +1,7 @@
-package com.zkb.bot.aiml.plugin;
+package com.zkb.bot.plugin.aiml;
 
 import com.mikuac.shiro.annotation.GroupMessageHandler;
-import com.mikuac.shiro.annotation.Shiro;
+import com.mikuac.shiro.annotation.common.Shiro;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.aiml.domain.IssueReply;
@@ -17,13 +17,9 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-/**
- * @author KingPrimes
- */
 @Shiro
 @Component
 public class IssueReplyPlugin {
-
     @Autowired
     private IssueReplyService service;
 
@@ -62,5 +58,4 @@ public class IssueReplyPlugin {
         }
         return 0;
     }
-
 }

@@ -1,8 +1,8 @@
-package com.zkb.bot.warframe.plugin;
+package com.zkb.bot.plugin.warframe;
 
 
 import com.mikuac.shiro.annotation.GroupMessageHandler;
-import com.mikuac.shiro.annotation.Shiro;
+import com.mikuac.shiro.annotation.common.Shiro;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.enums.FunctionEnums;
@@ -271,14 +271,7 @@ public class WarframePlugin {
             }
         }
 
-        if("help".equals(rawMsg) || "指令".equals(rawMsg) || "命令".equals(rawMsg) || "救命".equals(rawMsg)){
-            Msg msg = new Msg();
-            msg.text("以下是Warframe指令表：\n");
-            for (WarframeTypeEnum value : values()) {
-                msg.text(value.getType()+"\n");
-            }
-            msg.sendToGroup(bot, event);
-        }
+
 
 
         return MESSAGE_IGNORE;

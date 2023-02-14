@@ -22,8 +22,4 @@ public class MsgUtils {
         }
         return qq;
     }
-
-   /* public static void main(String[] args) {
-        System.out.println(new MsgUtils().getAtQQ("[CQ:at,qq=3415104632]"));
-    }*/
 }

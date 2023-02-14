@@ -1,7 +1,7 @@
-package com.zkb.bot.aiml.plugin;
+package com.zkb.bot.plugin.aiml;
 
 import com.mikuac.shiro.annotation.GroupMessageHandler;
-import com.mikuac.shiro.annotation.Shiro;
+import com.mikuac.shiro.annotation.common.Shiro;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.aiml.utils.TeachingUtils;
@@ -18,7 +18,8 @@ import static com.zkb.bot.aiml.enums.OrderEnum.ORDER_TEACHING;
 
 @Shiro
 @Component
-public class TeachReplyPlugin {
+public class TechReplyPlugin {
+
 
     @GroupMessageHandler
     public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {

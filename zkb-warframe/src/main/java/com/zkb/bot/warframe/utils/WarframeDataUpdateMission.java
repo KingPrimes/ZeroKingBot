@@ -7,6 +7,7 @@ import com.zkb.bot.utils.Msg;
 import com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe;
 import com.zkb.bot.warframe.service.IWarframeMissionSubscribeService;
 import com.zkb.bot.warframe.service.impl.WarframeMissionSubscribeServiceImpl;
+import com.zkb.common.utils.MessageUtils;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.spring.SpringUtils;
 import com.zkb.common.utils.uuid.UUID;
@@ -24,42 +25,42 @@ public class WarframeDataUpdateMission {
      * 警报更新提醒
      */
     public static void updateAlerts() {
-        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_ALERTS, "警报更新了！", "");
+        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_ALERTS, MessageUtils.message("warframe.up.alerts"), "");
     }
 
     /**
      * 仲裁更新提醒
      */
     public static void updateArbitration() {
-        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_ARBITRATION, "仲裁更新了！", "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getArbitrationImage/0/0/0/0");
+        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_ARBITRATION, MessageUtils.message("warframe.up.arbitration"), "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getArbitrationImage/0/0/0/0");
     }
 
     /**
      * 每日特惠更新 提醒
      */
     public static void updateDailyDeals() {
-        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_DAILY_DEALS, "每日特惠更新了!", "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getDailyDealsImage/0/0/0/0");
+        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_DAILY_DEALS, MessageUtils.message("warframe.up.dayDeals"), "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getDailyDealsImage/0/0/0/0");
     }
 
     /**
      * 活动更新提醒
      */
     public static void updateEvents() {
-        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_EVENTS, "有新的活动!", "");
+        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_EVENTS, MessageUtils.message("warframe.up.newEvents"), "");
     }
 
     /**
      * 新的入侵
      */
     public static void updateInvasions() {
-        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_INVASIONS, "星系又开始骚动了！\n新的入侵已到来！", "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getInvasionsImage/0/0/0/0");
+        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_INVASIONS, MessageUtils.message("warframe.up.invasions"), "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getInvasionsImage/0/0/0/0");
     }
 
     /**
      * 钢铁之路兑换轮换
      */
     public static void updateSteelPath() {
-        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_STEEL_PATH, "钢铁之路兑换奖励轮换！\n这次的奖励是什么呢？\n是U福马么？", "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getSteelPathImage/0/0/0/0");
+        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_STEEL_PATH, MessageUtils.message("warframe.up.steelPath"), "http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getSteelPathImage/0/0/0/0");
     }
 
     /**
@@ -75,7 +76,7 @@ public class WarframeDataUpdateMission {
      * 到黑夜前提醒
      */
     public static void updateCetusCycle(String time) {
-        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_CETUS_CYCLE, "夜灵平野即将黑夜！\n距离黑夜还剩 " + time, "");
+        sendGroupsToUser(WarframeSubscribeEnums.SUBSCRIBE_CETUS_CYCLE, MessageUtils.message("warframe.up.cetusCycle") + time, "");
     }
 
     /**

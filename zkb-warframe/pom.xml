@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>com.zkb</groupId>
-            <artifactId>zkb-group</artifactId>
+            <artifactId>zkb-server</artifactId>
         </dependency>
 
 

@@ -10,6 +10,21 @@ import org.springframework.context.i18n.LocaleContextHolder;
  * @author KingPrimes
  */
 public class MessageUtils {
+
+    private final MessageSource messageSource;
+
+    public MessageUtils(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
+
+    public String getMessage(String msgKey, Object[] args) {
+        return messageSource.getMessage(msgKey, args, LocaleContextHolder.getLocale());
+    }
+
+    public String getMessage(String msgKey) {
+        return messageSource.getMessage(msgKey, null, LocaleContextHolder.getLocale());
+    }
+
     /**
      * 根据消息键和参数 获取消息 委托给spring messageSource
      *

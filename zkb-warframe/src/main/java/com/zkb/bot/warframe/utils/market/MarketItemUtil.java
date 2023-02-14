@@ -22,6 +22,7 @@ import com.zkb.bot.warframe.service.IWarframeAliasService;
 import com.zkb.bot.warframe.service.IWarframeMarketItemsService;
 import com.zkb.bot.warframe.utils.WarframeStringUtils;
 import com.zkb.common.load.ReadAdminConfig;
+import com.zkb.common.utils.MessageUtils;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.http.HttpUtils;
 import com.zkb.common.utils.ip.GetServerPort;
@@ -67,10 +68,10 @@ public class MarketItemUtil {
                 tra = StringUtils.substring(event.getRawMessage(), TYPE_WM_PLUGIN.getType().length(), event.getRawMessage().length());
             }
             if (tra.length() == 0) {
-                bot.sendGroupMsg(event.getGroupId(), "请在指令后面携带关键字", false);
+                bot.sendGroupMsg(event.getGroupId(), MessageUtils.message("warframe.marek.keyNot.error"), false);
                 return;
             }
-            bot.sendGroupMsg(event.getGroupId(), "正在查询请稍后！", false);
+            bot.sendGroupMsg(event.getGroupId(), MessageUtils.message("warframe.market.prompt"), false);
             if (event.getRawMessage().contains(WM_MAX.getType())) {
                 isMax = true;
                 tra = tra.replace(WM_MAX.getType(), "").trim();
@@ -86,17 +87,18 @@ public class MarketItemUtil {
             MarketKey marketKey = toMarket(tra);
             int msgId = 0;
             if (marketKey == null) {
-                Msg.builder().text("请严格按照游戏内的物品名称再次查询").sendToGroup(bot, event);
+                Msg.builder().text(MessageUtils.message("warframe.marek.not.error")).sendToGroup(bot, event);
                 return;
             }
             String key = marketKey.getKey();
             if (key != null && !"".equals(key)) {
-                OneBotMedia.Builder builder = new OneBotMedia.Builder();
-                builder.proxy(false);
-                builder.cache(false);
-                builder.timeout(30);
-                builder.file("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektImage/" + key + "/" + seBy + "/" + isMax + "/" + form+"/"+bot.getSelfId()+"/"+event.getUserId()+"/"+event.getGroupId()+"/"+tra);
-                msgId = bot.sendGroupMsg(event.getGroupId(), Msg.builder().img(builder.build()).build(), false).getData().getMessageId();
+                OneBotMedia oneBotMedia = OneBotMedia.builder()
+                        .cache(false)
+                        .proxy(false)
+                        .timeout(30)
+                        .file("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektImage/" + key + "/" + seBy + "/" + isMax + "/" + form+"/"+bot.getSelfId()+"/"+event.getUserId()+"/"+event.getGroupId()+"/"+tra);
+
+                msgId = bot.sendGroupMsg(event.getGroupId(), Msg.builder().img(oneBotMedia).build(), false).getData().getMessageId();
 
             }
             if (marketKey.getErrorWM() != null && marketKey.getErrorWM().size() != 0) {
@@ -107,12 +109,12 @@ public class MarketItemUtil {
             } else {
                 if (msgId == 0) {
                     //未找到任何相匹配的值
-                    msgId = bot.sendGroupMsg(event.getGroupId(), "您查询的东西未找到!\n请按照游戏内的名称查询!", false).getData().getMessageId();
+                    msgId = bot.sendGroupMsg(event.getGroupId(), MessageUtils.message("warframe.marek.eqNot.error"), false).getData().getMessageId();
                     toErrMsg(bot, event);
                 }
             }
             if (msgId == 0) {
-                bot.sendGroupMsg(event.getGroupId(), "获取失败！请重试！", false);
+                bot.sendGroupMsg(event.getGroupId(), MessageUtils.message("warframe.marek.get.error"), false);
             }
 
         } else {

@@ -5,6 +5,7 @@ import com.zkb.bot.warframe.dao.GlobalStates;
 import com.zkb.bot.warframe.dao.SocketGlobalStates;
 import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.utils.DateUtils;
+import com.zkb.common.utils.MessageUtils;
 import com.zkb.common.utils.spring.SpringUtils;
 
 import java.util.Date;
@@ -98,9 +99,9 @@ public class WarframeMissionUtils {
         if (form.getVoidTrader() != null && redisForm.getVoidTrader() != null) {
             if (!form.getVoidTrader().equals(redisForm.getVoidTrader())) {
                 if (form.getVoidTrader().getInventory().size() == 0 && !form.getVoidTrader().getActive()) {
-                    WarframeDataUpdateMission.updateVoidTrader("奸商走了！\n下次会带来什么好东西呢？");
+                    WarframeDataUpdateMission.updateVoidTrader(MessageUtils.message("warframe.up.voidOut"));
                 } else {
-                    WarframeDataUpdateMission.updateVoidTrader("奸商又来了！\n这次又带来了什么坏东西呢？\n奸商刺杀1等3");
+                    WarframeDataUpdateMission.updateVoidTrader(MessageUtils.message("warframe.up.voidIn"));
                 }
             }
         }
