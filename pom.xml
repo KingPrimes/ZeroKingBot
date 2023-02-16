@@ -12,6 +12,10 @@
     <name>ZeroKingBot</name>
 
     <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
         <zbk.version>4.1.8.0</zbk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -84,6 +88,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-undertow</artifactId>
@@ -261,11 +266,6 @@
                 <artifactId>zkb-directives</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.zkb</groupId>
-                <artifactId>zkb-music</artifactId>
-                <version>${project.version}</version>
-            </dependency>
             <!--Gif表情包模块-->
             <dependency>
                 <groupId>com.zkb</groupId>
@@ -422,7 +422,7 @@
         </plugins>
     </build>
 
-   <!-- <repositories>
+    <repositories>
         <repository>
             <id>public</id>
             <name>aliyun nexus</name>
@@ -445,7 +445,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
-    </pluginRepositories>-->
+    </pluginRepositories>
 
     <distributionManagement>
         <repository>

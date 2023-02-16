@@ -15,6 +15,11 @@
         framework框架核心
     </description>
 
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
     <dependencies>
 
         <!-- SpringBoot Web容器 -->

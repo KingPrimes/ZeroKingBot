@@ -10,13 +10,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>zkb-image-togif</artifactId>
-
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
 
     <dependencies>
 
         <dependency>
             <groupId>com.zkb</groupId>
-            <artifactId>zkb-group</artifactId>
+            <artifactId>zkb-server</artifactId>
         </dependency>
     </dependencies>
 
