@@ -124,51 +124,6 @@ public class LoadConfig {
 
     }
 
-    //判断配置文件是否存在不存在则新建一个配置文件
-    @PostConstruct
-    public void WriteConfigFile() {
-        log.info("开始初始化配置文件……");
-        //config
-        File file = new File("./config/config.ini");
-        if (!file.isFile()) {
-            try {
-                File db = new File("./config");
-                if (!db.isFile()) {
-                    db.mkdirs();
-                }
-                InputStream in = LoadConfig.class.getResourceAsStream("/cfg.txt");
-                assert in != null;
-                Files.copy(in, file.toPath());
-
-            } catch (Exception e) {
-                log.error("创建config.ini失败，错误信息：{}", e.getMessage());
-            }
-        }
-        log.info("配置文件初始化完毕……");
-
-    }
-
-    //创建Warframe指令配置文件
-    //@PostConstruct
-    public void WriteWarframeConfigFile() {
-        File file = new File("./config/warframeConfig.ini");
-        if (!file.isFile()) {
-            try {
-                File db = new File("./config");
-                if (!db.isFile()) {
-                    db.mkdirs();
-                }
-                InputStream in = LoadConfig.class.getResourceAsStream("/warframe.yml");
-                assert in != null;
-                Files.copy(in, file.toPath());
-
-            } catch (Exception e) {
-                log.error("创建warframeConfig.ini失败，错误信息：{}", e.getMessage());
-            }
-
-        }
-    }
-
     @PostConstruct
     public void WriteSqlite() {
         log.info("开始初始化数据库文件……");
