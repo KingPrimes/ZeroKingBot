@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum MusicEnum implements EnumValue {
     W163((short)0 ,"点歌WY"),
+    QQ((short)1,"点歌QQ"),
+    SONG((short)2,"点歌"),
     ;
 
     private final Short value;
