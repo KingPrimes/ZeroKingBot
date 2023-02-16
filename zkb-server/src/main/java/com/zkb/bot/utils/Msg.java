@@ -256,6 +256,21 @@ public class Msg extends MsgUtils {
         return this;
     }
 
+    public Msg customMusic(MusicTypeEnum type,String url, String audio, String title, String content, String image) {
+        this.str.append(
+                format(
+                        "[CQ:music,type=custom,subtype=%s,url=%s,audio=%s,title=%s,content=%s,image=%s]",
+                        ShiroUtils.escape(type.desc()),
+                        ShiroUtils.escape(url),
+                        ShiroUtils.escape(audio),
+                        ShiroUtils.escape(title),
+                        ShiroUtils.escape(content),
+                        ShiroUtils.escape(image)
+                )
+        );
+        return this;
+    }
+
     @Override
     public Msg customMusic(String url, String audio, String title) {
         this.str.append(

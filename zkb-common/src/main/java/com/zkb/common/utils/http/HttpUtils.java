@@ -34,6 +34,8 @@ public class HttpUtils {
     public static final MediaType MEDIA_TYPE_GIF = MediaType.parse("image/gif");
     public static final MediaType MEDIA_TYPE_XML = MediaType.parse("application/xml");
     public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json");
+
+    public static final MediaType MEDIA_TYPE_FORM_URLENCODED = MediaType.parse("application/x-www-form-urlencoded; charset=UTF-8");
     private static final Logger log = LoggerFactory.getLogger(HttpUtils.class);
     private static OkHttpClient httpClient = new OkHttpClient();
     private static OkHttpClient CLIENT_PROXY = new OkHttpClient.Builder().proxy(new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("127.0.0.1", 7890))).build();
@@ -506,10 +508,37 @@ public class HttpUtils {
         return sendGetOkHttpProxy(url, param, new Headers.Builder());
     }
 
-    public static String sendPostOkHttp(String url, String data, Headers headers) {
+    public static String sendPostOkHttpToJson(String url, String data, Headers headers) {
         try {
             Request request;
             RequestBody body = RequestBody.create(data,MEDIA_TYPE_JSON);
+            if (headers != null) {
+                request = new Request.Builder()
+                        .url(url)
+                        .post(body)
+                        .headers(headers)
+                        .build();
+            } else {
+                request = new Request.Builder()
+                        .url(url)
+                        .post(body)
+                        .build();
+            }
+
+            Call call = httpClient.newCall(request);
+            String result = Objects.requireNonNull(call.execute().body()).string();
+            call.clone();
+            return result;
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            return "";
+        }
+    }
+
+    public static String sendPostOkHttpToFormU(String url, String data, Headers headers) {
+        try {
+            Request request;
+            RequestBody body = RequestBody.create(data,MEDIA_TYPE_FORM_URLENCODED);
             if (headers != null) {
                 request = new Request.Builder()
                         .url(url)

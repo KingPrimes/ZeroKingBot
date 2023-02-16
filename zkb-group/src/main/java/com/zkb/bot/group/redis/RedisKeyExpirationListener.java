@@ -16,10 +16,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class RedisKeyExpirationListener extends KeyExpirationEventMessageListener {
 
- @Autowired
+    @Autowired
     private BotContainer botContainer;
 
- @Autowired
+    @Autowired
     private RedisCache redisCache;
 
     public RedisKeyExpirationListener(RedisMessageListenerContainer listenerContainer) {

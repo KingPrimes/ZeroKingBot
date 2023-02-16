@@ -17,17 +17,17 @@ import java.util.List;
 @Service
 public class FunctionServerImpl implements FunctionServer {
 
- @Autowired
+    @Autowired
     FunctionMapper functionMapper;
 
- @Autowired
+    @Autowired
     RedisCache redisCache;
 
     //项目加载时 加载缓存
-    @PostConstruct
+    /*@PostConstruct
     public void init() {
-
-    }
+        resetFunction();
+    }*/
 
     @Override
     public List<Function> selectFunctionList(Function function) {

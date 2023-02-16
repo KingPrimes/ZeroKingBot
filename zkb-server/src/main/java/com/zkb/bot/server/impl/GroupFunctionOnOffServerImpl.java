@@ -20,10 +20,10 @@ import java.util.List;
 @Service
 public class GroupFunctionOnOffServerImpl implements GroupFunctionOnOffServer {
 
- @Autowired
+    @Autowired
     GroupFunctionOnOffMapper offMapper;
 
- @Autowired
+    @Autowired
     RedisCache redisCache;
 
 

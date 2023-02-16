@@ -9,7 +9,6 @@ import com.zkb.bot.enums.FunctionEnums;
 import com.zkb.bot.enums.MarketEnum;
 import com.zkb.bot.utils.ErroSendMessage;
 import com.zkb.bot.utils.Msg;
-import com.zkb.bot.utils.PrivateAddApi;
 import com.zkb.bot.utils.SelectGroupFunctionOnOff;
 import com.zkb.bot.warframe.dao.ErrorWM;
 import com.zkb.bot.warframe.dao.Market;
@@ -21,7 +20,6 @@ import com.zkb.bot.warframe.domain.market.WarframeMarketItemsRegular;
 import com.zkb.bot.warframe.service.IWarframeAliasService;
 import com.zkb.bot.warframe.service.IWarframeMarketItemsService;
 import com.zkb.bot.warframe.utils.WarframeStringUtils;
-import com.zkb.common.load.ReadAdminConfig;
 import com.zkb.common.utils.MessageUtils;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.http.HttpUtils;
@@ -42,7 +40,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.zkb.bot.enums.WarframeMarketEnum.*;
-import static com.zkb.bot.enums.WarframeTypeEnum.*;
+import static com.zkb.bot.enums.WarframeTypeEnum.TYPE_WM_PLUGIN;
 
 
 @Component
@@ -110,7 +108,6 @@ public class MarketItemUtil {
                 if (msgId == 0) {
                     //未找到任何相匹配的值
                     msgId = bot.sendGroupMsg(event.getGroupId(), MessageUtils.message("warframe.marek.eqNot.error"), false).getData().getMessageId();
-                    toErrMsg(bot, event);
                 }
             }
             if (msgId == 0) {
@@ -213,15 +210,6 @@ public class MarketItemUtil {
             }
         }
         return null;
-    }
-
-    /**
-     * 给管理员发送可能恶意使用指令的消息
-     */
-    private static void toErrMsg(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
-        long admin = ReadAdminConfig.getAdmin();
-        if (admin != 0)
-            bot.sendPrivateMsg(admin, StringUtils.format("昵称:{}\n{}:在查询" + event.getRawMessage() + "时没有查询到物品\n群号:{}", PrivateAddApi.getPrivateNick(event.getUserId()), event.getUserId(), event.getGroupId()), false);
     }
 
     /**
