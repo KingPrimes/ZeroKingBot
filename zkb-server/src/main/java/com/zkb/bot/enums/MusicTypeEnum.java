@@ -5,9 +5,12 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public enum MusicTypeEnum implements EnumValue {
-    QQ((short)0,"qq"),
-    WY((short)1,"163"),
-    XM((short)2,"xm"),
+    SONG((short)0,""),
+    QQ((short)1,"qq"),
+    WY((short)2,"163"),
+    KW((short)3,"kuwo"),
+    QAN((short)4,"taihe"),
+    YT((short)5,"1ting"),
     ;
 
     private final Short value;

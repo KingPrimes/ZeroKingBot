@@ -2,6 +2,7 @@ package com.zkb.bot.domain.xmsj.model;
 
 import com.zkb.bot.domain.xmsj.model.vo.Body;
 import com.zkb.bot.domain.xmsj.model.vo.ResultSets;
+import com.zkb.bot.enums.MusicEnum;
 
 public interface IXmsjApi {
 
@@ -12,7 +13,7 @@ public interface IXmsjApi {
      * @param userID 用户ID
      * @return 结果集
      */
-    ResultSets queryMusics(String name, Long groupID, Long userID);
+    ResultSets queryMusics(String name, Long groupID, Long userID, MusicEnum me);
 
     /**
      * 根据ID返回歌曲详情

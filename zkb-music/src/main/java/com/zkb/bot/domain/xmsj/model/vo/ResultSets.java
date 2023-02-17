@@ -1,5 +1,7 @@
 package com.zkb.bot.domain.xmsj.model.vo;
 
+import com.zkb.bot.enums.MusicTypeEnum;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +13,8 @@ public class ResultSets {
         return new ResultSets();
     }
 
-    public ResultSets add(int index, String title, String author){
-        this.rList.add(new R(index, title, author));
+    public ResultSets add(int index, String title, String author, MusicTypeEnum me){
+        this.rList.add(new R(index, title, author,me));
         return this;
     }
 
@@ -24,6 +26,8 @@ public class ResultSets {
                 str.append(r.index)
                         .append(":")
                         .append(r.title)
+                        .append(" - ")
+                        .append(r.author)
                         .append("\n");
             }
             str.append("请发送点歌+编号");
@@ -38,10 +42,22 @@ public class ResultSets {
 
         String author;
 
-        public R(int index, String title, String author) {
+        MusicTypeEnum me;
+
+
+        public R(int index, String title, String author, MusicTypeEnum me) {
             this.index = index;
             this.title = title;
             this.author = author;
+            this.me = me;
+        }
+
+        public MusicTypeEnum getMe() {
+            return me;
+        }
+
+        public void setMe(MusicTypeEnum me) {
+            this.me = me;
         }
 
         public String getAuthor() {

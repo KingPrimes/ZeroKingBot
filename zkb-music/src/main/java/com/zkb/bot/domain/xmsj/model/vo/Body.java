@@ -1,5 +1,7 @@
 package com.zkb.bot.domain.xmsj.model.vo;
 
+import com.zkb.bot.enums.MusicEnum;
+import com.zkb.bot.enums.MusicTypeEnum;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -20,7 +22,16 @@ public class Body {
     String url;
     //封面地址
     String pic;
+    //类型
+    MusicTypeEnum me;
 
+    public MusicTypeEnum getMe() {
+        return me;
+    }
+
+    public void setMe(MusicTypeEnum me) {
+        this.me = me;
+    }
 
     /**
      * get 类型 qq 163 虾米等

@@ -5,6 +5,8 @@ import com.zkb.bot.domain.xmsj.model.IXmsjApi;
 import com.zkb.bot.domain.xmsj.model.res.MusicXmsjResponseBody;
 import com.zkb.bot.domain.xmsj.model.vo.Body;
 import com.zkb.bot.domain.xmsj.model.vo.ResultSets;
+import com.zkb.bot.enums.MusicEnum;
+import com.zkb.bot.enums.MusicTypeEnum;
 import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.http.HttpUtils;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.net.URLEncoder;
 import java.util.concurrent.TimeUnit;
+
+import static java.lang.String.format;
 
 @Service
 public class XmsjApi implements IXmsjApi {
@@ -34,22 +38,44 @@ public class XmsjApi implements IXmsjApi {
      * @return 结果集
      */
     @Override
-    public ResultSets queryMusics(String name, Long groupID, Long userID) {
+    public ResultSets queryMusics(String name, Long groupID, Long userID, MusicEnum me) {
         log.info("点歌-- 歌名:{},群组:{},用户:{}",name,groupID,userID);
         try{
             name = URLEncoder.encode(name,"UTF-8");
-            String pram = "input=" + name + "&filter=name&type=qq&page=1";
+            MusicTypeEnum mte = MusicTypeEnum.values()[me.value()];
+            StringBuilder str = new StringBuilder();
+            str.append("input=")
+                    .append(name)
+                    .append("&filter=name&type=");
+
+            switch (mte.value()){
+                case 2:
+                    str.append("netease");
+                    break;
+                case 4:
+                    str.append("baidu");
+                    break;
+                default:
+                    str.append(mte.desc());
+                    break;
+            }
+            str.append("&page=1");
+
             String url = "http://www.xmsj.org/";
             Headers.Builder builder = new Headers.Builder();
             builder.add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.46");
             builder.add("X-Requested-With", "XMLHttpRequest");
-            String body = HttpUtils.sendPostOkHttpToFormU(url, pram, builder.build());
+            String body = HttpUtils.sendPostOkHttpToFormU(url, str.toString(), builder.build());
+
             MusicXmsjResponseBody musicXmsjResponseBody = JSONObject.parseObject(body, MusicXmsjResponseBody.class);
+
+            musicXmsjResponseBody.setDataType(mte);
+
             redisCache.setCacheObject(groupID+ "-" + userID, musicXmsjResponseBody, 2L, TimeUnit.MINUTES);
             ResultSets rs = ResultSets.builder();
             int i =0;
             for (Body datum : musicXmsjResponseBody.getData()) {
-                rs.add(i,datum.getTitle(),datum.getAuthor());
+                rs.add(i,datum.getTitle(),datum.getAuthor(),mte);
                 i++;
             }
             return rs;
@@ -70,9 +96,11 @@ public class XmsjApi implements IXmsjApi {
     @Override
     public Body reqSong(Long groupID, Long userID, String msg) throws Exception{
         if(StringUtils.isNumber(msg)){
-            MusicXmsjResponseBody xmsj = redisCache.getCacheObject(groupID + "-" + userID);
-            if(xmsj!=null){
-                return xmsj.getData().get(Integer.parseInt(msg));
+            MusicXmsjResponseBody xmlns = redisCache.getCacheObject(groupID + "-" + userID);
+
+            if(xmlns!=null){
+
+                return xmlns.getData().get(Integer.parseInt(msg));
             }else {
                 throw new Exception("cache time out!");
             }
