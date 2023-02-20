@@ -33,6 +33,7 @@ import java.util.Iterator;
 //springboot和sqlite 集成，由于是Hibernate5，不能用现成的com.enigmabridge hibernate4-sqlite-dialect方言包
 public class SQLiteDialect extends Dialect {
 
+
     private final UniqueDelegate uniqueDelegate;
 
     public SQLiteDialect() {

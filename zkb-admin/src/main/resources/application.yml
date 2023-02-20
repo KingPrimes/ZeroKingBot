@@ -82,7 +82,7 @@ spring:
     database-platform: com.zkb.framework.config.SQLiteDialect #自己配置的方言
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
   # Redis 配置
   redis:
     host: localhost
