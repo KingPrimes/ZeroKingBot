@@ -52,6 +52,14 @@ public interface IssueReplyMapper {
     int insertIssueReply(IssueReply issue);
 
     /**
+     * 添加问答
+     *
+     * @param issues 问答集合
+     * @return 影响行数
+     */
+    int insertIssueReplyList(List<IssueReply> issues);
+
+    /**
      * 删除问答
      *
      * @param msgId 问答主键

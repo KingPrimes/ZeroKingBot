@@ -14,7 +14,7 @@
 
     <sql id="selectWarframeTranslationVo">
         select tra_id, tra_en, tra_ch, tra_prime, tra_set
-        from wf_translation
+        from warframe_translation
     </sql>
 
     <select id="selectWarframeTranslationList" parameterType="WarframeTranslation"
@@ -35,26 +35,26 @@
 
     <select id="enToZh" parameterType="String" resultType="String">
         select tra_ch
-        from wf_translation
+        from warframe_translation
         where tra_en = #{traEn}
     </select>
 
     <select id="zhToEn" parameterType="String" resultType="String">
         select tra_en
-        from wf_translation
+        from warframe_translation
         where tra_ch = #{tra_ch}
     </select>
 
     <select id="zhToEnList" parameterType="String" resultMap="WarframeTranslationResult">
         select tra_en, tra_ch
-        from wf_translation
+        from warframe_translation
         where REPLACE(tra_en, ' ', '') like REPLACE('%' || #{traEn} || '%', ' ', '')
         limit 5
     </select>
 
     <select id="enToZhList" parameterType="String" resultMap="WarframeTranslationResult">
         select tra_en, tra_ch
-        from wf_translation
+        from warframe_translation
         where REPLACE(tra_ch, ' ', '') like REPLACE('%' || #{traCh} || '%', ' ', '')
         limit 5
     </select>
@@ -62,7 +62,7 @@
     <select id="enAndZhToList" parameterType="String" resultMap="WarframeTranslationResult">
         SELECT tra_en,
                tra_ch
-        FROM wf_translation
+        FROM warframe_translation
         WHERE REPLACE(tra_ch, ' ', '') LIKE REPLACE('%' || #{traCh} || '%', ' ', '')
            OR REPLACE(tra_en, ' ', '') LIKE REPLACE('%' || #{traCh} || '%', ' ', '')
     </select>
@@ -75,7 +75,7 @@
 
     <insert id="insertWarframeTranslation" parameterType="WarframeTranslation" useGeneratedKeys="true"
             keyProperty="traId">
-        insert OR IGNORE into wf_translation
+        insert OR IGNORE into warframe_translation
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="traEn != null">tra_en,</if>
             <if test="traCh != null">tra_ch,</if>
@@ -93,7 +93,7 @@
 
     <insert id="insertWarframeTranslationList" parameterType="java.util.List" useGeneratedKeys="true"
             keyProperty="traId">
-        insert OR IGNORE into wf_translation
+        insert OR IGNORE into warframe_translation
         (tra_en,tra_ch,tra_prime,tra_set)
         values
         <foreach collection="list" item="item" index="index" separator=",">
@@ -111,7 +111,7 @@
     </insert>
 
     <update id="updateWarframeTranslation" parameterType="WarframeTranslation">
-        update OR IGNORE wf_translation
+        update OR IGNORE warframe_translation
         <trim prefix="SET" suffixOverrides=",">
             <if test="traEn != null">tra_en = #{traEn},</if>
             <if test="traCh != null">tra_ch = #{traCh},</if>
@@ -123,12 +123,12 @@
 
     <delete id="deleteWarframeTranslationById" parameterType="Long">
         delete
-        from wf_translation
+        from warframe_translation
         where tra_id = #{traId}
     </delete>
 
     <delete id="deleteWarframeTranslationByIds" parameterType="String">
-        delete from wf_translation where tra_id in
+        delete from warframe_translation where tra_id in
         <foreach item="traId" collection="array" open="(" separator="," close=")">
             #{traId}
         </foreach>

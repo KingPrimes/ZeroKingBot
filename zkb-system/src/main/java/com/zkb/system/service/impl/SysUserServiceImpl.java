@@ -12,11 +12,13 @@ import com.zkb.system.mapper.SysUserMapper;
 import com.zkb.system.service.ISysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.Validator;
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -25,15 +27,13 @@ import java.util.List;
  * @author KingPrimes
  */
 @Service
-public class SysUserServiceImpl implements ISysUserService {
+public class SysUserServiceImpl implements ISysUserService,CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
 
     @Autowired
     private SysUserMapper userMapper;
 
-    @Autowired
-    protected Validator validator;
 
     /**
      * 根据条件分页查询用户列表
@@ -215,5 +215,34 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public int changeStatus(SysUser user) {
         return userMapper.updateUser(user);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        if (userMapper.selectUserList(null).size() == 0 || userMapper.selectUserList(null)==null) {
+            log.info("正在进行用户初始化……");
+            int x = 0;
+            x += userMapper.insertUser(new SysUser(
+                    1L,
+                    "admin",
+                    "00",
+                    "21d8fceec22e9ac359d67ab1b9775ab6",
+                    "008e5a",
+                    "0",
+                    "0"
+            ));
+            x += userMapper.insertUser(new SysUser(
+                    2L,
+                    "localhost",
+                    "00",
+                    "e992fcbd75e5dc1683680e76ea8aed86",
+                    "008e5a",
+                    "0",
+                    "0"
+            ));
+            if (x >= 2) {
+                log.info("用户初始化完毕！");
+            }
+        }
     }
 }

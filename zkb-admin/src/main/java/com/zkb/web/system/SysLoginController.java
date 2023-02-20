@@ -38,7 +38,7 @@ public class SysLoginController extends BaseController
             return ServletUtils.renderString(response, "{\"code\":\"1\",\"msg\":\"未登录或登录超时。请重新登录\"}");
         }
 
-        if(IpUtils.isHost()){
+        if(IpUtils.isHost(request)){
             UsernamePasswordToken token = new UsernamePasswordToken("localhost","localhost",false);
             Subject subject = SecurityUtils.getSubject();
             subject.login(token);
@@ -64,7 +64,7 @@ public class SysLoginController extends BaseController
         // 是否开启记住我
         //mmap.put("isRemembered", rememberMe);
         // 是否开启用户注册
-        mmap.put("isAllowRegister", true);
+        mmap.put("isAllowRegister", false);
         return "login";
     }
 

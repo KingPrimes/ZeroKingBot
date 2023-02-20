@@ -15,11 +15,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
-import java.nio.file.Files;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.jar.Manifest;
 
 @Component
@@ -31,8 +32,6 @@ public class LoadConfig {
     private static final String HTML_PATH = "./ZKBotHtml";
 
     private static final Manifest manifestFromClasspath = JarManifest.getManifestFromClasspath(LoadConfig.class);
-
-
 
     /**
      * 获取操作系统
@@ -53,11 +52,11 @@ public class LoadConfig {
     }
 
     //启动完成之后自动打开浏览器并访问 Url 地址
-    public static void index(){
-        String url ="http://localhost:8080";
+    public static void index() {
+        String url = "http://localhost:8080";
         // 获取操作系统的名字
         String osName = System.getProperty("os.name", "");
-        try{
+        try {
             if (osName.startsWith("Mac OS")) {
                 // 苹果的打开方式
                 Class<?> fileMgr = Class.forName("com.apple.eio.FileManager");
@@ -70,29 +69,26 @@ public class LoadConfig {
                         "rundll32 url.dll,FileProtocolHandler " + url);
             } else {
                 // Unix or Linux的打开方式
-                String[] browsers = { "firefox", "opera", "konqueror", "epiphany",
-                        "mozilla", "netscape" };
+                String[] browsers = {"firefox", "opera", "konqueror", "epiphany",
+                        "mozilla", "netscape"};
                 String browser = null;
                 for (int count = 0; count < browsers.length && browser == null; count++)
                     // 执行代码，在brower有值后跳出，
                     // 这里是如果进程创建成功了，==0是表示正常结束。
                     if (Runtime.getRuntime()
-                            .exec(new String[] { "which", browsers[count] })
+                            .exec(new String[]{"which", browsers[count]})
                             .waitFor() == 0)
                         browser = browsers[count];
                 if (browser == null)
                     throw new Exception("Could not find web browser");
                 else
                     // 这个值在上面已经成功的得到了一个进程。
-                    Runtime.getRuntime().exec(new String[] { browser, url });
+                    Runtime.getRuntime().exec(new String[]{browser, url});
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-
 
 
     private static boolean isRunRedis(String name) {
@@ -114,6 +110,26 @@ public class LoadConfig {
         }
     }
 
+    public static void initSqliteFile() {
+        log.info("检查是否存在数据库文件!");
+        File file = new File("./db/data.db3");
+
+        File dir = file.getParentFile();
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        if (!file.exists()) {
+            log.info("数据库文件不存在，正在初始化……");
+            try {
+                file.createNewFile();
+                log.info("数据库文件初始化完毕……");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @PostConstruct
     public void init() {
         int os = isOs();
@@ -122,41 +138,6 @@ public class LoadConfig {
             initWinRedis();
         }
 
-    }
-
-    @PostConstruct
-    public void WriteSqlite() {
-        log.info("开始初始化数据库文件……");
-        File file = new File("./db/data.db3");
-        if (file.isFile()) {
-            try {
-                long lastModifiedCopy = file.lastModified();
-                long last = new File(Objects.requireNonNull(LoadConfig.class.getResource("/data.db3")).toURI()).lastModified();
-                if (last > lastModifiedCopy) {
-                    if (file.delete()) {
-                        InputStream in = LoadConfig.class.getResourceAsStream("/data.db3");
-                        assert in != null;
-                        Files.copy(in, file.toPath());
-                    }
-                }
-            } catch (Exception e) {
-                log.error(e.getMessage());
-            }
-        } else {
-            try {
-                File db = new File("./db");
-                if (!db.isFile()) {
-                    db.mkdirs();
-                }
-
-                InputStream in = LoadConfig.class.getResourceAsStream("/data.db3");
-                assert in != null;
-                Files.copy(in, file.toPath());
-            } catch (Exception e) {
-                log.error("创建db数据库失败，错误信息：{}", e.getMessage());
-            }
-        }
-        log.info("数据库文件初始化完毕……");
     }
 
     public void initQQ() {
@@ -274,6 +255,4 @@ public class LoadConfig {
         }
         log.info("初始化Redis完毕……");
     }
-
-
 }

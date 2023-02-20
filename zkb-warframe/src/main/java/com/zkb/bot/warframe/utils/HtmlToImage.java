@@ -1078,7 +1078,7 @@ public class HtmlToImage {
                 String topBid = "无";
                 if (lick.getItem().getHavingEphemera()) {
                     if (WarframeEnum.TYPE_MARKET_CD == type) {
-                        ephemera = SpringUtils.getBean(IWarframeMarketLichOrSisterService.class).selectWarframeMarketLichByElement(lick.getItem().getElement()).getItemName();
+                        ephemera = SpringUtils.getBean(IWarframeMarketLichService.class).selectWarframeMarketLichByElement(lick.getItem().getElement()).getItemName();
                     } else {
                         ephemera = SpringUtils.getBean(IWarframeMarketSisterService.class).selectWarframeMarketSisterByElement(lick.getItem().getElement()).getItemName();
                     }

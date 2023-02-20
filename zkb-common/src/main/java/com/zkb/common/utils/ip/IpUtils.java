@@ -152,8 +152,29 @@ public class IpUtils {
      * 判断是否是本地
      * @return
      */
-    public static boolean isHost(){
-        return ShiroUtils.getIp().equals("127.0.0.1") || ShiroUtils.getIp().equals("localhost") || ShiroUtils.getIp().equals("::1");
+    public static boolean isHost(HttpServletRequest request){
+        return getIpAddress(request).equals("127.0.0.1") || getIpAddress(request).equals("localhost") || getIpAddress(request).equals("::1")|| getIpAddress(request).equals("0:0:0:0:0:0:0:1");
+    }
+
+
+    public static String getIpAddress(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
     }
 
     public static String getHostIp() {

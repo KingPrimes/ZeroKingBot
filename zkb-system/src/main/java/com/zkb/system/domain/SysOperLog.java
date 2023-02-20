@@ -5,6 +5,7 @@ import com.zkb.common.core.domain.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -12,11 +13,15 @@ import java.util.Date;
  * 
  * @author KingPrimes
  */
+@Entity
+@Table(name = "sys_oper_log")
 public class SysOperLog extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
     /** 日志主键 */
+    @GeneratedValue
+    @Id
     private Long operId;
 
     /** 操作模块 */

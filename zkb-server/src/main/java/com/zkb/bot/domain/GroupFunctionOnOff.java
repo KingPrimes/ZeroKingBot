@@ -2,11 +2,21 @@ package com.zkb.bot.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 /**
  * @author KingPrimes
  */
+@Entity
+@Table(name = "bot_group_function_onoff",uniqueConstraints = @UniqueConstraint(name = "functionOFF",columnNames = "`group`"))
 public class GroupFunctionOnOff {
+
+    @GeneratedValue
+    @Id
+    Long id;
+    @Column(name = "`group`")
     long group;
     String functionId;
 
@@ -17,6 +27,14 @@ public class GroupFunctionOnOff {
     public GroupFunctionOnOff(long group, String functionId) {
         this.group = group;
         this.functionId = functionId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public long getGroup() {

@@ -3,11 +3,20 @@ package com.zkb.bot.warframe.domain.market;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "warframe_market_items",uniqueConstraints = @UniqueConstraint(name = "items",columnNames = {"itemName", "urlName"}))
 public class WarframeMarketItems {
+
+    @GeneratedValue
+    @Id
+    Long ids;
 
     String id;
 
     String thumb;
+
 
     String itemName;
     String urlName;
@@ -42,6 +51,14 @@ public class WarframeMarketItems {
 
     public void setUrlName(String urlName) {
         this.urlName = urlName;
+    }
+
+    public Long getIds() {
+        return ids;
+    }
+
+    public void setIds(Long ids) {
+        this.ids = ids;
     }
 
     @Override

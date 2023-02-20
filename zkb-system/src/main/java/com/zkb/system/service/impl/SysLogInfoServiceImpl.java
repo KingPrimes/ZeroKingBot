@@ -65,6 +65,6 @@ public class SysLogInfoServiceImpl implements ISysLogInfoService {
     @Override
     public void cleanSysLogInfo() {
         logInfoMapper.deleteAll();
-        logInfoMapper.deleteSequen();
+        //logInfoMapper.deleteSequen();
     }
 }

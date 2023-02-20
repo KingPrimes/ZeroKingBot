@@ -74,6 +74,8 @@
         <bitwalker.version>1.21</bitwalker.version>
 
         <oshi.version>6.2.2</oshi.version>
+
+        <alibaba-bruid.version>1.0.31</alibaba-bruid.version>
     </properties>
 
 
@@ -167,6 +169,13 @@
                 <artifactId>sqlite-jdbc</artifactId>
                 <version>${sqlite-jdbc.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${alibaba-bruid.version}</version>
+            </dependency>
+
             <!-- io常用工具类 -->
             <dependency>
                 <groupId>commons-io</groupId>
@@ -414,7 +423,7 @@
                                 自定义MANIFEST.MF中的键值对，
                                 <键>值</键>
                             -->
-                            <ZeroKingBot-Version>4.1.9.1</ZeroKingBot-Version>
+                            <ZeroKingBot-Version>4.1.9.2</ZeroKingBot-Version>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -422,7 +431,7 @@
         </plugins>
     </build>
 
-    <repositories>
+   <!-- <repositories>
         <repository>
             <id>public</id>
             <name>aliyun nexus</name>
@@ -445,7 +454,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
-    </pluginRepositories>
+    </pluginRepositories>-->
 
     <distributionManagement>
         <repository>

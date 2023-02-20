@@ -33,7 +33,7 @@ public class MusicPlugin {
             return MESSAGE_IGNORE;
         }
 
-
+        //执行搜索歌曲操作
         if(MusicEnum.SONG.desc().equals(StringUtils.substring(rawMsg, 0, MusicEnum.SONG.desc().length()).toUpperCase(Locale.ROOT))){
             MusicEnum[] values = MusicEnum.values();
             for(MusicEnum e:values){
@@ -47,6 +47,7 @@ public class MusicPlugin {
             }
         }
 
+        //执行发送歌曲操作
         if(MusicEnum.SONG.desc().equals(StringUtils.substring(rawMsg, 0, MusicEnum.SONG.desc().length()).toUpperCase(Locale.ROOT))){
             String key = event.getRawMessage().replaceAll(MusicEnum.SONG.desc(),"").trim();
             try {

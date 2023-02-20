@@ -4,13 +4,18 @@ import com.zkb.common.core.domain.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "sys_log_info")
 public class SysLogInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
     //日志ID
+    @GeneratedValue
+    @Id
     private Long logId;
 
     //操作模块
@@ -32,7 +37,7 @@ public class SysLogInfo extends BaseEntity {
     private Long logUser;
 
     //原信息
-    private Object logRawMsg;
+    private String logRawMsg;
 
     //请求的Url
     private String logUrl;
@@ -218,7 +223,7 @@ public class SysLogInfo extends BaseEntity {
      *
      * @return logRawMsg 原信息
      */
-    public Object getLogRawMsg() {
+    public String getLogRawMsg() {
         return this.logRawMsg;
     }
 
@@ -227,7 +232,7 @@ public class SysLogInfo extends BaseEntity {
      *
      * @param logRawMsg 原信息
      */
-    public void setLogRawMsg(Object logRawMsg) {
+    public void setLogRawMsg(String logRawMsg) {
         this.logRawMsg = logRawMsg;
     }
 

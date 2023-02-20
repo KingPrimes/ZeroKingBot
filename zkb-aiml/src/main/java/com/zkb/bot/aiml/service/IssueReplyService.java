@@ -16,6 +16,14 @@ public interface IssueReplyService {
 
 
     /**
+     * 根据问题查询回答
+     *
+     * @param issue 问题
+     * @return 回答
+     */
+    List<IssueReply> selectIssueReplyByMsgIssueList(IssueReply issue);
+
+    /**
      * 查询问答列表
      *
      * @param issue 问答

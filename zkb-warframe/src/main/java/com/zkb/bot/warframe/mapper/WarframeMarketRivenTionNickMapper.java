@@ -13,4 +13,8 @@ public interface WarframeMarketRivenTionNickMapper {
     WarframeMarketRivenTionNick selectWarframeMarketRivenTionNickLikeNickEn(String en);
 
     WarframeMarketRivenTionNick selectWarframeMarketRivenTionNickLikeNickCh(String ch);
+
+    List<WarframeMarketRivenTionNick> selectWarframeMarketRivenTionNickList();
+
+    int insertWarframeMarketRivenTionNickLikeNickCh(WarframeMarketRivenTionNick nick);
 }

@@ -38,8 +38,6 @@
         <if test="status != null and status != ''">
             AND status = #{status}
         </if>
-        <!-- 数据范围过滤 -->
-        ${params.dataScope}
     </select>
 
     <select id="selectUserByLoginName" parameterType="String" resultMap="SysUserResult">
@@ -87,22 +85,27 @@
         where user_id = #{userId}
     </update>
 
-    <insert id="insertUser" parameterType="SysUser" useGeneratedKeys="true" keyProperty="userId">
-        insert into sys_user(
-        <if test="userId != null and userId != 0">user_id,</if>
-        <if test="userName != null and userName != ''">user_name,</if>
-		<if test="userType != null and userType != ''">user_type = #{userType},</if>
-        <if test="password != null and password != ''">password,</if>
-        <if test="salt != null and salt != ''">salt,</if>
-        <if test="status != null and status != ''">status,</if>
-        )values(
-        <if test="userId != null and userId != ''">#{userId},</if>
-        <if test="userName != null and userName != ''">#{userName},</if>
-        <if test="userType != null and userType != ''">#{userType},</if>
-        <if test="password != null and password != ''">#{password},</if>
-        <if test="salt != null and salt != ''">#{salt},</if>
-        <if test="status != null and status != ''">#{status},</if>
-        )
+    <insert id="insertUser" parameterType="SysUser" keyProperty="userId">
+        insert into sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null and userId != 0">user_id,</if>
+            <if test="userName != null and userName != ''">user_name,</if>
+            <if test="userType != null and userType != ''">user_type,</if>
+            <if test="password != null and password != ''">password,</if>
+            <if test="salt != null and salt != ''">salt,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="delFlag != null and delFlag != ''">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null and userId != ''">#{userId},</if>
+            <if test="userName != null and userName != ''">#{userName},</if>
+            <if test="userType != null and userType != ''">#{userType},</if>
+            <if test="password != null and password != ''">#{password},</if>
+            <if test="salt != null and salt != ''">#{salt},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="delFlag != null and delFlag != ''">#{delFlag},</if>
+        </trim>
+
     </insert>
 
 </mapper> 

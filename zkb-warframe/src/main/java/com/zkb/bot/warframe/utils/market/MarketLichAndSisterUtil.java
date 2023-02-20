@@ -10,8 +10,9 @@ import com.zkb.bot.utils.ErroSendMessage;
 import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.SelectGroupFunctionOnOff;
 import com.zkb.bot.warframe.dao.MarketLichOrSister;
-import com.zkb.bot.warframe.domain.market.WarframeMarketLichOrSister;
-import com.zkb.bot.warframe.service.IWarframeMarketLichOrSisterService;
+import com.zkb.bot.warframe.domain.market.WarframeMarketLich;
+import com.zkb.bot.warframe.domain.market.WarframeMarketSister;
+import com.zkb.bot.warframe.service.IWarframeMarketLichService;
 import com.zkb.bot.warframe.service.IWarframeMarketSisterService;
 import com.zkb.common.utils.http.HttpUtils;
 import com.zkb.common.utils.ip.GetServerPort;
@@ -111,7 +112,7 @@ public class MarketLichAndSisterUtil {
         try {
 
             //从数据库中查询相匹配的值
-            WarframeMarketLichOrSister lich = SpringUtils.getBean(IWarframeMarketLichOrSisterService.class).selectWarframeMarketLichByItemName(key);
+            WarframeMarketLich lich = SpringUtils.getBean(IWarframeMarketLichService.class).selectWarframeMarketLichByItemName(key);
             MarketLichOrSister marketLich;
             String url;
             //判断是否查询幻纹
@@ -155,7 +156,7 @@ public class MarketLichAndSisterUtil {
      */
     public static MarketLichOrSister getMarketSister(String key) {
         try {
-            WarframeMarketLichOrSister sister = SpringUtils.getBean(IWarframeMarketSisterService.class).selectWarframeMarketSisterByItemName(key);
+            WarframeMarketSister sister = SpringUtils.getBean(IWarframeMarketSisterService.class).selectWarframeMarketSisterByItemName(key);
             MarketLichOrSister marketSister;
             String url;
             //判断是否查询幻纹

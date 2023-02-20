@@ -4,20 +4,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zkb.bot.warframe.mapper.WarframeTypeEnumMapper">
 
-    <resultMap type="com.zkb.bot.warframe.domain.TypeEnum"
+    <resultMap type="com.zkb.bot.warframe.domain.WarframeTypeEnum"
                id="WarframeTypeEnumResult">
+        <result property="id" column="id"/>
         <result property="key" column="key"/>
         <result property="value" column="value"/>
     </resultMap>
 
     <sql id="selectWarframeTypeEnumVo">
         SELECT `key`, `value`
-        FROM wf_type_enum
+        FROM warframe_type_enum
     </sql>
 
     <!--条件查询,无条件则返回所有列表-->
     <select id="selectWarframeTypeEnumList"
-            parameterType="TypeEnum"
+            parameterType="WarframeTypeEnum"
             resultMap="WarframeTypeEnumResult">
         <include refid="selectWarframeTypeEnumVo"/>
         <where>
@@ -32,8 +33,8 @@
 
     <!--添加订阅-->
     <insert id="insertWarframeTypeEnum"
-            parameterType="TypeEnum">
-        INSERT OR IGNORE INTO wf_type_enum
+            parameterType="WarframeTypeEnum">
+        INSERT OR IGNORE INTO warframe_type_enum
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="key != '' and key != null">`key`,</if>
             <if test="value != '' and value != null">`value`,</if>
@@ -45,8 +46,8 @@
     </insert>
 
     <update id="updateWarframeTypeEnum"
-            parameterType="TypeEnum">
-        UPDATE wf_type_enum
+            parameterType="WarframeTypeEnum">
+        UPDATE warframe_type_enum
         <trim prefix="SET" suffixOverrides=",">
             `value` = #{value},
         </trim>
@@ -54,6 +55,6 @@
     </update>
 
     <delete id="daleteWarframeTypeEnum" parameterType="String">
-        DELETE FROM wf_type_enum WHERE `key` = #{key}
+        DELETE FROM warframe_type_enum WHERE `key` = #{key}
     </delete>
 </mapper>

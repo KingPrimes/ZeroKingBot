@@ -1,6 +1,6 @@
 package com.zkb.bot.warframe.mapper;
 
-import com.zkb.bot.warframe.domain.TypeEnum;
+import com.zkb.bot.warframe.domain.WarframeTypeEnum;
 
 import java.util.List;
 
@@ -10,21 +10,21 @@ public interface WarframeTypeEnumMapper {
      * @param typeEnum 条件
      * @return 具体数据
      */
-    List<TypeEnum> selectWarframeTypeEnumList(TypeEnum typeEnum);
+    List<WarframeTypeEnum> selectWarframeTypeEnumList(WarframeTypeEnum typeEnum);
 
     /**
      * 新增
      * @param typeEnum 数据
      * @return 条数
      */
-    int insertWarframeTypeEnum(TypeEnum typeEnum);
+    int insertWarframeTypeEnum(WarframeTypeEnum typeEnum);
 
     /**
      * 修改
      * @param typeEnum 数据
      * @return 条数
      */
-    int updateWarframeTypeEnum(TypeEnum typeEnum);
+    int updateWarframeTypeEnum(WarframeTypeEnum typeEnum);
 
     /**
      * 删除

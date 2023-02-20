@@ -39,11 +39,11 @@
                log_status,
                log_error_msg,
                log_time,log_run_time
-        from sys_log
+        from sys_log_info
     </sql>
 
     <insert id="insertSyslogInfo" parameterType="com.zkb.system.domain.SysLogInfo">
-        insert into sys_log(log_title,
+        insert into sys_log_info(log_title,
                             log_order_type,
                             log_business_type,
                             log_bot,
@@ -100,7 +100,7 @@
     </select>
 
     <delete id="deleteSysLogInfoByIds" parameterType="String">
-        delete from sys_log where log_id in
+        delete from sys_log_info where log_id in
         <foreach collection="array" item="logId" open="(" separator="," close=")">
             #{logId}
         </foreach>
@@ -112,11 +112,11 @@
     </select>
 
     <delete id="deleteAll">
-        delete from sys_log
+        delete from sys_log_info
     </delete>
 
     <delete id="deleteSequen">
-        delete from sqlite_sequence where name = 'sys_log'
+        delete from sqlite_sequence where name = 'sys_log_info'
     </delete>
 
 </mapper> 

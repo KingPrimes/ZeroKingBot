@@ -1,19 +1,27 @@
 package com.zkb.common.core.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zkb.common.core.domain.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
+@Entity
+@Table(name = "sys_user")
 public class SysUser extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**
      * 用户ID
      */
+    @Id
     private Long userId;
 
     /**
@@ -43,8 +51,32 @@ public class SysUser extends BaseEntity {
 
     private String delFlag;
 
+    /** 更新时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updateTime;
+
     public SysUser() {
 
+    }
+
+    public SysUser(Long userId, String userName, String userType, String password, String salt, String status, String delFlag) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userType = userType;
+        this.password = password;
+        this.salt = salt;
+        this.status = status;
+        this.delFlag = delFlag;
+    }
+
+    @Override
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    @Override
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public SysUser(Long userId) {

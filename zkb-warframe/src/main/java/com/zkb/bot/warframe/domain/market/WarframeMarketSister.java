@@ -4,15 +4,22 @@ package com.zkb.bot.warframe.domain.market;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.*;
+
 /**
  * Warframe.Market 上的赤毒武器与信条武器拍卖
  *
  * @author KingPrimes
  * @date 2021-11-24
  */
-public class WarframeMarketLichOrSister {
+@Entity
+@Table(name = "warframe_market_sister",uniqueConstraints = @UniqueConstraint(name = "sister",columnNames = "urlName"))
+public class WarframeMarketSister {
     private static final long serialVersionUID = 1L;
 
+    @GeneratedValue
+    @Id
+    Long ids;
     /**
      * 物品ID
      */
@@ -53,6 +60,14 @@ public class WarframeMarketLichOrSister {
      */
 
     private String element;
+
+    public Long getIds() {
+        return ids;
+    }
+
+    public void setIds(Long ids) {
+        this.ids = ids;
+    }
 
     public String getId() {
         return id;

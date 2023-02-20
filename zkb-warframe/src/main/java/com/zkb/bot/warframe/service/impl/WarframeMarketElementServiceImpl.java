@@ -1,13 +1,23 @@
 package com.zkb.bot.warframe.service.impl;
 
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import com.zkb.bot.enums.GitHubUrlEnum;
+import com.zkb.bot.warframe.domain.WarframeAlias;
 import com.zkb.bot.warframe.domain.market.WarframeMarketElement;
 import com.zkb.bot.warframe.mapper.WarframeMarketElementMapper;
 import com.zkb.bot.warframe.service.IWarframeMarketElementService;
+import com.zkb.common.utils.http.HttpUtils;
+import com.zkb.framework.manager.AsyncManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.TimerTask;
 
 /**
  * WarframeMarketElementService 业务层处理
@@ -17,7 +27,11 @@ import java.util.List;
  * @date 2021-11-29
  */
 @Service
-public class WarframeMarketElementServiceImpl implements IWarframeMarketElementService {
+public class WarframeMarketElementServiceImpl implements IWarframeMarketElementService, CommandLineRunner {
+
+
+    Logger log = LoggerFactory.getLogger(WarframeMarketElementServiceImpl.class);
+
     @Autowired
     private WarframeMarketElementMapper elementMapper;
 
@@ -95,5 +109,36 @@ public class WarframeMarketElementServiceImpl implements IWarframeMarketElementS
     @Override
     public int deleteWarframeMarketElementByElementEn(String elementEn) {
         return elementMapper.deleteWarframeMarketElementByElementEn(elementEn);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        AsyncManager.me().execute(new TimerTask() {
+            /**
+             * The action to be performed by this timer task.
+             */
+            @Override
+            public void run() {
+                log.info("开始初始化Warframe赤毒元素字典数据……");
+                String aliasJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc()+"warframe_market_element.json");
+                if (aliasJson.trim().length() == 0) {
+                    log.error("未获取到赤毒元素字典数据……");
+                    return;
+                }
+                JSONObject alias = JSON.parseObject(aliasJson);
+                List<WarframeMarketElement> records = alias.getJSONArray("RECORDS").toJavaList(WarframeMarketElement.class);
+                if(records.size() != elementMapper.selectWarframeMarketElementList(null).size()){
+                    int x = 0;
+                    for (WarframeMarketElement record : records) {
+                        elementMapper.insertWarframeMarketElement(record);
+                        x++;
+                    }
+                    log.info("共更新Warframe赤毒元素字典 {} 条数据！",x);
+                }else{
+                    log.info("Warframe赤毒元素字典数据未做更改！");
+                }
+            }
+        });
+
     }
 }

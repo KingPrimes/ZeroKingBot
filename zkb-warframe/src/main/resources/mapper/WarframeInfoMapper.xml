@@ -12,7 +12,7 @@
 
     <sql id="selectWarframeInfoVo">
         select info_id, info_why, info_inse
-        from wf_info
+        from warframe_info
     </sql>
 
     <select id="selectWarframeInfoList" parameterType="WarframeInfo" resultMap="WarframeInfoResult">
@@ -30,7 +30,7 @@
     </select>
 
     <insert id="insertWarframeInfo" parameterType="WarframeInfo" useGeneratedKeys="true" keyProperty="aliasId">
-        insert into wf_info
+        insert into warframe_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="infoWhy != null">info_why,</if>
             <if test="infoInse != null">info_inse,</if>
@@ -42,7 +42,7 @@
     </insert>
 
     <update id="updateWarframeInfo" parameterType="WarframeInfo">
-        update wf_info
+        update warframe_info
         <trim prefix="SET" suffixOverrides=",">
             <if test="infoWhy != null">info_why = #{infoWhy},</if>
             <if test="infoInse != null">info_inse = #{infoInse},</if>
@@ -52,12 +52,12 @@
 
     <delete id="deleteWarframeInfoById" parameterType="Long">
         delete
-        from wf_info
+        from warframe_info
         where info_id = #{aliasId}
     </delete>
 
     <delete id="deleteWarframeInfoByIds" parameterType="String">
-        delete from wf_info where info_id in
+        delete from warframe_info where info_id in
         <foreach item="aliasId" collection="array" open="(" separator="," close=")">
             #{aliasId}
         </foreach>

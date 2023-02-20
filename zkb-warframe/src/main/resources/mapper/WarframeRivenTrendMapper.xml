@@ -17,8 +17,8 @@
 
     <sql id="selectWarframeRivenTrendVo">
         select a.*, b.tra_ch
-        from wf_riven_trend as a
-                 LEFT JOIN wf_translation as b on a.riven_trend_name = b.tra_en
+        from warframe_riven_trend as a
+                 LEFT JOIN warframe_translation as b on a.riven_trend_name = b.tra_en
     </sql>
 
     <select id="selectWarframeRivenTrendList" parameterType="WarframeRivenTrend" resultMap="WarframeRivenTrendResult">
@@ -50,7 +50,7 @@
     </select>
     <insert id="insertAndUpDateWarframeRivenTrend" parameterType="WarframeRivenTrend" useGeneratedKeys="true"
             keyProperty="rivenTrendId">
-        REPLACE INTO wf_riven_trend
+        REPLACE INTO warframe_riven_trend
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="rivenTrendName != null">riven_trend_name,</if>
             <if test="rivenTrendOldNum != null">riven_trend_old_num,</if>
@@ -74,7 +74,7 @@
     </insert>
     <insert id="insertWarframeRivenTrend" parameterType="WarframeRivenTrend" useGeneratedKeys="true"
             keyProperty="rivenTrendId">
-        insert OR IGNORE into wf_riven_trend
+        insert OR IGNORE into warframe_riven_trend
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="rivenTrendName != null">riven_trend_name,</if>
             <if test="rivenTrendOldNum != null">riven_trend_old_num,</if>
@@ -92,7 +92,7 @@
     </insert>
 
     <update id="updateWarframeRivenTrend" parameterType="WarframeRivenTrend">
-        update wf_riven_trend
+        update warframe_riven_trend
         <trim prefix="SET" suffixOverrides=",">
             <if test="rivenTrendName != null">riven_trend_name = #{rivenTrendName},</if>
             <if test="rivenTrendOldNum != null">riven_trend_old_num = #{rivenTrendOldNum},</if>
@@ -105,12 +105,12 @@
 
     <delete id="deleteWarframeRivenTrendById" parameterType="Long">
         delete
-        from wf_riven_trend
+        from warframe_riven_trend
         where riven_trend_id = #{rivenTrendId}
     </delete>
 
     <delete id="deleteWarframeRivenTrendByIds" parameterType="String">
-        delete from wf_riven_trend where riven_trend_id in
+        delete from warframe_riven_trend where riven_trend_id in
         <foreach item="rivenTrendId" collection="array" open="(" separator="," close=")">
             #{rivenTrendId}
         </foreach>

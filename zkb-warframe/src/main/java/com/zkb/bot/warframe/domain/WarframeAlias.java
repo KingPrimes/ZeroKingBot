@@ -4,15 +4,20 @@ package com.zkb.bot.warframe.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.*;
+
 /**
  * Warframe Alias
  *
  * @author KingPrimes
  * @date 2021-05-24
  */
+@Entity
+@Table(name = "warframe_alias",uniqueConstraints = @UniqueConstraint(name = "alias",columnNames = "aliasId"))
 public class WarframeAlias {
     private static final long serialVersionUID = 1L;
-
+    @GeneratedValue
+    @Id
     private Integer aliasId;
 
     private String aliasEn;

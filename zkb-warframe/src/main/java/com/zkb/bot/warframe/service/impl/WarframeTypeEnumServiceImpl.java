@@ -1,20 +1,22 @@
 package com.zkb.bot.warframe.service.impl;
 
-import com.zkb.bot.enums.WarframeTypeEnum;
-import com.zkb.bot.warframe.domain.TypeEnum;
+import com.zkb.bot.warframe.domain.WarframeTypeEnum;
 import com.zkb.bot.warframe.mapper.WarframeTypeEnumMapper;
 import com.zkb.bot.warframe.service.IWarframeTypeEnumService;
+import com.zkb.framework.manager.AsyncManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimerTask;
 
 @Service
-public class WarframeTypeEnumServiceImpl implements IWarframeTypeEnumService {
+public class WarframeTypeEnumServiceImpl implements IWarframeTypeEnumService, CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(WarframeTypeEnumServiceImpl.class);
 
@@ -24,17 +26,17 @@ public class WarframeTypeEnumServiceImpl implements IWarframeTypeEnumService {
     //初始化
     public void init(){
         log.info("开始初始化Warframe指令……");
-        List<TypeEnum> tes = typeEnumMapper.selectWarframeTypeEnumList(null);
+        List<WarframeTypeEnum> tes = typeEnumMapper.selectWarframeTypeEnumList(null);
 
-        if(tes==null || tes.size()==0 || tes.size()!=WarframeTypeEnum.values().length){
+        if(tes==null || tes.size()==0 || tes.size()!= com.zkb.bot.enums.WarframeTypeEnum.values().length){
            if(tes!=null){
                Map<String,String> initMap = new HashMap<>();
                Map<String,String> sqlMap = new HashMap<>();
 
-               for (WarframeTypeEnum value : WarframeTypeEnum.values()) {
+               for (com.zkb.bot.enums.WarframeTypeEnum value : com.zkb.bot.enums.WarframeTypeEnum.values()) {
                    initMap.put(value.name(), value.getType());
                }
-               for (TypeEnum te : tes) {
+               for (WarframeTypeEnum te : tes) {
                    sqlMap.put(te.getKey(),te.getValue());
                }
 
@@ -53,19 +55,19 @@ public class WarframeTypeEnumServiceImpl implements IWarframeTypeEnumService {
                });
            }
 
-            for(WarframeTypeEnum key:WarframeTypeEnum.values()){
-                if(WarframeTypeEnum.valueOf(key.name()).getType()!=null && WarframeTypeEnum.valueOf(key.name()).getType().trim().length()!=0 && !key.name().equals("REDIS_MISSION_KEY")){
-                   TypeEnum typeEnum = new TypeEnum();
+            for(com.zkb.bot.enums.WarframeTypeEnum key: com.zkb.bot.enums.WarframeTypeEnum.values()){
+                if(com.zkb.bot.enums.WarframeTypeEnum.valueOf(key.name()).getType()!=null && com.zkb.bot.enums.WarframeTypeEnum.valueOf(key.name()).getType().trim().length()!=0 && !key.name().equals("REDIS_MISSION_KEY")){
+                   WarframeTypeEnum typeEnum = new WarframeTypeEnum();
                    typeEnum.setKey(key.name());
                    typeEnum.setValue(key.getType());
                    typeEnumMapper.insertWarframeTypeEnum(typeEnum);
                 }
             }
         }else{
-            for(WarframeTypeEnum keyEnum: WarframeTypeEnum.values()){
-                for(TypeEnum typeEnum:tes){
-                    if(keyEnum.name().equals(typeEnum.getKey())){
-                        keyEnum.setType(typeEnum.getValue());
+            for(com.zkb.bot.enums.WarframeTypeEnum keyEnum: com.zkb.bot.enums.WarframeTypeEnum.values()){
+                for(WarframeTypeEnum warframeTypeEnum :tes){
+                    if(keyEnum.name().equals(warframeTypeEnum.getKey())){
+                        keyEnum.setType(warframeTypeEnum.getValue());
                         break;
                     }
                 }
@@ -77,28 +79,28 @@ public class WarframeTypeEnumServiceImpl implements IWarframeTypeEnumService {
     /**
      * 修改
      *
-     * @param typeEnum 数据
+     * @param warframeTypeEnum 数据
      * @return 条数
      */
     @Override
-    public int updateWarframeTypeEnum(TypeEnum typeEnum) {
+    public int updateWarframeTypeEnum(WarframeTypeEnum warframeTypeEnum) {
 
-        for (WarframeTypeEnum value : WarframeTypeEnum.values()) {
-            if(value.name().equals(typeEnum.getKey())){
-                value.setType(typeEnum.getValue());
+        for (com.zkb.bot.enums.WarframeTypeEnum value : com.zkb.bot.enums.WarframeTypeEnum.values()) {
+            if(value.name().equals(warframeTypeEnum.getKey())){
+                value.setType(warframeTypeEnum.getValue());
             }
         }
-        return typeEnumMapper.updateWarframeTypeEnum(typeEnum);
+        return typeEnumMapper.updateWarframeTypeEnum(warframeTypeEnum);
     }
 
     /**
      * 条件查询
-     * @param typeEnum 条件
+     * @param warframeTypeEnum 条件
      * @return 具体数据
      */
     @Override
-    public List<TypeEnum> selectWarframeTypeEnumList(TypeEnum typeEnum) {
-        return typeEnumMapper.selectWarframeTypeEnumList(typeEnum);
+    public List<WarframeTypeEnum> selectWarframeTypeEnumList(WarframeTypeEnum warframeTypeEnum) {
+        return typeEnumMapper.selectWarframeTypeEnumList(warframeTypeEnum);
     }
 
     /**
@@ -110,5 +112,15 @@ public class WarframeTypeEnumServiceImpl implements IWarframeTypeEnumService {
     @Override
     public int daleteWarframeTypeEnum(String key) {
         return typeEnumMapper.daleteWarframeTypeEnum(key);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        AsyncManager.me().execute(new TimerTask() {
+            @Override
+            public void run() {
+                init();
+            }
+        });
     }
 }
