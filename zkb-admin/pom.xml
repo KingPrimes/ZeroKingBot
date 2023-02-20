@@ -110,6 +110,7 @@
                     <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
                     <!--将本地Jar包导出项目最终依赖库中-->
                     <includeSystemScope>true</includeSystemScope>
+                    <mainClass>com.zkb.ZeroKingBotApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
