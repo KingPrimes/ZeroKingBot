@@ -35,4 +35,5 @@ testJson
 *.rdb
 Redis/
 renew-riven-disposition.jpg
+/db
 
