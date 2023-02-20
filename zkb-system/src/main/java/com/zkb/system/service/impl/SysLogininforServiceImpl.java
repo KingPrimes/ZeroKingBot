@@ -64,6 +64,6 @@ public class SysLogininforServiceImpl implements ISysLogininforService
     public void cleanLogininfor()
     {
         logininforMapper.deleteAll();
-        logininforMapper.deleteSequen();
+        //logininforMapper.deleteSequen();
     }
 }

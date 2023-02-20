@@ -2,15 +2,12 @@ package com.zkb.bot.warframe.controller.market;
 
 import com.zkb.bot.enums.WarframeEnum;
 import com.zkb.bot.warframe.dao.MarketLichOrSister;
-import com.zkb.bot.warframe.service.IWarframeMarketLichOrSisterService;
-import com.zkb.bot.warframe.service.IWarframeMarketSisterService;
 import com.zkb.bot.warframe.utils.HtmlToImage;
 import com.zkb.bot.warframe.utils.market.MarketLichAndSisterUtil;
 import com.zkb.common.annotation.LogInfo;
 import com.zkb.common.enums.BusinessType;
 import com.zkb.common.enums.TitleType;
 import com.zkb.common.utils.spring.SpringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,10 +26,6 @@ import java.net.URLDecoder;
 @RequestMapping("/warframe/market")
 public class MarektLichAndSisterImageController {
 
-    @Autowired
-    IWarframeMarketLichOrSisterService lichService;
-    @Autowired
-    IWarframeMarketSisterService sisterService;
 
     @LogInfo(title = TitleType.Warframe,orderType = "赤毒/信条 武器查询",businessType = BusinessType.SELECT)
     @GetMapping(value = "/{uuid}/getLichOrSisterImage/{key}/{type}/{bot}/{user}/{group}/{rawMsg}", produces = MediaType.IMAGE_PNG_VALUE)

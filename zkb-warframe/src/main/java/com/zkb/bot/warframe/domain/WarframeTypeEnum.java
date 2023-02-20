@@ -3,21 +3,30 @@ package com.zkb.bot.warframe.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class TypeEnum {
+import javax.persistence.*;
+
+@Entity
+@Table(name = "warframe_type_enum",uniqueConstraints = @UniqueConstraint(name = "enum",columnNames = "key"))
+public class WarframeTypeEnum {
+
+    @GeneratedValue
+    @Id
+    Long id;
+
     //Key
     String key;
     //Value
     String value;
 
-    public TypeEnum() {
+    public WarframeTypeEnum() {
     }
 
-    public TypeEnum(String key, String value) {
+    public WarframeTypeEnum(String key, String value) {
         this.key = key;
         this.value = value;
     }
 
-    public TypeEnum(String key) {
+    public WarframeTypeEnum(String key) {
         this.key = key;
     }
 
@@ -27,6 +36,14 @@ public class TypeEnum {
                 .append("key", key)
                 .append("value", value)
                 .toString();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**

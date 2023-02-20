@@ -12,7 +12,7 @@
         <label class="col-sm-3 control-label">问题：</label>
         <div class="col-sm-8">
           <div class="input-group">
-            <input class="form-control" type="text" id="msgIssue" name="msgIssue" th:field="*{msgIssue}">
+            <textarea class="summernote" type="text" id="msgIssue" name="msgIssue" th:field="*{msgIssue}"></textarea>
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@
         <label class="col-sm-3 control-label">文字回答：</label>
         <div class="col-sm-8">
           <div class="input-group">
-            <input class="form-control" type="text" id="msgReply" name="msgReply" th:field="*{msgReply}" >
+            <textarea class="summernote" type="text" id="msgReply" name="msgReply" th:field="*{msgReply}" ></textarea>
           </div>
         </div>
       </div>
@@ -90,7 +90,7 @@
 
   function submitHandler() {
     if ($.validate.form()) {
-      $.operate.save(prefix + "/edit", $('#form-ir-edit').serialize());
+      $.operate.save(prefix + "/update", $('#form-ir-edit').serialize());
     }
   }
 

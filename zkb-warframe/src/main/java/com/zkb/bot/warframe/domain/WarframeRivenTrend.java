@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.*;
+
 /**
  * 紫卡倾向
  *
@@ -15,8 +17,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 @Data
 @EqualsAndHashCode(of = {"rivenTrendName", "rivenTrendOldNum", "rivenTrendNewNum"})
+@Entity
+@Table(name = "warframe_riven_trend",uniqueConstraints = @UniqueConstraint(name = "trend",columnNames = "rivenTrendName"))
 public class WarframeRivenTrend {
 
+    @GeneratedValue
+    @Id
     private Long rivenTrendId;
 
     /**
@@ -44,11 +50,13 @@ public class WarframeRivenTrend {
      */
     private String rivenTrendNewDot;
 
+    @Transient
     private String traCh;
 
     /**
      * 此次更新得时间
      */
+    @Transient
     private String isDate;
 
 

@@ -13,8 +13,8 @@
 
 
     <sql id="selectWarframeMarketItemsVo">
-        select item_id, item_name, url_name, item_thumb, length(url_name) as le
-        from wf_market_items
+        select id, item_name, url_name, thumb, length(url_name) as le
+        from warframe_market_items
     </sql>
 
     <select id="selectWarframeMarketItemsList" parameterType="WarframeMarketItems"
@@ -54,7 +54,7 @@
 
     <select id="selectWarframeMarketItemsById" parameterType="String" resultMap="WarframeMarketItemsResult">
         <include refid="selectWarframeMarketItemsVo"/>
-        where item_id = #{id}
+        where id = #{id}
     </select>
 
     <select id="selectWarframeMarketItemsByItemNameList" parameterType="String" resultMap="WarframeMarketItemsResult">
@@ -64,8 +64,8 @@
     </select>
 
     <insert id="insertWarframeMarketItems" parameterType="java.util.List">
-        insert OR IGNORE into wf_market_items
-        (item_id,item_name, url_name,item_thumb)
+        insert OR IGNORE into warframe_market_items
+        (id,item_name, url_name,thumb)
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (

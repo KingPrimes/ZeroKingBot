@@ -12,7 +12,7 @@
 
     <sql id="selectWarframeAliasVo">
         select alias_id, alias_en, alias_ch
-        from wf_alias
+        from warframe_alias
     </sql>
 
     <select id="selectWarframeAliasList" parameterType="WarframeAlias" resultMap="WarframeAliasResult">
@@ -30,7 +30,7 @@
     </select>
 
     <insert id="insertWarframeAlias" parameterType="WarframeAlias" useGeneratedKeys="true" keyProperty="aliasId">
-        insert into wf_alias
+        insert into warframe_alias
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="aliasEn != null">alias_en,</if>
             <if test="aliasCh != null">alias_ch,</if>
@@ -42,7 +42,7 @@
     </insert>
 
     <update id="updateWarframeAlias" parameterType="WarframeAlias">
-        update wf_alias
+        update warframe_alias
         <trim prefix="SET" suffixOverrides=",">
             <if test="aliasEn != null">alias_en = #{aliasEn},</if>
             <if test="aliasCh != null">alias_ch = #{aliasCh},</if>
@@ -52,12 +52,12 @@
 
     <delete id="deleteWarframeAliasById" parameterType="Integer">
         delete
-        from wf_alias
+        from warframe_alias
         where alias_id = #{aliasId}
     </delete>
 
     <delete id="deleteWarframeAliasByIds" parameterType="String">
-        delete from wf_alias where alias_id in
+        delete from warframe_alias where alias_id in
         <foreach item="aliasId" collection="array" open="(" separator="," close=")">
             #{aliasId}
         </foreach>

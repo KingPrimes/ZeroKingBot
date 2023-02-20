@@ -4,10 +4,19 @@ package com.zkb.bot.warframe.domain.subscribe;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.*;
+
 /**
  * @description: 用户与群组的订阅 实体类
  */
+@Entity
+@Table(name = "warframe_mission_subscribe")
 public class WarframeMissionSubscribe {
+
+    @GeneratedValue
+    @Id
+    Long ids;
+
     //群组
     Long subscribeGroup;
     //用户
@@ -15,14 +24,14 @@ public class WarframeMissionSubscribe {
     //订阅内容
     Integer subscribeMissionId;
     //Bot Id
-    Long subscriberBot;
+    Long subscribeBot;
 
     public WarframeMissionSubscribe() {
     }
 
     public WarframeMissionSubscribe(WarframeMissionSubscribe subscribe) {
         this.subscribeGroup = subscribe.getSubscribeGroup();
-        this.subscriberBot = subscribe.getSubscriberBot();
+        this.subscribeBot = subscribe.getSubscriberBot();
         this.subscribeUser = subscribe.getSubscribeUser();
         this.subscribeMissionId = subscribe.getSubscribeMissionId();
 
@@ -32,7 +41,15 @@ public class WarframeMissionSubscribe {
         this.subscribeGroup = subscribeGroup;
         this.subscribeUser = subscribeUser;
         this.subscribeMissionId = subscribeMissionId;
-        this.subscriberBot = subscriberBot;
+        this.subscribeBot = subscriberBot;
+    }
+
+    public Long getIds() {
+        return ids;
+    }
+
+    public void setIds(Long ids) {
+        this.ids = ids;
     }
 
     public Long getSubscribeGroup() {
@@ -60,11 +77,11 @@ public class WarframeMissionSubscribe {
     }
 
     public Long getSubscriberBot() {
-        return subscriberBot;
+        return subscribeBot;
     }
 
     public void setSubscriberBot(Long subscriberBot) {
-        this.subscriberBot = subscriberBot;
+        this.subscribeBot = subscriberBot;
     }
 
     @Override
@@ -73,7 +90,7 @@ public class WarframeMissionSubscribe {
                 .append("subscribeGroup", subscribeGroup)
                 .append("subscribeUser", subscribeUser)
                 .append("subscribeMissionId", subscribeMissionId)
-                .append("subscriberBot", subscriberBot)
+                .append("subscriberBot", subscribeBot)
                 .toString();
     }
 }

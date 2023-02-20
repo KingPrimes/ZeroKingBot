@@ -141,11 +141,7 @@ public class AsyncFactory
                 {
                     logininfor.setStatus(Constants.FAIL);
                 }
-                //不是本地登录则记录登录地址
-                if(!IpUtils.isHost()){
-                    // 插入数据
-                    SpringUtils.getBean(SysLogininforServiceImpl.class).insertLogininfor(logininfor);
-                }
+                SpringUtils.getBean(SysLogininforServiceImpl.class).insertLogininfor(logininfor);
             }
         };
     }

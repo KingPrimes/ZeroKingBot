@@ -1,7 +1,7 @@
 package com.zkb.bot.warframe.mapper;
 
 
-import com.zkb.bot.warframe.domain.market.WarframeMarketLichOrSister;
+import com.zkb.bot.warframe.domain.market.WarframeMarketSister;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface WarframeMarketSisterMapper {
      * @param sister 条件
      * @return 结果集
      */
-    List<WarframeMarketLichOrSister> selectWarframeMarketSisterList(WarframeMarketLichOrSister sister);
+    List<WarframeMarketSister> selectWarframeMarketSisterList(WarframeMarketSister sister);
 
 
     /**
@@ -21,7 +21,7 @@ public interface WarframeMarketSisterMapper {
      * @param name 物品名称
      * @return 实体类
      */
-    WarframeMarketLichOrSister selectWarframeMarketSisterByItemName(String name);
+    WarframeMarketSister selectWarframeMarketSisterByItemName(String name);
 
 
     /**
@@ -30,7 +30,7 @@ public interface WarframeMarketSisterMapper {
      * @param id id
      * @return 结果
      */
-    WarframeMarketLichOrSister selectWarframeMarketSisterById(String id);
+    WarframeMarketSister selectWarframeMarketSisterById(String id);
 
     /**
      * 根据元素查出详细内容
@@ -38,7 +38,7 @@ public interface WarframeMarketSisterMapper {
      * @param element 元素名称
      * @return 实体类
      */
-    WarframeMarketLichOrSister selectWarframeMarketSisterByElement(String element);
+    WarframeMarketSister selectWarframeMarketSisterByElement(String element);
 
     /**
      * 根据Url地址查询详细内容
@@ -46,7 +46,7 @@ public interface WarframeMarketSisterMapper {
      * @param urlName Url地址
      * @return 实体类
      */
-    WarframeMarketLichOrSister selectWarframeMarketSisterByUrlName(String urlName);
+    WarframeMarketSister selectWarframeMarketSisterByUrlName(String urlName);
 
     /**
      * 新增
@@ -54,7 +54,7 @@ public interface WarframeMarketSisterMapper {
      * @param sister 数据
      * @return 影响行数
      */
-    int insertWarframeMarketSister(WarframeMarketLichOrSister sister);
+    int insertWarframeMarketSister(WarframeMarketSister sister);
 
     /**
      * 修改
@@ -62,7 +62,7 @@ public interface WarframeMarketSisterMapper {
      * @param sister 数据
      * @return 影响行数
      */
-    int updateWarframeMarketSister(WarframeMarketLichOrSister sister);
+    int updateWarframeMarketSister(WarframeMarketSister sister);
 
     int deleteWarframeMarketSisterById(String id);
 

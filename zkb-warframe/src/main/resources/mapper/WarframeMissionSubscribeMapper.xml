@@ -8,13 +8,13 @@
                id="WarframeMissionSubscribeResult">
         <result property="subscribeGroup" column="subscribe_group"/>
         <result property="subscribeUser" column="subscribe_user"/>
-        <result property="subscriberBot" column="subscribe_bot"/>
+        <result property="subscribeBot" column="subscribe_bot"/>
         <result property="subscribeMissionId" column="subscribe_mission_id"/>
     </resultMap>
 
     <sql id="selectWarframeMissionSubscribeVo">
         SELECT subscribe_group, subscribe_user, subscribe_bot, subscribe_mission_id
-        FROM wf_subscribe
+        FROM warframe_mission_subscribe
     </sql>
 
     <!--条件查询,无条件则返回所有列表-->
@@ -41,7 +41,7 @@
     <!--添加订阅-->
     <insert id="insertWarframeMissionSubscribe"
             parameterType="com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe">
-        INSERT OR IGNORE INTO wf_subscribe
+        INSERT OR IGNORE INTO warframe_mission_subscribe
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="subscribeGroup != 0 and subscribeGroup != null">subscribe_group,</if>
             <if test="subscribeUser != '' and subscribeUser != null">subscribe_user,</if>
@@ -58,7 +58,7 @@
 
     <update id="updateWarframeMissionSubscribe"
             parameterType="com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe">
-        UPDATE wf_subscribe
+        UPDATE warframe_mission_subscribe
         <trim prefix="SET" suffixOverrides=",">
             subscribe_user = #{subscribeUser},
         </trim>
@@ -71,7 +71,7 @@
     <!--移除订阅-->
     <delete id="deleteWarframeMissionSubscribe"
             parameterType="com.zkb.bot.warframe.domain.subscribe.WarframeMissionSubscribe">
-        DELETE FROM wf_subscribe WHERE subscribe_group = #{subscribeGroup} AND
+        DELETE FROM warframe_mission_subscribe WHERE subscribe_group = #{subscribeGroup} AND
         subscribe_mission_id = #{subscribeMissionId}
         <if test="subscriberBot != 0 and subscriberBot != null">
             AND subscribe_bot = #{subscriberBot}

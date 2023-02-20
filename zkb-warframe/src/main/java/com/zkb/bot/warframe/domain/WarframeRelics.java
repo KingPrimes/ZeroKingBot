@@ -4,14 +4,19 @@ package com.zkb.bot.warframe.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * @author KingPrimes
  * @date 2021-05-26
  */
+@Entity
+@Table(name = "warframe_relics")
 public class WarframeRelics {
 
+    @GeneratedValue
+    @Id
     private Integer relicsKeyId;
     /**
      * 遗物ID
@@ -26,6 +31,7 @@ public class WarframeRelics {
     /**
      * 纪元
      */
+    @Transient //忽略该字段，该字段不会用于创建表格
     private String relicsTierD;
 
     /**
@@ -58,9 +64,12 @@ public class WarframeRelics {
      */
     private String relicsItemChance;
 
+    @Transient
     private String traCh;
 
+    @Transient
     private List<String> items;
+
 
     public WarframeRelics() {
     }
@@ -79,8 +88,7 @@ public class WarframeRelics {
         this.traCh = relics.traCh;
     }
 
-    public WarframeRelics(Integer relicsKeyId, String relicsId, String relicsTier, String relicsName, String relicsState, String relicsItemId, String relicsItemName, String relicsItemRarity, String relicsItemChance, String traCh) {
-        this.relicsKeyId = relicsKeyId;
+    public WarframeRelics( String relicsId, String relicsTier, String relicsName, String relicsState, String relicsItemId, String relicsItemName, String relicsItemRarity, String relicsItemChance) {
         this.relicsId = relicsId;
         this.relicsTier = relicsTier;
         this.relicsName = relicsName;
@@ -89,7 +97,14 @@ public class WarframeRelics {
         this.relicsItemName = relicsItemName;
         this.relicsItemRarity = relicsItemRarity;
         this.relicsItemChance = relicsItemChance;
-        this.traCh = traCh;
+    }
+
+    public List<String> getItems() {
+        return items;
+    }
+
+    public void setItems(List<String> items) {
+        this.items = items;
     }
 
     /**
@@ -270,14 +285,6 @@ public class WarframeRelics {
      */
     public void setTraCh(String traCh) {
         this.traCh = traCh;
-    }
-
-    public List<String> getItems() {
-        return items;
-    }
-
-    public void setItems(List<String> items) {
-        this.items = items;
     }
 
     @Override

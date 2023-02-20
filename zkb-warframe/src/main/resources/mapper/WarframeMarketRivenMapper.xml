@@ -25,7 +25,7 @@
                item_name,
                icon,
                length(item_name) as le
-        from wf_market_riven
+        from warframe_market_riven
     </sql>
 
     <select id="selectWarframeMarketRivenList" parameterType="WarframeMarketRiven"
@@ -48,7 +48,7 @@
     </select>
 
     <insert id="insertWarframeMarketRiven" parameterType="java.util.List">
-        insert OR IGNORE into wf_market_riven
+        insert OR IGNORE into warframe_market_riven
         (thumb,riven_type,`group`,id,icon_format,url_name,item_name,icon)
         values
         <foreach collection="list" item="item" index="index" separator=",">

@@ -79,6 +79,11 @@ public class BotAdminsServerImpl implements BotAdminsServer {
      */
     @Override
     public boolean checkIsAdmin(BotAdmins admins, boolean t) {
+        List<BotAdmins> botAdmins = adminsMapper.selectBotAdminsList(admins);
+        if (botAdmins.size()<=0){
+            return false;
+        }
+
         //查询匹配的管理员列表
         BotAdmins admin = adminsMapper.selectBotAdminsList(admins).get(0);
         //判断用户是否时管理员

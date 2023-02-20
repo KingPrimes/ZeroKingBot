@@ -1,6 +1,6 @@
 package com.zkb.bot.warframe.service;
 
-import com.zkb.bot.warframe.domain.TypeEnum;
+import com.zkb.bot.warframe.domain.WarframeTypeEnum;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public interface IWarframeTypeEnumService {
      * @param typeEnum 数据
      * @return 条数
      */
-    int updateWarframeTypeEnum(TypeEnum typeEnum);
+    int updateWarframeTypeEnum(WarframeTypeEnum typeEnum);
 
 
     /**
@@ -18,7 +18,7 @@ public interface IWarframeTypeEnumService {
      * @param typeEnum 条件
      * @return 具体数据
      */
-    List<TypeEnum> selectWarframeTypeEnumList(TypeEnum typeEnum);
+    List<WarframeTypeEnum> selectWarframeTypeEnumList(WarframeTypeEnum typeEnum);
 
 
     /**

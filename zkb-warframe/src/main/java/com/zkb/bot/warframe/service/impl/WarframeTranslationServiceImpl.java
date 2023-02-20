@@ -1,15 +1,25 @@
 package com.zkb.bot.warframe.service.impl;
 
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import com.google.common.collect.Lists;
+import com.zkb.bot.enums.GitHubUrlEnum;
 import com.zkb.bot.warframe.domain.WarframeTranslation;
 import com.zkb.bot.warframe.mapper.WarframeTranslationMapper;
 import com.zkb.bot.warframe.service.IWarframeTranslationService;
+import com.zkb.common.utils.http.HttpUtils;
+import com.zkb.framework.manager.AsyncManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.TimerTask;
 
 /**
  * WarframeTranslationService业务层处理
@@ -19,7 +29,10 @@ import java.util.List;
  * @date 2021-05-24
  */
 @Service
-public class WarframeTranslationServiceImpl implements IWarframeTranslationService {
+public class WarframeTranslationServiceImpl implements IWarframeTranslationService, CommandLineRunner {
+
+    Logger log = LoggerFactory.getLogger(WarframeRivenTrendServiceImpl.class);
+
     @Autowired
     private WarframeTranslationMapper warframeTranslationMapper;
 
@@ -44,7 +57,7 @@ public class WarframeTranslationServiceImpl implements IWarframeTranslationServi
     public String enToZh(String us_en) {
         try {
             String traCh = warframeTranslationMapper.enToZh(us_en);
-            if (traCh == null || traCh.equals("")) {
+            if (traCh == null || traCh.trim().length() == 0) {
                 return us_en;
             }
             return traCh;
@@ -210,5 +223,30 @@ public class WarframeTranslationServiceImpl implements IWarframeTranslationServi
     @Override
     public int deleteWarframeTranslationById(Long traId) {
         return warframeTranslationMapper.deleteWarframeTranslationById(traId);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        AsyncManager.me().execute(new TimerTask() {
+            @Override
+            public void run() {
+                log.info("开始初始化Warframe中英翻译表数据……");
+                String tarJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc()+"warframe_translation.json");
+                if (tarJson.trim().length() == 0) {
+                    log.error("未获取到中英翻译数据……");
+                    return;
+                }
+                JSONObject alias = JSON.parseObject(tarJson);
+                List<WarframeTranslation> trasList = alias.getJSONArray("RECORDS").toJavaList(WarframeTranslation.class);
+                if(trasList.size() != warframeTranslationMapper.selectWarframeTranslationList(null).size()){
+                    List<List<WarframeTranslation>> partition = Lists.partition(trasList, 500);
+                    for (List<WarframeTranslation> tar : partition) {
+                        warframeTranslationMapper.insertWarframeTranslationList(tar);
+                    }
+                    log.info("Warframe中英翻译表数据初始化完毕！");
+                }
+            }
+        });
+
     }
 }

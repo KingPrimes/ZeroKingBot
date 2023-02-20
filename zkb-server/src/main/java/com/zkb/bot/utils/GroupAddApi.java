@@ -38,7 +38,12 @@ public class GroupAddApi {
      * @return true 是管理员或群主
      */
     public static boolean isAdmin(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
-        String role = bot.getGroupMemberInfo(event.getGroupId(), event.getUserId(), true).getData().getRole();
+        String role;
+        try{
+            role = bot.getGroupMemberInfo(event.getGroupId(), event.getUserId(), true).getData().getRole();
+        }catch (Exception e){
+            return false;
+        }
         if (role == null || role.length() == 0) {
             return false;
         }

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zkb.bot.warframe.mapper.WarframeMarketSisterMapper">
 
-    <resultMap type="WarframeMarketLichOrSister" id="WarframeMarketSisterResult">
+    <resultMap type="WarframeMarketSister" id="WarframeMarketSisterResult">
         <result property="id" column="sister_id"/>
         <result property="itemName" column="sister_item_name"/>
         <result property="urlName" column="sister_url_name"/>
@@ -15,60 +15,54 @@
     </resultMap>
 
     <sql id="selectWarframeMarketSisterVo">
-        select sister_id,
-               sister_item_name,
-               sister_url_name,
-               sister_icon_format,
-               sister_thumb,
-               sister_icon,
-               sister_element
-        from wf_market_sister
+        select id, item_name, url_name, icon_format, thumb, icon, element
+        from warframe_market_sister
     </sql>
 
-    <select id="selectWarframeMarketSisterList" parameterType="WarframeMarketLichOrSister"
+    <select id="selectWarframeMarketSisterList" parameterType="WarframeMarketSister"
             resultMap="WarframeMarketSisterResult">
         <include refid="selectWarframeMarketSisterVo"/>
         <where>
-            <if test="itemName != null  and itemName != ''">and sister_item_name like '%'||#{itemName}||'%'</if>
-            <if test="urlName != null  and urlName != ''">and sister_url_name like '%'||#{urlName}||'%'</if>
-            <if test="iconFormat != null  and iconFormat != ''">and sister_icon_format = #{iconFormat}</if>
-            <if test="thumb != null  and thumb != ''">and sister_thumb = #{thumb}</if>
-            <if test="icon != null  and icon != ''">and sister_icon = #{icon}</if>
-            <if test="element != null  and element != ''">and sister_element = #{element}</if>
+            <if test="itemName != null  and itemName != ''">and item_name like '%'||#{itemName}||'%'</if>
+            <if test="urlName != null  and urlName != ''">and url_name like '%'||#{urlName}||'%'</if>
+            <if test="iconFormat != null  and iconFormat != ''">and icon_format = #{iconFormat}</if>
+            <if test="thumb != null  and thumb != ''">and thumb = #{thumb}</if>
+            <if test="icon != null  and icon != ''">and icon = #{icon}</if>
+            <if test="element != null  and element != ''">and element = #{element}</if>
         </where>
     </select>
 
     <select id="selectWarframeMarketSisterByItemName" parameterType="String" resultMap="WarframeMarketSisterResult">
         <include refid="selectWarframeMarketSisterVo"/>
-        where sister_item_name like '%'||#{itemName}||'%'
+        where item_name like '%'||#{itemName}||'%'
         limit 1
     </select>
 
     <select id="selectWarframeMarketSisterByElement" parameterType="String" resultMap="WarframeMarketSisterResult">
         <include refid="selectWarframeMarketSisterVo"/>
-        where sister_element like '%'||#{element}||'%'
+        where element like '%'||#{element}||'%'
     </select>
 
     <select id="selectWarframeMarketSisterByUrlName" parameterType="String" resultMap="WarframeMarketSisterResult">
         <include refid="selectWarframeMarketSisterVo"/>
-        where sister_url_name like '%'||#{urlName}||'%'
+        where url_name like '%'||#{urlName}||'%'
     </select>
 
     <select id="selectWarframeMarketSisterById" parameterType="String" resultMap="WarframeMarketSisterResult">
         <include refid="selectWarframeMarketSisterVo"/>
-        where sister_id = #{id}
+        where id = #{id}
     </select>
 
-    <insert id="insertWarframeMarketSister" parameterType="WarframeMarketLichOrSister">
-        insert OR IGNORE into wf_market_sister
+    <insert id="insertWarframeMarketSister" parameterType="WarframeMarketSister">
+        insert into warframe_market_sister
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">sister_id,</if>
-            <if test="itemName != null">sister_item_name,</if>
-            <if test="urlName != null">sister_url_name,</if>
-            <if test="iconFormat != null">sister_icon_format,</if>
-            <if test="thumb != null">sister_thumb,</if>
-            <if test="icon != null">sister_icon,</if>
-            <if test="element != null">sister_element,</if>
+            <if test="id != null">id,</if>
+            <if test="itemName != null">item_name,</if>
+            <if test="urlName != null">url_name,</if>
+            <if test="iconFormat != null">icon_format,</if>
+            <if test="thumb != null">thumb,</if>
+            <if test="icon != null">icon,</if>
+            <if test="element != null">element,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">#{id},</if>
@@ -81,27 +75,27 @@
         </trim>
     </insert>
 
-    <update id="updateWarframeMarketSister" parameterType="WarframeMarketLichOrSister">
-        update wf_market_sister
+    <update id="updateWarframeMarketSister" parameterType="WarframeMarketSister">
+        update warframe_market_sister
         <trim prefix="SET" suffixOverrides=",">
-            <if test="itemName != null">sister_item_name = #{itemName},</if>
-            <if test="urlName != null">sister_url_name = #{urlName},</if>
-            <if test="iconFormat != null">sister_icon_format = #{iconFormat},</if>
-            <if test="thumb != null">sister_thumb = #{thumb},</if>
-            <if test="icon != null">sister_icon = #{icon},</if>
-            <if test="element != null">sister_element = #{element},</if>
+            <if test="itemName != null">item_name = #{itemName},</if>
+            <if test="urlName != null">url_name = #{urlName},</if>
+            <if test="iconFormat != null">icon_format = #{iconFormat},</if>
+            <if test="thumb != null">thumb = #{thumb},</if>
+            <if test="icon != null">icon = #{icon},</if>
+            <if test="element != null">element = #{element},</if>
         </trim>
-        where sister_id = #{id}
+        where id = #{id}
     </update>
 
     <delete id="deleteWarframeMarketSisterById" parameterType="String">
         delete
-        from wf_market_sister
-        where sister_id = #{id}
+        from warframe_market_sister
+        where id = #{id}
     </delete>
 
     <delete id="deleteWarframeMarketSisterByIds" parameterType="String">
-        delete from wf_market_sister where sister_id in
+        delete from warframe_market_sister where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

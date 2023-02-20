@@ -67,7 +67,6 @@ public class DataTask {
             for (int j = 0; j < rewards.size(); j++) {
                 JSONObject r = rewards.getJSONObject(j);
                 relics.add(new WarframeRelics(
-                        0,
                         jrelic.getString("_id"),
                         jrelic.getString("tier"),
                         jrelic.getString("relicName"),
@@ -75,8 +74,7 @@ public class DataTask {
                         r.getString("_id"),
                         r.getString("itemName"),
                         r.getString("rarity"),
-                        r.getString("chance"),
-                        ""
+                        r.getString("chance")
                 ));
             }
         }

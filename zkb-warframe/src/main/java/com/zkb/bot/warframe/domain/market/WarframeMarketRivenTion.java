@@ -3,15 +3,24 @@ package com.zkb.bot.warframe.domain.market;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.*;
+
 /**
  * Warframe.Market紫卡词条
  *
  * @author KingPrimes
  * @className WarframeMarketRivenTion
  */
+@Entity
+@Table(name = "warframe_market_riven_tion")
 public class WarframeMarketRivenTion {
+
+    @GeneratedValue
+    @Id
+    Long ids;
     String effect;
     String exclusiveTo;
+    @Column(name = "`group`")
     String group;
     Boolean negativeOnly;
     Boolean positiveIsNegative;
@@ -20,6 +29,14 @@ public class WarframeMarketRivenTion {
     String suffix;
     String units;
     String urlName;
+
+    public Long getIds() {
+        return ids;
+    }
+
+    public void setIds(Long ids) {
+        this.ids = ids;
+    }
 
     public String getEffect() {
         return effect;

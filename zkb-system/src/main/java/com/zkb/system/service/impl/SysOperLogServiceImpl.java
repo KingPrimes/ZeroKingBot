@@ -75,6 +75,6 @@ public class SysOperLogServiceImpl implements ISysOperLogService
     public void cleanOperLog()
     {
         operLogMapper.deleteAll();
-        operLogMapper.deleteSequen();
+        //operLogMapper.deleteSequen();
     }
 }

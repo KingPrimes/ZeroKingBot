@@ -1,10 +1,15 @@
 package com.zkb.bot.domain;
 
-import com.zkb.bot.enums.BotAdminPrivilegeEnum;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "bot_admins",uniqueConstraints = @UniqueConstraint(name = "botAdmins",columnNames = {"botUid","botAdminUid"}))
 public class BotAdmins {
+    @GeneratedValue
+    @Id
     Long uid;
     Long botUid;
     Long botAdminUid;

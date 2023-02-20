@@ -2,13 +2,18 @@ package com.zkb.bot.aiml.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * @author KingPrimes
  */
+@Entity
+@Table(name = "bot_issue_reply")
 public class IssueReply {
     //msgID
+    @GeneratedValue
+    @Id
     Integer msgId;
     //问题
     String msgIssue;

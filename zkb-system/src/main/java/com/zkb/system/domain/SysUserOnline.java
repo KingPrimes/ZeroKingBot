@@ -5,10 +5,16 @@ import com.zkb.common.enums.OnlineStatus;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "sys_user_online")
 public class SysUserOnline extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** 用户会话id */
+    @GeneratedValue
+    @Id
     private String sessionId;
 
     /** 登录名称 */

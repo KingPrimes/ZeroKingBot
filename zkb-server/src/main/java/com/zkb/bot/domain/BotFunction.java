@@ -3,13 +3,28 @@ package com.zkb.bot.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.*;
+
 /**
  * @author KingPrimes
  */
-public class Function {
+@Entity
+@Table(name = "bot_function",uniqueConstraints = @UniqueConstraint(name = "function",columnNames = "functionName"))
+public class BotFunction {
+    @GeneratedValue
+    @Id
     long functionId;
     String functionName;
     String functionIntroduction;
+
+    public BotFunction() {
+    }
+
+    public BotFunction(long functionId, String functionName, String functionIntroduction) {
+        this.functionId = functionId;
+        this.functionName = functionName;
+        this.functionIntroduction = functionIntroduction;
+    }
 
     public long getFunctionId() {
         return functionId;

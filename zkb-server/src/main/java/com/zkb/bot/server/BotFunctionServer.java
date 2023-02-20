@@ -1,35 +1,35 @@
 package com.zkb.bot.server;
 
-import com.zkb.bot.domain.Function;
+import com.zkb.bot.domain.BotFunction;
 
 import java.util.List;
 
 /**
  * @author KingPrimes
  */
-public interface FunctionServer {
+public interface BotFunctionServer {
     /**
      * 查询功能列表
      *
-     * @param function 功能实体类
+     * @param botFunction 功能实体类
      * @return 功能列表
      */
-    List<Function> selectFunctionList(Function function);
+    List<BotFunction> selectFunctionList(BotFunction botFunction);
 
     /**
      * 根据功能名称查询功能
      *
      * @param name 名称
      */
-    Function selectFunctionByName(String name);
+    BotFunction selectFunctionByName(String name);
 
     /**
      * 插入功能实体类
      *
-     * @param function 功能实体类
+     * @param botFunction 功能实体类
      * @return 影响行数
      */
-    int insertFunction(Function function);
+    int insertFunction(BotFunction botFunction);
 
     /**
      * 重置缓存

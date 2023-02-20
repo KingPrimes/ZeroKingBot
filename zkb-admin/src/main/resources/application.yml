@@ -76,7 +76,13 @@ spring:
     password:
     url: jdbc:sqlite:./db/data.db3
     driver-class-name: org.sqlite.JDBC
-
+  #springboot和sqlite 集成，由于是Hibernate5，不能用现成的com.enigmabridge hibernate4-sqlite-dialect方言包
+  # Sqlite 需要自己配置链接方式
+  jpa:
+    database-platform: com.zkb.framework.config.SQLiteDialect #自己配置的方言
+    hibernate:
+      ddl-auto: update
+    show-sql: true
   # Redis 配置
   redis:
     host: localhost

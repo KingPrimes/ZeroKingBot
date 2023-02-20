@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zkb.bot.warframe.mapper.WarframeMarketLichOrSisterMapper">
+<mapper namespace="com.zkb.bot.warframe.mapper.WarframeMarketLichMapper">
 
-    <resultMap type="WarframeMarketLichOrSister" id="WarframeMarketLichResult">
+    <resultMap type="WarframeMarketLich" id="WarframeMarketLichResult">
         <result property="id" column="id"/>
         <result property="itemName" column="item_name"/>
         <result property="urlName" column="url_name"/>
@@ -16,10 +16,10 @@
 
     <sql id="selectWarframeMarketLichVo">
         select id, item_name, url_name, icon_format, thumb, icon, element
-        from wf_market_lich
+        from warframe_market_lich
     </sql>
 
-    <select id="selectWarframeMarketLichList" parameterType="WarframeMarketLichOrSister"
+    <select id="selectWarframeMarketLichList" parameterType="WarframeMarketLich"
             resultMap="WarframeMarketLichResult">
         <include refid="selectWarframeMarketLichVo"/>
         <where>
@@ -53,8 +53,8 @@
         where id = #{id}
     </select>
 
-    <insert id="insertWarframeMarketLich" parameterType="WarframeMarketLichOrSister">
-        insert into wf_market_lich
+    <insert id="insertWarframeMarketLich" parameterType="WarframeMarketLich">
+        insert into warframe_market_lich
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
             <if test="itemName != null">item_name,</if>
@@ -75,8 +75,8 @@
         </trim>
     </insert>
 
-    <update id="updateWarframeMarketLich" parameterType="WarframeMarketLichOrSister">
-        update wf_market_lich
+    <update id="updateWarframeMarketLich" parameterType="WarframeMarketLich">
+        update warframe_market_lich
         <trim prefix="SET" suffixOverrides=",">
             <if test="itemName != null">item_name = #{itemName},</if>
             <if test="urlName != null">url_name = #{urlName},</if>
@@ -90,12 +90,12 @@
 
     <delete id="deleteWarframeMarketLichById" parameterType="String">
         delete
-        from wf_market_lich
+        from warframe_market_lich
         where id = #{id}
     </delete>
 
     <delete id="deleteWarframeMarketLichByIds" parameterType="String">
-        delete from wf_market_lich where id in
+        delete from warframe_market_lich where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

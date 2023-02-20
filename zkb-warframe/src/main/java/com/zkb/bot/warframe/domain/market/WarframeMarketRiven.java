@@ -3,18 +3,36 @@ package com.zkb.bot.warframe.domain.market;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.*;
+
 /**
  * Warframe.Market 紫卡拍卖实体类
  */
+@Entity
+@Table(name = "warframe_market_riven",uniqueConstraints = @UniqueConstraint(name = "riven",columnNames = "urlName"))
 public class WarframeMarketRiven {
+
+    @GeneratedValue
+    @Id
+    Long ids;
+
     String thumb;
     String rivenType;
+    @Column(name = "`group`")
     String group;
     String id;
     String iconFormat;
     String urlName;
     String itemName;
     String icon;
+
+    public Long getIds() {
+        return ids;
+    }
+
+    public void setIds(Long ids) {
+        this.ids = ids;
+    }
 
     public String getThumb() {
         return thumb;

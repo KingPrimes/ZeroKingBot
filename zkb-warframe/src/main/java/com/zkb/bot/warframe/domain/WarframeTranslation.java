@@ -4,15 +4,21 @@ package com.zkb.bot.warframe.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.*;
+
 /**
  * 中英文翻译 实体类
  *
  * @author KingPrimes
  * @date 2021-05-24
  */
+@Entity
+@Table(name = "warframe_translation",uniqueConstraints = @UniqueConstraint(name = "translation",columnNames = {"traEn","traCh"}))
 public class WarframeTranslation {
     private static final long serialVersionUID = 1L;
 
+    @GeneratedValue
+    @Id
     private Long traId;
 
     /**

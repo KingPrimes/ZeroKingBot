@@ -11,7 +11,7 @@
 
     <sql id="selectWarframeMarketElementVo">
         select element_en, element_ch
-        from wf_market_element
+        from warframe_market_element
     </sql>
 
     <select id="selectWarframeMarketElementLikeEn" parameterType="String" resultMap="WarframeMarketElementResult">
@@ -39,7 +39,7 @@
     </select>
 
     <insert id="insertWarframeMarketElement" parameterType="WarframeMarketElement">
-        insert into wf_market_element
+        insert into warframe_market_element
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="elementEn != null and elementEn != ''">element_en,</if>
             <if test="elementCh != null and elementCh != ''">element_ch,</if>
@@ -51,7 +51,7 @@
     </insert>
 
     <update id="updateWarframeMarketElement" parameterType="WarframeMarketElement">
-        update wf_market_element
+        update warframe_market_element
         <trim prefix="SET" suffixOverrides=",">
             <if test="elementCh != null and elementCh != ''">element_ch = #{elementCh},</if>
         </trim>
@@ -60,12 +60,12 @@
 
     <delete id="deleteWarframeMarketElementByElementEn" parameterType="String">
         delete
-        from wf_market_element
+        from warframe_market_element
         where element_en = #{elementEn}
     </delete>
 
     <delete id="deleteWarframeMarketElementByElementEns" parameterType="String">
-        delete from wf_market_element where element_en in
+        delete from warframe_market_element where element_en in
         <foreach item="elementEn" collection="array" open="(" separator="," close=")">
             #{elementEn}
         </foreach>

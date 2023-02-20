@@ -96,9 +96,6 @@ public class LogInfoAspect {
                     logInfo.setLogUrl(StringUtils.substring(ServletUtils.getRequest().getRequestURI(), 0, 255));
                     break;
             }
-
-
-
             if (e != null) {
                 logInfo.setLogStatus(BusinessStatus.FAIL.ordinal());
                 logInfo.setLogErrorMsg(StringUtils.substring(e.getMessage(), 0, 2000));
@@ -139,8 +136,6 @@ public class LogInfoAspect {
         logInfo.setLogGroup(logInfo.getLogGroup());
         // 请求的用户
         logInfo.setLogUser(logInfo.getLogUser());
-
-
         // 是否需要保存request，参数和值
         if (log.isSaveRequestData()) {
             // 获取参数的信息，传入到数据库中。
@@ -180,7 +175,7 @@ public class LogInfoAspect {
                                logInfo.setLogGroup(Long.valueOf(value[i].toString()));
                                break;
                            case "rawMsg":
-                               logInfo.setLogRawMsg(value[i]);
+                               logInfo.setLogRawMsg(value[i].toString());
                                break;
                            case "user":
                                logInfo.setLogUser(Long.valueOf(value[i].toString()));

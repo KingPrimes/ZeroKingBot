@@ -18,12 +18,12 @@
     </resultMap>
 
     <insert id="insertLogininfor" parameterType="SysLogininfor">
-        insert into sys_logininfor (login_name, status, ipaddr, login_location, browser, os, msg, login_time)
+        insert into sys_login_info (login_name, status, ipaddr, login_location, browser, os, msg, login_time)
         values (#{loginName}, #{status}, #{ipaddr}, #{loginLocation}, #{browser}, #{os}, #{msg}, datetime('now','localtime'))
     </insert>
 
     <select id="selectLogininforList" parameterType="SysLogininfor" resultMap="SysLogininforResult">
-        select info_id,login_name,ipaddr,login_location,browser,os,status,msg,login_time from sys_logininfor
+        select info_id,login_name,ipaddr,login_location,browser,os,status,msg,login_time from sys_login_info
         <where>
             <if test="ipaddr != null and ipaddr != ''">
                 AND ipaddr like concat('%', #{ipaddr}, '%')
@@ -44,18 +44,18 @@
     </select>
 
     <delete id="deleteLogininforByIds" parameterType="String">
-        delete from sys_logininfor where info_id in
+        delete from sys_login_info where info_id in
         <foreach collection="array" item="infoId" open="(" separator="," close=")">
             #{infoId}
         </foreach>
     </delete>
 
     <delete id="deleteAll">
-        delete from sys_logininfor
+        delete from sys_login_info
     </delete>
 
     <delete id="deleteSequen">
-        delete from sqlite_sequence where name = 'sys_logininfor'
+        delete from sqlite_sequence where name = 'sys_login_info'
     </delete>
 
 </mapper>

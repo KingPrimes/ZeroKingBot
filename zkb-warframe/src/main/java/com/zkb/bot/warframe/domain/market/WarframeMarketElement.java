@@ -4,15 +4,22 @@ package com.zkb.bot.warframe.domain.market;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.*;
+
 /**
  * Warframe.Market 赤毒/信条武器 元素字典对象
  *
  * @author KingPrimes
  * @date 2021-11-29
  */
+@Entity
+@Table(name = "warframe_market_element")
 public class WarframeMarketElement {
     private static final long serialVersionUID = 1L;
 
+    @GeneratedValue
+    @Id
+    Long id;
     private String elementEn;
 
     private String elementCh;
@@ -31,6 +38,14 @@ public class WarframeMarketElement {
 
     public void setElementCh(String elementCh) {
         this.elementCh = elementCh;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

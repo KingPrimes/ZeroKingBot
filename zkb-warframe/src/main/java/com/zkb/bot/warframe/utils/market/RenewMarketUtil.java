@@ -3,14 +3,8 @@ package com.zkb.bot.warframe.utils.market;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
-import com.zkb.bot.warframe.domain.market.WarframeMarketItems;
-import com.zkb.bot.warframe.domain.market.WarframeMarketLichOrSister;
-import com.zkb.bot.warframe.domain.market.WarframeMarketRiven;
-import com.zkb.bot.warframe.domain.market.WarframeMarketRivenTion;
-import com.zkb.bot.warframe.service.IWarframeMarketItemsService;
-import com.zkb.bot.warframe.service.IWarframeMarketRivenService;
-import com.zkb.bot.warframe.service.IWarframeMarketRivenTionService;
-import com.zkb.bot.warframe.service.IWarframeMarketSisterService;
+import com.zkb.bot.warframe.domain.market.*;
+import com.zkb.bot.warframe.service.*;
 import com.zkb.common.utils.http.HttpUtils;
 import com.zkb.common.utils.spring.SpringUtils;
 import okhttp3.Headers;
@@ -100,14 +94,14 @@ public class RenewMarketUtil {
      * 更新Market 信条 武器
      */
     private static int resMarketSisterWeapons() {
-        List<WarframeMarketLichOrSister> sisters = JSONObject.parseObject(
+        List<WarframeMarketLich> liches = JSONObject.parseObject(
                         HttpUtils.sendGetOkHttp("https://api.warframe.market/v1/sister/weapons", "", new Headers.Builder().add("language", "zh-hans")))
                 .getJSONObject("payload")
                 .getJSONArray("weapons")
-                .toJavaList(WarframeMarketLichOrSister.class);
+                .toJavaList(WarframeMarketLich.class);
         int i = 0;
-        for (WarframeMarketLichOrSister sister : sisters) {
-            i += SpringUtils.getBean(IWarframeMarketSisterService.class).insertWarframeMarketSister(sister);
+        for (WarframeMarketLich lich : liches) {
+            i += SpringUtils.getBean(IWarframeMarketLichService.class).insertWarframeMarketLich(lich);
         }
         log.info("更新Market 信条 武器 共更新条{}数据", i);
         return i;
@@ -117,13 +111,13 @@ public class RenewMarketUtil {
      * 更新Market 信条 幻纹
      */
     private static int resMarketSisterEphemera() {
-        List<WarframeMarketLichOrSister> sisters = JSONObject.parseObject(
+        List<WarframeMarketSister> sisters = JSONObject.parseObject(
                         HttpUtils.sendGetOkHttp("https://api.warframe.market/v1/sister/ephemeras", "", new Headers.Builder().add("language", "zh-hans")))
                 .getJSONObject("payload")
                 .getJSONArray("ephemeras")
-                .toJavaList(WarframeMarketLichOrSister.class);
+                .toJavaList(WarframeMarketSister.class);
         int i = 0;
-        for (WarframeMarketLichOrSister sister : sisters) {
+        for (WarframeMarketSister sister : sisters) {
             i += SpringUtils.getBean(IWarframeMarketSisterService.class).insertWarframeMarketSister(sister);
         }
         log.info("更新Market 信条 幻纹 共更新条{}数据", i);

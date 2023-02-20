@@ -7,6 +7,39 @@
 <body>
 <div class="container-div">
     <div class="row">
+        <b>
+            <span style="color: red">{name}</span> 是机器人对你的称呼<br/>
+            <span style="color: red">{me}</span> 是机器人对自己的称呼<br/>
+            <span style="color: red">{segment}</span> 是分段发送消息
+        </b>
+        <div class="col-sm-12 search-collapse">
+            <form id="thesaurus-form">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            <label>问题：</label>
+                            <input type="text" id="msgIssue" name="msgIssue" placeholder="问题">
+                        </li>
+                        <li>
+                            <label>回答：</label>
+                            <input type="text" id="msgReply" name="msgReply" placeholder="回答">
+                        </li>
+                        <li>
+                            <label>群组： </label>
+                            <input type="text" placeholder="QQ群"
+                                   name="msgCreateGroup"/>
+                        </li>
+
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="searchPre()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="resetPre()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
         <div class="col-sm-12 select-table table-striped">
             <table id="bootstrap-table"></table>
         </div>
@@ -25,6 +58,7 @@
             updateUrl: prefix + "/edit/{id}",
             removeUrl: prefix + "/remove/{id}",
             modalName: "词库",
+            queryParams: queryParams,
             sortOrder: "desc",
             escape: true,
             showPageGo: true,
@@ -81,6 +115,19 @@
         };
         $.table.init(options);
     });
+
+    function queryParams(params) {
+        return $.table.queryParams(params);
+    }
+
+    function searchPre() {
+        $.table.search('thesaurus-form', 'bootstrap-table');
+    }
+
+    function resetPre() {
+        $("#thesaurus-form")[0].reset();
+        $.table.search('thesaurus-form', 'bootstrap-table');
+    }
 </script>
 
 </body>

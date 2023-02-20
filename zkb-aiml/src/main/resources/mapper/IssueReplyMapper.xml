@@ -119,6 +119,26 @@
         </trim>
     </insert>
 
+    <insert id="insertIssueReplyList" parameterType="java.util.List">
+        insert OR IGNORE into bot_issue_reply
+        (msg_id,msg_issue, msg_issue_image,msg_issue_face,msg_reply,msg_reply_image,msg_reply_face,msg_create_time,msg_create_group,msg_create_member)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.msgId},
+            #{item.msgIssue},
+            #{item.msgIssueImage},
+            #{item.msgIssueFace},
+            #{item.msgReply},
+            #{item.msgReplyImage},
+            #{item.msgReplyFace},
+            #{item.msgCreateTime},
+            #{item.msgCreateGroup},
+            #{item.msgCreateMember}
+            )
+        </foreach>
+    </insert>
+
     <update id="updateIssueReply" parameterType="IssueReply">
         update bot_issue_reply
         <trim prefix="SET" suffixOverrides=",">

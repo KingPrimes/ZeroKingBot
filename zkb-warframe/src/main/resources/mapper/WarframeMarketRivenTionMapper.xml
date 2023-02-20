@@ -28,7 +28,7 @@
                suffix,
                units,
                url_name
-        from wf_market_riven_tion
+        from warframe_market_riven_tion
     </sql>
 
     <select id="selectWarframeMarketRivenTionList"
@@ -54,7 +54,7 @@
     </select>
 
     <insert id="insertWarframeMarketRivenTion" parameterType="java.util.List">
-        insert OR IGNORE into wf_market_riven_tion
+        insert OR IGNORE into warframe_market_riven_tion
         (effect, exclusive_to, `group`, negative_only,positive_is_negative,prefix,search_only,suffix,units,url_name)
         values
         <foreach collection="list" item="item" index="index" separator=",">

@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.zkb.bot.domain.BotGroupFunctionOnOff;
 import com.zkb.bot.domain.GroupFunctionOnOff;
-import com.zkb.bot.mapper.GroupFunctionOnOffMapper;
-import com.zkb.bot.server.GroupFunctionOnOffServer;
+import com.zkb.bot.mapper.BotGroupFunctionOnOffMapper;
+import com.zkb.bot.server.BotGroupFunctionOnOffServer;
 import com.zkb.common.core.redis.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +18,10 @@ import java.util.List;
  * @author KingPrimes
  */
 @Service
-public class GroupFunctionOnOffServerImpl implements GroupFunctionOnOffServer {
+public class BotGroupFunctionOnOffServerImpl implements BotGroupFunctionOnOffServer {
 
     @Autowired
-    GroupFunctionOnOffMapper offMapper;
+    BotGroupFunctionOnOffMapper offMapper;
 
     @Autowired
     RedisCache redisCache;

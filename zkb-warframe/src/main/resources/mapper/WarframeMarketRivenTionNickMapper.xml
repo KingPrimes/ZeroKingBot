@@ -12,7 +12,7 @@
 
     <sql id="selectWarframeMarketRivenTionNickVo">
         select nick_en, nick_ch
-        from wf_market_riven_tion_nick
+        from warframe_market_riven_tion_nick
     </sql>
 
     <select id="selectWarframeMarketRivenTionNickByNickCh" parameterType="String"
@@ -32,4 +32,20 @@
         <include refid="selectWarframeMarketRivenTionNickVo"/>
         where nick_ch like '%'||#{nick_ch}||'%'
     </select>
+
+    <select id="selectWarframeMarketRivenTionNickList" resultMap="WarframeMarketRivenTionNickResult">
+        <include refid="selectWarframeMarketRivenTionNickVo"/>
+    </select>
+
+    <insert id="insertWarframeMarketRivenTionNickLikeNickCh" parameterType="com.zkb.bot.warframe.domain.market.WarframeMarketRivenTionNick">
+        insert OR IGNORE into warframe_market_riven_tion_nick
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="nickEn != null and nickEn != ''">nick_en,</if>
+            <if test="nickCh != null and nickCh != ''">nick_ch,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="nickCh != null and nickCh != ''">#{nickCh},</if>
+            <if test="nickEn != null and nickEn != ''">#{nickEn},</if>
+        </trim>
+    </insert>
 </mapper>
