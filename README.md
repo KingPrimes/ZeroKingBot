@@ -36,8 +36,8 @@
 ---
 ---
 
-- [Windows部署文档](./readme/win.md)
-- [Linux部署文档](./readme/4173%2B/liunx.md)
+- [Windows部署文档](doc/win.md)
+- [Linux部署文档](doc/4173%2B/liunx.md)
 - [最新视频部署教程](https://b23.tv/tnLP86i)
 
 使用文档
@@ -45,7 +45,7 @@
 ---
 
 - [文档链接](https://www.yuque.com/kingprimes/twgbot)
-- [WarframeMarket战甲别名](./readme/warframe-alias.md)
+- [WarframeMarket战甲别名](doc/warframe-alias.md)
 
 服务器资源推荐
 ---
