@@ -7,6 +7,7 @@ import com.zkb.bot.warframe.domain.market.WarframeMarketRiven;
 import com.zkb.bot.warframe.mapper.WarframeMarketRivenMapper;
 import com.zkb.bot.warframe.service.IWarframeMarketRivenService;
 import com.zkb.common.utils.http.HttpUtils;
+import com.zkb.common.zero.ZeroConfig;
 import com.zkb.framework.manager.AsyncManager;
 import okhttp3.Headers;
 import org.slf4j.Logger;
@@ -44,23 +45,25 @@ public class WarframeMarketRivenServiceImpl implements IWarframeMarketRivenServi
         AsyncManager.me().execute(new TimerTask() {
             @Override
             public void run() {
-                log.info("开始初始化Warframe.Riven数据……");
-                List<WarframeMarketRiven> marketRiven;
-                String json = HttpUtils.sendGetOkHttp("https://api.warframe.market/v1/riven/items", "", new Headers.Builder().add("language", "zh-hans"));
-                if (json.equals("timeout")){
-                    log.error("未获取到赤毒武器数据……");
-                    return;
-                }
-                marketRiven = JSONObject.parseObject(json).getJSONObject("payload").getJSONArray("items").toJavaList(WarframeMarketRiven.class);
-
-                if (marketRiven.size() != marketRivenMapper.selectWarframeMarketRivenList(null).size()) {
-                    List<List<WarframeMarketRiven>> lists = Lists.partition(marketRiven, 500);
-                    for (List<WarframeMarketRiven> mrs : lists) {
-                        marketRivenMapper.insertWarframeMarketRiven(mrs);
+                if (!ZeroConfig.getTest()) {
+                    log.info("开始初始化Warframe.Riven数据……");
+                    List<WarframeMarketRiven> marketRiven;
+                    String json = HttpUtils.sendGetOkHttp("https://api.warframe.market/v1/riven/items", "", new Headers.Builder().add("language", "zh-hans"));
+                    if (json.equals("timeout")) {
+                        log.error("未获取到赤毒武器数据……");
+                        return;
                     }
-                    log.info("Warframe.Riven数据更新完毕！");
-                } else {
-                    log.info("Warframe.Market赤毒武器数据未做更改！");
+                    marketRiven = JSONObject.parseObject(json).getJSONObject("payload").getJSONArray("items").toJavaList(WarframeMarketRiven.class);
+
+                    if (marketRiven.size() != marketRivenMapper.selectWarframeMarketRivenList(null).size()) {
+                        List<List<WarframeMarketRiven>> lists = Lists.partition(marketRiven, 500);
+                        for (List<WarframeMarketRiven> mrs : lists) {
+                            marketRivenMapper.insertWarframeMarketRiven(mrs);
+                        }
+                        log.info("Warframe.Riven数据更新完毕！");
+                    } else {
+                        log.info("Warframe.Market赤毒武器数据未做更改！");
+                    }
                 }
             }
         });

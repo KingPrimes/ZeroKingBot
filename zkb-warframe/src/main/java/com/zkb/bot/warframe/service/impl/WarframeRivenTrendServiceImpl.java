@@ -5,10 +5,10 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.zkb.bot.enums.GitHubUrlEnum;
 import com.zkb.bot.warframe.domain.WarframeRivenTrend;
-import com.zkb.bot.warframe.domain.market.WarframeMarketSister;
 import com.zkb.bot.warframe.mapper.WarframeRivenTrendMapper;
 import com.zkb.bot.warframe.service.IWarframeRivenTrendService;
 import com.zkb.common.utils.http.HttpUtils;
+import com.zkb.common.zero.ZeroConfig;
 import com.zkb.framework.manager.AsyncManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,23 +116,25 @@ public class WarframeRivenTrendServiceImpl implements IWarframeRivenTrendService
         AsyncManager.me().execute(new TimerTask() {
             @Override
             public void run() {
-                log.info("开始初始化Warframe.RivenTrend紫卡倾向数据……");
-                String aliasJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc()+"warframe_riven_trend.json");
-                if (aliasJson.trim().length() == 0) {
-                    log.error("未获取到Warframe.RivenTrend紫卡倾向数据……");
-                    return;
-                }
-                JSONObject alias = JSON.parseObject(aliasJson);
-                List<WarframeRivenTrend> records = alias.getJSONArray("RECORDS").toJavaList(WarframeRivenTrend.class);
-                if(records.size() != trendMapper.selectWarframeRivenTrendList(null).size()){
-                    int x = 0;
-                    for (WarframeRivenTrend record : records) {
-                        trendMapper.insertAndUpDateWarframeRivenTrend(record);
-                        x++;
+                if (!ZeroConfig.getTest()) {
+                    log.info("开始初始化Warframe.RivenTrend紫卡倾向数据……");
+                    String aliasJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc() + "warframe_riven_trend.json");
+                    if (aliasJson.trim().length() == 0) {
+                        log.error("未获取到Warframe.RivenTrend紫卡倾向数据……");
+                        return;
                     }
-                    log.info("共更新Warframe.RivenTrend紫卡倾向 {} 条数据！",x);
-                }else{
-                    log.info("Warframe.RivenTrend紫卡倾向数据未做更改！");
+                    JSONObject alias = JSON.parseObject(aliasJson);
+                    List<WarframeRivenTrend> records = alias.getJSONArray("RECORDS").toJavaList(WarframeRivenTrend.class);
+                    if (records.size() != trendMapper.selectWarframeRivenTrendList(null).size()) {
+                        int x = 0;
+                        for (WarframeRivenTrend record : records) {
+                            trendMapper.insertAndUpDateWarframeRivenTrend(record);
+                            x++;
+                        }
+                        log.info("共更新Warframe.RivenTrend紫卡倾向 {} 条数据！", x);
+                    } else {
+                        log.info("Warframe.RivenTrend紫卡倾向数据未做更改！");
+                    }
                 }
             }
         });

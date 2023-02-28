@@ -10,6 +10,7 @@ import com.zkb.bot.aiml.service.IssueReplyService;
 import com.zkb.bot.enums.GitHubUrlEnum;
 import com.zkb.common.core.text.Convert;
 import com.zkb.common.utils.http.HttpUtils;
+import com.zkb.common.zero.ZeroConfig;
 import com.zkb.framework.manager.AsyncManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,25 +100,27 @@ public class IssueReplyServiceImpl implements IssueReplyService, CommandLineRunn
         AsyncManager.me().execute(new TimerTask() {
             @Override
             public void run() {
-                log.info("开始初始化问答表数据……");
-                final List<IssueReply> issueReplies = issueReplyMapper.selectIssueReplyList(null);
-                if (issueReplies.isEmpty()) {
-                    String aliasJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc() + "bot_issue_reply.json");
-                    if (aliasJson.trim().length() == 0) {
-                        log.error("未获取到问答数据……");
-                        return;
-                    }
-                    JSONObject alias = JSON.parseObject(aliasJson);
-                    List<IssueReply> records = alias.getJSONArray("RECORDS").toJavaList(IssueReply.class);
+                if (!ZeroConfig.getTest()) {
+                    log.info("开始初始化问答表数据……");
+                    final List<IssueReply> issueReplies = issueReplyMapper.selectIssueReplyList(null);
+                    if (issueReplies.isEmpty()) {
+                        String aliasJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc() + "bot_issue_reply.json");
+                        if (aliasJson.trim().length() == 0) {
+                            log.error("未获取到问答数据……");
+                            return;
+                        }
+                        JSONObject alias = JSON.parseObject(aliasJson);
+                        List<IssueReply> records = alias.getJSONArray("RECORDS").toJavaList(IssueReply.class);
 
-                    List<List<IssueReply>> lists = Lists.partition(records, 500);
-                    int i = 0;
-                    for (List<IssueReply> mrs : lists) {
-                        i += issueReplyMapper.insertIssueReplyList(mrs);
+                        List<List<IssueReply>> lists = Lists.partition(records, 500);
+                        int i = 0;
+                        for (List<IssueReply> mrs : lists) {
+                            i += issueReplyMapper.insertIssueReplyList(mrs);
+                        }
+                        log.info("共更新问答表 {} 条数据！", i);
+                    } else {
+                        log.info("问答表数据未做更改！");
                     }
-                    log.info("共更新问答表 {} 条数据！", i);
-                } else {
-                    log.info("问答表数据未做更改！");
                 }
             }
         });

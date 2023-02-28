@@ -4,15 +4,14 @@ package com.zkb.bot.warframe.service.impl;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import com.zkb.bot.enums.GitHubUrlEnum;
 import com.zkb.bot.warframe.dao.DataHash;
 import com.zkb.bot.warframe.domain.WarframeRelics;
-import com.zkb.bot.warframe.domain.market.WarframeMarketRivenTionNick;
 import com.zkb.bot.warframe.mapper.WarframeRelicsMapper;
 import com.zkb.bot.warframe.service.IWarframeRelicsService;
 import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.utils.http.HttpUtils;
 import com.zkb.common.utils.spring.SpringUtils;
+import com.zkb.common.zero.ZeroConfig;
 import com.zkb.framework.manager.AsyncManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -159,39 +158,41 @@ public class WarframeRelicsServiceImpl implements IWarframeRelicsService, Comman
         AsyncManager.me().execute(new TimerTask() {
             @Override
             public void run() {
-                log.info("开始初始化Warframe遗物表数据……");
-                if (WarframeRelicsMapper.selectWarframeRelicsList(null).size() == 0){
-                    upInit();
-                    DataHash d = JSONObject.parseObject(HttpUtils.sendGetOkHttp("https://drops.warframestat.us//data/info.json"), DataHash.class);
-                    SpringUtils.getBean(RedisCache.class).setCacheObject("datahash", d);
-                    log.info("Warframe遗物表数据更新完毕！");
-                    return;
-                }
-                DataHash d = JSONObject.parseObject(HttpUtils.sendGetOkHttp("https://drops.warframestat.us//data/info.json"), DataHash.class);
-                DataHash dh;
-                try {
-                    dh = SpringUtils.getBean(RedisCache.class).getCacheObject("datahash");
-                    if (dh == null) {
-                        SpringUtils.getBean(RedisCache.class).setCacheObject("datahash", d);
-                        return;
-                    }
-                    if (!d.equals(dh)) {
+                if (!ZeroConfig.getTest()) {
+                    log.info("开始初始化Warframe遗物表数据……");
+                    if (WarframeRelicsMapper.selectWarframeRelicsList(null).size() == 0) {
                         upInit();
+                        DataHash d = JSONObject.parseObject(HttpUtils.sendGetOkHttp("https://drops.warframestat.us//data/info.json"), DataHash.class);
                         SpringUtils.getBean(RedisCache.class).setCacheObject("datahash", d);
                         log.info("Warframe遗物表数据更新完毕！");
-                    }else {
-                        log.info("Warframe遗物表数据未做更改！");
+                        return;
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    log.error("获取遗物Hash出错，错误信息：{}", e.getMessage());
-                    SpringUtils.getBean(RedisCache.class).setCacheObject("datahash", d);
+                    DataHash d = JSONObject.parseObject(HttpUtils.sendGetOkHttp("https://drops.warframestat.us//data/info.json"), DataHash.class);
+                    DataHash dh;
+                    try {
+                        dh = SpringUtils.getBean(RedisCache.class).getCacheObject("datahash");
+                        if (dh == null) {
+                            SpringUtils.getBean(RedisCache.class).setCacheObject("datahash", d);
+                            return;
+                        }
+                        if (!d.equals(dh)) {
+                            upInit();
+                            SpringUtils.getBean(RedisCache.class).setCacheObject("datahash", d);
+                            log.info("Warframe遗物表数据更新完毕！");
+                        } else {
+                            log.info("Warframe遗物表数据未做更改！");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        log.error("获取遗物Hash出错，错误信息：{}", e.getMessage());
+                        SpringUtils.getBean(RedisCache.class).setCacheObject("datahash", d);
+                    }
                 }
             }
         });
     }
 
-    private void upInit(){
+    private void upInit() {
         String json = HttpUtils.sendGetOkHttp("https://drops.warframestat.us/data/relics.json");
         JSONObject object = JSON.parseObject(json);
         JSONArray array = object.getJSONArray("relics");

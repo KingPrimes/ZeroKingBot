@@ -8,6 +8,7 @@ import com.zkb.bot.warframe.domain.market.WarframeMarketItemsRegular;
 import com.zkb.bot.warframe.mapper.WarframeMarketItemsMapper;
 import com.zkb.bot.warframe.service.IWarframeMarketItemsService;
 import com.zkb.common.utils.http.HttpUtils;
+import com.zkb.common.zero.ZeroConfig;
 import com.zkb.framework.manager.AsyncManager;
 import okhttp3.Headers;
 import org.slf4j.Logger;
@@ -136,32 +137,34 @@ public class WarframeMarketItemsServiceImpl implements IWarframeMarketItemsServi
              */
             @Override
             public void run() {
-                log.info("开始初始化MarketItems表数据……");
-                List<WarframeMarketItems> items;
-                String json = HttpUtils.sendGetOkHttp(
-                        "https://api.warframe.market/v1/items",
-                        "",
-                        new Headers.Builder()
-                                .add("language", "zh-hans"));
-                if (json.equals("timeout")){
-                    log.error("未获取到Warframe.MarketItems数据……");
-                    return;
-                }
-                items = JSONObject.parseObject(
-                                json)
-                        .getJSONObject("payload")
-                        .getJSONArray("items")
-                        .toJavaList(WarframeMarketItems.class);
-
-                if (itemsMapper.selectWarframeMarketItemsList(null).size() != items.size()) {
-                    List<List<WarframeMarketItems>> lists = Lists.partition(items, 500);
-                    int i = 0;
-                    for (List<WarframeMarketItems> mrs : lists) {
-                        i += itemsMapper.insertWarframeMarketItems(mrs);
+                if (!ZeroConfig.getTest()) {
+                    log.info("开始初始化MarketItems表数据……");
+                    List<WarframeMarketItems> items;
+                    String json = HttpUtils.sendGetOkHttp(
+                            "https://api.warframe.market/v1/items",
+                            "",
+                            new Headers.Builder()
+                                    .add("language", "zh-hans"));
+                    if (json.equals("timeout")) {
+                        log.error("未获取到Warframe.MarketItems数据……");
+                        return;
                     }
-                    log.info("共更新MarketItems {} 条数据！", i);
-                } else {
-                    log.info("MarketItems表数据未做更改！");
+                    items = JSONObject.parseObject(
+                                    json)
+                            .getJSONObject("payload")
+                            .getJSONArray("items")
+                            .toJavaList(WarframeMarketItems.class);
+
+                    if (itemsMapper.selectWarframeMarketItemsList(null).size() != items.size()) {
+                        List<List<WarframeMarketItems>> lists = Lists.partition(items, 500);
+                        int i = 0;
+                        for (List<WarframeMarketItems> mrs : lists) {
+                            i += itemsMapper.insertWarframeMarketItems(mrs);
+                        }
+                        log.info("共更新MarketItems {} 条数据！", i);
+                    } else {
+                        log.info("MarketItems表数据未做更改！");
+                    }
                 }
             }
         });

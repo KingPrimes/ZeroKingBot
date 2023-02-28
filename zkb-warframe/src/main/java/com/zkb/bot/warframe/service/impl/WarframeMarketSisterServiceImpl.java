@@ -4,11 +4,11 @@ package com.zkb.bot.warframe.service.impl;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.zkb.bot.enums.GitHubUrlEnum;
-import com.zkb.bot.warframe.domain.market.WarframeMarketLich;
 import com.zkb.bot.warframe.domain.market.WarframeMarketSister;
 import com.zkb.bot.warframe.mapper.WarframeMarketSisterMapper;
 import com.zkb.bot.warframe.service.IWarframeMarketSisterService;
 import com.zkb.common.utils.http.HttpUtils;
+import com.zkb.common.zero.ZeroConfig;
 import com.zkb.framework.manager.AsyncManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,23 +77,25 @@ public class WarframeMarketSisterServiceImpl implements IWarframeMarketSisterSer
         AsyncManager.me().execute(new TimerTask() {
             @Override
             public void run() {
-                log.info("开始初始化Warframe.Market信条武器数据……");
-                String aliasJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc()+"warframe_market_sister.json");
-                if (aliasJson.trim().length() == 0) {
-                    log.error("未获取到信条武器数据……");
-                    return;
-                }
-                JSONObject alias = JSON.parseObject(aliasJson);
-                List<WarframeMarketSister> records = alias.getJSONArray("RECORDS").toJavaList(WarframeMarketSister.class);
-                if(records.size() != sisterMapper.selectWarframeMarketSisterList(null).size()){
-                    int x = 0;
-                    for (WarframeMarketSister record : records) {
-                        sisterMapper.insertWarframeMarketSister(record);
-                        x++;
+                if (!ZeroConfig.getTest()) {
+                    log.info("开始初始化Warframe.Market信条武器数据……");
+                    String aliasJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc() + "warframe_market_sister.json");
+                    if (aliasJson.trim().length() == 0) {
+                        log.error("未获取到信条武器数据……");
+                        return;
                     }
-                    log.info("共更新Warframe.Market信条武器 {} 条数据！",x);
-                }else{
-                    log.info("Warframe.Market信条武器数据未做更改！");
+                    JSONObject alias = JSON.parseObject(aliasJson);
+                    List<WarframeMarketSister> records = alias.getJSONArray("RECORDS").toJavaList(WarframeMarketSister.class);
+                    if (records.size() != sisterMapper.selectWarframeMarketSisterList(null).size()) {
+                        int x = 0;
+                        for (WarframeMarketSister record : records) {
+                            sisterMapper.insertWarframeMarketSister(record);
+                            x++;
+                        }
+                        log.info("共更新Warframe.Market信条武器 {} 条数据！", x);
+                    } else {
+                        log.info("Warframe.Market信条武器数据未做更改！");
+                    }
                 }
             }
         });

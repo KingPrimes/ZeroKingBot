@@ -9,6 +9,7 @@ import com.zkb.bot.warframe.domain.WarframeTranslation;
 import com.zkb.bot.warframe.mapper.WarframeTranslationMapper;
 import com.zkb.bot.warframe.service.IWarframeTranslationService;
 import com.zkb.common.utils.http.HttpUtils;
+import com.zkb.common.zero.ZeroConfig;
 import com.zkb.framework.manager.AsyncManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,13 +79,27 @@ public class WarframeTranslationServiceImpl implements IWarframeTranslationServi
     public String zhToEn(String cn_zh) {
         try {
             String tra = warframeTranslationMapper.zhToEn(cn_zh);
-            if (tra != null || tra != "") {
+            if (!tra.isEmpty()) {
                 return tra;
             } else {
                 return cn_zh;
             }
         } catch (Exception ignored) {
             return cn_zh;
+        }
+    }
+
+    @Override
+    public String zhToEnTrim(String zh_cn) {
+        try {
+            String tra = warframeTranslationMapper.zhToEnTrim(zh_cn);
+            if (!tra.isEmpty()) {
+                return tra;
+            } else {
+                return zh_cn;
+            }
+        } catch (Exception ignored) {
+            return zh_cn;
         }
     }
 
@@ -230,20 +245,23 @@ public class WarframeTranslationServiceImpl implements IWarframeTranslationServi
         AsyncManager.me().execute(new TimerTask() {
             @Override
             public void run() {
-                log.info("开始初始化Warframe中英翻译表数据……");
-                String tarJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc()+"warframe_translation.json");
-                if (tarJson.trim().length() == 0) {
-                    log.error("未获取到中英翻译数据……");
-                    return;
-                }
-                JSONObject alias = JSON.parseObject(tarJson);
-                List<WarframeTranslation> trasList = alias.getJSONArray("RECORDS").toJavaList(WarframeTranslation.class);
-                if(trasList.size() != warframeTranslationMapper.selectWarframeTranslationList(null).size()){
-                    List<List<WarframeTranslation>> partition = Lists.partition(trasList, 500);
-                    for (List<WarframeTranslation> tar : partition) {
-                        warframeTranslationMapper.insertWarframeTranslationList(tar);
+                if (!ZeroConfig.getTest()) {
+                    log.info("开始初始化Warframe中英翻译表数据……");
+                    String tarJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc() + "warframe_translation.json");
+                    if (tarJson.trim().length() == 0) {
+                        log.error("未获取到中英翻译数据……");
+                        return;
                     }
-                    log.info("Warframe中英翻译表数据初始化完毕！");
+                    JSONObject alias = JSON.parseObject(tarJson);
+                    List<WarframeTranslation> trasList = alias.getJSONArray("RECORDS").toJavaList(WarframeTranslation.class);
+                    if (trasList.size() != warframeTranslationMapper.selectWarframeTranslationList(null).size()) {
+                        List<List<WarframeTranslation>> partition = Lists.partition(trasList, 500);
+                        int x = 0;
+                        for (List<WarframeTranslation> tar : partition) {
+                            x = warframeTranslationMapper.insertWarframeTranslationList(tar);
+                        }
+                        log.info("Warframe中英翻译表数据初始化完毕！共更新 {} 条数据！", x);
+                    }
                 }
             }
         });

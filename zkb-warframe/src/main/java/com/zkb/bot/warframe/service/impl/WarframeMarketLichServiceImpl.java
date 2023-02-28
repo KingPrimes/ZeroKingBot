@@ -4,11 +4,11 @@ package com.zkb.bot.warframe.service.impl;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.zkb.bot.enums.GitHubUrlEnum;
-import com.zkb.bot.warframe.domain.market.WarframeMarketElement;
 import com.zkb.bot.warframe.domain.market.WarframeMarketLich;
 import com.zkb.bot.warframe.mapper.WarframeMarketLichMapper;
 import com.zkb.bot.warframe.service.IWarframeMarketLichService;
 import com.zkb.common.utils.http.HttpUtils;
+import com.zkb.common.zero.ZeroConfig;
 import com.zkb.framework.manager.AsyncManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +22,7 @@ import java.util.TimerTask;
 /**
  * lichService业务层处理
  * 赤毒武器拍卖
+ *
  * @author KingPrimes
  * @date 2021-11-24
  */
@@ -43,7 +44,6 @@ public class WarframeMarketLichServiceImpl implements IWarframeMarketLichService
     public WarframeMarketLich selectWarframeMarketLichById(String id) {
         return warframeMarketLich.selectWarframeMarketLichById(id);
     }
-
 
 
     /**
@@ -134,23 +134,25 @@ public class WarframeMarketLichServiceImpl implements IWarframeMarketLichService
         AsyncManager.me().execute(new TimerTask() {
             @Override
             public void run() {
-                log.info("开始初始化Warframe.Market赤毒武器数据……");
-                String aliasJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc()+"warframe_market_lich.json");
-                if (aliasJson.trim().length() == 0) {
-                    log.error("未获取到赤毒武器数据……");
-                    return;
-                }
-                JSONObject alias = JSON.parseObject(aliasJson);
-                List<WarframeMarketLich> records = alias.getJSONArray("RECORDS").toJavaList(WarframeMarketLich.class);
-                if(records.size() != warframeMarketLich.selectWarframeMarketLichList(null).size()){
-                    int x = 0;
-                    for (WarframeMarketLich record : records) {
-                        warframeMarketLich.insertWarframeMarketLich(record);
-                        x++;
+                if (!ZeroConfig.getTest()) {
+                    log.info("开始初始化Warframe.Market赤毒武器数据……");
+                    String aliasJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc() + "warframe_market_lich.json");
+                    if (aliasJson.trim().length() == 0) {
+                        log.error("未获取到赤毒武器数据……");
+                        return;
                     }
-                    log.info("共更新Warframe.Market赤毒武器 {} 条数据！",x);
-                }else{
-                    log.info("Warframe.Market赤毒武器数据未做更改！");
+                    JSONObject alias = JSON.parseObject(aliasJson);
+                    List<WarframeMarketLich> records = alias.getJSONArray("RECORDS").toJavaList(WarframeMarketLich.class);
+                    if (records.size() != warframeMarketLich.selectWarframeMarketLichList(null).size()) {
+                        int x = 0;
+                        for (WarframeMarketLich record : records) {
+                            warframeMarketLich.insertWarframeMarketLich(record);
+                            x++;
+                        }
+                        log.info("共更新Warframe.Market赤毒武器 {} 条数据！", x);
+                    } else {
+                        log.info("Warframe.Market赤毒武器数据未做更改！");
+                    }
                 }
             }
         });
