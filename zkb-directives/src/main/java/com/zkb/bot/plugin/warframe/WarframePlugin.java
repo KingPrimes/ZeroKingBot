@@ -7,7 +7,6 @@ import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.enums.FunctionEnums;
 import com.zkb.bot.enums.WarframeFissureTypeEnum;
-import com.zkb.bot.enums.WarframeTypeEnum;
 import com.zkb.bot.utils.ErroSendMessage;
 import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.SelectGroupFunctionOnOff;
@@ -16,6 +15,7 @@ import com.zkb.bot.warframe.utils.WarframeUtils;
 import com.zkb.bot.warframe.utils.market.MarketItemUtil;
 import com.zkb.bot.warframe.utils.market.MarketLichAndSisterUtil;
 import com.zkb.bot.warframe.utils.market.MarketRivenUtil;
+import com.zkb.bot.warframe.utils.riven.RivenAnaiyseTrendUtils;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.uuid.UUID;
@@ -54,7 +54,7 @@ public class WarframePlugin {
         //突击
         if (TYPE_ASSAULT_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getAssaultImage/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getAssaultImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -63,7 +63,7 @@ public class WarframePlugin {
         //执政官突击
         if (TYPE_ARCHON_HUNT_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getArchonHuntImage/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getArchonHuntImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -72,7 +72,7 @@ public class WarframePlugin {
         //入侵
         if (TYPE_INVASIONS_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getInvasionsImage/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getInvasionsImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -81,7 +81,7 @@ public class WarframePlugin {
         //奸商
         if (TYPE_VOID_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getVoidImage/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getVoidImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -90,7 +90,7 @@ public class WarframePlugin {
         //仲裁
         if (TYPE_ARBITRATION_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getArbitrationImage/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getArbitrationImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -99,7 +99,7 @@ public class WarframePlugin {
         //每日特惠
         if (TYPE_DAILY_DEALS_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getDailyDealsImage/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getDailyDealsImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -108,7 +108,7 @@ public class WarframePlugin {
         //钢铁
         if (TYPE_STEEL_PATH_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getSteelPathImage/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getSteelPathImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -117,7 +117,7 @@ public class WarframePlugin {
         //模拟开核桃
         if (TYPE_OPEN_RELICS_PLUGIN.getType().equals(rawMsg) || TYPE_OPEN1_RELICS_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getRelicsToy/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getRelicsToy/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -131,7 +131,7 @@ public class WarframePlugin {
                     bot.sendGroupMsg(group, Msg.builder().text("请输入 遗物名称如 A1").build(), false);
                     return 0;
                 }
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getRelics/" + key+"/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getRelics/" + key + "/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -140,7 +140,7 @@ public class WarframePlugin {
         //裂隙
         if (TYPE_FISSUES_PLUGIN.getType().equals(rawMsg) || TYPE_FISSUESX_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/" + WarframeFissureTypeEnum.ORDINARY+"/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/" + WarframeFissureTypeEnum.ORDINARY + "/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -149,7 +149,7 @@ public class WarframePlugin {
         //九重天裂隙
         if (TYPE_FISSUES_EMPYREAN_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/" + WarframeFissureTypeEnum.STORM+"/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/" + WarframeFissureTypeEnum.STORM + "/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -158,7 +158,7 @@ public class WarframePlugin {
         //钢铁裂隙
         if (TYPE_FISSUES_PATH_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/" + WarframeFissureTypeEnum.HARD+"/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/" + WarframeFissureTypeEnum.HARD + "/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -167,7 +167,7 @@ public class WarframePlugin {
         //平原
         if (TYPE_ALL_CYCLE_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getAllCycleImage/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getAllCycleImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -181,7 +181,7 @@ public class WarframePlugin {
         //电波
         if (TYPE_NIGH_TWAVE_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getNighTwaveImage/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getNighTwaveImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -191,7 +191,7 @@ public class WarframePlugin {
         if (TYPE_TRA_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_TRA_PLUGIN.getType().length()))) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
                 try {
-                    bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/" + UUID.fastUUID() + "/getTraImage/" + URLEncoder.encode(rawMsg.replace("翻译", "").trim(), "UTF-8")+"/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+                    bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/" + UUID.fastUUID() + "/getTraImage/" + URLEncoder.encode(rawMsg.replace("翻译", "").trim(), "UTF-8") + "/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
@@ -203,7 +203,7 @@ public class WarframePlugin {
         //金银垃圾
         if (TYPE_MARKET_GOD_DUMP.getType().equals(rawMsg) || TYPE_MARKET_SILVER_DUMP.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektDumpsImage/"+botId+"/"+user+"/"+group+"/"+rawMsg).build(), false);
+                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektDumpsImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -258,8 +258,19 @@ public class WarframePlugin {
             return 0;
         }
 
-        if(TYPE_SISTER_PLUGIN.getType().equals(rawMsg)){
-            bot.sendGroupMsg(group,Msg.builder().text(WarframeUtils.getSister("",botId,user,group,rawMsg)).build(), false);
+        if (TYPE_RIVEN_ANALYSE.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_RIVEN_ANALYSE.getType().length()).toUpperCase(Locale.ROOT))) {
+            if (!StringUtils.isHttpUrl(rawMsg)) {
+                bot.sendGroupMsg(event.getGroupId(), "请在发送指令的同时携带图片，只能携带一张图片！", false);
+                return 1;
+            }
+            Msg msg = RivenAnaiyseTrendUtils.rivenAnaiyse(rawMsg, bot);
+            bot.sendGroupMsg(event.getGroupId(), msg.build(), false);
+
+            return 0;
+        }
+
+        if (TYPE_SISTER_PLUGIN.getType().equals(rawMsg)) {
+            bot.sendGroupMsg(group, Msg.builder().text(WarframeUtils.getSister("", botId, user, group, rawMsg)).build(), false);
         }
 
         //WIKI
@@ -270,8 +281,6 @@ public class WarframePlugin {
                 e.printStackTrace();
             }
         }
-
-
 
 
         return MESSAGE_IGNORE;
