@@ -23,7 +23,7 @@ public class ServletUtils {
     /**
      * 定义移动端请求的所有可能类型
      */
-    private final static String[] agent = { "Android", "iPhone", "iPod", "iPad", "Windows Phone", "MQQBrowser" };
+    private final static String[] agent = {"Android", "iPhone", "iPod", "iPad", "Windows Phone", "MQQBrowser"};
 
     /**
      * 获取String参数
@@ -134,21 +134,17 @@ public class ServletUtils {
         String ajax = request.getParameter("__ajax");
         return StringUtils.inStringIgnoreCase(ajax, "json", "xml");
     }
+
     /**
      * 判断User-Agent 是不是来自于手机
      */
-    public static boolean checkAgentIsMobile(String ua)
-    {
+    public static boolean checkAgentIsMobile(String ua) {
         boolean flag = false;
-        if (!ua.contains("Windows NT") || (ua.contains("Windows NT") && ua.contains("compatible; MSIE 9.0;")))
-        {
+        if (!ua.contains("Windows NT") || (ua.contains("Windows NT") && ua.contains("compatible; MSIE 9.0;"))) {
             // 排除 苹果桌面系统
-            if (!ua.contains("Windows NT") && !ua.contains("Macintosh"))
-            {
-                for (String item : agent)
-                {
-                    if (ua.contains(item))
-                    {
+            if (!ua.contains("Windows NT") && !ua.contains("Macintosh")) {
+                for (String item : agent) {
+                    if (ua.contains(item)) {
                         flag = true;
                         break;
                     }
@@ -164,14 +160,10 @@ public class ServletUtils {
      * @param str 内容
      * @return 编码后的内容
      */
-    public static String urlEncode(String str)
-    {
-        try
-        {
+    public static String urlEncode(String str) {
+        try {
             return URLEncoder.encode(str, Constants.UTF8);
-        }
-        catch (UnsupportedEncodingException e)
-        {
+        } catch (UnsupportedEncodingException e) {
             return StringUtils.EMPTY;
         }
     }
@@ -182,14 +174,10 @@ public class ServletUtils {
      * @param str 内容
      * @return 解码后的内容
      */
-    public static String urlDecode(String str)
-    {
-        try
-        {
+    public static String urlDecode(String str) {
+        try {
             return URLDecoder.decode(str, Constants.UTF8);
-        }
-        catch (UnsupportedEncodingException e)
-        {
+        } catch (UnsupportedEncodingException e) {
             return StringUtils.EMPTY;
         }
     }

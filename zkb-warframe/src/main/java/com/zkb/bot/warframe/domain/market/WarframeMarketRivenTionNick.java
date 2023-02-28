@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "warframe_market_riven_tion_nick",uniqueConstraints = @UniqueConstraint(name = "rivenTionNick",columnNames = {"nickEn","nickCh"}))
+@Table(name = "warframe_market_riven_tion_nick", uniqueConstraints = @UniqueConstraint(name = "rivenTionNick", columnNames = {"nickEn", "nickCh"}))
 public class WarframeMarketRivenTionNick {
 
     @GeneratedValue

@@ -27,9 +27,9 @@ import java.io.IOException;
 @RequestMapping("/warframe/market")
 public class MarektImageController {
 
-    @LogInfo(title = TitleType.Warframe,orderType = "WM",businessType = BusinessType.SELECT)
+    @LogInfo(title = TitleType.Warframe, orderType = "WM", businessType = BusinessType.SELECT)
     @GetMapping(value = "/{uuid}/getMarektImage/{key}/{seBy}/{isMax}/{form}/{bot}/{user}/{group}/{rawMsg}", produces = MediaType.IMAGE_PNG_VALUE)
-    public synchronized void getImage(@NotNull HttpServletResponse response, @PathVariable String key, @PathVariable Boolean seBy, @PathVariable Boolean isMax, @PathVariable String form, @PathVariable long bot,@PathVariable long user,@PathVariable long group,@PathVariable String rawMsg) throws IOException {
+    public synchronized void getImage(@NotNull HttpServletResponse response, @PathVariable String key, @PathVariable Boolean seBy, @PathVariable Boolean isMax, @PathVariable String form, @PathVariable long bot, @PathVariable long user, @PathVariable long group, @PathVariable String rawMsg) throws IOException {
         response.setHeader("Content-Type", "image/png");
         Market market = new MarketItemUtil().market(form, key, seBy, isMax);
         if (market.getCode().equals("timeout")) {
@@ -38,7 +38,7 @@ public class MarektImageController {
             return;
         }
         if (market.getPayload().getOrders().size() != 0) {
-            ByteArrayOutputStream out = SpringUtils.getBean(HtmlToImage.class).marketImage2(market, seBy, isMax);
+            ByteArrayOutputStream out = SpringUtils.getBean(HtmlToImage.class).marketImage2(market, seBy, isMax, form);
             response.getOutputStream().write(out.toByteArray());
         } else {
             ByteArrayOutputStream out = SpringUtils.getBean(HtmlToImage.class).marketNotImage();

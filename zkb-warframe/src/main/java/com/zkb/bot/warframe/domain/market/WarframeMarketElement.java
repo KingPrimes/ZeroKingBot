@@ -4,7 +4,10 @@ package com.zkb.bot.warframe.domain.market;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Warframe.Market 赤毒/信条武器 元素字典对象

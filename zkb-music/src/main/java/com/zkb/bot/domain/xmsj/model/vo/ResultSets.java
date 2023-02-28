@@ -9,19 +9,19 @@ public class ResultSets {
 
     List<R> rList = new ArrayList<>();
 
-    public static ResultSets builder(){
+    public static ResultSets builder() {
         return new ResultSets();
     }
 
-    public ResultSets add(int index, String title, String author, MusicTypeEnum me){
-        this.rList.add(new R(index, title, author,me));
+    public ResultSets add(int index, String title, String author, MusicTypeEnum me) {
+        this.rList.add(new R(index, title, author, me));
         return this;
     }
 
-    public String build(){
+    public String build() {
         StringBuilder str = new StringBuilder();
         str.append("为您查询到以下歌曲信息:\n");
-        if(this.rList.size()!=0){
+        if (this.rList.size() != 0) {
             for (R r : this.rList) {
                 str.append(r.index)
                         .append(":")
@@ -36,7 +36,7 @@ public class ResultSets {
         return "";
     }
 
-    static class R{
+    static class R {
         int index;
         String title;
 

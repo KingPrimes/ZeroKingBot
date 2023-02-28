@@ -34,8 +34,53 @@ import java.util.Iterator;
 public class SQLiteDialect extends Dialect {
 
 
-    private final UniqueDelegate uniqueDelegate;
+    private static final SQLiteDialectIdentityColumnSupport IDENTITY_COLUMN_SUPPORT = new
+            SQLiteDialectIdentityColumnSupport(new SQLiteDialect());
+    // limit/offset support ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    private static final AbstractLimitHandler LIMIT_HANDLER = new AbstractLimitHandler() {
+        @Override
+        public String processSql(String sql, RowSelection selection) {
+            final boolean hasOffset = LimitHelper.hasFirstRow(selection);
+            return sql + (hasOffset ? " limit ? offset ?" : " limit ?");
+        }
 
+        @Override
+        public boolean supportsLimit() {
+            return true;
+        }
+
+        @Override
+        public boolean bindLimitParametersInReverseOrder() {
+            return true;
+        }
+    };
+    private static final int SQLITE_BUSY = 5;
+    private static final int SQLITE_LOCKED = 6;
+    private static final int SQLITE_IOERR = 10;
+    private static final int SQLITE_CORRUPT = 11;
+    private static final int SQLITE_NOTFOUND = 12;
+    private static final int SQLITE_FULL = 13;
+    private static final int SQLITE_CANTOPEN = 14;
+    private static final int SQLITE_PROTOCOL = 15;
+
+    // current timestamp support ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    private static final int SQLITE_TOOBIG = 18;
+    private static final int SQLITE_CONSTRAINT = 19;
+    private static final int SQLITE_MISMATCH = 20;
+
+    // SQLException support ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    private static final int SQLITE_NOTADB = 26;
+    private static final ViolatedConstraintNameExtracter EXTRACTER = new TemplatedViolatedConstraintNameExtracter() {
+        @Override
+        protected String doExtractConstraintName(SQLException sqle) throws NumberFormatException {
+            final int errorCode = JdbcExceptionHelper.extractErrorCode(sqle) & 0xFF;
+            if (errorCode == SQLITE_CONSTRAINT) {
+                return extractUsingTemplate("constraint ", " failed", sqle.getMessage());
+            }
+            return null;
+        }
+    };
+    private final UniqueDelegate uniqueDelegate;
     public SQLiteDialect() {
         registerColumnType(Types.BIT, "integer");
         registerColumnType(Types.TINYINT, "integer");
@@ -61,10 +106,10 @@ public class SQLiteDialect extends Dialect {
         registerColumnType(Types.CLOB, "text");
         registerColumnType(Types.BOOLEAN, "integer");
 
-        registerFunction( "concat", new VarArgsSQLFunction(StringType.INSTANCE, "", "||", "") );
-        registerFunction( "mod", new SQLFunctionTemplate( IntegerType.INSTANCE, "?1 % ?2" ) );
-        registerFunction( "substr", new StandardSQLFunction("substr", StringType.INSTANCE) );
-        registerFunction( "substring", new StandardSQLFunction( "substr", StringType.INSTANCE) );
+        registerFunction("concat", new VarArgsSQLFunction(StringType.INSTANCE, "", "||", ""));
+        registerFunction("mod", new SQLFunctionTemplate(IntegerType.INSTANCE, "?1 % ?2"));
+        registerFunction("substr", new StandardSQLFunction("substr", StringType.INSTANCE));
+        registerFunction("substring", new StandardSQLFunction("substr", StringType.INSTANCE));
         uniqueDelegate = new SQLiteUniqueDelegate(this);
     }
 
@@ -73,33 +118,10 @@ public class SQLiteDialect extends Dialect {
         return uniqueDelegate;
     }
 
-    private static final SQLiteDialectIdentityColumnSupport IDENTITY_COLUMN_SUPPORT = new
-            SQLiteDialectIdentityColumnSupport(new SQLiteDialect());
-
-
     @Override
     public IdentityColumnSupport getIdentityColumnSupport() {
         return IDENTITY_COLUMN_SUPPORT;
     }
-
-    // limit/offset support ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    private static final AbstractLimitHandler LIMIT_HANDLER = new AbstractLimitHandler() {
-        @Override
-        public String processSql(String sql, RowSelection selection) {
-            final boolean hasOffset = LimitHelper.hasFirstRow(selection);
-            return sql + (hasOffset ? " limit ? offset ?" : " limit ?");
-        }
-
-        @Override
-        public boolean supportsLimit() {
-            return true;
-        }
-
-        @Override
-        public boolean bindLimitParametersInReverseOrder() {
-            return true;
-        }
-    };
 
     @Override
     public LimitHandler getLimitHandler() {
@@ -123,8 +145,6 @@ public class SQLiteDialect extends Dialect {
         return false;
     }
 
-    // current timestamp support ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
     @Override
     public boolean supportsCurrentTimestampSelection() {
         return true;
@@ -139,21 +159,6 @@ public class SQLiteDialect extends Dialect {
     public String getCurrentTimestampSelectString() {
         return "select current_timestamp";
     }
-
-    // SQLException support ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    private static final int SQLITE_BUSY = 5;
-    private static final int SQLITE_LOCKED = 6;
-    private static final int SQLITE_IOERR = 10;
-    private static final int SQLITE_CORRUPT = 11;
-    private static final int SQLITE_NOTFOUND = 12;
-    private static final int SQLITE_FULL = 13;
-    private static final int SQLITE_CANTOPEN = 14;
-    private static final int SQLITE_PROTOCOL = 15;
-    private static final int SQLITE_TOOBIG = 18;
-    private static final int SQLITE_CONSTRAINT = 19;
-    private static final int SQLITE_MISMATCH = 20;
-    private static final int SQLITE_NOTADB = 26;
 
     @Override
     public SQLExceptionConversionDelegate buildSQLExceptionConversionDelegate() {
@@ -175,17 +180,6 @@ public class SQLiteDialect extends Dialect {
     public ViolatedConstraintNameExtracter getViolatedConstraintNameExtracter() {
         return EXTRACTER;
     }
-
-    private static final ViolatedConstraintNameExtracter EXTRACTER = new TemplatedViolatedConstraintNameExtracter() {
-        @Override
-        protected String doExtractConstraintName(SQLException sqle) throws NumberFormatException {
-            final int errorCode = JdbcExceptionHelper.extractErrorCode(sqle) & 0xFF;
-            if (errorCode == SQLITE_CONSTRAINT) {
-                return extractUsingTemplate("constraint ", " failed", sqle.getMessage());
-            }
-            return null;
-        }
-    };
 
     // union subclass support ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -293,7 +287,7 @@ public class SQLiteDialect extends Dialect {
     }
 
     protected String getLimitString(String query, boolean hasOffset) {
-        return new StringBuffer(query.length()+20).
+        return new StringBuffer(query.length() + 20).
                 append(query).
                 append(hasOffset ? " limit ? offset ?" : " limit ?").
                 toString();
@@ -317,7 +311,7 @@ public class SQLiteDialect extends Dialect {
 
 
     //自定义 唯一索引语句
-    private static class SQLiteUniqueDelegate extends DefaultUniqueDelegate{
+    private static class SQLiteUniqueDelegate extends DefaultUniqueDelegate {
 
         public SQLiteUniqueDelegate(Dialect dialect) {
             super(dialect);

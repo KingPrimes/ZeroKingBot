@@ -20,29 +20,29 @@
 
     <sql id="selectWarframeRelicsVo">
         select relics_key_id,
-               relics_id,
-               relics_tier,
-               relics_name,
-               relics_state,
-               relics_item_id,
-               relics_item_name,
-               relics_item_rarity,
-               relics_item_chance,
-               tra_ch
+        relics_id,
+        relics_tier,
+        relics_name,
+        relics_state,
+        relics_item_id,
+        relics_item_name,
+        relics_item_rarity,
+        relics_item_chance,
+        tra_ch
         from warframe_relics,
-             warframe_translation
+        warframe_translation
     </sql>
 
     <sql id="selectWarframeRelicsOVo">
         select relics_key_id,
-               relics_id,
-               relics_tier,
-               relics_name,
-               relics_state,
-               relics_item_id,
-               relics_item_name,
-               relics_item_rarity,
-               relics_item_chance
+        relics_id,
+        relics_tier,
+        relics_name,
+        relics_state,
+        relics_item_id,
+        relics_item_name,
+        relics_item_rarity,
+        relics_item_chance
         from warframe_relics
     </sql>
 
@@ -82,18 +82,18 @@
     <select id="selectWarframeRelicsByRelicsId" parameterType="String" resultMap="WarframeRelicsResult">
         SELECT *
         FROM (SELECT r.relics_key_id,
-                     r.relics_id,
-                     r.relics_tier,
-                     t1.tra_ch                         AS relics_tierd,
-                     t1.tra_ch || ' ' || r.relics_name as name,
-                     r.relics_name,
-                     r.relics_item_chance,
-                     t2.tra_ch                         AS relics_item_name,
-                     t3.tra_ch                         AS relics_item_rarity
-              FROM warframe_relics r
-                       INNER JOIN warframe_translation t1 ON t1.tra_en = r.relics_tier
-                       INNER JOIN warframe_translation t2 ON t2.tra_en = r.relics_item_name
-                       INNER JOIN warframe_translation t3 ON t3.tra_en = r.relics_item_rarity) AS a
+        r.relics_id,
+        r.relics_tier,
+        t1.tra_ch AS relics_tierd,
+        t1.tra_ch || ' ' || r.relics_name as name,
+        r.relics_name,
+        r.relics_item_chance,
+        t2.tra_ch AS relics_item_name,
+        t3.tra_ch AS relics_item_rarity
+        FROM warframe_relics r
+        INNER JOIN warframe_translation t1 ON t1.tra_en = r.relics_tier
+        INNER JOIN warframe_translation t2 ON t2.tra_en = r.relics_item_name
+        INNER JOIN warframe_translation t3 ON t3.tra_en = r.relics_item_rarity) AS a
         WHERE relics_id = #{relicsId}
         ORDER BY relics_id,
         relics_item_chance DESC
@@ -102,11 +102,11 @@
     <select id="selectWarframeRelicsToTraById" parameterType="Integer" resultMap="WarframeRelicsResult">
         SELECT *
         FROM (SELECT r.relics_key_id,
-                     r.relics_item_chance,
-                     r.relics_item_name,
-                     t2.tra_ch as tra_ch
-              FROM warframe_relics r
-                       INNER JOIN warframe_translation t2 ON t2.tra_en = r.relics_item_name) AS a
+        r.relics_item_chance,
+        r.relics_item_name,
+        t2.tra_ch as tra_ch
+        FROM warframe_relics r
+        INNER JOIN warframe_translation t2 ON t2.tra_en = r.relics_item_name) AS a
         WHERE a.relics_key_id = #{relicsKeyId}
     </select>
 
@@ -114,25 +114,25 @@
     <select id="selectWarframeRelicsByAll" parameterType="String" resultMap="WarframeRelicsResult">
         SELECT *
         FROM (SELECT r.relics_key_id,
-                     r.relics_id,
-                     r.relics_tier,
-                     t1.tra_ch                         AS relics_tierd,
-                     t1.tra_ch || ' ' || r.relics_name as name,
-                     r.relics_name,
-                     r.relics_item_chance,
-                     t2.tra_ch                         AS relics_item_name,
-                     t3.tra_ch                         AS relics_item_rarity
-              FROM warframe_relics r
-                       INNER JOIN warframe_translation t1 ON t1.tra_en = r.relics_tier
-                       INNER JOIN warframe_translation t2 ON t2.tra_en = r.relics_item_name
-                       INNER JOIN warframe_translation t3 ON t3.tra_en = r.relics_item_rarity) AS a
+        r.relics_id,
+        r.relics_tier,
+        t1.tra_ch AS relics_tierd,
+        t1.tra_ch || ' ' || r.relics_name as name,
+        r.relics_name,
+        r.relics_item_chance,
+        t2.tra_ch AS relics_item_name,
+        t3.tra_ch AS relics_item_rarity
+        FROM warframe_relics r
+        INNER JOIN warframe_translation t1 ON t1.tra_en = r.relics_tier
+        INNER JOIN warframe_translation t2 ON t2.tra_en = r.relics_item_name
+        INNER JOIN warframe_translation t3 ON t3.tra_en = r.relics_item_rarity) AS a
         WHERE a.relics_name LIKE '%' || #{ str } || '%'
-           OR a.relics_item_name LIKE '%' || #{ str } || '%'
-           OR a.relics_item_rarity LIKE '%' || #{ str } || '%'
-           or a.name like '%' || #{ str } || '%'
+        OR a.relics_item_name LIKE '%' || #{ str } || '%'
+        OR a.relics_item_rarity LIKE '%' || #{ str } || '%'
+        or a.name like '%' || #{ str } || '%'
 
         ORDER BY relics_id,
-                 relics_item_chance DESC
+        relics_item_chance DESC
 
     </select>
 

@@ -4,12 +4,10 @@ import com.zkb.bot.domain.BotFunction;
 import com.zkb.bot.mapper.BotFunctionMapper;
 import com.zkb.bot.server.BotFunctionServer;
 import com.zkb.common.core.redis.RedisCache;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,7 +22,6 @@ public class BotFunctionServerImpl implements BotFunctionServer, CommandLineRunn
 
     @Autowired
     RedisCache redisCache;
-
 
 
     @Override
@@ -101,7 +98,7 @@ public class BotFunctionServerImpl implements BotFunctionServer, CommandLineRunn
 
     @Override
     public void run(String... args) throws Exception {
-        if(botFunctionMapper.selectFunctionList(null).size()==0 ||botFunctionMapper.selectFunctionList(null)==null){
+        if (botFunctionMapper.selectFunctionList(null).size() == 0 || botFunctionMapper.selectFunctionList(null) == null) {
             botFunctionMapper.insertFunction(new BotFunction(
                     1L,
                     "warframe",

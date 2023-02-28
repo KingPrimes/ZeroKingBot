@@ -11,13 +11,6 @@ import java.util.Objects;
  */
 public interface EnumValue {
     /**
-     * 序列化
-     *
-     * @return 不允许返回 null
-     */
-    Object toValue();
-
-    /**
      * 反序列化
      *
      * @param enumType 实际枚举类型
@@ -41,4 +34,11 @@ public interface EnumValue {
 
         return null;
     }
+
+    /**
+     * 序列化
+     *
+     * @return 不允许返回 null
+     */
+    Object toValue();
 }

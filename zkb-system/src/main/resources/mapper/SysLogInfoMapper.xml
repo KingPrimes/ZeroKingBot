@@ -26,38 +26,40 @@
 
     <sql id="selectSysLogInfoVo">
         select log_id,
-               log_title,
-               log_order_type,
-               log_business_type,
-               log_bot,
-               log_group,
-               log_user,
-               log_raw_msg,
-               log_url,
-               log_param,log_method,log_request_method,
-               log_result,
-               log_status,
-               log_error_msg,
-               log_time,log_run_time
+        log_title,
+        log_order_type,
+        log_business_type,
+        log_bot,
+        log_group,
+        log_user,
+        log_raw_msg,
+        log_url,
+        log_param,log_method,log_request_method,
+        log_result,
+        log_status,
+        log_error_msg,
+        log_time,log_run_time
         from sys_log_info
     </sql>
 
     <insert id="insertSyslogInfo" parameterType="com.zkb.system.domain.SysLogInfo">
         insert into sys_log_info(log_title,
-                            log_order_type,
-                            log_business_type,
-                            log_bot,
-                            log_group,
-                            log_user,
-                            log_raw_msg,
-                            log_url,
-                            log_param,log_method,log_request_method,
-                            log_result,
-                            log_status,
-                            log_error_msg,
-                            log_time,log_run_time)
-        values (#{logTitle}, #{logOrderType}, #{logBusinessType},#{logBot}, #{logGroup}, #{logUser},#{logRawMsg}, #{logUrl},
-                #{logParam},#{logMethod},#{logRequestMethod}, #{logResult}, #{logStatus}, #{logErrorMsg}, datetime('now', 'localtime'),#{logRunTime})
+        log_order_type,
+        log_business_type,
+        log_bot,
+        log_group,
+        log_user,
+        log_raw_msg,
+        log_url,
+        log_param,log_method,log_request_method,
+        log_result,
+        log_status,
+        log_error_msg,
+        log_time,log_run_time)
+        values (#{logTitle}, #{logOrderType}, #{logBusinessType},#{logBot}, #{logGroup}, #{logUser},#{logRawMsg},
+        #{logUrl},
+        #{logParam},#{logMethod},#{logRequestMethod}, #{logResult}, #{logStatus}, #{logErrorMsg}, datetime('now',
+        'localtime'),#{logRunTime})
     </insert>
 
     <select id="selectSysLogInfoList" parameterType="com.zkb.system.domain.SysLogInfo" resultMap="SysLogInfoResult">

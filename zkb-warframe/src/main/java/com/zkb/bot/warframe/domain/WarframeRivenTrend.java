@@ -1,6 +1,7 @@
 package com.zkb.bot.warframe.domain;
 
 
+import com.zkb.bot.enums.WarframeRivenTrendTypeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -18,7 +19,7 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode(of = {"rivenTrendName", "rivenTrendOldNum", "rivenTrendNewNum"})
 @Entity
-@Table(name = "warframe_riven_trend",uniqueConstraints = @UniqueConstraint(name = "trend",columnNames = "rivenTrendName"))
+@Table(name = "warframe_riven_trend", uniqueConstraints = @UniqueConstraint(name = "trend", columnNames = "rivenTrendName"))
 public class WarframeRivenTrend {
 
     @GeneratedValue
@@ -50,6 +51,11 @@ public class WarframeRivenTrend {
      */
     private String rivenTrendNewDot;
 
+    /**
+     * 武器类型
+     */
+    private WarframeRivenTrendTypeEnum rivenTrendType;
+
     @Transient
     private String traCh;
 
@@ -67,6 +73,7 @@ public class WarframeRivenTrend {
         this.rivenTrendNewNum = warframeRivenTrend.getRivenTrendNewNum();
         this.rivenTrendOldDot = warframeRivenTrend.getRivenTrendOldDot();
         this.rivenTrendOldNum = warframeRivenTrend.getRivenTrendOldNum();
+        this.rivenTrendType = warframeRivenTrend.getRivenTrendType();
         this.traCh = warframeRivenTrend.getTraCh();
         this.isDate = warframeRivenTrend.getIsDate();
     }
@@ -139,27 +146,6 @@ public class WarframeRivenTrend {
         this.rivenTrendNewDot = rivenTrendNewDot;
     }
 
-  /*  @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof WarframeRivenTrend)) return false;
-        WarframeRivenTrend trend = (WarframeRivenTrend) o;
-        return Objects.equals(getRivenTrendName(),
-                trend.getRivenTrendName())
-
-                && Objects.equals(getRivenTrendOldNum(),
-                trend.getRivenTrendOldNum())
-
-                && Objects.equals(getRivenTrendNewNum(),
-                trend.getRivenTrendNewNum())
-
-                && Objects.equals(getRivenTrendOldDot(),
-                trend.getRivenTrendOldDot())
-
-                && Objects.equals(getRivenTrendNewDot(),
-                trend.getRivenTrendNewDot());
-    }
-*/
 
     @Override
     public String toString() {

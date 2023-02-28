@@ -1,8 +1,8 @@
 package com.zkb.bot.warframe.utils.forums;
 
 
+import com.zkb.bot.enums.WarframeRivenTrendEnum;
 import com.zkb.bot.warframe.domain.WarframeRivenTrend;
-import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.http.HttpUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -100,8 +100,8 @@ public class GetForumsRivenDispositionUpdates {
                                 String newNum = rmnt[1].replaceAll("[^\\d.]", "");
                                 trend.setRivenTrendNewNum(newNum);
                                 trend.setRivenTrendOldNum(rmnt[0]);
-                                trend.setRivenTrendNewDot(StringUtils.getRivenTrendDot(Double.parseDouble(newNum)));
-                                trend.setRivenTrendOldDot(StringUtils.getRivenTrendDot(Double.parseDouble(rmnt[0])));
+                                trend.setRivenTrendNewDot(WarframeRivenTrendEnum.getRivenTrendDot(Double.parseDouble(newNum)));
+                                trend.setRivenTrendOldDot(WarframeRivenTrendEnum.getRivenTrendDot(Double.parseDouble(rmnt[0])));
                                 trend.setIsDate(dateTime);
                                 trends.add(trend);
                             }

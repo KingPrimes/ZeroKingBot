@@ -256,7 +256,7 @@ public class Msg extends MsgUtils {
         return this;
     }
 
-    public Msg customMusic(MusicTypeEnum type,String url, String audio, String title, String content, String image) {
+    public Msg customMusic(MusicTypeEnum type, String url, String audio, String title, String content, String image) {
         this.str.append(
                 format(
                         "[CQ:music,type=custom,subtype=%s,url=%s,audio=%s,title=%s,content=%s,image=%s]",

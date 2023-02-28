@@ -19,15 +19,15 @@
 
     <sql id="selectWarframeMarketRivenTionVo">
         select effect,
-               exclusive_to,
-               `group`,
-               negative_only,
-               positive_is_negative,
-               prefix,
-               search_only,
-               suffix,
-               units,
-               url_name
+        exclusive_to,
+        `group`,
+        negative_only,
+        positive_is_negative,
+        prefix,
+        search_only,
+        suffix,
+        units,
+        url_name
         from warframe_market_riven_tion
     </sql>
 

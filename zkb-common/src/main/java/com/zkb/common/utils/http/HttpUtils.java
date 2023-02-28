@@ -390,7 +390,7 @@ public class HttpUtils {
      * @return JSON格式的数据
      */
     public static String sendPostFile(File file, String imageName, MediaType mediaTypet) {
-        RequestBody fileBody = RequestBody.create(file,mediaTypet);
+        RequestBody fileBody = RequestBody.create(file, mediaTypet);
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("file", imageName, fileBody)
@@ -481,10 +481,10 @@ public class HttpUtils {
         }
 
         return new Request.Builder()
-               .url(urlNameString)
-               .get()
-               .headers(headers.build())
-               .build();
+                .url(urlNameString)
+                .get()
+                .headers(headers.build())
+                .build();
     }
 
     /**
@@ -511,7 +511,7 @@ public class HttpUtils {
     public static String sendPostOkHttpToJson(String url, String data, Headers headers) {
         try {
             Request request;
-            RequestBody body = RequestBody.create(data,MEDIA_TYPE_JSON);
+            RequestBody body = RequestBody.create(data, MEDIA_TYPE_JSON);
             if (headers != null) {
                 request = new Request.Builder()
                         .url(url)
@@ -538,7 +538,7 @@ public class HttpUtils {
     public static String sendPostOkHttpToFormU(String url, String data, Headers headers) {
         try {
             Request request;
-            RequestBody body = RequestBody.create(data,MEDIA_TYPE_FORM_URLENCODED);
+            RequestBody body = RequestBody.create(data, MEDIA_TYPE_FORM_URLENCODED);
             if (headers != null) {
                 request = new Request.Builder()
                         .url(url)

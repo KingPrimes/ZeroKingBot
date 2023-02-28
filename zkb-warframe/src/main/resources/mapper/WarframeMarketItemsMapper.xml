@@ -43,7 +43,7 @@
             parameterType="com.zkb.bot.warframe.domain.market.WarframeMarketItemsRegular"
             resultMap="WarframeMarketItemsResult">
         <include refid="selectWarframeMarketItemsVo"/>
-        where `item_name` REGEXP '^'||#{regulaHeader}||'.*'||#{regulaEnd}  limit 1
+        where `item_name` REGEXP '^'||#{regulaHeader}||'.*'||#{regulaEnd} limit 1
     </select>
 
     <select id="selectWarframeMarketItemsLikeList" parameterType="String" resultMap="WarframeMarketItemsResult">

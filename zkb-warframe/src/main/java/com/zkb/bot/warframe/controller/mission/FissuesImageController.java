@@ -25,11 +25,11 @@ public class FissuesImageController {
     @Autowired
     RedisCache redisCache;
 
-    @LogInfo(title = TitleType.Warframe,orderType = "裂隙",businessType = BusinessType.IMAGE)
+    @LogInfo(title = TitleType.Warframe, orderType = "裂隙", businessType = BusinessType.IMAGE)
     @GetMapping(value = "/{uuid}/getFissuesImage/{type}/{bot}/{user}/{group}/{rawMsg}")
     public void getImage(@PathVariable("type") WarframeFissureTypeEnum type, HttpServletResponse response, @PathVariable long bot, @PathVariable long user, @PathVariable long group, @PathVariable String rawMsg, @PathVariable String uuid) throws InterruptedException, IOException {
         response.setHeader("Content-Type", "image/png");
-        ByteArrayOutputStream out = WarframeHtmlToImage.conver("http://localhost:"+ GetServerPort.getPort()+"/warframe/mission/"+uuid+"/getFissuesHtml/"+type);
+        ByteArrayOutputStream out = WarframeHtmlToImage.conver("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + uuid + "/getFissuesHtml/" + type);
         response.getOutputStream().write(out.toByteArray());
     }
 

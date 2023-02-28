@@ -16,14 +16,12 @@ import java.util.Map;
 
 /**
  * 自定义ShiroFilterFactoryBean解决资源中文路径问题
- * 
+ *
  * @author KingPrimes
  */
-public class CustomShiroFilterFactoryBean extends ShiroFilterFactoryBean
-{
+public class CustomShiroFilterFactoryBean extends ShiroFilterFactoryBean {
     @Override
-    public Class<MySpringShiroFilter> getObjectType()
-    {
+    public Class<MySpringShiroFilter> getObjectType() {
         return MySpringShiroFilter.class;
     }
 
@@ -31,14 +29,12 @@ public class CustomShiroFilterFactoryBean extends ShiroFilterFactoryBean
     protected AbstractShiroFilter createInstance() {
 
         SecurityManager securityManager = getSecurityManager();
-        if (securityManager == null)
-        {
+        if (securityManager == null) {
             String msg = "SecurityManager property must be set.";
             throw new BeanInitializationException(msg);
         }
 
-        if (!(securityManager instanceof WebSecurityManager))
-        {
+        if (!(securityManager instanceof WebSecurityManager)) {
             String msg = "The security manager does not implement the WebSecurityManager interface.";
             throw new BeanInitializationException(msg);
         }
@@ -52,8 +48,7 @@ public class CustomShiroFilterFactoryBean extends ShiroFilterFactoryBean
 
         Map<String, Filter> filterMap = manager.getFilters();
         Filter invalidRequestFilter = filterMap.get(DefaultFilter.invalidRequest.name());
-        if (invalidRequestFilter instanceof InvalidRequestFilter)
-        {
+        if (invalidRequestFilter instanceof InvalidRequestFilter) {
             // 此处是关键,设置false跳过URL携带中文400，servletPath中文校验bug
             ((InvalidRequestFilter) invalidRequestFilter).setBlockNonAscii(false);
         }
@@ -64,19 +59,13 @@ public class CustomShiroFilterFactoryBean extends ShiroFilterFactoryBean
         return new MySpringShiroFilter((WebSecurityManager) securityManager, chainResolver);
     }
 
-    private static final class MySpringShiroFilter extends AbstractShiroFilter
-    {
-        private MySpringShiroFilter(WebSecurityManager webSecurityManager, FilterChainResolver resolver)
-        {
-            if (webSecurityManager == null)
-            {
+    private static final class MySpringShiroFilter extends AbstractShiroFilter {
+        private MySpringShiroFilter(WebSecurityManager webSecurityManager, FilterChainResolver resolver) {
+            if (webSecurityManager == null) {
                 throw new IllegalArgumentException("WebSecurityManager property cannot be null.");
-            }
-            else
-            {
+            } else {
                 this.setSecurityManager(webSecurityManager);
-                if (resolver != null)
-                {
+                if (resolver != null) {
                     this.setFilterChainResolver(resolver);
                 }
             }

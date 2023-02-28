@@ -7,6 +7,7 @@ import java.util.List;
 public interface ISysLogInfoService {
     /**
      * 增加日志
+     *
      * @param logInfo 日志详情
      * @return 影响行数
      */
@@ -14,6 +15,7 @@ public interface ISysLogInfoService {
 
     /**
      * 条件查询
+     *
      * @param logInfo 查询条件
      * @return 返回结果集
      */
@@ -21,6 +23,7 @@ public interface ISysLogInfoService {
 
     /**
      * 批量删除日志
+     *
      * @param ids ids
      * @return 影响行数
      */
@@ -28,6 +31,7 @@ public interface ISysLogInfoService {
 
     /**
      * 查询日志详细
+     *
      * @param logId 日志ID
      * @return 日志对象
      */

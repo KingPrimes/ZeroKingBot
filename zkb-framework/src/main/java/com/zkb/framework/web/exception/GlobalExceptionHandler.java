@@ -18,28 +18,23 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 全局异常处理器
- * 
+ *
  * @author KingPrimes
  */
 @RestControllerAdvice
-public class GlobalExceptionHandler
-{
+public class GlobalExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
      * 权限校验异常（ajax请求返回json，redirect请求跳转页面）
      */
     @ExceptionHandler(AuthorizationException.class)
-    public Object handleAuthorizationException(AuthorizationException e, HttpServletRequest request)
-    {
+    public Object handleAuthorizationException(AuthorizationException e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',权限校验失败'{}'", requestURI, e.getMessage());
-        if (ServletUtils.isAjaxRequest(request))
-        {
+        if (ServletUtils.isAjaxRequest(request)) {
             return AjaxResult.error(PermissionUtils.getMsg(e.getMessage()));
-        }
-        else
-        {
+        } else {
             return new ModelAndView("error/unauth");
         }
     }
@@ -49,8 +44,7 @@ public class GlobalExceptionHandler
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public AjaxResult handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException e,
-            HttpServletRequest request)
-    {
+                                                          HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',不支持'{}'请求", requestURI, e.getMethod());
         return AjaxResult.error(e.getMessage());
@@ -60,8 +54,7 @@ public class GlobalExceptionHandler
      * 拦截未知的运行时异常
      */
     @ExceptionHandler(RuntimeException.class)
-    public AjaxResult handleRuntimeException(RuntimeException e, HttpServletRequest request)
-    {
+    public AjaxResult handleRuntimeException(RuntimeException e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',发生未知异常.", requestURI, e);
         return AjaxResult.error(e.getMessage());
@@ -71,8 +64,7 @@ public class GlobalExceptionHandler
      * 系统异常
      */
     @ExceptionHandler(Exception.class)
-    public AjaxResult handleException(Exception e, HttpServletRequest request)
-    {
+    public AjaxResult handleException(Exception e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',发生系统异常.", requestURI, e);
         return AjaxResult.error(e.getMessage());
@@ -82,15 +74,11 @@ public class GlobalExceptionHandler
      * 业务异常
      */
     @ExceptionHandler(ServiceException.class)
-    public Object handleServiceException(ServiceException e, HttpServletRequest request)
-    {
+    public Object handleServiceException(ServiceException e, HttpServletRequest request) {
         log.error(e.getMessage(), e);
-        if (ServletUtils.isAjaxRequest(request))
-        {
+        if (ServletUtils.isAjaxRequest(request)) {
             return AjaxResult.error(e.getMessage());
-        }
-        else
-        {
+        } else {
             return new ModelAndView("error/service", "errorMessage", e.getMessage());
         }
     }
@@ -99,8 +87,7 @@ public class GlobalExceptionHandler
      * 自定义验证异常
      */
     @ExceptionHandler(BindException.class)
-    public AjaxResult handleBindException(BindException e)
-    {
+    public AjaxResult handleBindException(BindException e) {
         log.error(e.getMessage(), e);
         String message = e.getAllErrors().get(0).getDefaultMessage();
         return AjaxResult.error(message);

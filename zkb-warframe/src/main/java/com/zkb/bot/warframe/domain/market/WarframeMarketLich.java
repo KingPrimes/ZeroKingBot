@@ -13,7 +13,7 @@ import javax.persistence.*;
  * @date 2021-11-24
  */
 @Entity
-@Table(name = "warframe_market_lich",uniqueConstraints = @UniqueConstraint(name = "lich",columnNames = {"id","itemName","urlName"}))
+@Table(name = "warframe_market_lich", uniqueConstraints = @UniqueConstraint(name = "lich", columnNames = {"id", "itemName", "urlName"}))
 public class WarframeMarketLich {
     private static final long serialVersionUID = 1L;
 

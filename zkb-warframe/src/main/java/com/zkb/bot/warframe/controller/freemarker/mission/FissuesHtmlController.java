@@ -21,12 +21,12 @@ public class FissuesHtmlController {
     @Autowired
     RedisCache redisCache;
 
-    @LogInfo(title = TitleType.Warframe,orderType = "裂隙",businessType = BusinessType.SELECT)
+    @LogInfo(title = TitleType.Warframe, orderType = "裂隙", businessType = BusinessType.SELECT)
     @GetMapping(value = "/{uuid}/getFissuesHtml/{type}")
     public String getImage(@PathVariable("type") WarframeFissureTypeEnum type, Model model) {
         FissureList fissureList = SpringUtils.getBean(WarframeUtils.class).getFissureList(type);
-        model.addAttribute("fiss",fissureList);
-        model.addAttribute("type",type.ordinal());
+        model.addAttribute("fiss", fissureList);
+        model.addAttribute("type", type.ordinal());
         return "html/fissues";
 
     }

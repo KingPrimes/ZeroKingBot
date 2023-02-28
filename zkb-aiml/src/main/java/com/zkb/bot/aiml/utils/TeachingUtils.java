@@ -137,12 +137,12 @@ public class TeachingUtils {
             issueReply.setMsgIssueImage(CqParse.build(str).getCqImageMD5().toString());
         }
         String issue = CqParse.build(str).reovmCq();
-        if(issue.length()!=0){
+        if (issue.length() != 0) {
             issueReply.setMsgIssue(EscapeUtil.escape(issue));
-        }else{
+        } else {
             issueReply.setMsgIssue("`null`");
         }
-        return issueReply.getMsgIssueImage() == null && issueReply.getMsgIssueFace() ==null && issueReply.getMsgIssue() ==null?null:issueReply;
+        return issueReply.getMsgIssueImage() == null && issueReply.getMsgIssueFace() == null && issueReply.getMsgIssue() == null ? null : issueReply;
     }
 
 

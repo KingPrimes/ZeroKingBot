@@ -411,7 +411,7 @@ public class BiliBili {
                                 .toString();
                     }
 
-                    public static class Desc{
+                    public static class Desc {
                         //文本内容
                         @JsonAlias
                         String text;

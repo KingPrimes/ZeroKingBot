@@ -40,6 +40,7 @@ public interface WarframeMarketItemsMapper {
      * @return 结果
      */
     WarframeMarketItems selectWarframeMarketItemsByItemName(String itemName);
+
     /**
      * 根据名称模糊查询数据
      *
@@ -65,8 +66,6 @@ public interface WarframeMarketItemsMapper {
      */
     //@Select("select * from wf_market_items where upper(replace(item_name,' ','')) like UPPER(replace('%'||#{}||'%',' ',''))")
     WarframeMarketItems selectWarframeMarketItemByItemNameToRegular(WarframeMarketItemsRegular regular);
-
-
 
 
     /**

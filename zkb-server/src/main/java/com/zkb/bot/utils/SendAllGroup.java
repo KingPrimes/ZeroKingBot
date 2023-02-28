@@ -34,7 +34,8 @@ public class SendAllGroup {
 
     /**
      * 向所有群组发送消息
-     * @param msg      Msg
+     *
+     * @param msg Msg
      */
     public static void sendAllGroup(Msg msg) {
         Map<Long, Bot> bots = SpringUtils.getBean(BotContainer.class).robots;

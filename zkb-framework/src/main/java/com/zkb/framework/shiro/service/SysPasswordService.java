@@ -21,12 +21,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 登录密码方法
- * 
+ *
  * @author KingPrimes
  */
 @Component
-public class SysPasswordService
-{
+public class SysPasswordService {
     @Autowired
     private CacheManager cacheManager;
 
@@ -36,52 +35,42 @@ public class SysPasswordService
     private String maxRetryCount;
 
     @PostConstruct
-    public void init()
-    {
+    public void init() {
         loginRecordCache = cacheManager.getCache(ShiroConstants.LOGINRECORDCACHE);
     }
 
-    public void validate(SysUser user, String password)
-    {
+    public void validate(SysUser user, String password) {
         String loginName = user.getUserName();
 
         AtomicInteger retryCount = loginRecordCache.get(loginName);
 
-        if (retryCount == null)
-        {
+        if (retryCount == null) {
             retryCount = new AtomicInteger(0);
             loginRecordCache.put(loginName, retryCount);
         }
-        if (retryCount.incrementAndGet() > Integer.parseInt(maxRetryCount))
-        {
+        if (retryCount.incrementAndGet() > Integer.parseInt(maxRetryCount)) {
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(loginName, Constants.LOGIN_FAIL, MessageUtils.message("user.password.retry.limit.exceed", maxRetryCount)));
             throw new UserPasswordRetryLimitExceedException(Integer.parseInt(maxRetryCount));
         }
 
-        if (!matches(user, password))
-        {
+        if (!matches(user, password)) {
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(loginName, Constants.LOGIN_FAIL, MessageUtils.message("user.password.retry.limit.count", retryCount)));
             loginRecordCache.put(loginName, retryCount);
             throw new UserPasswordNotMatchException();
-        }
-        else
-        {
+        } else {
             clearLoginRecordCache(loginName);
         }
     }
 
-    public boolean matches(SysUser user, String newPassword)
-    {
+    public boolean matches(SysUser user, String newPassword) {
         return user.getPassword().equals(encryptPassword(user.getUserName(), newPassword, user.getSalt()));
     }
 
-    public void clearLoginRecordCache(String loginName)
-    {
+    public void clearLoginRecordCache(String loginName) {
         loginRecordCache.remove(loginName);
     }
 
-    public String encryptPassword(String loginName, String password, String salt)
-    {
+    public String encryptPassword(String loginName, String password, String salt) {
         return new Md5Hash(loginName + password + salt).toHex();
     }
 

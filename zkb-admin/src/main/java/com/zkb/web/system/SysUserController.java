@@ -15,13 +15,12 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * 用户信息
- * 
+ *
  * @author ruoyi
  */
 @Controller
 @RequestMapping("/system/user")
-public class SysUserController extends BaseController
-{
+public class SysUserController extends BaseController {
     private String prefix = "system/user";
 
     @Autowired
@@ -31,16 +30,13 @@ public class SysUserController extends BaseController
     private SysPasswordService passwordService;
 
     @GetMapping()
-    public String user()
-    {
+    public String user() {
         return prefix + "/user";
     }
 
 
-
     @GetMapping("/resetPwd/{userId}")
-    public String resetPwd(@PathVariable("userId") Long userId, ModelMap mmap)
-    {
+    public String resetPwd(@PathVariable("userId") Long userId, ModelMap mmap) {
         mmap.put("user", userService.selectUserById(userId));
         return prefix + "/resetPwd";
     }
@@ -48,16 +44,13 @@ public class SysUserController extends BaseController
     @Log(title = "重置密码", businessType = BusinessType.UPDATE)
     @PostMapping("/resetPwd")
     @ResponseBody
-    public AjaxResult resetPwdSave(SysUser user)
-    {
+    public AjaxResult resetPwdSave(SysUser user) {
         userService.checkUserAllowed(user);
         userService.checkUserDataScope(user.getUserId());
         user.setSalt(ShiroUtils.randomSalt());
         user.setPassword(passwordService.encryptPassword(user.getUserName(), user.getPassword(), user.getSalt()));
-        if (userService.resetUserPwd(user) > 0)
-        {
-            if (ShiroUtils.getUserId().longValue() == user.getUserId().longValue())
-            {
+        if (userService.resetUserPwd(user) > 0) {
+            if (ShiroUtils.getUserId().longValue() == user.getUserId().longValue()) {
                 setSysUser(userService.selectUserById(user.getUserId()));
             }
             return success();
@@ -71,8 +64,7 @@ public class SysUserController extends BaseController
      */
     @PostMapping("/checkLoginNameUnique")
     @ResponseBody
-    public String checkLoginNameUnique(SysUser user)
-    {
+    public String checkLoginNameUnique(SysUser user) {
         return userService.checkLoginNameUnique(user);
     }
 
@@ -83,8 +75,7 @@ public class SysUserController extends BaseController
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
     @PostMapping("/changeStatus")
     @ResponseBody
-    public AjaxResult changeStatus(SysUser user)
-    {
+    public AjaxResult changeStatus(SysUser user) {
         userService.checkUserAllowed(user);
         userService.checkUserDataScope(user.getUserId());
         return toAjax(userService.changeStatus(user));

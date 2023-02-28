@@ -1,8 +1,6 @@
 package com.zkb.bot.domain;
 
-import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.zkb.bot.utils.PrivateAddApi;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -27,7 +25,7 @@ public class Bvoid {
     @JsonProperty("view")
     private String view;
 
-    public static String getBV(long botId) {
+ /*   public static String getBV(long botId) {
         Bvoid bv = new Bvoid();
         bv.setApp("com.tencent.miniapp_01");
         bv.setDesc("哔哩哔哩");
@@ -51,7 +49,7 @@ public class Bvoid {
         ));
         String bvoid = JSON.toJSONString(bv);
         return bvoid.replace("&", "&amp;").replace(",", "&#44;").replace("[", "&#91;").replace("]", "&#93;");
-    }
+    }*/
 
     @NoArgsConstructor
     @Data

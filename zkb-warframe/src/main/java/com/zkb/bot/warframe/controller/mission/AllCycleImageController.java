@@ -19,11 +19,11 @@ import java.io.ByteArrayOutputStream;
 public class AllCycleImageController {
 
 
-    @LogInfo(title = TitleType.Warframe,orderType = "平原",businessType = BusinessType.IMAGE)
+    @LogInfo(title = TitleType.Warframe, orderType = "平原", businessType = BusinessType.IMAGE)
     @GetMapping(value = "/{uuid}/getAllCycleImage/{bot}/{user}/{group}/{rawMsg}")
     public void getImage(HttpServletResponse response, @PathVariable long bot, @PathVariable long user, @PathVariable long group, @PathVariable String rawMsg, @PathVariable String uuid) throws Exception {
         response.setHeader("Content-Type", "image/png");
-        ByteArrayOutputStream out = WarframeHtmlToImage.conver("http://localhost:"+ GetServerPort.getPort()+"/warframe/mission/"+uuid+"/getAllCycleHtml");
+        ByteArrayOutputStream out = WarframeHtmlToImage.conver("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + uuid + "/getAllCycleHtml");
         response.getOutputStream().write(out.toByteArray());
     }
 }

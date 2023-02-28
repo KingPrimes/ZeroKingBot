@@ -1,7 +1,7 @@
 package com.zkb.common.constant;
 
 
-public class Constants extends com.google.code.kaptcha.Constants{
+public class Constants extends com.google.code.kaptcha.Constants {
     /**
      * UTF-8 字符集
      */

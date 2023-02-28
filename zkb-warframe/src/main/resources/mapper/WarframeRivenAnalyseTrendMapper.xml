@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkb.bot.warframe.mapper.WarframeRivenAnalyseTrendMapper">
+
+    <resultMap type="WarframeRivenAnalyseTrend" id="WarframeRivenAnalyseTrendResult">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="prefix" column="prefix"/>
+        <result property="suffix" column="suffix"/>
+        <result property="rifle" column="rifle"/>
+        <result property="shotgun" column="shotgun"/>
+        <result property="pistol" column="pistol"/>
+        <result property="archwing" column="archwing"/>
+        <result property="melle" column="melle"/>
+    </resultMap>
+
+    <sql id="WarframeRivenAnalyseTrendVo">
+        select id,name,prefix,suffix,rifle,shotgun,pistol,archwing,melle from warframe_riven_analyse_trend
+    </sql>
+
+    <select id="selectWarframeRivenAnalyseTrendList" parameterType="WarframeRivenAnalyseTrend"
+            resultMap="WarframeRivenAnalyseTrendResult">
+        <include refid="WarframeRivenAnalyseTrendVo"/>
+        <where>
+            <if test="name != null  and name != ''">and name like
+                '%'||#{name}||'%'
+            </if>
+            <if test="prefix != null  and prefix != ''">and prefix like '%'||#{prefix}||'%'</if>
+            <if test="suffix != null  and suffix != ''">and suffix like '%'||#{suffix}||'%'</if>
+        </where>
+    </select>
+
+    <select id="selectWarframeRivenAnalyseTrendById" parameterType="Long" resultMap="WarframeRivenAnalyseTrendResult">
+        <include refid="WarframeRivenAnalyseTrendVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertWarframeRivenAnalyseTrend" parameterType="WarframeRivenAnalyseTrend" useGeneratedKeys="true"
+            keyProperty="id">
+        insert OR IGNORE into warframe_riven_analyse_trend
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">id,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="prefix != null and prefix != ''">prefix,</if>
+            <if test="suffix != null and suffix != ''">suffix,</if>
+            <if test="rifle != null and rifle != ''">rifle,</if>
+            <if test="shotgun != null and shotgun != ''">shotgun,</if>
+            <if test="pistol != null and pistol != ''">pistol,</if>
+            <if test="archwing != null and archwing != ''">archwing,</if>
+            <if test="melle != null and melle != ''">melle,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">#{id},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="prefix != null and prefix != ''">#{prefix},</if>
+            <if test="suffix != null and suffix != ''">#{suffix},</if>
+            <if test="rifle != null and rifle != ''">#{rifle},</if>
+            <if test="shotgun != null and shotgun != ''">#{shotgun},</if>
+            <if test="pistol != null and pistol != ''">#{pistol},</if>
+            <if test="archwing != null and archwing != ''">#{archwing},</if>
+            <if test="melle != null and melle != ''">#{melle},</if>
+        </trim>
+    </insert>
+
+    <update id="updateWarframeRivenAnalyseTrend" parameterType="WarframeRivenAnalyseTrend">
+        update warframe_riven_analyse_trend
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="prefix != null and prefix != ''">prefix = #{prefix},</if>
+            <if test="suffix != null and suffix != ''">suffix = #{suffix},</if>
+            <if test="rifle != null and rifle != ''">rifle = #{rifle},</if>
+            <if test="shotgun != null and shotgun != ''">shotgun = #{shotgun},</if>
+            <if test="pistol != null and pistol != ''">pistol = #{pistol},</if>
+            <if test="archwing != null and archwing != ''">archwing = #{archwing},</if>
+            <if test="melle != null and melle != ''">melle = #{melle},</if>
+        </trim>
+        where id = #{id}
+    </update>
+</mapper>

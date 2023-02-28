@@ -1,10 +1,10 @@
 package com.zkb.bot.enums;
 
 public enum MarketEnum {
-    PC("PC", ""),
-    PS4("PS4", ""),
-    XB1("XBOX", ""),
-    SWI("SWITCH", ""),
+    PC("pc", ""),
+    PS4("ps4", ""),
+    XB1("xbox", ""),
+    SWI("switch", ""),
     //离线
     offline("offline", ""),
     //在线

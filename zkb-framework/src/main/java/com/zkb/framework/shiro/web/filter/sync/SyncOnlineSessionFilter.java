@@ -11,11 +11,10 @@ import javax.servlet.ServletResponse;
 
 /**
  * 同步Session数据到Db
- * 
+ *
  * @author KingPrimes
  */
-public class SyncOnlineSessionFilter extends PathMatchingFilter
-{
+public class SyncOnlineSessionFilter extends PathMatchingFilter {
     private OnlineSessionDAO onlineSessionDAO;
 
     /**
@@ -26,15 +25,13 @@ public class SyncOnlineSessionFilter extends PathMatchingFilter
         OnlineSession session = (OnlineSession) request.getAttribute(ShiroConstants.ONLINE_SESSION);
         // 如果session stop了 也不同步
         // session停止时间，如果stopTimestamp不为null，则代表已停止
-        if (session != null && session.getUserId() != null && session.getStopTimestamp() == null)
-        {
+        if (session != null && session.getUserId() != null && session.getStopTimestamp() == null) {
             onlineSessionDAO.syncToDb(session);
         }
         return true;
     }
 
-    public void setOnlineSessionDAO(OnlineSessionDAO onlineSessionDAO)
-    {
+    public void setOnlineSessionDAO(OnlineSessionDAO onlineSessionDAO) {
         this.onlineSessionDAO = onlineSessionDAO;
     }
 }

@@ -31,14 +31,14 @@ public class IssueReplyPlugin {
             //@Bot触发
             if (CqMatcher.isCqAt(event.getRawMessage())) {
                 for (Long aLong : CqParse.build(event.getMessage()).getCqAt()) {
-                    if(aLong.equals(bot.getSelfId())){
+                    if (aLong.equals(bot.getSelfId())) {
                         Msg msg = new Msg();
                         IssueReply issueReply = SpringUtils.getBean(TeachingUtils.class).getIssue(event.getRawMessage());
-                        if(issueReply!=null){
+                        if (issueReply != null) {
                             issueReply = service.selectIssueReplyByMsgIssue(issueReply);
                         }
-                        if (issueReply == null){
-                            bot.sendGroupMsg(event.getGroupId(),bot.getGroupMemberInfo(event.getGroupId(),bot.getSelfId(),false).getData().getNickname()+"，不明白你在讲什么呢！",false);
+                        if (issueReply == null) {
+                            bot.sendGroupMsg(event.getGroupId(), bot.getGroupMemberInfo(event.getGroupId(), bot.getSelfId(), false).getData().getNickname() + "，不明白你在讲什么呢！", false);
                         }
 
                         if (issueReply != null) {
@@ -60,12 +60,12 @@ public class IssueReplyPlugin {
                                         .replace("{me}", bot.getGroupMemberInfo(event.getGroupId(), bot.getSelfId(), true).getData().getNickname())
                                 ).split("\\{segment}");
 
-                                if (split.length>1){
+                                if (split.length > 1) {
                                     for (String s : split) {
-                                        bot.sendGroupMsg(event.getGroupId(),s,false);
+                                        bot.sendGroupMsg(event.getGroupId(), s, false);
                                     }
                                     return 1;
-                                }else {
+                                } else {
                                     msg.text(split[0]);
                                 }
                             }

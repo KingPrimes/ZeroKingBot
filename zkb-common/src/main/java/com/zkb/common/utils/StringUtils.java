@@ -11,12 +11,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
-    public static final String RIVEN_TREND_1 = "●○○○○";
-    public static final String RIVEN_TREND_2 = "●●○○○";
-    public static final String RIVEN_TREND_3 = "●●●○○";
-    public static final String RIVEN_TREND_4 = "●●●●○";
-    public static final String RIVEN_TREND_5 = "●●●●●";
-
     private static final String RAND_STR = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
 
     private static final Logger log = LoggerFactory.getLogger(StringUtils.class);
@@ -384,7 +378,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             return "";
         } else if (!name.contains("_")) {
             // 不含下划线，仅将首字母大写
-            return name.substring(0, 1).toUpperCase() + name.substring(1);
+            return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
         }
         // 用下划线将原始字符串分割
         String[] camels = name.split("_");
@@ -398,6 +392,36 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             result.append(camel.substring(1).toLowerCase()).append(" ");
         }
         return result.toString();
+    }
+
+    /**
+     * 将空格大写方式命名的字符串转换为驼峰式。如果转换前的空格大写方式命名的字符串为空，则返回空字符串。 例如：HELLO WORLD->Hello World
+     *
+     * @param name 转换前的下划线大写方式命名的字符串
+     * @return 转换后的驼峰式命名的字符串
+     */
+    public static String convertToCamelCase(String name) {
+        StringBuilder result = new StringBuilder();
+        // 快速检查
+        if (name == null || name.isEmpty()) {
+            // 没必要转换
+            return "";
+        } else if (!name.contains(" ")) {
+            // 不含下划线，仅将首字母大写
+            return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+        }
+        // 用下划线将原始字符串分割
+        String[] camels = name.split(" ");
+        for (String camel : camels) {
+            // 跳过原始字符串中开头、结尾的下换线或双重下划线
+            if (camel.isEmpty()) {
+                continue;
+            }
+            // 首字母大写
+            result.append(camel.substring(0, 1).toUpperCase());
+            result.append(camel.substring(1).toLowerCase()).append(" ");
+        }
+        return result.toString().trim();
     }
 
     /**
@@ -693,27 +717,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return dst.toString().replaceAll("零[千百十]", "零").replaceAll("零+万", "万")
                 .replaceAll("零+亿", "亿").replaceAll("亿万", "亿零")
                 .replaceAll("零+", "零").replaceAll("零$", "");
-    }
-
-    /**
-     * 获取紫卡倾向点数
-     *
-     * @param dot
-     * @return
-     */
-    public static String getRivenTrendDot(double dot) {
-        if (dot < 0.7) {
-            return RIVEN_TREND_1;
-        } else if (dot >= 0.7 && dot < 0.9) {
-            return RIVEN_TREND_2;
-        } else if (dot >= 0.9 && dot < 1.15) {
-            return RIVEN_TREND_3;
-        } else if (dot >= 1.15 && dot < 1.3) {
-            return RIVEN_TREND_4;
-        } else if (dot >= 1.3) {
-            return RIVEN_TREND_5;
-        }
-        return null;
     }
 
     /**

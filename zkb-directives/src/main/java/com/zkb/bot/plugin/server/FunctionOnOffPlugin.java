@@ -57,8 +57,8 @@ public class FunctionOnOffPlugin {
                 int i = SpringUtils.getBean(BotGroupFunctionOnOffServer.class).deleteGroupFunctionOnOff(new GroupFunctionOnOff(event.getGroupId(), String.valueOf(FUNCTION_WARFRAME.ordinal())));
                 if (i > 0) {
                     bot.sendGroupMsg(event.getGroupId(), "已关闭Warframe功能", false);
-                }else{
-                    bot.sendGroupMsg(event.getGroupId(),"没有开启过Warframe功能",false);
+                } else {
+                    bot.sendGroupMsg(event.getGroupId(), "没有开启过Warframe功能", false);
                 }
                 return MESSAGE_BLOCK;
             } else {
@@ -88,8 +88,8 @@ public class FunctionOnOffPlugin {
                 int i = SpringUtils.getBean(BotGroupFunctionOnOffServer.class).deleteGroupFunctionOnOff(new GroupFunctionOnOff(event.getGroupId(), String.valueOf(FUNCTION_IMAGE.ordinal())));
                 if (i > 0) {
                     bot.sendGroupMsg(event.getGroupId(), "已关闭涩图功能", false);
-                }else{
-                    bot.sendGroupMsg(event.getGroupId(),"没有开启过涩图功能",false);
+                } else {
+                    bot.sendGroupMsg(event.getGroupId(), "没有开启过涩图功能", false);
                 }
                 return MESSAGE_BLOCK;
             } else {
@@ -119,8 +119,8 @@ public class FunctionOnOffPlugin {
                 int i = SpringUtils.getBean(BotGroupFunctionOnOffServer.class).deleteGroupFunctionOnOff(new GroupFunctionOnOff(event.getGroupId(), String.valueOf(FUNCTION_AI.ordinal())));
                 if (i > 0) {
                     bot.sendGroupMsg(event.getGroupId(), "关闭AI功能", false);
-                }else{
-                    bot.sendGroupMsg(event.getGroupId(),"没有开启过AI功能",false);
+                } else {
+                    bot.sendGroupMsg(event.getGroupId(), "没有开启过AI功能", false);
                 }
                 return MESSAGE_BLOCK;
             } else {
@@ -149,8 +149,8 @@ public class FunctionOnOffPlugin {
                 int i = SpringUtils.getBean(BotGroupFunctionOnOffServer.class).deleteGroupFunctionOnOff(new GroupFunctionOnOff(event.getGroupId(), String.valueOf(FUNCTION_GIF.ordinal())));
                 if (i > 0) {
                     bot.sendGroupMsg(event.getGroupId(), "关闭GIF功能", false);
-                }else{
-                    bot.sendGroupMsg(event.getGroupId(),"没有开启过GIF功能",false);
+                } else {
+                    bot.sendGroupMsg(event.getGroupId(), "没有开启过GIF功能", false);
                 }
                 return MESSAGE_BLOCK;
             } else {
@@ -163,7 +163,7 @@ public class FunctionOnOffPlugin {
         if (ON_UPDATE.getType().equals(event.getRawMessage().toUpperCase(Locale.ROOT))) {
             if (GroupAddApi.isAdmin(bot, event)) {
                 UpdateTask.flag = true;
-                bot.sendGroupMsg(event.getGroupId(),"已开启更新通知...",false);
+                bot.sendGroupMsg(event.getGroupId(), "已开启更新通知...", false);
                 return MESSAGE_BLOCK;
             } else {
                 Msg.builder().text("没有权限！").sendToGroup(bot, event);
@@ -175,7 +175,7 @@ public class FunctionOnOffPlugin {
         if (OFF_UPDATE.getType().equals(event.getRawMessage().toUpperCase(Locale.ROOT))) {
             if (GroupAddApi.isAdmin(bot, event)) {
                 UpdateTask.flag = false;
-                bot.sendGroupMsg(event.getGroupId(),"已关闭更新通知...",false);
+                bot.sendGroupMsg(event.getGroupId(), "已关闭更新通知...", false);
                 return MESSAGE_BLOCK;
             } else {
                 Msg.builder().text("没有权限！").sendToGroup(bot, event);
@@ -184,12 +184,12 @@ public class FunctionOnOffPlugin {
 
         }
 
-        if("运行状态".equals(event.getRawMessage())){
-            OneBotMedia builder =OneBotMedia.builder().
+        if ("运行状态".equals(event.getRawMessage())) {
+            OneBotMedia builder = OneBotMedia.builder().
                     proxy(false).
                     cache(false).
                     timeout(30).
-                    file("http://localhost:" + GetServerPort.getPort() +"/server");
+                    file("http://localhost:" + GetServerPort.getPort() + "/server");
             Msg.builder().img(builder).sendToGroup(bot, event);
             return MESSAGE_BLOCK;
         }
@@ -203,11 +203,11 @@ public class FunctionOnOffPlugin {
             return MESSAGE_BLOCK;
         }
 
-        if("wf指令".equals(event.getRawMessage().toLowerCase(Locale.ROOT))){
+        if ("wf指令".equals(event.getRawMessage().toLowerCase(Locale.ROOT))) {
             Msg msg = new Msg();
             msg.text("以下是Warframe指令表：\n");
             for (WarframeTypeEnum value : values()) {
-                msg.text(value.getType()+"\n");
+                msg.text(value.getType() + "\n");
             }
             msg.sendToGroup(bot, event);
         }

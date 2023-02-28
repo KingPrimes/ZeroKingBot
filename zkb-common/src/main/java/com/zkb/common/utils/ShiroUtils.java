@@ -11,40 +11,33 @@ import org.apache.shiro.subject.Subject;
 
 /**
  * shiro 工具类
- * 
+ *
  * @author KingPrimes
  */
-public class ShiroUtils
-{
-    public static Subject getSubject()
-    {
+public class ShiroUtils {
+    public static Subject getSubject() {
         return SecurityUtils.getSubject();
     }
 
-    public static Session getSession()
-    {
+    public static Session getSession() {
         return SecurityUtils.getSubject().getSession();
     }
 
-    public static void logout()
-    {
+    public static void logout() {
         getSubject().logout();
     }
 
-    public static SysUser getSysUser()
-    {
+    public static SysUser getSysUser() {
         SysUser user = null;
         Object obj = getSubject().getPrincipal();
-        if (StringUtils.isNotNull(obj))
-        {
+        if (StringUtils.isNotNull(obj)) {
             user = new SysUser();
             BeanUtils.copyBeanProp(user, obj);
         }
         return user;
     }
 
-    public static void setSysUser(SysUser user)
-    {
+    public static void setSysUser(SysUser user) {
         Subject subject = getSubject();
         PrincipalCollection principalCollection = subject.getPrincipals();
         String realmName = principalCollection.getRealmNames().iterator().next();
@@ -53,31 +46,26 @@ public class ShiroUtils
         subject.runAs(newPrincipalCollection);
     }
 
-    public static Long getUserId()
-    {
+    public static Long getUserId() {
         return getSysUser().getUserId();
     }
 
-    public static String getLoginName()
-    {
+    public static String getLoginName() {
         return getSysUser().getUserName();
     }
 
-    public static String getIp()
-    {
+    public static String getIp() {
         return getSubject().getSession().getHost();
     }
 
-    public static String getSessionId()
-    {
+    public static String getSessionId() {
         return String.valueOf(getSubject().getSession().getId());
     }
 
     /**
      * 生成随机盐
      */
-    public static String randomSalt()
-    {
+    public static String randomSalt() {
         // 一个Byte占两个字节，此处生成的3字节，字符串长度为6
         SecureRandomNumberGenerator secureRandom = new SecureRandomNumberGenerator();
         String hex = secureRandom.nextBytes(3).toHex();

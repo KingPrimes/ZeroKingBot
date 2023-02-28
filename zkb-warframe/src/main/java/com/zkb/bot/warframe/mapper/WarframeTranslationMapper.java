@@ -38,6 +38,8 @@ public interface WarframeTranslationMapper {
      */
     String zhToEn(String cn_zh);
 
+    String zhToEnTrim(String zh_cn);
+
     /**
      * 中英文模糊翻译
      *

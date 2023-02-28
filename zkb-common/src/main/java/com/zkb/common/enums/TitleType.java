@@ -2,18 +2,15 @@ package com.zkb.common.enums;
 
 public enum TitleType {
 
-    O("")
-    ,
-    Warframe("Warframe")
-
-
-
-    ;
+    O(""),
+    Warframe("Warframe");
     final String TYPE;
-    TitleType(String type){
+
+    TitleType(String type) {
         this.TYPE = type;
     }
-    public String getType(){
+
+    public String getType() {
         return TYPE;
     }
 }

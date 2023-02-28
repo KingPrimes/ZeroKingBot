@@ -22,13 +22,12 @@ import java.util.List;
 
 /**
  * 系统访问记录
- * 
+ *
  * @author ruoyi
  */
 @Controller
 @RequestMapping("/log/login")
-public class SysLogininforController extends BaseController
-{
+public class SysLogininforController extends BaseController {
     private String prefix = "log/login";
 
     @Autowired
@@ -39,8 +38,7 @@ public class SysLogininforController extends BaseController
 
 
     @GetMapping()
-    public String logininfor(ModelMap map)
-    {
+    public String logininfor(ModelMap map) {
         map.put("businessStatus", BusinessStatus.values());
         return prefix + "/log-ininfor";
     }
@@ -48,8 +46,7 @@ public class SysLogininforController extends BaseController
 
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(SysLogininfor logininfor)
-    {
+    public TableDataInfo list(SysLogininfor logininfor) {
         startPage();
         List<SysLogininfor> list = logininforService.selectLogininforList(logininfor);
         return getDataTable(list);
@@ -59,17 +56,15 @@ public class SysLogininforController extends BaseController
     @Log(title = "登录日志", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(logininforService.deleteLogininforByIds(ids));
     }
-    
+
 
     @Log(title = "登录日志", businessType = BusinessType.CLEAN)
     @PostMapping("/clean")
     @ResponseBody
-    public AjaxResult clean()
-    {
+    public AjaxResult clean() {
         logininforService.cleanLogininfor();
         return success();
     }
@@ -78,8 +73,7 @@ public class SysLogininforController extends BaseController
     @Log(title = "账户解锁", businessType = BusinessType.OTHER)
     @PostMapping("/unlock")
     @ResponseBody
-    public AjaxResult unlock(String loginName)
-    {
+    public AjaxResult unlock(String loginName) {
         passwordService.clearLoginRecordCache(loginName);
         return success();
     }

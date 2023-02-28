@@ -13,7 +13,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                 .addResourceLocations("classpath:/static/")
                 .addResourceLocations("classpath:/resources/")
                 .addResourceLocations("classpath:/public/")
-                .addResourceLocations("file:"+"./ZKBotHtml/");
+                .addResourceLocations("file:" + "./ZKBotHtml/");
         super.addResourceHandlers(registry);
     }
 

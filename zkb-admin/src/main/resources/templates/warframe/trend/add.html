@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('添加管理员')"/>
+</head>
+<body>
+<div class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-trend-warframe-add">
+            <input id="rivenTrendId" name="rivenTrendId" type="hidden">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">武器名字：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input class="form-control" id="traCh" name="traCh" required type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">旧的倾向：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input class="form-control" id="rivenTrendOldNum" name="rivenTrendOldNum" required type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">新的倾向：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input class="form-control" id="rivenTrendNewNum" name="rivenTrendNewNum" required type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">武器类型：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <select id="rivenTrendType" name="rivenTrendType">
+                            <option th:each="k:${keys}" th:field="*{rivenTrendType}" th:text="${k.value}"
+                                    th:value="${k.key}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<th:block th:include="include :: footer"/>
+<script type="text/javascript">
+  const prefix = ctx + "warframe/trend";
+
+  function submitHandler() {
+    if ($.validate.form()) {
+      $.operate.save(prefix + "/add", $('#form-trend-warframe-add').serialize());
+    }
+  }
+
+
+
+
+
+</script>
+</body>
+</html>

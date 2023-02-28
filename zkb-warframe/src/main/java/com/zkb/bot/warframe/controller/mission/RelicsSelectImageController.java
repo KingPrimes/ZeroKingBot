@@ -23,11 +23,11 @@ public class RelicsSelectImageController {
     @Autowired
     WarframeRelicsServiceImpl rels;
 
-    @LogInfo(title = TitleType.Warframe,orderType = "核桃",businessType = BusinessType.IMAGE)
+    @LogInfo(title = TitleType.Warframe, orderType = "核桃", businessType = BusinessType.IMAGE)
     @GetMapping(value = "/{uuid}/getRelics/{key}/{bot}/{user}/{group}/{rawMsg}")
     public void getImage(HttpServletResponse response, @PathVariable String key, @PathVariable long bot, @PathVariable long user, @PathVariable long group, @PathVariable String rawMsg, @PathVariable String uuid) throws IOException {
         response.setHeader("Content-Type", "image/png");
-        ByteArrayOutputStream out = WarframeHtmlToImage.conver("http://localhost:"+ GetServerPort.getPort()+"/warframe/mission/"+uuid+"/getRelicsHtml/"+key);
+        ByteArrayOutputStream out = WarframeHtmlToImage.conver("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + uuid + "/getRelicsHtml/" + key);
         response.getOutputStream().write(out.toByteArray());
     }
 }

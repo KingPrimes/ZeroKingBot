@@ -81,7 +81,9 @@ public class MarketItemUtil {
             if ((event.getRawMessage().contains(WM_SET.getType()))) {
                 tra = tra.replace(WM_SET.getType(), "").trim();
             }
-            tra = tra.replace(form, "").trim();
+
+            tra = WarframeStringUtils.removeForm(tra);
+
             MarketKey marketKey = toMarket(tra);
             int msgId = 0;
             if (marketKey == null) {
@@ -94,10 +96,9 @@ public class MarketItemUtil {
                         .cache(false)
                         .proxy(false)
                         .timeout(30)
-                        .file("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektImage/" + key + "/" + seBy + "/" + isMax + "/" + form+"/"+bot.getSelfId()+"/"+event.getUserId()+"/"+event.getGroupId()+"/"+tra);
+                        .file("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektImage/" + key + "/" + seBy + "/" + isMax + "/" + form + "/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + tra);
 
                 msgId = bot.sendGroupMsg(event.getGroupId(), Msg.builder().img(oneBotMedia).build(), false).getData().getMessageId();
-
             }
             if (marketKey.getErrorWM() != null && marketKey.getErrorWM().size() != 0) {
                 try {
@@ -135,7 +136,7 @@ public class MarketItemUtil {
         //创建 Alias Service 实体类 用于匹配用户输入的别名
         IWarframeAliasService aliasService = SpringUtils.getBean(IWarframeAliasService.class);
         //把用户输入的值全部转换成小写
-        key = key.toLowerCase(Locale.ROOT).replace("总图","蓝图");
+        key = key.toLowerCase(Locale.ROOT).replace("总图", "蓝图");
         try {
             WarframeMarketItems items = new WarframeMarketItems();
             //假设用户使用了别名
@@ -150,7 +151,7 @@ public class MarketItemUtil {
             }
             //使用别名直接模糊查询
             items = itemsService.selectWarframeMarketItemsByItemNameSet(key);
-            if(items!=null){
+            if (items != null) {
                 marketKey.setKey(items.getUrlName());
                 marketKey.setItemName(items.getItemName());
                 return marketKey;
@@ -224,15 +225,15 @@ public class MarketItemUtil {
     public Market market(String form, String key, Boolean seBy, Boolean isMax) {
         try {
             Headers.Builder params = new Headers.Builder();
+
             params.add("platform", form);
-            String json = HttpUtils.sendGetOkHttp("https://api.warframe.market/v1/items/" + key + "/orders", "include=item", params);
+            String json = HttpUtils.sendGetOkHttp("https://api.warframe.market/v1/items/" + key + "/orders", "&include=item", params);
             if (json.equals("timeout")) {
                 return new Market("timeout");
             }
             Market market = JSONObject.parseObject(json).toJavaObject(Market.class);
 
             market.getPayload().setOrders(orders(market, seBy, isMax));
-
             for (Market.ItemsInSet items : market.getInclude().getItem().getItems_in_set()) {
                 if (items.getUrlName().equals(key)) {
                     List<Market.ItemsInSet> itemsInSets = new ArrayList<>();
@@ -250,6 +251,7 @@ public class MarketItemUtil {
         }
 
     }
+
 
     /**
      * 处理Market查询得结果
@@ -311,7 +313,6 @@ public class MarketItemUtil {
                         } else {
                             orders.add(order);
                         }
-
                     }
                 }
             }

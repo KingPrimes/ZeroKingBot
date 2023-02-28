@@ -21,24 +21,22 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 首页 业务处理
- * 
+ *
  * @author zkb
  */
 @Controller
-public class SysIndexController extends BaseController
-{
+public class SysIndexController extends BaseController {
 
     @Autowired
     private SysPasswordService passwordService;
 
     // 系统首页
     @GetMapping("/index")
-    public String index(ModelMap mmap)
-    {
+    public String index(ModelMap mmap) {
         // 取身份信息
         SysUser user = getSysUser();
 
-        mmap.put("user",user);
+        mmap.put("user", user);
 
         // 菜单导航显示风格
         String menuStyle = "default";
@@ -48,10 +46,8 @@ public class SysIndexController extends BaseController
 
         // 优先Cookie配置导航菜单
         Cookie[] cookies = ServletUtils.getRequest().getCookies();
-        for (Cookie cookie : cookies)
-        {
-            if (StringUtils.isNotEmpty(cookie.getName()) && "nav-style".equalsIgnoreCase(cookie.getName()))
-            {
+        for (Cookie cookie : cookies) {
+            if (StringUtils.isNotEmpty(cookie.getName()) && "nav-style".equalsIgnoreCase(cookie.getName())) {
                 indexStyle = cookie.getValue();
                 break;
             }
@@ -63,15 +59,12 @@ public class SysIndexController extends BaseController
     // 解锁屏幕
     @PostMapping("/unlockscreen")
     @ResponseBody
-    public AjaxResult unlockscreen(String password)
-    {
+    public AjaxResult unlockscreen(String password) {
         SysUser user = getSysUser();
-        if (StringUtils.isNull(user))
-        {
+        if (StringUtils.isNull(user)) {
             return AjaxResult.error("服务器超时，请重新登录");
         }
-        if (passwordService.matches(user, password))
-        {
+        if (passwordService.matches(user, password)) {
             ServletUtils.getSession().removeAttribute(ShiroConstants.LOCK_SCREEN);
             return AjaxResult.success();
         }
@@ -80,40 +73,31 @@ public class SysIndexController extends BaseController
 
     // 切换主题
     @GetMapping("/system/switchSkin")
-    public String switchSkin()
-    {
+    public String switchSkin() {
         return "skin";
     }
 
     // 切换菜单
     @GetMapping("/system/menuStyle/{style}")
-    public void menuStyle(@PathVariable String style, HttpServletResponse response)
-    {
+    public void menuStyle(@PathVariable String style, HttpServletResponse response) {
         CookieUtils.setCookie(response, "nav-style", style);
     }
 
     // 系统介绍
     @GetMapping("/system/main")
-    public String main(ModelMap mmap)
-    {
+    public String main(ModelMap mmap) {
 
         //mmap.put("version", RuoYiConfig.getVersion());
         return "main";
     }
 
     // content-main class
-    public String contentMainClass(Boolean footer, Boolean tagsView)
-    {
-        if (!footer && !tagsView)
-        {
+    public String contentMainClass(Boolean footer, Boolean tagsView) {
+        if (!footer && !tagsView) {
             return "tagsview-footer-hide";
-        }
-        else if (!footer)
-        {
+        } else if (!footer) {
             return "footer-hide";
-        }
-        else if (!tagsView)
-        {
+        } else if (!tagsView) {
             return "tagsview-hide";
         }
         return StringUtils.EMPTY;

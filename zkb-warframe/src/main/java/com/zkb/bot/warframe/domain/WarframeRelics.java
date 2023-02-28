@@ -88,7 +88,7 @@ public class WarframeRelics {
         this.traCh = relics.traCh;
     }
 
-    public WarframeRelics( String relicsId, String relicsTier, String relicsName, String relicsState, String relicsItemId, String relicsItemName, String relicsItemRarity, String relicsItemChance) {
+    public WarframeRelics(String relicsId, String relicsTier, String relicsName, String relicsState, String relicsItemId, String relicsItemName, String relicsItemRarity, String relicsItemChance) {
         this.relicsId = relicsId;
         this.relicsTier = relicsTier;
         this.relicsName = relicsName;

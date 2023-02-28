@@ -20,10 +20,10 @@ import java.io.IOException;
 public class ArbitrationImageController {
 
     @GetMapping(value = "/{uuid}/getArbitrationImage/{bot}/{user}/{group}/{rawMsg}")
-    @LogInfo(title = TitleType.Warframe,orderType = "仲裁",businessType = BusinessType.IMAGE)
+    @LogInfo(title = TitleType.Warframe, orderType = "仲裁", businessType = BusinessType.IMAGE)
     public void getImage(HttpServletResponse response, @PathVariable long bot, @PathVariable long user, @PathVariable long group, @PathVariable String rawMsg, @PathVariable String uuid) throws IOException {
         response.setHeader("Content-Type", "image/png");
-        ByteArrayOutputStream out = WarframeHtmlToImage.conver("http://localhost:"+ GetServerPort.getPort()+"/warframe/mission/"+uuid+"/getArbitrationHtml");
+        ByteArrayOutputStream out = WarframeHtmlToImage.conver("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + uuid + "/getArbitrationHtml");
         response.getOutputStream().write(out.toByteArray());
     }
 

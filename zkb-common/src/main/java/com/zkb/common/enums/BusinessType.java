@@ -2,11 +2,10 @@ package com.zkb.common.enums;
 
 /**
  * 业务操作类型
- * 
+ *
  * @author KingPrimes
  */
-public enum BusinessType
-{
+public enum BusinessType {
     /**
      * 其它
      */
@@ -56,7 +55,7 @@ public enum BusinessType
      * 生成代码
      */
     GENCODE("生成代码"),
-    
+
     /**
      * 清空
      */
@@ -67,7 +66,8 @@ public enum BusinessType
     IMAGE("生成图片"),
     ;
     final String type;
-    BusinessType(String type){
+
+    BusinessType(String type) {
         this.type = type;
     }
 

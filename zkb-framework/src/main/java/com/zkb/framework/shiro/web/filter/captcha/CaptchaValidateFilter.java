@@ -12,11 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 验证码过滤器
- * 
+ *
  * @author KingPrimes
  */
-public class CaptchaValidateFilter extends AccessControlFilter
-{
+public class CaptchaValidateFilter extends AccessControlFilter {
     /**
      * 是否开启验证码
      */
@@ -27,19 +26,16 @@ public class CaptchaValidateFilter extends AccessControlFilter
      */
     private String captchaType = "math";
 
-    public void setCaptchaEnabled(boolean captchaEnabled)
-    {
+    public void setCaptchaEnabled(boolean captchaEnabled) {
         this.captchaEnabled = captchaEnabled;
     }
 
-    public void setCaptchaType(String captchaType)
-    {
+    public void setCaptchaType(String captchaType) {
         this.captchaType = captchaType;
     }
 
     @Override
-    public boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception
-    {
+    public boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
         request.setAttribute(ShiroConstants.CURRENT_ENABLED, captchaEnabled);
         request.setAttribute(ShiroConstants.CURRENT_TYPE, captchaType);
         return super.onPreHandle(request, response, mappedValue);
@@ -49,15 +45,13 @@ public class CaptchaValidateFilter extends AccessControlFilter
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         // 验证码禁用 或不是表单提交 允许访问
-        if (!captchaEnabled || !"post".equalsIgnoreCase(httpServletRequest.getMethod()))
-        {
+        if (!captchaEnabled || !"post".equalsIgnoreCase(httpServletRequest.getMethod())) {
             return true;
         }
         return validateResponse(httpServletRequest, httpServletRequest.getParameter(ShiroConstants.CURRENT_VALIDATECODE));
     }
 
-    public boolean validateResponse(HttpServletRequest request, String validateCode)
-    {
+    public boolean validateResponse(HttpServletRequest request, String validateCode) {
         Object obj = ShiroUtils.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
         String code = String.valueOf(obj != null ? obj : "");
         // 验证码清除，防止多次使用。

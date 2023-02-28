@@ -9,13 +9,10 @@ import com.zkb.bot.utils.ErroSendMessage;
 import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.SelectGroupFunctionOnOff;
 import com.zkb.common.utils.StaticFinal;
-import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.uuid.UUID;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
-
-import java.util.Locale;
 
 @Component
 public class WarframeStringUtils {
@@ -25,18 +22,47 @@ public class WarframeStringUtils {
     public static String getMarketForm(String str) {
         String form = "PC";
         for (String key : StaticFinal.PLATFORM) {
-            if (StringUtils.substring(str.toUpperCase(Locale.ROOT), 2).contains(key)) {
-                if ("XB1".equals(key)) {
-                    form = MarketEnum.XB1.getForm();
-                }
-                if ("SWI".equals(key)) {
-                    form = MarketEnum.SWI.getForm();
+            if (str.toLowerCase().contains(key)) {
+                switch (key) {
+                    case "xb1":
+                        form = MarketEnum.XB1.getForm();
+                        break;
+                    case "swi":
+                        form = MarketEnum.SWI.getForm();
+                        break;
+                    case "ps4":
+                        form = MarketEnum.PS4.getForm();
+                        break;
+                    default:
+                        form = "PC";
+                        break;
                 }
             }
         }
         return form;
     }
 
+    public static String removeForm(String str) {
+        for (String key : StaticFinal.PLATFORM) {
+            if (str.toLowerCase().contains(key)) {
+                switch (key) {
+                    case "xb1":
+                        str = str.toLowerCase().replace("xb1", "").trim();
+                        break;
+                    case "swi":
+                        str = str.toLowerCase().replace("swi", "").trim();
+                        break;
+                    case "ps4":
+                        str = str.toLowerCase().replace("ps4", "").trim();
+                        break;
+                    default:
+                        str = str.toLowerCase().replace("pc", "").trim();
+                        break;
+                }
+            }
+        }
+        return str;
+    }
 
     /**
      * 获取紫卡倾向更新
@@ -47,11 +73,12 @@ public class WarframeStringUtils {
      */
     public static int getRivenUpdate(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
         if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
-            Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/forums/riven/" + UUID.fastUUID() + "/getNewsImage/"+bot.getSelfId()+"/"+event.getUserId()+"/"+event.getGroupId()+"/"+event.getRawMessage()).sendToGroup(bot, event);
+            Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/forums/riven/" + UUID.fastUUID() + "/getNewsImage/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + event.getRawMessage()).sendToGroup(bot, event);
         } else {
             return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
         }
         return 0;
     }
+
 
 }

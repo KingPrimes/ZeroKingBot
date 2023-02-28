@@ -20,11 +20,11 @@ import java.io.IOException;
 public class DailyDealsImageController {
 
 
-    @LogInfo(title = TitleType.Warframe,orderType = "每日特惠",businessType = BusinessType.IMAGE)
+    @LogInfo(title = TitleType.Warframe, orderType = "每日特惠", businessType = BusinessType.IMAGE)
     @GetMapping(value = "/{uuid}/getDailyDealsImage/{bot}/{user}/{group}/{rawMsg}")
     public void getImage(HttpServletResponse response, @PathVariable long bot, @PathVariable long user, @PathVariable long group, @PathVariable String rawMsg, @PathVariable String uuid) throws IOException {
         response.setHeader("Content-Type", "image/png");
-        ByteArrayOutputStream out = WarframeHtmlToImage.conver("http://localhost:"+ GetServerPort.getPort()+"/warframe/mission/"+uuid+"/getDailyDealsHtml");
+        ByteArrayOutputStream out = WarframeHtmlToImage.conver("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + uuid + "/getDailyDealsHtml");
         response.getOutputStream().write(out.toByteArray());
 
     }

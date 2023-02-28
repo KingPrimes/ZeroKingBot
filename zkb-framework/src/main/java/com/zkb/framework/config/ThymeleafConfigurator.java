@@ -12,7 +12,7 @@ public class ThymeleafConfigurator {
 
     //设置多个Template配置
     @Bean
-    public SpringResourceTemplateResolver iSpringTemplateResolver(){
+    public SpringResourceTemplateResolver iSpringTemplateResolver() {
         SpringResourceTemplateResolver srt = new SpringResourceTemplateResolver();
         srt.setPrefix("file:./ZKBotHtml/");
         srt.setSuffix(".html");

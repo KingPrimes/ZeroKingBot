@@ -9,7 +9,7 @@ import javax.persistence.*;
  * Warframe.Market 紫卡拍卖实体类
  */
 @Entity
-@Table(name = "warframe_market_riven",uniqueConstraints = @UniqueConstraint(name = "riven",columnNames = "urlName"))
+@Table(name = "warframe_market_riven", uniqueConstraints = @UniqueConstraint(name = "riven", columnNames = "urlName"))
 public class WarframeMarketRiven {
 
     @GeneratedValue

@@ -17,14 +17,14 @@
 
     <sql id="selectWarframeMarketRivenVo">
         select thumb,
-               riven_type,
-               `group`,
-               id,
-               icon_format,
-               url_name,
-               item_name,
-               icon,
-               length(item_name) as le
+        riven_type,
+        `group`,
+        id,
+        icon_format,
+        url_name,
+        item_name,
+        icon,
+        length(item_name) as le
         from warframe_market_riven
     </sql>
 

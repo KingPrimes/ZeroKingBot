@@ -18,7 +18,7 @@ import java.net.URLDecoder;
 @RestController
 @RequestMapping("/warframe")
 public class TranslationImageController {
-    @LogInfo(title = TitleType.Warframe,orderType = "翻译",businessType = BusinessType.SELECT)
+    @LogInfo(title = TitleType.Warframe, orderType = "翻译", businessType = BusinessType.SELECT)
     @GetMapping(value = "/{uuid}/getTraImage/{key}/{bot}/{user}/{group}/{rawMsg}")
     public void getImage(HttpServletResponse response, @PathVariable String key, @PathVariable long bot, @PathVariable long user, @PathVariable long group, @PathVariable String rawMsg) throws IOException {
         response.setHeader("Content-Type", "image/gif");

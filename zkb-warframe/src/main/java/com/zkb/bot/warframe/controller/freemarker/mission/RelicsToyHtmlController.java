@@ -17,7 +17,7 @@ public class RelicsToyHtmlController {
     RedisCache redisCache;
 
     @GetMapping(value = "/{uuid}/getRelicsToyHtml")
-    @LogInfo(title = TitleType.Warframe,orderType = "模拟核桃",businessType = BusinessType.SELECT)
+    @LogInfo(title = TitleType.Warframe, orderType = "模拟核桃", businessType = BusinessType.SELECT)
     public String getHtml(Model model) {
         return "html/relicsToy";
     }

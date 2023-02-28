@@ -20,13 +20,12 @@ import java.io.IOException;
 public class InvasionsImageController {
 
 
-
-    @LogInfo(title = TitleType.Warframe,orderType = "入侵",businessType = BusinessType.IMAGE)
+    @LogInfo(title = TitleType.Warframe, orderType = "入侵", businessType = BusinessType.IMAGE)
     @GetMapping(value = "/{uuid}/getInvasionsImage/{bot}/{user}/{group}/{rawMsg}")
     public void getImage(HttpServletResponse response, @PathVariable long bot, @PathVariable long user, @PathVariable long group, @PathVariable String rawMsg, @PathVariable String uuid) throws IOException {
         response.setHeader("Content-Type", "image/png");
 
-        ByteArrayOutputStream out = WarframeHtmlToImage.conver("http://localhost:"+ GetServerPort.getPort()+"/warframe/mission/"+uuid+"/getInvasionsHtml");
+        ByteArrayOutputStream out = WarframeHtmlToImage.conver("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + uuid + "/getInvasionsHtml");
 
         response.getOutputStream().write(out.toByteArray());
 

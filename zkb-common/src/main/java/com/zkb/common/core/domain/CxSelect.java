@@ -5,11 +5,10 @@ import java.util.List;
 
 /**
  * CxSelect树结构实体类
- * 
+ *
  * @author KingPrimes
  */
-public class CxSelect implements Serializable
-{
+public class CxSelect implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -27,43 +26,35 @@ public class CxSelect implements Serializable
      */
     private List<CxSelect> s;
 
-    public CxSelect()
-    {
+    public CxSelect() {
     }
 
-    public CxSelect(String v, String n)
-    {
+    public CxSelect(String v, String n) {
         this.v = v;
         this.n = n;
     }
 
-    public List<CxSelect> getS()
-    {
+    public List<CxSelect> getS() {
         return s;
     }
 
-    public void setN(String n)
-    {
-        this.n = n;
-    }
-
-    public String getN()
-    {
-        return n;
-    }
-
-    public void setS(List<CxSelect> s)
-    {
+    public void setS(List<CxSelect> s) {
         this.s = s;
     }
 
-    public String getV()
-    {
+    public String getN() {
+        return n;
+    }
+
+    public void setN(String n) {
+        this.n = n;
+    }
+
+    public String getV() {
         return v;
     }
 
-    public void setV(String v)
-    {
+    public void setV(String v) {
         this.v = v;
     }
 }

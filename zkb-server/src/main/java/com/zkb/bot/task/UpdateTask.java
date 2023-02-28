@@ -21,19 +21,17 @@ import java.util.jar.Manifest;
 @Component
 public class UpdateTask {
 
-    public static Boolean flag = true;
-
     private static final Logger log = LoggerFactory.getLogger(UpdateTask.class);
     private static final String HTML_PATH = "./ZKBotHtml";
     private static final Manifest manifestFromClasspath = JarManifest.getManifestFromClasspath(LoadConfig.class);
-
+    public static Boolean flag = true;
 
     @Async("taskExecutor")
     @Scheduled(cron = "0 0 9 * * *")
     public void updateHtml() {
         log.info("HTML----正在检查是否有新版本……");
         try {
-            if(flag){
+            if (flag) {
                 String version = FileUtils.getFileString(HTML_PATH + "/version.txt").replace(".", "").trim(),
                         versionNew = HttpUtils.sendGetOkHttp("https://gitee.com/KingPrime/ZKBotHtml/raw/main/version.txt").replace(".", "").trim();
 
@@ -63,8 +61,8 @@ public class UpdateTask {
     @Scheduled(cron = "0 8 19 * * *")
     public void updateJar() {
         log.info("正在检查是否有新版本……");
-        if(flag && JarUtils.isStartupFromJarEx(UpdateTask.class)){
-            try{
+        if (flag && JarUtils.isStartupFromJarEx(UpdateTask.class)) {
+            try {
                 assert manifestFromClasspath != null;
                 String version = manifestFromClasspath.getMainAttributes().getValue("ZeroKingBot-Version").replace(".", "").trim();
                 String newVersion = JSONObject.parseObject(HttpUtils.sendGetOkHttp("https://api.github.com/repos/KingPrimes/ZeroKingBot/releases/latest"), ReleaseDomain.class).getTagName().replace(".", "").trim();
@@ -77,8 +75,8 @@ public class UpdateTask {
                         SendAllGroup.sendAllGroup(msg);
                     }
                 }
-            }catch (Exception e){
-                log.error("获取版本信息错误：{}",e.getMessage());
+            } catch (Exception e) {
+                log.error("获取版本信息错误：{}", e.getMessage());
             }
 
         }

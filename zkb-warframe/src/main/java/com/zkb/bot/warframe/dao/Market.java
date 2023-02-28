@@ -401,7 +401,7 @@ public class Market {
 
         @Override
         public String toString() {
-            return new ToStringBuilder(this,ToStringStyle.JSON_STYLE)
+            return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
                     .append("thumb", getThumb())
                     .append("urlName", getUrlName())
                     .append("tags", getTags())

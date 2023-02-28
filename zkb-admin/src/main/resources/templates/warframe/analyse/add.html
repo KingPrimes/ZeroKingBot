@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('添加管理员')"/>
+</head>
+<body>
+<div class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-analyse-trend-warframe-add">
+            <input id="id" name="id" type="hidden">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">词条名称：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input class="form-control" id="name" name="name" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">前缀：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input class="form-control" id="prefix" name="prefix" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">后缀：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input class="form-control" id="suffix" name="suffix" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">步枪：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input class="form-control" id="rifle" name="rifle" type="number">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">霰弹枪：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input class="form-control" id="shotgun" name="shotgun" type="number">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">手枪：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input class="form-control" id="pistol" name="pistol" type="number">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Archwing枪械：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input class="form-control" id="archwing" name="archwing" type="number">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">近战：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input class="form-control" id="melle" name="melle" type="number">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<th:block th:include="include :: footer"/>
+<script type="text/javascript">
+  const prefix = ctx + "warframe/analyse";
+
+  function submitHandler() {
+    if ($.validate.form()) {
+      $.operate.save(prefix + "/add", $('#form-analyse-trend-warframe-add').serialize());
+    }
+  }
+
+
+
+
+
+</script>
+</body>
+</html>

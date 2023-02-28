@@ -3,7 +3,6 @@ package com.zkb.web.system;
 import com.zkb.common.core.controller.BaseController;
 import com.zkb.common.core.domain.AjaxResult;
 import com.zkb.common.utils.ServletUtils;
-import com.zkb.common.utils.ShiroUtils;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.ip.IpUtils;
 import org.apache.shiro.SecurityUtils;
@@ -22,24 +21,21 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 登录验证
- * 
+ *
  * @author zkb
  */
 @Controller
-public class SysLoginController extends BaseController
-{
+public class SysLoginController extends BaseController {
 
     @GetMapping("/login")
-    public String login(HttpServletRequest request, HttpServletResponse response, ModelMap mmap)
-    {
+    public String login(HttpServletRequest request, HttpServletResponse response, ModelMap mmap) {
         // 如果是Ajax请求，返回Json字符串。
-        if (ServletUtils.isAjaxRequest(request))
-        {
+        if (ServletUtils.isAjaxRequest(request)) {
             return ServletUtils.renderString(response, "{\"code\":\"1\",\"msg\":\"未登录或登录超时。请重新登录\"}");
         }
 
-        if(IpUtils.isHost(request)){
-            UsernamePasswordToken token = new UsernamePasswordToken("localhost","localhost",false);
+        if (IpUtils.isHost(request)) {
+            UsernamePasswordToken token = new UsernamePasswordToken("localhost", "localhost", false);
             Subject subject = SecurityUtils.getSubject();
             subject.login(token);
 
@@ -51,10 +47,8 @@ public class SysLoginController extends BaseController
 
             // 优先Cookie配置导航菜单
             Cookie[] cookies = ServletUtils.getRequest().getCookies();
-            for (Cookie cookie : cookies)
-            {
-                if (StringUtils.isNotEmpty(cookie.getName()) && "nav-style".equalsIgnoreCase(cookie.getName()))
-                {
+            for (Cookie cookie : cookies) {
+                if (StringUtils.isNotEmpty(cookie.getName()) && "nav-style".equalsIgnoreCase(cookie.getName())) {
                     indexStyle = cookie.getValue();
                     break;
                 }
@@ -70,20 +64,15 @@ public class SysLoginController extends BaseController
 
     @PostMapping("/login")
     @ResponseBody
-    public AjaxResult ajaxLogin(String username, String password)
-    {
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password,false);
+    public AjaxResult ajaxLogin(String username, String password) {
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password, false);
         Subject subject = SecurityUtils.getSubject();
-        try
-        {
+        try {
             subject.login(token);
             return success();
-        }
-        catch (AuthenticationException e)
-        {
+        } catch (AuthenticationException e) {
             String msg = "用户或密码错误";
-            if (StringUtils.isNotEmpty(e.getMessage()))
-            {
+            if (StringUtils.isNotEmpty(e.getMessage())) {
                 msg = e.getMessage();
             }
             return error(msg);
@@ -91,8 +80,7 @@ public class SysLoginController extends BaseController
     }
 
     @GetMapping("/unauth")
-    public String unauth()
-    {
+    public String unauth() {
         return "error/unauth";
     }
 }

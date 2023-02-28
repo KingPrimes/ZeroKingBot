@@ -37,7 +37,8 @@
         <include refid="selectWarframeMarketRivenTionNickVo"/>
     </select>
 
-    <insert id="insertWarframeMarketRivenTionNickLikeNickCh" parameterType="com.zkb.bot.warframe.domain.market.WarframeMarketRivenTionNick">
+    <insert id="insertWarframeMarketRivenTionNickLikeNickCh"
+            parameterType="com.zkb.bot.warframe.domain.market.WarframeMarketRivenTionNick">
         insert OR IGNORE into warframe_market_riven_tion_nick
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="nickEn != null and nickEn != ''">nick_en,</if>

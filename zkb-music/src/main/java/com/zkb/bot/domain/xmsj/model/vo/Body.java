@@ -1,6 +1,5 @@
 package com.zkb.bot.domain.xmsj.model.vo;
 
-import com.zkb.bot.enums.MusicEnum;
 import com.zkb.bot.enums.MusicTypeEnum;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -141,6 +140,7 @@ public class Body {
         this.lrc = lrc;
     }
 */
+
     /**
      * get 歌曲播放地址
      *

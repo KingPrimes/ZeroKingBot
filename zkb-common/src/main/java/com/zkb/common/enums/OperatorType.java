@@ -2,11 +2,10 @@ package com.zkb.common.enums;
 
 /**
  * 操作人类别
- * 
+ *
  * @author KingPrimes
  */
-public enum OperatorType
-{
+public enum OperatorType {
     /**
      * 其它
      */
@@ -22,10 +21,12 @@ public enum OperatorType
      */
     MOBILE("手机用户");
     final String type;
-     OperatorType(String type){
+
+    OperatorType(String type) {
         this.type = type;
     }
-    public String getType(){
-         return type;
+
+    public String getType() {
+        return type;
     }
 }

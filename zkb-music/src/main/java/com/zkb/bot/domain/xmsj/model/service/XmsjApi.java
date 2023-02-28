@@ -19,8 +19,6 @@ import org.springframework.stereotype.Service;
 import java.net.URLEncoder;
 import java.util.concurrent.TimeUnit;
 
-import static java.lang.String.format;
-
 @Service
 public class XmsjApi implements IXmsjApi {
 
@@ -39,16 +37,16 @@ public class XmsjApi implements IXmsjApi {
      */
     @Override
     public ResultSets queryMusics(String name, Long groupID, Long userID, MusicEnum me) {
-        log.info("点歌-- 歌名:{},群组:{},用户:{}",name,groupID,userID);
-        try{
-            name = URLEncoder.encode(name,"UTF-8");
+        log.info("点歌-- 歌名:{},群组:{},用户:{}", name, groupID, userID);
+        try {
+            name = URLEncoder.encode(name, "UTF-8");
             MusicTypeEnum mte = MusicTypeEnum.values()[me.value()];
             StringBuilder str = new StringBuilder();
             str.append("input=")
                     .append(name)
                     .append("&filter=name&type=");
 
-            switch (mte.value()){
+            switch (mte.value()) {
                 case 2:
                     str.append("netease");
                     break;
@@ -71,15 +69,15 @@ public class XmsjApi implements IXmsjApi {
 
             musicXmsjResponseBody.setDataType(mte);
 
-            redisCache.setCacheObject(groupID+ "-" + userID, musicXmsjResponseBody, 2L, TimeUnit.MINUTES);
+            redisCache.setCacheObject(groupID + "-" + userID, musicXmsjResponseBody, 2L, TimeUnit.MINUTES);
             ResultSets rs = ResultSets.builder();
-            int i =0;
+            int i = 0;
             for (Body datum : musicXmsjResponseBody.getData()) {
-                rs.add(i,datum.getTitle(),datum.getAuthor(),mte);
+                rs.add(i, datum.getTitle(), datum.getAuthor(), mte);
                 i++;
             }
             return rs;
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
 
@@ -94,17 +92,17 @@ public class XmsjApi implements IXmsjApi {
      * @return 歌曲详情
      */
     @Override
-    public Body reqSong(Long groupID, Long userID, String msg) throws Exception{
-        if(StringUtils.isNumber(msg)){
+    public Body reqSong(Long groupID, Long userID, String msg) throws Exception {
+        if (StringUtils.isNumber(msg)) {
             MusicXmsjResponseBody xmlns = redisCache.getCacheObject(groupID + "-" + userID);
 
-            if(xmlns!=null){
+            if (xmlns != null) {
 
                 return xmlns.getData().get(Integer.parseInt(msg));
-            }else {
+            } else {
                 throw new Exception("cache time out!");
             }
         }
-        throw new NumberFormatException("msg is not number Err:"+msg);
+        throw new NumberFormatException("msg is not number Err:" + msg);
     }
 }

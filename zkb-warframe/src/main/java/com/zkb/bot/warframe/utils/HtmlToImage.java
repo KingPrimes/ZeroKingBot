@@ -41,6 +41,72 @@ public class HtmlToImage {
     IWarframeRelicsService relics;
 
     /**
+     * 获取宽度
+     *
+     * @param html html文档
+     * @return 宽度
+     */
+    private static int getWidth(String html) {
+        Document doc = Jsoup.parse(html);
+        int width = 500;
+        //判断是否添加宽度标签
+        if (!doc.getElementsByTag("w").isEmpty()) {
+            String num = doc.getElementsByTag("w").text();
+            if (StringUtils.isNumber(num)) width = Integer.parseInt(num);
+
+        }
+        return width;
+    }
+
+    /**
+     * 删除不相干的字段
+     *
+     * @param html html 文档
+     * @return 格式化之后的 html文档
+     */
+    private static String outH(String html) {
+        html = html.replaceAll("<!--", "<xx>").replaceAll("-->", "</xx>");
+        Document doc = Jsoup.parse(html);
+        if (!doc.getElementsByTag("xx").isEmpty()) {
+            int i = doc.getElementsByTag("xx").size();
+            for (; i > 0; i--) {
+                html = new StringBuilder(html).replace(html.indexOf("<xx>"), html.indexOf("</xx>") + 5, "").toString().trim();
+            }
+        }
+        if (!doc.getElementsByTag("w").isEmpty()) {
+            html = new StringBuilder(html).replace(html.indexOf("<w>"), html.indexOf("</w>") + 4, "").toString().trim();
+        }
+        StringBuilder str = new StringBuilder(html);
+        str.insert(str.indexOf("</body>"), "<div style=\"text-align: center; background-color: #fffefa;\">\n" +
+                "\tPosted by:KingPrimes<br/>\n" +
+                "\t" +
+                HintList.getHint() +
+                "\n</div>\n");
+        return str.toString();
+    }
+
+    /**
+     * html 文档转成 字节流
+     *
+     * @param htmlFilePath html文件路径
+     * @param width        生成图片的宽度
+     * @return 字节流
+     */
+    public static ByteArrayOutputStream convertHtmlToImage(String htmlFilePath, int width) {
+        try {
+            File htmlFile = new File(htmlFilePath);
+            String url = htmlFile.toURI().toURL().toExternalForm();
+            BufferedImage image = RenderToImage.renderToImageAutoSize(url, width, BufferedImage.TYPE_INT_ARGB_PRE);
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", os);
+            return os;
+        } catch (IOException e) {
+            log.error("html渲染字节流出错，文件路径：{}\n\t\t错误信息：{}", htmlFilePath, e.getMessage());
+        }
+        return null;
+    }
+
+    /**
      * 平原图片
      *
      * @return 字节流
@@ -403,10 +469,11 @@ public class HtmlToImage {
 
     /**
      * 执政官突击
+     *
      * @param archonHunt 数据
      * @return 图片字节流
      */
-    public ByteArrayOutputStream archonHuntImage(GlobalStates.ArchonHunt archonHunt){
+    public ByteArrayOutputStream archonHuntImage(GlobalStates.ArchonHunt archonHunt) {
         String html = FileUtils.getFileString(HTML_PATH + "html/assault.html");
         int width = getWidth(html);
         html = outH(html);
@@ -497,7 +564,7 @@ public class HtmlToImage {
             }
         }
 
-        return tmpHtmlToImageByteArray("assault",html,width);
+        return tmpHtmlToImageByteArray("assault", html, width);
     }
 
     /**
@@ -1054,7 +1121,6 @@ public class HtmlToImage {
         return tmpHtmlToImageByteArray("Not", html, width);
     }
 
-
     /**
      * 查询 信条/赤毒 武器
      *
@@ -1137,7 +1203,6 @@ public class HtmlToImage {
 
         return tmpHtmlToImageByteArray("marketLichAndSister", html, width);
     }
-
 
     /**
      * Warframe Market 查询物品
@@ -1223,7 +1288,7 @@ public class HtmlToImage {
      * @param isMax  满？
      * @return 图片字节流
      */
-    public ByteArrayOutputStream marketImage2(Market market, Boolean seBy, Boolean isMax) {
+    public ByteArrayOutputStream marketImage2(Market market, Boolean seBy, Boolean isMax, String form) {
         String html = FileUtils.getFileString(HTML_PATH + "html/market.html");
         int width = getWidth(html);
         html = outH(html);
@@ -1237,7 +1302,7 @@ public class HtmlToImage {
 
         //物品名
         if (html.contains("#title")) {
-            html = html.replaceAll("#title", market.getInclude().getItem().getItems_in_set().get(0).getZhhans().getItem_name());
+            html = html.replaceAll("#title", market.getInclude().getItem().getItems_in_set().get(0).getZhhans().getItem_name() + " <br/>" + StringUtils.convertToCamelCase(form));
         }
         //头部
         if (html.contains("#rank") || html.contains("#ducats") || html.contains("#credits") || html.contains("#type")) {
@@ -1665,73 +1730,6 @@ public class HtmlToImage {
 
 
         return tmpHtmlToImageByteArray("relicsToy", html, width);
-    }
-
-
-    /**
-     * 获取宽度
-     *
-     * @param html html文档
-     * @return 宽度
-     */
-    private static int getWidth(String html) {
-        Document doc = Jsoup.parse(html);
-        int width = 500;
-        //判断是否添加宽度标签
-        if (!doc.getElementsByTag("w").isEmpty()) {
-            String num = doc.getElementsByTag("w").text();
-            if (StringUtils.isNumber(num)) width = Integer.parseInt(num);
-
-        }
-        return width;
-    }
-
-    /**
-     * 删除不相干的字段
-     *
-     * @param html html 文档
-     * @return 格式化之后的 html文档
-     */
-    private static String outH(String html) {
-        html = html.replaceAll("<!--", "<xx>").replaceAll("-->", "</xx>");
-        Document doc = Jsoup.parse(html);
-        if (!doc.getElementsByTag("xx").isEmpty()) {
-            int i = doc.getElementsByTag("xx").size();
-            for (; i > 0; i--) {
-                html = new StringBuilder(html).replace(html.indexOf("<xx>"), html.indexOf("</xx>") + 5, "").toString().trim();
-            }
-        }
-        if (!doc.getElementsByTag("w").isEmpty()) {
-            html = new StringBuilder(html).replace(html.indexOf("<w>"), html.indexOf("</w>") + 4, "").toString().trim();
-        }
-        StringBuilder str = new StringBuilder(html);
-        str.insert(str.indexOf("</body>"), "<div style=\"text-align: center; background-color: #fffefa;\">\n" +
-                "\tPosted by:KingPrimes<br/>\n" +
-                "\t" +
-                HintList.getHint() +
-                "\n</div>\n");
-        return str.toString();
-    }
-
-    /**
-     * html 文档转成 字节流
-     *
-     * @param htmlFilePath html文件路径
-     * @param width        生成图片的宽度
-     * @return 字节流
-     */
-    public static ByteArrayOutputStream convertHtmlToImage(String htmlFilePath, int width) {
-        try {
-            File htmlFile = new File(htmlFilePath);
-            String url = htmlFile.toURI().toURL().toExternalForm();
-            BufferedImage image = RenderToImage.renderToImageAutoSize(url, width, BufferedImage.TYPE_INT_ARGB_PRE);
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            ImageIO.write(image, "png", os);
-            return os;
-        } catch (IOException e) {
-            log.error("html渲染字节流出错，文件路径：{}\n\t\t错误信息：{}", htmlFilePath, e.getMessage());
-        }
-        return null;
     }
 
     public void convertHtmlToImage2(String htmlFilePath, int width) {

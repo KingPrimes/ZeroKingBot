@@ -7,7 +7,6 @@ import java.lang.annotation.*;
 
 /**
  * 自定义日志记录注解
- *
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

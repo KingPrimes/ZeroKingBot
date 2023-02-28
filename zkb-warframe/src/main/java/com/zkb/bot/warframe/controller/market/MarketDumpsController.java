@@ -20,7 +20,7 @@ import java.io.IOException;
 @RequestMapping("/warframe/market")
 public class MarketDumpsController {
 
-    @LogInfo(title = TitleType.Warframe,orderType = "金银垃圾",businessType = BusinessType.SELECT)
+    @LogInfo(title = TitleType.Warframe, orderType = "金银垃圾", businessType = BusinessType.SELECT)
     @GetMapping(value = "/{uuid}/getMarektDumpsImage/{bot}/{user}/{group}/{rawMsg}", produces = MediaType.IMAGE_PNG_VALUE)
     public void getImage(HttpServletResponse response, @PathVariable long bot, @PathVariable long user, @PathVariable long group, @PathVariable String rawMsg) throws IOException {
         response.setHeader("Content-Type", "image/png");

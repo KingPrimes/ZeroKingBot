@@ -24,7 +24,7 @@ public class TechReplyPlugin {
     @GroupMessageHandler
     public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
         if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_AI)) {
-            if(GroupAddApi.isAdmin(bot, event)){
+            if (GroupAddApi.isAdmin(bot, event)) {
                 if (ORDER_TEACHING.equals(StringUtils.substring(event.getRawMessage(), 0, ORDER_TEACHING.length()))) {
                     return SpringUtils.getBean(TeachingUtils.class).teaching(bot, event);
                 }

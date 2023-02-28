@@ -6,12 +6,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum BotAdminPrivilegeEnum implements EnumValue {
     //普通等级
-    OWNER((short) 0,"普通等级"),
+    OWNER((short) 0, "普通等级"),
     //普通管理员
-    ADMIN((short) 1,"普通管理员"),
+    ADMIN((short) 1, "普通管理员"),
     //顶级管理员
-    TOP_ADMIN((short) 2,"顶级管理员")
-    ;
+    TOP_ADMIN((short) 2, "顶级管理员");
     private final Short value;
 
     private final String desc;

@@ -45,6 +45,12 @@
         where tra_ch = #{tra_ch}
     </select>
 
+    <select id="zhToEnTrim" parameterType="String" resultType="String">
+        select tra_en
+        from warframe_translation
+        where REPLACE(tra_ch,' ','') = #{tra_ch}
+    </select>
+
     <select id="zhToEnList" parameterType="String" resultMap="WarframeTranslationResult">
         select tra_en, tra_ch
         from warframe_translation
@@ -61,10 +67,10 @@
 
     <select id="enAndZhToList" parameterType="String" resultMap="WarframeTranslationResult">
         SELECT tra_en,
-               tra_ch
+        tra_ch
         FROM warframe_translation
         WHERE REPLACE(tra_ch, ' ', '') LIKE REPLACE('%' || #{traCh} || '%', ' ', '')
-           OR REPLACE(tra_en, ' ', '') LIKE REPLACE('%' || #{traCh} || '%', ' ', '')
+        OR REPLACE(tra_en, ' ', '') LIKE REPLACE('%' || #{traCh} || '%', ' ', '')
     </select>
 
     <select id="enOrzh" parameterType="String" resultMap="WarframeTranslationResult">
@@ -93,7 +99,7 @@
 
     <insert id="insertWarframeTranslationList" parameterType="java.util.List" useGeneratedKeys="true"
             keyProperty="traId">
-        insert OR IGNORE into warframe_translation
+        REPLACE INTO warframe_translation
         (tra_en,tra_ch,tra_prime,tra_set)
         values
         <foreach collection="list" item="item" index="index" separator=",">

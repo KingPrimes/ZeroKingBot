@@ -9,7 +9,7 @@ import javax.persistence.*;
  * @author KingPrimes
  */
 @Entity
-@Table(name = "bot_function",uniqueConstraints = @UniqueConstraint(name = "function",columnNames = "functionName"))
+@Table(name = "bot_function", uniqueConstraints = @UniqueConstraint(name = "function", columnNames = "functionName"))
 public class BotFunction {
     @GeneratedValue
     @Id

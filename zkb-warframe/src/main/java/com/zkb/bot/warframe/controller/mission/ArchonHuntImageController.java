@@ -19,11 +19,11 @@ import java.io.IOException;
 public class ArchonHuntImageController {
 
     @GetMapping(value = "/{uuid}/getArchonHuntImage/{bot}/{user}/{group}/{rawMsg}")
-    @LogInfo(title = TitleType.Warframe,orderType = "执政官突击",businessType = BusinessType.IMAGE)
+    @LogInfo(title = TitleType.Warframe, orderType = "执政官突击", businessType = BusinessType.IMAGE)
     public void getImage(HttpServletResponse response, @PathVariable long bot, @PathVariable long user, @PathVariable long group, @PathVariable String rawMsg, @PathVariable String uuid) throws IOException {
         response.setHeader("Content-Type", "image/png");
 
-        ByteArrayOutputStream out = WarframeHtmlToImage.conver("http://localhost:"+ GetServerPort.getPort()+"/warframe/mission/"+uuid+"/getArchonHuntHtml");
+        ByteArrayOutputStream out = WarframeHtmlToImage.conver("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + uuid + "/getArchonHuntHtml");
 
         response.getOutputStream().write(out.toByteArray());
     }

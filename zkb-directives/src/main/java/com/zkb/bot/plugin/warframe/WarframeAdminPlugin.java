@@ -31,7 +31,7 @@ public class WarframeAdminPlugin {
             return MESSAGE_IGNORE;
         }
 
-        if (adminsServer.checkIsAdmin(new BotAdmins(bot.getSelfId(),event.getUserId()),true)) {
+        if (adminsServer.checkIsAdmin(new BotAdmins(bot.getSelfId(), event.getUserId()), true)) {
             if (UPDATE_RES_MARKET_ITEMS.getType().equals(event.getRawMessage())) {
                 int x = RenewMarketUtil.resMarketItems();
                 bot.sendPrivateMsg(event.getUserId(), "更新成功，共更新" + x + "条数据!", false);

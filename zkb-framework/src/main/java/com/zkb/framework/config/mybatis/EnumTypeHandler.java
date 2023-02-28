@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class EnumTypeHandler <T extends Enum<T> & EnumValue> extends BaseTypeHandler<T> {
+public class EnumTypeHandler<T extends Enum<T> & EnumValue> extends BaseTypeHandler<T> {
 
     private final Class<T> type;
 
@@ -22,10 +22,10 @@ public class EnumTypeHandler <T extends Enum<T> & EnumValue> extends BaseTypeHan
     @Override
     public void setNonNullParameter(PreparedStatement preparedStatement, int i, T t, JdbcType jdbcType) throws SQLException {
         Object v = t.toValue();
-        if(jdbcType == null){
-            preparedStatement.setObject(i,v);
-        }else{
-            preparedStatement.setObject(i,v,jdbcType.TYPE_CODE);
+        if (jdbcType == null) {
+            preparedStatement.setObject(i, v);
+        } else {
+            preparedStatement.setObject(i, v, jdbcType.TYPE_CODE);
         }
     }
 

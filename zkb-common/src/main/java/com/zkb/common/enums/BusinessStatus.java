@@ -2,11 +2,10 @@ package com.zkb.common.enums;
 
 /**
  * 操作状态
- * 
+ *
  * @author KingPrimes
  */
-public enum BusinessStatus
-{
+public enum BusinessStatus {
     /**
      * 成功
      */
@@ -15,9 +14,11 @@ public enum BusinessStatus
     /**
      * 失败
      */
-    FAIL("失败"),;
+    FAIL("失败"),
+    ;
     final String type;
-    BusinessStatus(String type){
+
+    BusinessStatus(String type) {
         this.type = type;
     }
 

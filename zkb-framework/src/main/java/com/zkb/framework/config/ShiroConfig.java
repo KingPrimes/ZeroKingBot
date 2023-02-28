@@ -244,7 +244,7 @@ public class ShiroConfig {
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 对静态资源设置匿名访问
         filterChainDefinitionMap.put("/*.ico**", "anon");
-        filterChainDefinitionMap.put("/i18n/**","anon");
+        filterChainDefinitionMap.put("/i18n/**", "anon");
         filterChainDefinitionMap.put("/html/**", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/docs/**", "anon");
@@ -254,9 +254,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/*.jpg**", "anon");
         filterChainDefinitionMap.put("/*.png**", "anon");
-        filterChainDefinitionMap.put("/zkb/**","anon");
-        filterChainDefinitionMap.put("/server","anon");
-        filterChainDefinitionMap.put("/test/**","anon");
+        filterChainDefinitionMap.put("/zkb/**", "anon");
+        filterChainDefinitionMap.put("/server", "anon");
+        filterChainDefinitionMap.put("/test/**", "anon");
 
         // 机器人相关
         filterChainDefinitionMap.put("/ws/shiro/**", "anon");

@@ -6,20 +6,21 @@
 <mapper namespace="com.zkb.system.mapper.SysLogininforMapper">
 
     <resultMap type="SysLogininfor" id="SysLogininforResult">
-        <id     property="infoId"        column="info_id"           />
-        <result property="loginName"     column="login_name"        />
-        <result property="status"        column="status"            />
-        <result property="ipaddr"        column="ipaddr"            />
-        <result property="loginLocation" column="login_location"    />
-        <result property="browser"       column="browser"           />
-        <result property="os"            column="os"                />
-        <result property="msg"           column="msg"               />
-        <result property="loginTime"     column="login_time"        />
+        <id property="infoId" column="info_id"/>
+        <result property="loginName" column="login_name"/>
+        <result property="status" column="status"/>
+        <result property="ipaddr" column="ipaddr"/>
+        <result property="loginLocation" column="login_location"/>
+        <result property="browser" column="browser"/>
+        <result property="os" column="os"/>
+        <result property="msg" column="msg"/>
+        <result property="loginTime" column="login_time"/>
     </resultMap>
 
     <insert id="insertLogininfor" parameterType="SysLogininfor">
         insert into sys_login_info (login_name, status, ipaddr, login_location, browser, os, msg, login_time)
-        values (#{loginName}, #{status}, #{ipaddr}, #{loginLocation}, #{browser}, #{os}, #{msg}, datetime('now','localtime'))
+        values (#{loginName}, #{status}, #{ipaddr}, #{loginLocation}, #{browser}, #{os}, #{msg},
+        datetime('now','localtime'))
     </insert>
 
     <select id="selectLogininforList" parameterType="SysLogininfor" resultMap="SysLogininforResult">

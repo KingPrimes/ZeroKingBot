@@ -85,10 +85,10 @@ public class LogInfoAspect {
             logInfo.setLogStatus(BusinessStatus.SUCCESS.ordinal());
             String url = ServletUtils.getRequest().getRequestURI();
             // 请求的地址
-            switch (controllerLog.title()){
+            switch (controllerLog.title()) {
                 case Warframe:
-                    for(int i=0;i<4;i++){
-                        url = url.substring(0,url.lastIndexOf("/"));
+                    for (int i = 0; i < 4; i++) {
+                        url = url.substring(0, url.lastIndexOf("/"));
                     }
                     logInfo.setLogUrl(StringUtils.substring(url, 0, 255));
                     break;
@@ -166,24 +166,24 @@ public class LogInfoAspect {
                 String[] parameterNames = methodSignature.getParameterNames();
                 Object[] value = joinPoint.getArgs();
                 for (int i = 0; i < parameterNames.length; i++) {
-                   if(StringUtils.isNotNull(parameterNames[i]) && StringUtils.isNotNull(value[i])){
-                       switch (parameterNames[i]) {
-                           case "bot":
-                               logInfo.setLogBot(Long.valueOf(value[i].toString()));
-                               break;
-                           case "group":
-                               logInfo.setLogGroup(Long.valueOf(value[i].toString()));
-                               break;
-                           case "rawMsg":
-                               logInfo.setLogRawMsg(value[i].toString());
-                               break;
-                           case "user":
-                               logInfo.setLogUser(Long.valueOf(value[i].toString()));
-                               break;
-                           default:
-                               break;
-                       }
-                   }
+                    if (StringUtils.isNotNull(parameterNames[i]) && StringUtils.isNotNull(value[i])) {
+                        switch (parameterNames[i]) {
+                            case "bot":
+                                logInfo.setLogBot(Long.valueOf(value[i].toString()));
+                                break;
+                            case "group":
+                                logInfo.setLogGroup(Long.valueOf(value[i].toString()));
+                                break;
+                            case "rawMsg":
+                                logInfo.setLogRawMsg(value[i].toString());
+                                break;
+                            case "user":
+                                logInfo.setLogUser(Long.valueOf(value[i].toString()));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
                 String params = argsArrayToString(value);
                 logInfo.setLogParam(StringUtils.substring(params, 0, 2000));
@@ -202,11 +202,11 @@ public class LogInfoAspect {
                 if (StringUtils.isNotNull(o)) {
                     try {
                         Object jsonObj = JSONObject.toJSONString(o);
-                       if(!StringUtils.isNumber(jsonObj.toString())){
-                           params
-                                   .append(jsonObj.toString())
-                                   .append(" ");
-                       }
+                        if (!StringUtils.isNumber(jsonObj.toString())) {
+                            params
+                                    .append(jsonObj.toString())
+                                    .append(" ");
+                        }
                     } catch (Exception ignored) {
                     }
                 }

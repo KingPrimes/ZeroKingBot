@@ -9,24 +9,19 @@ import java.security.NoSuchAlgorithmException;
  *
  * @author KingPrimes
  */
-public class CipherUtils
-{
+public class CipherUtils {
     /**
      * 生成随机秘钥
      *
-     * @param keyBitSize 字节大小
+     * @param keyBitSize    字节大小
      * @param algorithmName 算法名称
      * @return 创建密匙
      */
-    public static Key generateNewKey(int keyBitSize, String algorithmName)
-    {
+    public static Key generateNewKey(int keyBitSize, String algorithmName) {
         KeyGenerator kg;
-        try
-        {
+        try {
             kg = KeyGenerator.getInstance(algorithmName);
-        }
-        catch (NoSuchAlgorithmException e)
-        {
+        } catch (NoSuchAlgorithmException e) {
             String msg = "Unable to acquire " + algorithmName + " algorithm.  This is required to function.";
             throw new IllegalStateException(msg, e);
         }

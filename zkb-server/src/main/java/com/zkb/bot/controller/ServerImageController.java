@@ -52,7 +52,7 @@ public class ServerImageController {
         Mem mem = server.getMem();
         Sys sys = server.getSys();
         String version = "";
-        if(JarUtils.isStartupFromJarEx(ServerImageController.class)){
+        if (JarUtils.isStartupFromJarEx(ServerImageController.class)) {
             version = manifestFromClasspath.getMainAttributes().getValue("ZeroKingBot-Version");
         }
         String path = "./ZKBotHtml/tmp";

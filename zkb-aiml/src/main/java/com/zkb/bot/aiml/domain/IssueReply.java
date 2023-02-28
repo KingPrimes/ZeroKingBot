@@ -2,7 +2,10 @@ package com.zkb.bot.aiml.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
 /**
@@ -33,8 +36,6 @@ public class IssueReply {
     String msgCreateGroup;
     //创建人员
     String msgCreateMember;
-
-
 
 
     @Override

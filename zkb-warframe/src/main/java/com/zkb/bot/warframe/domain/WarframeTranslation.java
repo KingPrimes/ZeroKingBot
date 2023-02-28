@@ -13,9 +13,8 @@ import javax.persistence.*;
  * @date 2021-05-24
  */
 @Entity
-@Table(name = "warframe_translation",uniqueConstraints = @UniqueConstraint(name = "translation",columnNames = {"traEn","traCh"}))
+@Table(name = "warframe_translation", uniqueConstraints = @UniqueConstraint(name = "translation", columnNames = {"traEn", "traCh"}))
 public class WarframeTranslation {
-    private static final long serialVersionUID = 1L;
 
     @GeneratedValue
     @Id

@@ -51,7 +51,9 @@ public class SysUser extends BaseEntity {
 
     private String delFlag;
 
-    /** 更新时间 */
+    /**
+     * 更新时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
@@ -69,6 +71,14 @@ public class SysUser extends BaseEntity {
         this.delFlag = delFlag;
     }
 
+    public SysUser(Long userId) {
+        this.userId = userId;
+    }
+
+    public static boolean isAdmin(Long userId) {
+        return userId != null && 1L == userId;
+    }
+
     @Override
     public Date getUpdateTime() {
         return updateTime;
@@ -77,10 +87,6 @@ public class SysUser extends BaseEntity {
     @Override
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public SysUser(Long userId) {
-        this.userId = userId;
     }
 
     public Long getUserId() {
@@ -94,11 +100,6 @@ public class SysUser extends BaseEntity {
     public boolean isAdmin() {
         return isAdmin(this.userId);
     }
-
-    public static boolean isAdmin(Long userId) {
-        return userId != null && 1L == userId;
-    }
-
 
     //@Xss(message = "登录账号不能包含脚本字符")
     @NotBlank(message = "登录账号不能为空")
@@ -133,18 +134,16 @@ public class SysUser extends BaseEntity {
         return salt;
     }
 
-    public String getDelFlag()
-    {
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(String delFlag)
-    {
+    public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 
     public String getStatus() {

@@ -28,14 +28,14 @@ public class DailyDealsHtmlController {
     IWarframeTranslationService trans;
 
     @GetMapping(value = "/{uuid}/getDailyDealsHtml")
-    @LogInfo(title = TitleType.Warframe,orderType = "每日特惠",businessType = BusinessType.SELECT)
+    @LogInfo(title = TitleType.Warframe, orderType = "每日特惠", businessType = BusinessType.SELECT)
     public String getHtml(Model model) {
         SocketGlobalStates sgs = redisCache.getCacheObject(REDIS_MISSION_KEY.getType());
         GlobalStates state = sgs.getPacket().getData();
         GlobalStates.DailyDeals deals = state.getDailyDeals().get(0);
         deals.setItem(trans.enToZh(deals.getItem()));
         deals.setEta(DateUtils.getDate(deals.getExpiry(), new Date()));
-        model.addAttribute("deals",deals);
+        model.addAttribute("deals", deals);
         return "html/daily";
     }
 }

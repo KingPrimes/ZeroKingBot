@@ -17,7 +17,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/warframe/mission")
 public class RelicsToyImageController {
-    @LogInfo(title = TitleType.Warframe,orderType = "模拟核桃",businessType = BusinessType.IMAGE)
+    @LogInfo(title = TitleType.Warframe, orderType = "模拟核桃", businessType = BusinessType.IMAGE)
     @GetMapping(value = "/{uuid}/getRelicsToy/{bot}/{user}/{group}/{rawMsg}")
     public void getImage(HttpServletResponse response, @PathVariable long bot, @PathVariable long user, @PathVariable long group, @PathVariable String rawMsg, @PathVariable String uuid) throws IOException {
         response.setHeader("Content-Type", "image/png");

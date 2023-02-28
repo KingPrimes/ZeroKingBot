@@ -1,10 +1,7 @@
-name: Java CI with Maven Package Release
+name: Java Package Release
 
-# 检测到 src 文件内 .java 文件有变动执行编译
-on:
-  push:
-      paths:
-        - '**/*src/**/*.java'
+on: workflow_dispatch
+
 jobs:
   build:
     #	配置权限
@@ -28,20 +25,24 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
           cache: maven
-      # Maven 打包
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
-      # 将打包好的 Jar 包 放到 staging 文件夹
-      - run: mkdir staging && cp /home/runner/work/ZeroKingBot/ZeroKingBot/zkb-admin/target/ZeroKingBot.jar staging
-      - name: "Build & test"
-        run: |
-          echo "done!"
+          # Maven 打包
+          - name: Build with Maven
+            run: mvn -B package --file pom.xml
+          # 将打包好的 Jar 包 放到 staging 文件夹
+            - run: mkdir staging && cp /home/runner/work/ZeroKingBot/ZeroKingBot/zkb-admin/target/ZeroKingBot.jar staging
+          # 设置 jobs Maven pom 版本环境变量
+          - name: Set Release version env variable
+            run: |
+              echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+          - name: "Build & test"
+            run: |
+              echo "done!"
       # 上传文件并发布 Release
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "4.1.9.2"
+          automatic_release_tag: "${{ contains(env.VERSION_FRAGMENT, 'patch') }}"
           prerelease: false
-          title: "ZeroKingBot-v4.1.9.2"
+          title: "ZeroKingBot-v${{ contains(env.VERSION_FRAGMENT, 'patch') }}"
           files: |
             staging/*.jar

@@ -19,19 +19,18 @@ import java.util.List;
 @RequestMapping("/bot/ai/thesaurus")
 public class ThesaurusController extends BaseController {
 
+    private final String PREFIX = "bot/ai/";
     @Autowired
     private IssueReplyService replyService;
-    private final String PREFIX = "bot/ai/";
 
     @GetMapping()
-    public String info(){
-        return PREFIX+"thesaurus";
+    public String info() {
+        return PREFIX + "thesaurus";
     }
 
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(IssueReply issueReply)
-    {
+    public TableDataInfo list(IssueReply issueReply) {
         startPage();
         List<IssueReply> list = replyService.selectIssueReplyList(issueReply);
         return getDataTable(list);
@@ -40,14 +39,12 @@ public class ThesaurusController extends BaseController {
     @Log(title = "词库", businessType = BusinessType.DELETE)
     @PostMapping("/remove/{ids}")
     @ResponseBody
-    public AjaxResult remove(@PathVariable String ids)
-    {
+    public AjaxResult remove(@PathVariable String ids) {
         return toAjax(replyService.deleteIssueReplyByMsgIds(ids));
     }
 
     @GetMapping("/edit/{msgId}")
-    public String edit(@PathVariable("msgId") Integer msgId, ModelMap mmap)
-    {
+    public String edit(@PathVariable("msgId") Integer msgId, ModelMap mmap) {
         IssueReply issueReply = replyService.selectIssueReplyBuMsgId(msgId);
         issueReply.setMsgIssue(EscapeUtil.escape(EscapeUtil.unescape(issueReply.getMsgIssue())));
         mmap.put("ir", issueReply);
@@ -57,7 +54,7 @@ public class ThesaurusController extends BaseController {
     @Log(title = "词库", businessType = BusinessType.UPDATE)
     @PostMapping("/update")
     @ResponseBody
-    public AjaxResult update(IssueReply issueReply){
+    public AjaxResult update(IssueReply issueReply) {
         issueReply.setMsgIssue(EscapeUtil.escape(EscapeUtil.unescape(issueReply.getMsgIssue())));
         return toAjax(replyService.updateIssueReply(issueReply));
     }

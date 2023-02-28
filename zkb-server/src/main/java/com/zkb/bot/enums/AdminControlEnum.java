@@ -12,14 +12,15 @@ public enum AdminControlEnum {
 
     UPDATE_SISTER("更新信条"),
 
-    UPDATE_TAR("更新翻译")
-    ;
-    AdminControlEnum(String str){
-        this.STR = str;
-    }
+    UPDATE_TAR("更新翻译");
+
     private final String STR;
 
-    public String getType(){
+    AdminControlEnum(String str) {
+        this.STR = str;
+    }
+
+    public String getType() {
         return this.STR;
     }
 

@@ -7,6 +7,7 @@ import java.util.List;
 public interface IWarframeTypeEnumService {
     /**
      * 修改
+     *
      * @param typeEnum 数据
      * @return 条数
      */
@@ -15,6 +16,7 @@ public interface IWarframeTypeEnumService {
 
     /**
      * 条件查询
+     *
      * @param typeEnum 条件
      * @return 具体数据
      */
@@ -23,6 +25,7 @@ public interface IWarframeTypeEnumService {
 
     /**
      * 删除
+     *
      * @param key
      * @return
      */

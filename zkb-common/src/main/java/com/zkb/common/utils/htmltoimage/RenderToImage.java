@@ -10,8 +10,9 @@ public class RenderToImage {
 
     /**
      * 高清Html转Image
-     * @param url url
-     * @param width 宽度
+     *
+     * @param url               url
+     * @param width             宽度
      * @param bufferedImageType bufferedImageType
      * @return BufferedImage
      */
@@ -23,13 +24,13 @@ public class RenderToImage {
         sharedContext.setDPI(72);
         sharedContext.setDotsPerPixel(3);
         Dimension dim = new Dimension(width, 1000);
-        BufferedImage buff = new BufferedImage((int)dim.getWidth(), (int)dim.getHeight(), bufferedImageType);
-        Graphics2D g = (Graphics2D)buff.getGraphics();
+        BufferedImage buff = new BufferedImage((int) dim.getWidth(), (int) dim.getHeight(), bufferedImageType);
+        Graphics2D g = (Graphics2D) buff.getGraphics();
         g2r.layout(g, new Dimension(width, 1000));
         g.dispose();
         Rectangle rect = g2r.getMinimumSize();
-        buff = new BufferedImage((int)rect.getWidth(), (int)rect.getHeight(), bufferedImageType);
-        g = (Graphics2D)buff.getGraphics();
+        buff = new BufferedImage((int) rect.getWidth(), (int) rect.getHeight(), bufferedImageType);
+        g = (Graphics2D) buff.getGraphics();
         g2r.render(g);
         g.dispose();
         return buff;

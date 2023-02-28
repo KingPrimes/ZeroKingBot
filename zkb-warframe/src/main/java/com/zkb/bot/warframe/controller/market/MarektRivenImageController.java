@@ -24,9 +24,9 @@ import java.net.URLDecoder;
 @RequestMapping("/warframe/market")
 public class MarektRivenImageController {
 
-    @LogInfo(title = TitleType.Warframe,orderType = "WR",businessType = BusinessType.SELECT)
+    @LogInfo(title = TitleType.Warframe, orderType = "WR", businessType = BusinessType.SELECT)
     @GetMapping(value = "/{uuid}/getMarektRivenImage/{key}/{bot}/{user}/{group}/{rawMsg}", produces = MediaType.IMAGE_PNG_VALUE)
-    public void getImage(HttpServletResponse response, @PathVariable String key, @PathVariable long bot,@PathVariable long user,@PathVariable long group,@PathVariable String rawMsg) throws IOException {
+    public void getImage(HttpServletResponse response, @PathVariable String key, @PathVariable long bot, @PathVariable long user, @PathVariable long group, @PathVariable String rawMsg) throws IOException {
         response.setHeader("Content-Type", "image/png");
         MarketRivenParameter parameter = MarketRivenUtil.toMarketRiven(URLDecoder.decode(key, "UTF-8"));
         MarketRiven riven = MarketRivenUtil.marketRiven(parameter);

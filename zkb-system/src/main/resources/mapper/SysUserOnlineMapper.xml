@@ -19,15 +19,15 @@
 
     <sql id="selectOnlineVo">
         select session_id,
-               login_name,
-               ipaddr,
-               login_location,
-               browser,
-               os,
-               status,
-               start_timestamp,
-               last_access_time,
-               expire_time
+        login_name,
+        ipaddr,
+        login_location,
+        browser,
+        os,
+        status,
+        start_timestamp,
+        last_access_time,
+        expire_time
         from sys_user_online
     </sql>
 
@@ -38,9 +38,9 @@
 
     <insert id="saveOnline" parameterType="SysUserOnline">
         replace into sys_user_online(session_id, login_name, ipaddr, login_location, browser, os, status,
-                                     start_timestamp, last_access_time, expire_time)
+        start_timestamp, last_access_time, expire_time)
         values (#{sessionId}, #{loginName}, #{ipaddr}, #{loginLocation}, #{browser}, #{os}, #{status},
-                #{startTimestamp}, #{lastAccessTime}, #{expireTime})
+        #{startTimestamp}, #{lastAccessTime}, #{expireTime})
     </insert>
 
     <delete id="deleteOnlineById" parameterType="String">

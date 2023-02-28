@@ -10,16 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 服务器监控
- * 
+ *
  * @author zkb
  */
 @Controller
 @RequestMapping("/server/info")
-public class ServerController extends BaseController
-{
+public class ServerController extends BaseController {
     @GetMapping()
-    public String server(ModelMap mmap) throws Exception
-    {
+    public String server(ModelMap mmap) throws Exception {
         Server server = new Server();
         //初始化信息
         server.copyTo();

@@ -36,21 +36,21 @@ public class SysLogInfoController extends BaseController {
         List<Object> orderType = new ArrayList<>();
         for (WarframeTypeEnum key : WarframeTypeEnum.values()) {
             if (!key.getType().equals("") && !key.getType().equals("warframe-data-the-provided-plat")) {
-                orderType.add(key.getType().replace("/",""));
+                orderType.add(key.getType().replace("/", ""));
             }
         }
         for (GifEnums key : GifEnums.values()) {
             if (!key.getType().equals("")) {
-                orderType.add(key.getType().replace("/",""));
+                orderType.add(key.getType().replace("/", ""));
             }
         }
         for (ImageEnum key : ImageEnum.values()) {
             if (!key.getType().equals("")) {
-                orderType.add(key.getType().replace("/",""));
+                orderType.add(key.getType().replace("/", ""));
             }
         }
         List<Object> title = new ArrayList<>();
-        for(TitleType key:TitleType.values()){
+        for (TitleType key : TitleType.values()) {
             if (!key.getType().equals("")) {
                 title.add(key.getType());
             }

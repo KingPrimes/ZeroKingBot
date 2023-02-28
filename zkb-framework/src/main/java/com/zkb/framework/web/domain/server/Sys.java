@@ -2,11 +2,10 @@ package com.zkb.framework.web.domain.server;
 
 /**
  * 系统相关信息
- * 
+ *
  * @author KingPrimes
  */
-public class Sys
-{
+public class Sys {
     /**
      * 服务器名称
      */
@@ -31,64 +30,59 @@ public class Sys
      * 系统架构
      */
     private String osArch;
+
     /**
      * 服务器名称
      */
-    public String getComputerName()
-    {
+    public String getComputerName() {
         return computerName;
     }
 
-    public void setComputerName(String computerName)
-    {
+    public void setComputerName(String computerName) {
         this.computerName = computerName;
     }
+
     /**
      * 服务器Ip
      */
-    public String getComputerIp()
-    {
+    public String getComputerIp() {
         return computerIp;
     }
 
-    public void setComputerIp(String computerIp)
-    {
+    public void setComputerIp(String computerIp) {
         this.computerIp = computerIp;
     }
+
     /**
      * 项目路径
      */
-    public String getUserDir()
-    {
+    public String getUserDir() {
         return userDir;
     }
 
-    public void setUserDir(String userDir)
-    {
+    public void setUserDir(String userDir) {
         this.userDir = userDir;
     }
+
     /**
      * 操作系统
      */
-    public String getOsName()
-    {
+    public String getOsName() {
         return osName;
     }
 
-    public void setOsName(String osName)
-    {
+    public void setOsName(String osName) {
         this.osName = osName;
     }
+
     /**
      * 系统架构
      */
-    public String getOsArch()
-    {
+    public String getOsArch() {
         return osArch;
     }
 
-    public void setOsArch(String osArch)
-    {
+    public void setOsArch(String osArch) {
         this.osArch = osArch;
     }
 }

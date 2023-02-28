@@ -34,13 +34,13 @@
 
     <select id="selectGroupFunctionOnOffByGroupList" parameterType="long" resultMap="BotGroupFunctionOnOffResult">
         SELECT f.function_id,
-               f.function_name,
-               f.function_introduction,
-               o.`group`
+        f.function_name,
+        f.function_introduction,
+        o.`group`
         FROM bot_function AS f,
-             bot_group_function_onoff AS o
+        bot_group_function_onoff AS o
         WHERE o.function_id = f.function_id
-          AND o.`group` = #{group}
+        AND o.`group` = #{group}
     </select>
 
     <insert id="insertGroupFunctionOnOff" parameterType="GroupFunctionOnOff" useGeneratedKeys="true">

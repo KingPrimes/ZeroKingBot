@@ -30,7 +30,7 @@ public class AssaultHtmlController {
 
 
     @GetMapping(value = "/{uuid}/getAssaultHtml")
-    @LogInfo(title = TitleType.Warframe,orderType = "突击",businessType = BusinessType.SELECT)
+    @LogInfo(title = TitleType.Warframe, orderType = "突击", businessType = BusinessType.SELECT)
     public String getHtml(Model model) {
         SocketGlobalStates sgs = redisCache.getCacheObject(REDIS_MISSION_KEY.getType());
         GlobalStates.Sortie assault = sgs.getPacket().getData().getSortie();
@@ -47,7 +47,7 @@ public class AssaultHtmlController {
             variant.setModifierDescription(trans.enToZh(variant.getModifierDescription()));
         }
 
-        model.addAttribute("assault",assault);
-     return "html/assault";
+        model.addAttribute("assault", assault);
+        return "html/assault";
     }
 }

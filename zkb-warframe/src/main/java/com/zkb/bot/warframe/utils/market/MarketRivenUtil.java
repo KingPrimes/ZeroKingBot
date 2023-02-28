@@ -51,7 +51,7 @@ public class MarketRivenUtil {
             }
             bot.sendGroupMsg(event.getGroupId(), MessageUtils.message("warframe.market.prompt"), false);
             try {
-                msgId = bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektRivenImage/" + URLEncoder.encode(key, "UTF-8")+"/"+bot.getSelfId()+"/"+event.getUserId()+"/"+event.getGroupId()+"/"+key).build(), false).getData().getMessageId();
+                msgId = bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektRivenImage/" + URLEncoder.encode(key, "UTF-8") + "/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + key).build(), false).getData().getMessageId();
             } catch (UnsupportedEncodingException ignored) {
 
             }

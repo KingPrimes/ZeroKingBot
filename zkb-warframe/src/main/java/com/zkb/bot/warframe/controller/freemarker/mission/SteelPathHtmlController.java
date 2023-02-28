@@ -48,7 +48,7 @@ public class SteelPathHtmlController {
         steelPath.setIsReward(trans.enToZh(steelPath.getCurrentReward().getName()));
         steelPath.setEtc(DateUtils.getDateWeek(steelPath.getActivation(), new Date(), Calendar.DAY_OF_MONTH, 7));
         steelPath.setCost(steelPath.getCurrentReward().getCost());
-        model.addAttribute("stee",steelPath);
+        model.addAttribute("stee", steelPath);
         return "html/steePath";
     }
 }

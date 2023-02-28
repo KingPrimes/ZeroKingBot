@@ -27,9 +27,9 @@ import java.net.URLDecoder;
 public class MarektLichAndSisterImageController {
 
 
-    @LogInfo(title = TitleType.Warframe,orderType = "赤毒/信条 武器查询",businessType = BusinessType.SELECT)
+    @LogInfo(title = TitleType.Warframe, orderType = "赤毒/信条 武器查询", businessType = BusinessType.SELECT)
     @GetMapping(value = "/{uuid}/getLichOrSisterImage/{key}/{type}/{bot}/{user}/{group}/{rawMsg}", produces = MediaType.IMAGE_PNG_VALUE)
-    public void getImage(HttpServletResponse response, @PathVariable String key, @PathVariable WarframeEnum type, @PathVariable long bot,@PathVariable long user,@PathVariable long group,@PathVariable String rawMsg) throws IOException {
+    public void getImage(HttpServletResponse response, @PathVariable String key, @PathVariable WarframeEnum type, @PathVariable long bot, @PathVariable long user, @PathVariable long group, @PathVariable String rawMsg) throws IOException {
         response.setHeader("Content-Type", "image/png");
         // 查询 赤毒武器/幻纹 拍卖详情
         MarketLichOrSister licksOrSister;

@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 @Configuration
 public class DataSourceConfig {
- @Autowired
+    @Autowired
     private DataSourceProperties dataSourceProperties;
 
     @Bean

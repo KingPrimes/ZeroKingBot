@@ -19,9 +19,9 @@
     <select id="selectAllNoMission" parameterType="com.zkb.bot.warframe.domain.WfAllTranslNo"
             resultMap="WfAllNoTrasResult">
         SELECT miss_id,
-               wf_mission_rewards.miss_rewards_name
+        wf_mission_rewards.miss_rewards_name
         FROM wf_mission_rewards
-                 LEFT JOIN wf_translation AS b ON wf_mission_rewards.miss_rewards_name = b.tra_en
+        LEFT JOIN wf_translation AS b ON wf_mission_rewards.miss_rewards_name = b.tra_en
         WHERE b.tra_en IS NULL
 
         GROUP BY miss_id
@@ -34,7 +34,7 @@
         a.relics_key_id,
         a.relics_item_name
         FROM
-        warframe_relics	AS a
+        warframe_relics AS a
         LEFT JOIN warframe_translation AS b ON a.relics_item_name = b.tra_en
         WHERE
         b.tra_en IS NULL

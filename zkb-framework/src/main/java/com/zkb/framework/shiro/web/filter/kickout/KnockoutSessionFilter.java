@@ -26,11 +26,10 @@ import java.util.Deque;
 
 /**
  * 登录账户控制过滤器
- * 
+ *
  * @author KingPrimes
  */
-public class KnockoutSessionFilter extends AccessControlFilter
-{
+public class KnockoutSessionFilter extends AccessControlFilter {
     private final static ObjectMapper objectMapper = new ObjectMapper();
 
     /**
@@ -57,16 +56,13 @@ public class KnockoutSessionFilter extends AccessControlFilter
     }
 
     @Override
-    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception
-    {
+    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         Subject subject = getSubject(request, response);
-        if (!subject.isAuthenticated() && !subject.isRemembered() || maxSession == -1)
-        {
+        if (!subject.isAuthenticated() && !subject.isRemembered() || maxSession == -1) {
             // 如果没有登录或用户最大会话数为-1，直接进行之后的流程
             return true;
         }
-        try
-        {
+        try {
             Session session = subject.getSession();
             // 当前登录用户
             SysUser user = ShiroUtils.getSysUser();
@@ -75,15 +71,13 @@ public class KnockoutSessionFilter extends AccessControlFilter
 
             // 读取缓存用户 没有就存入
             Deque<Serializable> deque = cache.get(loginName);
-            if (deque == null)
-            {
+            if (deque == null) {
                 // 初始化队列
                 deque = new ArrayDeque<>();
             }
 
             // 如果队列里没有此sessionId，且用户没有被踢出；放入队列
-            if (!deque.contains(sessionId) && session.getAttribute("kick-out") == null)
-            {
+            if (!deque.contains(sessionId) && session.getAttribute("kick-out") == null) {
                 // 将sessionId存入队列
                 deque.push(sessionId);
                 // 将用户的sessionId队列缓存
@@ -91,84 +85,67 @@ public class KnockoutSessionFilter extends AccessControlFilter
             }
 
             // 如果队列里的sessionId数超出最大会话数，开始踢人
-            while (deque.size() > maxSession)
-            {
+            while (deque.size() > maxSession) {
                 // 是否踢出后来登录的，默认是false；即后者登录的用户踢出前者登录的用户；
                 Serializable knockoutSessionId = knockoutAfter ? deque.removeFirst() : deque.removeLast();
                 // 踢出后再更新下缓存队列
                 cache.put(loginName, deque);
 
-                try
-                {
+                try {
                     // 获取被踢出的sessionId的session对象
                     Session knockoutSession = sessionManager.getSession(new DefaultSessionKey(knockoutSessionId));
-                    if (null != knockoutSession)
-                    {
+                    if (null != knockoutSession) {
                         // 设置会话的kick-out属性表示踢出了
                         knockoutSession.setAttribute("kick-out", true);
                     }
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     // 面对异常，我们选择忽略
                 }
             }
 
             // 如果被踢出了，(前者或后者)直接退出，重定向到踢出后的地址
-            if (session.getAttribute("kick-out") != null && (Boolean) session.getAttribute("kick-out"))
-            {
+            if (session.getAttribute("kick-out") != null && (Boolean) session.getAttribute("kick-out")) {
                 // 退出登录
                 subject.logout();
                 saveRequest(request);
                 return isAjaxResponse(request, response);
             }
             return true;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return isAjaxResponse(request, response);
         }
     }
 
-    private boolean isAjaxResponse(ServletRequest request, ServletResponse response) throws IOException
-    {
+    private boolean isAjaxResponse(ServletRequest request, ServletResponse response) throws IOException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        if (ServletUtils.isAjaxRequest(req))
-        {
+        if (ServletUtils.isAjaxRequest(req)) {
             AjaxResult ajaxResult = AjaxResult.error("您已在别处登录，请您修改密码或重新登录");
             ServletUtils.renderString(res, objectMapper.writeValueAsString(ajaxResult));
-        }
-        else
-        {
+        } else {
             WebUtils.issueRedirect(request, response, knockoutUrl);
         }
         return false;
     }
 
-    public void setMaxSession(int maxSession)
-    {
+    public void setMaxSession(int maxSession) {
         this.maxSession = maxSession;
     }
 
-    public void setKnockoutAfter(boolean knockoutAfter)
-    {
+    public void setKnockoutAfter(boolean knockoutAfter) {
         this.knockoutAfter = knockoutAfter;
     }
 
-    public void setKnockoutUrl(String knockoutUrl)
-    {
+    public void setKnockoutUrl(String knockoutUrl) {
         this.knockoutUrl = knockoutUrl;
     }
 
-    public void setSessionManager(SessionManager sessionManager)
-    {
+    public void setSessionManager(SessionManager sessionManager) {
         this.sessionManager = sessionManager;
     }
 
     // 设置Cache的key的前缀
-    public void setCacheManager(CacheManager cacheManager)
-    {
+    public void setCacheManager(CacheManager cacheManager) {
         // 必须和ehcache缓存配置中的缓存name一致
         this.cache = cacheManager.getCache(ShiroConstants.SYS_USERCACHE);
     }

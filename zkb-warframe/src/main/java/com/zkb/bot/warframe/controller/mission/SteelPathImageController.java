@@ -19,11 +19,11 @@ import java.io.IOException;
 @RequestMapping("/warframe/mission")
 public class SteelPathImageController {
 
-    @LogInfo(title = TitleType.Warframe,orderType = "钢铁",businessType = BusinessType.IMAGE)
+    @LogInfo(title = TitleType.Warframe, orderType = "钢铁", businessType = BusinessType.IMAGE)
     @GetMapping(value = "/{uuid}/getSteelPathImage/{bot}/{user}/{group}/{rawMsg}")
     public void getImage(HttpServletResponse response, @PathVariable long bot, @PathVariable long user, @PathVariable long group, @PathVariable String rawMsg, @PathVariable String uuid) throws IOException {
         response.setHeader("Content-Type", "image/png");
-        ByteArrayOutputStream out = WarframeHtmlToImage.conver("http://localhost:"+ GetServerPort.getPort()+"/warframe/mission/"+uuid+"/getSteelPathHtml");
+        ByteArrayOutputStream out = WarframeHtmlToImage.conver("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + uuid + "/getSteelPathHtml");
         response.getOutputStream().write(out.toByteArray());
 
     }

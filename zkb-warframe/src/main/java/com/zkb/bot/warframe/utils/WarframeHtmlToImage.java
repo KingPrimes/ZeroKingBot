@@ -58,10 +58,10 @@ public class WarframeHtmlToImage {
         if (!doc.getElementsByTag("w").isEmpty()) {
             html = new StringBuilder(html).replace(html.indexOf("<w>"), html.indexOf("</w>") + 4, "").toString().trim();
         }
-        html = html.replaceAll("/css/{0,}","./css/")
-                .replaceAll("/img/{0,}","./img/");
+        html = html.replaceAll("/css/{0,}", "./css/")
+                .replaceAll("/img/{0,}", "./img/");
         StringBuilder str = new StringBuilder(html);
-                               ;
+        ;
         str.insert(str.indexOf("</body>"), "<div class=\"foot-by\">\n" +
                 "\tPosted by:KingPrimes<br/>\n" +
                 "\t" +
@@ -136,15 +136,14 @@ public class WarframeHtmlToImage {
     }
 
     /**
-     *
      * @param url Html Url地址
      * @return
      */
-    public static ByteArrayOutputStream conver(String url){
+    public static ByteArrayOutputStream conver(String url) {
         String html = HttpUtils.sendGetOkHttp(url);
         int width = getWidth(html);
         html = outH(html);
-        return tmpHtmlToImageByteArray(html,width);
+        return tmpHtmlToImageByteArray(html, width);
     }
 
 }

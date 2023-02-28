@@ -35,11 +35,11 @@ public class SysOperlogController extends BaseController {
     @GetMapping()
     public String operlog(ModelMap map) {
         map.put("businessType", BusinessType.values());
-        Map<Object,Object> m = new HashMap<>();
-        for(BusinessType key:BusinessType.values()){
-            m.put(key.ordinal(),key.getType());
+        Map<Object, Object> m = new HashMap<>();
+        for (BusinessType key : BusinessType.values()) {
+            m.put(key.ordinal(), key.getType());
         }
-        map.put("businessMap",m);
+        map.put("businessMap", m);
         map.put("businessStatus", BusinessStatus.values());
         return prefix + "/operlog";
     }
@@ -64,9 +64,9 @@ public class SysOperlogController extends BaseController {
 
     @GetMapping("/detail/{operId}")
     public String detail(@PathVariable("operId") Long operId, ModelMap mmap) {
-        Map<Object,Object> m = new HashMap<>();
-        for(BusinessType key:BusinessType.values()){
-            m.put(key.ordinal(),key.getType());
+        Map<Object, Object> m = new HashMap<>();
+        for (BusinessType key : BusinessType.values()) {
+            m.put(key.ordinal(), key.getType());
         }
         mmap.put("businessType", m);
         mmap.put("operLog", operLogService.selectOperLogById(operId));

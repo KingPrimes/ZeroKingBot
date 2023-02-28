@@ -17,10 +17,10 @@ public class NighTwaveHtmlController {
 
 
     @GetMapping(value = "/{uuid}/getNighTwaveHtml")
-    @LogInfo(title = TitleType.Warframe,orderType = "电波",businessType = BusinessType.SELECT)
+    @LogInfo(title = TitleType.Warframe, orderType = "电波", businessType = BusinessType.SELECT)
     public String getHtml(Model model) {
         Nightwave n = SpringUtils.getBean(WarframeUtils.class).getNighTwave();
-        model.addAttribute("nigh",n);
+        model.addAttribute("nigh", n);
         return "html/nighTwave";
     }
 }

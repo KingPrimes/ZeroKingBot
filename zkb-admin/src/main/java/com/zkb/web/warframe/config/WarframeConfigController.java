@@ -13,34 +13,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
 
 @Controller
-@RequestMapping("/config/warframe")
+@RequestMapping("warframe/config")
 public class WarframeConfigController extends BaseController {
 
+    private final String PREFIX = "warframe/config/";
     @Autowired
     IWarframeTypeEnumService typeEnumService;
 
-    private final String PREFIX = "config/warframe/";
-
     @GetMapping("/warframe-config")
-    public String config(){
-        return PREFIX+"warframe-config";
+    public String config() {
+        return PREFIX + "warframe-config";
     }
 
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(WarframeTypeEnum type)
-    {
+    public TableDataInfo list(WarframeTypeEnum type) {
         startPage();
         List<WarframeTypeEnum> list = typeEnumService.selectWarframeTypeEnumList(type);
         return getDataTable(list);
     }
 
     @GetMapping("/edit/{k}")
-    public String edit(@PathVariable String k, ModelMap mmap)
-    {
+    public String edit(@PathVariable String k, ModelMap mmap) {
         List<WarframeTypeEnum> te = typeEnumService.selectWarframeTypeEnumList(new WarframeTypeEnum(k));
         mmap.put("ir", te.get(0));
         return PREFIX + "edit";
@@ -49,7 +46,7 @@ public class WarframeConfigController extends BaseController {
     @Log(title = "Warframe指令", businessType = BusinessType.UPDATE)
     @PostMapping("/update")
     @ResponseBody
-    public AjaxResult update(WarframeTypeEnum t){
+    public AjaxResult update(WarframeTypeEnum t) {
         return toAjax(typeEnumService.updateWarframeTypeEnum(t));
     }
 

@@ -24,29 +24,30 @@
 
     <sql id="selectOperLogVo">
         select oper_id,
-               title,
-               business_type,
-               method,
-               request_method,
-               operator_type,
-               oper_name,
-               oper_url,
-               oper_ip,
-               oper_location,
-               oper_param,
-               json_result,
-               status,
-               error_msg,
-               oper_time
+        title,
+        business_type,
+        method,
+        request_method,
+        operator_type,
+        oper_name,
+        oper_url,
+        oper_ip,
+        oper_location,
+        oper_param,
+        json_result,
+        status,
+        error_msg,
+        oper_time
         from sys_oper_log
     </sql>
 
     <insert id="insertOperlog" parameterType="SysOperLog">
         insert into sys_oper_log(title, business_type, method, request_method, operator_type, oper_name,
-                                 oper_url, oper_ip, oper_location, oper_param, json_result, status, error_msg,
-                                 oper_time)
+        oper_url, oper_ip, oper_location, oper_param, json_result, status, error_msg,
+        oper_time)
         values (#{title}, #{businessType}, #{method}, #{requestMethod}, #{operatorType}, #{operName},
-                #{operUrl}, #{operIp}, #{operLocation}, #{operParam}, #{jsonResult}, #{status}, #{errorMsg}, datetime('now','localtime'))
+        #{operUrl}, #{operIp}, #{operLocation}, #{operParam}, #{jsonResult}, #{status}, #{errorMsg},
+        datetime('now','localtime'))
     </insert>
 
     <select id="selectOperLogList" parameterType="SysOperLog" resultMap="SysOperLogResult">

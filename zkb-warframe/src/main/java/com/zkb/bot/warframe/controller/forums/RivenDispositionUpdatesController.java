@@ -28,7 +28,7 @@ public class RivenDispositionUpdatesController {
     @Autowired
     RedisCache redisCache;
 
-    @LogInfo(title = TitleType.Warframe,orderType = "紫卡倾向变动",businessType = BusinessType.SELECT)
+    @LogInfo(title = TitleType.Warframe, orderType = "紫卡倾向变动", businessType = BusinessType.SELECT)
     @GetMapping(value = "/{uuid}/getNewsImage/{bot}/{user}/{group}/{rawMsg}")
     public void getRivenDisUpdatesImage(HttpServletResponse response, @PathVariable long bot, @PathVariable long user, @PathVariable long group, @PathVariable String rawMsg) {
         response.setHeader("Content-Type", "image/png");

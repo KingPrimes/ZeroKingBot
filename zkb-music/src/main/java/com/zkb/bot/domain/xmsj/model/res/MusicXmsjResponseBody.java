@@ -22,12 +22,12 @@ public class MusicXmsjResponseBody {
         this.data = data;
     }
 
-    public void setDataType(MusicTypeEnum type){
-            if(data.size()!=0){
-                for (Body datum : data) {
-                    datum.setMe(type);
-                }
+    public void setDataType(MusicTypeEnum type) {
+        if (data.size() != 0) {
+            for (Body datum : data) {
+                datum.setMe(type);
             }
+        }
     }
 
     @Override

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('紫卡属性值')"/>
+    <th:block th:include="include :: bootstrap-select-css"/>
+</head>
+<body>
+<div class="container-div">
+    <div class="row">
+        <div class="container-div">
+            <div class="row">
+                <div class="btn-group-sm" id="toolbar" role="group">
+                    <a class="btn btn-primary btn-rounded btn-sm" onclick="$.operate.add()">
+                        <i class="fa fa-remove"></i> 添加
+                    </a>
+                </div>
+                <div class="col-sm-12 select-table table-striped">
+                    <table id="bootstrap-table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: bootstrap-select-js"/>
+<script th:inline="javascript">
+    var prefix = ctx + "warframe/trend"
+    $(function() {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add/{id}",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove/{id}",
+            modalName: "紫卡属性值",
+            sortOrder: "desc",
+            escape: true,
+            showPageGo: true,
+            rememberSelected: true,
+            columns: [
+                {
+                    field: 'state',
+                    radio: true
+                },
+                {
+                    field: 'rivenTrendId',
+                    title: 'ID'
+                },
+                {
+                    field: 'rivenTrendName',
+                    title: '武器名字'
+                },
+                {
+                    field: 'rivenTrendOldNum',
+                    title: '旧的倾向'
+                },
+                {
+                    field: 'rivenTrendOldDot',
+                    title: '旧的倾向点数'
+                },
+                {
+                    field: 'rivenTrendNewNum',
+                    title: '新的倾向'
+                },
+                {
+                    field: 'rivenTrendNewDot',
+                    title: '新的倾向点数'
+                },
+                {
+                    field: 'traCh',
+                    title: '中文'
+                },
+                {
+                    field: 'rivenTrendType',
+                    title: '武器类型'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        if (row.uid !== 0) {
+                            var actions = [];
+                            actions.push('<a class="btn btn-success btn-xs " href="javascript:void(0)" onclick="$.operate.edit(' + row.rivenTrendId + ')"><i class="fa fa-edit"></i>修改</a> ');
+                            return actions.join('');
+                        }
+                    }
+                }
+                ]
+        };
+        $.table.init(options);
+    });
+
+     function queryParams(params) {
+        return $.table.queryParams(params);
+    }
+
+    function searchPre() {
+        $.table.search('riven-trend-form', 'bootstrap-table');
+    }
+
+    function resetPre() {
+        $("#riven-trend-form")[0].reset();
+        $.table.search('riven-trend-form', 'bootstrap-table');
+    }
+
+
+
+</script>
+
+</body>
+</html>

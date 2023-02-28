@@ -2,7 +2,6 @@ package com.zkb.bot.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -10,7 +9,7 @@ import javax.persistence.*;
  * @author KingPrimes
  */
 @Entity
-@Table(name = "bot_group_function_onoff",uniqueConstraints = @UniqueConstraint(name = "functionOFF",columnNames = "`group`"))
+@Table(name = "bot_group_function_onoff", uniqueConstraints = @UniqueConstraint(name = "functionOFF", columnNames = "`group`"))
 public class GroupFunctionOnOff {
 
     @GeneratedValue

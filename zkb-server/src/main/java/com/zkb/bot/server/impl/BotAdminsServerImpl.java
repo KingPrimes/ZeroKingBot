@@ -80,7 +80,7 @@ public class BotAdminsServerImpl implements BotAdminsServer {
     @Override
     public boolean checkIsAdmin(BotAdmins admins, boolean t) {
         List<BotAdmins> botAdmins = adminsMapper.selectBotAdminsList(admins);
-        if (botAdmins.size()<=0){
+        if (botAdmins.size() <= 0) {
             return false;
         }
 
@@ -92,7 +92,9 @@ public class BotAdminsServerImpl implements BotAdminsServer {
             if (t) {
                 return BotAdminPrivilegeEnum.TOP_ADMIN.value().equals(admin.getBotPrivilege().shortValue());
             } else {
-                return BotAdminPrivilegeEnum.OWNER.value().equals(admin.getBotPrivilege().shortValue()) || BotAdminPrivilegeEnum.ADMIN.value().equals(admin.getBotPrivilege().shortValue());
+                return BotAdminPrivilegeEnum.OWNER.value().equals(admin.getBotPrivilege().shortValue()) ||
+                        BotAdminPrivilegeEnum.ADMIN.value().equals(admin.getBotPrivilege().shortValue()) ||
+                        BotAdminPrivilegeEnum.TOP_ADMIN.value().equals(admin.getBotPrivilege().shortValue());
             }
         }
         return false;

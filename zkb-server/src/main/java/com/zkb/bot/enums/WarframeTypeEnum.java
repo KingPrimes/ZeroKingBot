@@ -42,6 +42,7 @@ public enum WarframeTypeEnum {
 
     TYPE_MARKET_SILVER_DUMP("银垃圾"),
 
+    TYPE_RIVEN_ANALYSE("紫卡分析"),
 
 
     ;

@@ -17,12 +17,12 @@
 
     <sql id="selectUserVo">
         select user_id,
-               user_name,
-               user_type,
-               password,
-               salt,
-               status,
-               del_flag
+        user_name,
+        user_type,
+        password,
+        salt,
+        status,
+        del_flag
         from sys_user
     </sql>
 
@@ -54,7 +54,7 @@
         select user_id, user_name
         from sys_user
         where user_name = #{userName}
-          and del_flag = '0'
+        and del_flag = '0'
         limit 1
     </select>
 

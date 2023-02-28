@@ -24,7 +24,7 @@ public class OtherUtils {
         return m;
     }
 
-    public static boolean randomEx(int g){
-        return RandomUtils.nextInt(1,101) <= g;
+    public static boolean randomEx(int g) {
+        return RandomUtils.nextInt(1, 101) <= g;
     }
 }

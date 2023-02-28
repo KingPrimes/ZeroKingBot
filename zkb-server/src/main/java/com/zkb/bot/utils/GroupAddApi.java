@@ -7,8 +7,6 @@ import com.zkb.bot.domain.BotAdmins;
 import com.zkb.bot.server.BotAdminsServer;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
@@ -39,15 +37,15 @@ public class GroupAddApi {
      */
     public static boolean isAdmin(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
         String role;
-        try{
+        try {
             role = bot.getGroupMemberInfo(event.getGroupId(), event.getUserId(), true).getData().getRole();
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
         if (role == null || role.length() == 0) {
             return false;
         }
-        return role.equals("owner") || role.equals("admin")|| SpringUtils.getBean(BotAdminsServer.class).checkIsAdmin(new BotAdmins(bot.getSelfId(),event.getUserId()),false);
+        return role.equals("owner") || role.equals("admin") || SpringUtils.getBean(BotAdminsServer.class).checkIsAdmin(new BotAdmins(bot.getSelfId(), event.getUserId()), false);
     }
 
     /**

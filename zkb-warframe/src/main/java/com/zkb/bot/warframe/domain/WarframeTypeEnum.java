@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "warframe_type_enum",uniqueConstraints = @UniqueConstraint(name = "enum",columnNames = "key"))
+@Table(name = "warframe_type_enum", uniqueConstraints = @UniqueConstraint(name = "enum", columnNames = "key"))
 public class WarframeTypeEnum {
 
     @GeneratedValue

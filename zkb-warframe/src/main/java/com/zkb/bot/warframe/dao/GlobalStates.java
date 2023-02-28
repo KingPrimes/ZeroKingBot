@@ -628,8 +628,8 @@ public class GlobalStates {
 
     @NoArgsConstructor
     @Data
-    @EqualsAndHashCode(of = {"boss","missions"})
-    public static class ArchonHunt{
+    @EqualsAndHashCode(of = {"boss", "missions"})
+    public static class ArchonHunt {
         @JsonProperty("id")
         private String id;
         @JsonProperty("activation")
@@ -659,7 +659,7 @@ public class GlobalStates {
 
         @Data
         @NoArgsConstructor
-        public static class Mission{
+        public static class Mission {
             @JsonProperty("node")
             private String node;
             @JsonProperty("nodeKey")

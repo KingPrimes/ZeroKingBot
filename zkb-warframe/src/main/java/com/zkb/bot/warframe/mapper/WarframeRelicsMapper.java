@@ -45,6 +45,7 @@ public interface WarframeRelicsMapper {
 
     /**
      * 根据遗物Id获取遗物信息
+     *
      * @param relicsId ID
      * @return 信息
      */

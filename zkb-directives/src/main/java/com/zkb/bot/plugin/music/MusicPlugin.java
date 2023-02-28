@@ -34,13 +34,13 @@ public class MusicPlugin {
         }
 
         //执行搜索歌曲操作
-        if(MusicEnum.SONG.desc().equals(StringUtils.substring(rawMsg, 0, MusicEnum.SONG.desc().length()).toUpperCase(Locale.ROOT))){
+        if (MusicEnum.SONG.desc().equals(StringUtils.substring(rawMsg, 0, MusicEnum.SONG.desc().length()).toUpperCase(Locale.ROOT))) {
             MusicEnum[] values = MusicEnum.values();
-            for(MusicEnum e:values){
-                if(e.value()!=0){
-                    if(e.desc().equals(StringUtils.substring(rawMsg, 0, e.desc().length()).toUpperCase(Locale.ROOT))){
-                        String key = event.getRawMessage().toUpperCase(Locale.ROOT).replaceAll(e.desc(),"").trim();
-                        bot.sendGroupMsg(event.getGroupId(), api.queryMusics(key,event.getGroupId(), event.getUserId(),e).build(), false);
+            for (MusicEnum e : values) {
+                if (e.value() != 0) {
+                    if (e.desc().equals(StringUtils.substring(rawMsg, 0, e.desc().length()).toUpperCase(Locale.ROOT))) {
+                        String key = event.getRawMessage().toUpperCase(Locale.ROOT).replaceAll(e.desc(), "").trim();
+                        bot.sendGroupMsg(event.getGroupId(), api.queryMusics(key, event.getGroupId(), event.getUserId(), e).build(), false);
                         return MESSAGE_IGNORE;
                     }
                 }
@@ -48,20 +48,20 @@ public class MusicPlugin {
         }
 
         //执行发送歌曲操作
-        if(MusicEnum.SONG.desc().equals(StringUtils.substring(rawMsg, 0, MusicEnum.SONG.desc().length()).toUpperCase(Locale.ROOT))){
-            String key = event.getRawMessage().replaceAll(MusicEnum.SONG.desc(),"").trim();
+        if (MusicEnum.SONG.desc().equals(StringUtils.substring(rawMsg, 0, MusicEnum.SONG.desc().length()).toUpperCase(Locale.ROOT))) {
+            String key = event.getRawMessage().replaceAll(MusicEnum.SONG.desc(), "").trim();
             try {
                 Body body = api.reqSong(event.getGroupId(), event.getUserId(), key);
-                bot.sendGroupMsg(event.getGroupId(),Msg.builder().customMusic(
+                bot.sendGroupMsg(event.getGroupId(), Msg.builder().customMusic(
                         body.getMe(),
                         body.getLink(),
                         body.getUrl(),
                         body.getTitle(),
                         body.getAuthor(),
                         body.getPic()
-                ).build() , false);
-            }catch (Exception e){
-                bot.sendGroupMsg(event.getGroupId(),e.getMessage(),false);
+                ).build(), false);
+            } catch (Exception e) {
+                bot.sendGroupMsg(event.getGroupId(), e.getMessage(), false);
             }
         }
 

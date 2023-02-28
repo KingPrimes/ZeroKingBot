@@ -12,7 +12,7 @@ stages:
     displayName: Maven构建
     strategy: naturally
     trigger: auto
-    executor: []
+    executor: [ ]
     steps:
       - step: build@maven
         name: build_maven
@@ -38,31 +38,31 @@ stages:
           - name: KingZeroBotJar
             path:
               - /root/workspace/KingPrime/zero-king-bot/zkb-admin/target/ZeroKingBot.jar
-        settings: []
+        settings: [ ]
         caches:
           - ~/.m2
-        notify: []
+        notify: [ ]
         strategy:
           retry: '0'
   - name: stage-7cabd7ba
     displayName: 上传
     strategy: naturally
     trigger: auto
-    executor: []
+    executor: [ ]
     steps:
       - step: publish@general_artifacts
         name: publish_general_artifactf
         displayName: 上传制品
         dependArtifact: KingZeroBotJar
         artifactName: KingZeroBot
-        notify: []
+        notify: [ ]
         strategy:
           retry: '0'
   - name: stage-c4c8dbbd
     displayName: 发布
     strategy: naturally
     trigger: auto
-    executor: []
+    executor: [ ]
     steps:
       - step: publish@release_artifacts
         name: publish_release_artifacts
@@ -70,6 +70,6 @@ stages:
         dependArtifact: KingZeroBot
         version: 4.1.9.0
         autoIncrement: true
-        notify: []
+        notify: [ ]
         strategy:
           retry: '0'
