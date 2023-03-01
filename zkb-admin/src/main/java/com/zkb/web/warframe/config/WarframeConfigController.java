@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("config/warframe")
 public class WarframeConfigController extends BaseController {
 
-    private final String PREFIX = "config/warframe";
+    private final String PREFIX = "config/warframe/";
     @Autowired
     IWarframeTypeEnumService typeEnumService;
 

@@ -41,8 +41,8 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{ contains(env.VERSION_FRAGMENT, 'patch') }}"
+          automatic_release_tag: "${{ env.RELEASE_VERSION }}"
           prerelease: false
-          title: "ZeroKingBot-v${{ contains(env.VERSION_FRAGMENT, 'patch') }}"
+          title: "ZeroKingBot-v${{ env.RELEASE_VERSION }}"
           files: |
             staging/*.jar
