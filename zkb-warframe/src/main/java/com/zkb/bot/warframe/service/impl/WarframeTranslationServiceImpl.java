@@ -255,6 +255,7 @@ public class WarframeTranslationServiceImpl implements IWarframeTranslationServi
                     JSONObject alias = JSON.parseObject(tarJson);
                     List<WarframeTranslation> trasList = alias.getJSONArray("RECORDS").toJavaList(WarframeTranslation.class);
                     if (trasList.size() != warframeTranslationMapper.selectWarframeTranslationList(null).size()) {
+                        warframeTranslationMapper.deleteWarframeTranslation();
                         List<List<WarframeTranslation>> partition = Lists.partition(trasList, 500);
                         int x = 0;
                         for (List<WarframeTranslation> tar : partition) {

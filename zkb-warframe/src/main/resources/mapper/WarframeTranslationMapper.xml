@@ -139,4 +139,9 @@
             #{traId}
         </foreach>
     </delete>
+
+    <delete id="deleteWarframeTranslation">
+        delete
+        from warframe_translation
+    </delete>
 </mapper>

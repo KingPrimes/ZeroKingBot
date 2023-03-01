@@ -120,4 +120,6 @@ public interface WarframeTranslationMapper {
      * @return 结果
      */
     int deleteWarframeTranslationByIds(Long[] traIds);
+
+    void deleteWarframeTranslation();
 }
