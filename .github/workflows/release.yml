@@ -26,17 +26,17 @@ jobs:
           distribution: 'temurin'
           cache: maven
           # Maven 打包
-          - name: Build with Maven
-            run: mvn -B package --file pom.xml
-          # 将打包好的 Jar 包 放到 staging 文件夹
-            - run: mkdir staging && cp /home/runner/work/ZeroKingBot/ZeroKingBot/zkb-admin/target/ZeroKingBot.jar staging
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+      # 将打包好的 Jar 包 放到 staging 文件夹
+      - run: mkdir staging && cp /home/runner/work/ZeroKingBot/ZeroKingBot/zkb-admin/target/ZeroKingBot.jar staging
           # 设置 jobs Maven pom 版本环境变量
-          - name: Set Release version env variable
-            run: |
-              echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-          - name: "Build & test"
-            run: |
-              echo "done!"
+      - name: Set Release version env variable
+        run: |
+          echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+      - name: "Build & test"
+        run: |
+          echo "done!"
       # 上传文件并发布 Release
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
