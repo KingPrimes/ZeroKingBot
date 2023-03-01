@@ -7,12 +7,12 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.util.Date;
+import java.util.List;
 
 public class ReleaseDomain {
     @JsonProperty("assets")
     // 资产
-    Assets assets;
+    List<Assets> assets;
     @JsonProperty("assets_url")
     // 资产
     String assetsUrl;
@@ -25,7 +25,7 @@ public class ReleaseDomain {
     @JsonProperty("created_at")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     // 创建于
-    Date createdAt;
+    String createdAt;
     @JsonProperty("draft")
     // 草案
     Boolean draft;
@@ -47,7 +47,7 @@ public class ReleaseDomain {
     @JsonProperty("published_at")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     // 出版于
-    Date publishedAt;
+    String publishedAt;
     @JsonProperty("tag_name")
     // TagName 版本
     String tagName;
@@ -72,7 +72,7 @@ public class ReleaseDomain {
      *
      * @return assets @JsonProperty("assets")     资产
      */
-    public Assets getAssets() {
+    public List<Assets> getAssets() {
         return this.assets;
     }
 
@@ -81,7 +81,7 @@ public class ReleaseDomain {
      *
      * @param assets @JsonProperty("assets")     资产
      */
-    public void setAssets(Assets assets) {
+    public void setAssets(List<Assets> assets) {
         this.assets = assets;
     }
 
@@ -144,7 +144,7 @@ public class ReleaseDomain {
      *
      * @return createdAt @JsonProperty("created_at")    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" timezone = "GMT+8")     创建于
      */
-    public Date getCreatedAt() {
+    public String getCreatedAt() {
         return this.createdAt;
     }
 
@@ -153,7 +153,7 @@ public class ReleaseDomain {
      *
      * @param createdAt @JsonProperty("created_at")    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" timezone = "GMT+8")     创建于
      */
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -270,7 +270,7 @@ public class ReleaseDomain {
      *
      * @return publishedAt @JsonProperty("published_at")    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" timezone = "GMT+8")     出版于
      */
-    public Date getPublishedAt() {
+    public String getPublishedAt() {
         return this.publishedAt;
     }
 
@@ -279,7 +279,7 @@ public class ReleaseDomain {
      *
      * @param publishedAt @JsonProperty("published_at")    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" timezone = "GMT+8")     出版于
      */
-    public void setPublishedAt(Date publishedAt) {
+    public void setPublishedAt(String publishedAt) {
         this.publishedAt = publishedAt;
     }
 
@@ -498,11 +498,11 @@ public class ReleaseDomain {
         @JsonProperty("created_at")
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
         // 创建于
-        Date createdAt;
+        String createdAt;
         @JsonProperty("updated_at")
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
         // 更新在
-        Date updateAt;
+        String updateAt;
         @JsonProperty("browser_download_url")
         // 附件下载地址
         String browserDownloadUrl;
@@ -693,7 +693,7 @@ public class ReleaseDomain {
          *
          * @return createdAt @JsonProperty("created_at")        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" timezone = "GMT+8")         创建于
          */
-        public Date getCreatedAt() {
+        public String getCreatedAt() {
             return this.createdAt;
         }
 
@@ -702,7 +702,7 @@ public class ReleaseDomain {
          *
          * @param createdAt @JsonProperty("created_at")        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" timezone = "GMT+8")         创建于
          */
-        public void setCreatedAt(Date createdAt) {
+        public void setCreatedAt(String createdAt) {
             this.createdAt = createdAt;
         }
 
@@ -711,7 +711,7 @@ public class ReleaseDomain {
          *
          * @return updateAt @JsonProperty("updated_at")        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" timezone = "GMT+8")         更新在
          */
-        public Date getUpdateAt() {
+        public String getUpdateAt() {
             return this.updateAt;
         }
 
@@ -720,7 +720,7 @@ public class ReleaseDomain {
          *
          * @param updateAt @JsonProperty("updated_at")        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" timezone = "GMT+8")         更新在
          */
-        public void setUpdateAt(Date updateAt) {
+        public void setUpdateAt(String updateAt) {
             this.updateAt = updateAt;
         }
 

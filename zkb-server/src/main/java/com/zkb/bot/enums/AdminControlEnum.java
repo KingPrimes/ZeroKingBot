@@ -12,7 +12,13 @@ public enum AdminControlEnum {
 
     UPDATE_SISTER("更新信条"),
 
-    UPDATE_TAR("更新翻译");
+    UPDATE_TAR("更新翻译"),
+
+    UPDATE_JAR("自动更新"),
+
+    CHACK_VERSION("检查版本"),
+
+    ;
 
     private final String STR;
 

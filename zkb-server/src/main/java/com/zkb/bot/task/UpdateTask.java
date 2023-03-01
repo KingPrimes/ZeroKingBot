@@ -2,13 +2,16 @@ package com.zkb.bot.task;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zkb.bot.utils.Msg;
+import com.zkb.bot.utils.SendAdminMessage;
 import com.zkb.bot.utils.SendAllGroup;
+import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.load.LoadConfig;
 import com.zkb.common.utils.JarManifest;
 import com.zkb.common.utils.JarUtils;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.file.FileUtils;
 import com.zkb.common.utils.http.HttpUtils;
+import com.zkb.common.utils.spring.SpringUtils;
 import com.zkb.system.domain.ReleaseDomain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +27,7 @@ public class UpdateTask {
     private static final Logger log = LoggerFactory.getLogger(UpdateTask.class);
     private static final String HTML_PATH = "./ZKBotHtml";
     private static final Manifest manifestFromClasspath = JarManifest.getManifestFromClasspath(LoadConfig.class);
+
     public static Boolean flag = true;
 
     @Async("taskExecutor")
@@ -47,7 +51,7 @@ public class UpdateTask {
                                 versionNew +
                                 "\n如果要更新请联系机器人管理员\n" +
                                 "发送 更新html 指令.");
-                        SendAllGroup.sendAllGroup(msg);
+                        SendAdminMessage.sendAllAdminMsg(msg);
                     }
                 }
             }
@@ -57,23 +61,22 @@ public class UpdateTask {
 
     }
 
-    @Async("taskExecutor")
-    @Scheduled(cron = "0 8 19 * * *")
+   /* @Async("taskExecutor")
+    @Scheduled(cron = "0 0 19 * * *")
     public void updateJar() {
-        log.info("正在检查是否有新版本……");
-        if (flag && JarUtils.isStartupFromJarEx(UpdateTask.class)) {
+        if (JarUtils.isStartupFromJarEx(UpdateTask.class)) {
             try {
+                log.info("正在检查是否有新版本……");
                 assert manifestFromClasspath != null;
-                String version = manifestFromClasspath.getMainAttributes().getValue("ZeroKingBot-Version").replace(".", "").trim();
-                String newVersion = JSONObject.parseObject(HttpUtils.sendGetOkHttp("https://api.github.com/repos/KingPrimes/ZeroKingBot/releases/latest"), ReleaseDomain.class).getTagName().replace(".", "").trim();
-                if (StringUtils.isNumber(version) && StringUtils.isNumber(newVersion)) {
-                    long v = Long.parseLong(version), nv = Long.parseLong(newVersion);
-                    if (nv > v) {
-                        log.info("有版本更新，请访问 https://github.com/KingPrimes/ZeroKingBot 下载最新版本！！！");
-                        Msg msg = new Msg();
-                        msg.text("当前版本：" + version + "\n最新版本：" + newVersion + "\n有版本更新，请访问 https://github.com/KingPrimes/ZeroKingBot 下载最新版本！！！");
-                        SendAllGroup.sendAllGroup(msg);
-                    }
+                String version = manifestFromClasspath.getMainAttributes().getValue("ZeroKingBot-Version");
+                ReleaseDomain release = JSONObject.parseObject(HttpUtils.sendGetOkHttp("https://api.github.com/repos/KingPrimes/ZeroKingBot/releases/latest"), ReleaseDomain.class);
+                if (!version.equals(release.getTagName())) {
+                    Msg msg = new Msg();
+                    msg.text("当前版本：" + version + "\n最新版本：" + release.getTagName() + "\n有版本更新！！");
+                    msg.text("\n最新版本更新日志："+release.getBody());
+                    msg.text("\n是否确认自动更新？\n确认请发送 '自动更新'\n不更新请忽略此消息……");
+                    SpringUtils.getBean(RedisCache.class).setCacheObject("updateJar",release);
+                    SendAdminMessage.sendAllAdminMsg(msg);
                 }
             } catch (Exception e) {
                 log.error("获取版本信息错误：{}", e.getMessage());
@@ -81,7 +84,7 @@ public class UpdateTask {
 
         }
 
-    }
+    }*/
 
 
 }

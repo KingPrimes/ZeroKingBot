@@ -7,7 +7,10 @@ import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.core.BotPlugin;
 import com.mikuac.shiro.dto.event.message.PrivateMessageEvent;
 import com.zkb.bot.domain.BotAdmins;
+import com.zkb.bot.enums.AdminControlEnum;
 import com.zkb.bot.server.BotAdminsServer;
+import com.zkb.bot.utils.ChackVersionToUpdateJar;
+import com.zkb.bot.utils.Msg;
 import com.zkb.common.load.LoadConfig;
 import com.zkb.common.utils.file.FileUtils;
 import org.eclipse.jgit.api.Git;
@@ -20,8 +23,7 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.util.Locale;
 
-import static com.zkb.bot.enums.AdminControlEnum.TYPE_CODE;
-import static com.zkb.bot.enums.AdminControlEnum.UPDATE_HTML;
+import static com.zkb.bot.enums.AdminControlEnum.*;
 
 @Component
 @Shiro
@@ -63,7 +65,18 @@ public class AdministratorControlPlugin extends BotPlugin {
             }
 
             if (TYPE_CODE.getType().equals(event.getRawMessage())) {
-                bot.sendPrivateMsg(event.getUserId(), "更新WM物品\n更新WM紫卡\n更新信条\n更新翻译\n更新紫卡倾向变动\n更新WF指令", false);
+                Msg msg = new Msg();
+                for (AdminControlEnum value : values()) {
+                    msg.text(value.getType()+"\n");
+                }
+                bot.sendPrivateMsg(event.getUserId(),msg.build() , false);
+            }
+
+            if(UPDATE_JAR.getType().equals(event.getMessage())){
+                ChackVersionToUpdateJar.update(bot,event.getUserId());
+            }
+            if (CHACK_VERSION.getType().equals(event.getMessage())){
+                ChackVersionToUpdateJar.chackVersion(bot,event.getUserId());
             }
 
         } else {

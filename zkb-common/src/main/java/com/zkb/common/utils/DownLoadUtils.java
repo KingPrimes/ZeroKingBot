@@ -1,5 +1,7 @@
 package com.zkb.common.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 
 import java.io.*;
@@ -8,11 +10,7 @@ import java.net.URL;
 
 public class DownLoadUtils {
 
-
-    //测试
-    /*public static void main(String[] args) {
-        saveUrlAs("https://ghproxy.com/https://github.com/KingPrimes/ZeroKingBot/releases/download/4.1.9.0/ZeroKingBot.jar","","ZeroKingBot",HttpMethod.GET,"jar");
-    }*/
+    static Logger log = LoggerFactory.getLogger(DownLoadUtils.class);
 
 
     /**
@@ -24,12 +22,13 @@ public class DownLoadUtils {
      * @param fileName 文件名称
      * @param suffix   后缀名称
      */
-    public static void saveUrlAs(String url, String filePath, String fileName, HttpMethod method, String suffix) {
+    public static boolean saveUrlAs(String url, String filePath, String fileName, HttpMethod method, String suffix) {
         FileOutputStream fileOut;
         HttpURLConnection conn;
         InputStream inputStream;
         //创建不同的文件夹目录
         File file = new File(filePath);
+        file.delete();
         //判断文件夹是否存在
         if (!file.exists()) {
             //如果文件夹不存在，则创建新的的文件夹
@@ -69,9 +68,10 @@ public class DownLoadUtils {
             bos.close();
             bis.close();
             conn.disconnect();
+            return true;
         } catch (Exception e) {
-            e.printStackTrace();
-
+            log.error("文件下载错误："+e.getMessage());
+            return false;
         }
     }
 

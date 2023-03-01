@@ -37,3 +37,4 @@ Redis/
 renew-riven-disposition.jpg
 /db
 pom.xml.versionsBackup
+/updateVersion.bat

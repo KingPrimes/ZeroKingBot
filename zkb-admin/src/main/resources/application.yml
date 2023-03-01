@@ -1,3 +1,6 @@
+zero:
+  isTest: false
+
 # 日志配置
 logging:
   level:
