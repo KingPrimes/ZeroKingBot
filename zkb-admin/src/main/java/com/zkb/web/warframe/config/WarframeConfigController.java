@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("warframe/config")
+@RequestMapping("config/warframe")
 public class WarframeConfigController extends BaseController {
 
-    private final String PREFIX = "warframe/config/";
+    private final String PREFIX = "config/warframe";
     @Autowired
     IWarframeTypeEnumService typeEnumService;
 
