@@ -53,6 +53,12 @@ public class RivenDispositionUpdatesTask {
         List<WarframeRivenTrend> image = new ArrayList<>();
         //遍历集合写入到数据库
         for (WarframeRivenTrend trend : trends) {
+            List<WarframeRivenTrend> warframeRivenTrends = SpringUtils.getBean(IWarframeRivenTrendService.class).selectWarframeRivenTrendList(new WarframeRivenTrend(
+                    trend.getRivenTrendName()
+            ));
+            if (warframeRivenTrends != null && !warframeRivenTrends.isEmpty()) {
+                trend.setRivenTrendId(warframeRivenTrends.get(0).getRivenTrendId());
+            }
             trend.setRivenTrendName(trend.getRivenTrendName().trim());
             trend.setRivenTrendOldNum(trend.getRivenTrendOldNum().trim());
             trend.setRivenTrendNewNum(trend.getRivenTrendNewNum().trim());

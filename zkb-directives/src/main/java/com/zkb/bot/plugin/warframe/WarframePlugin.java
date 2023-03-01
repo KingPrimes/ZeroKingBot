@@ -258,14 +258,14 @@ public class WarframePlugin {
             return 0;
         }
 
+        //紫卡分析
         if (TYPE_RIVEN_ANALYSE.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_RIVEN_ANALYSE.getType().length()).toUpperCase(Locale.ROOT))) {
-            if (!StringUtils.isHttpUrl(rawMsg)) {
-                bot.sendGroupMsg(event.getGroupId(), "请在发送指令的同时携带图片，只能携带一张图片！", false);
-                return 1;
-            }
-            Msg msg = RivenAnaiyseTrendUtils.rivenAnaiyse(rawMsg, bot);
-            bot.sendGroupMsg(event.getGroupId(), msg.build(), false);
-
+            AsyncManager.me().execute(new TimerTask() {
+                @Override
+                public void run() {
+                    RivenAnaiyseTrendUtils.rivenAnaiyse(bot, event);
+                }
+            });
             return 0;
         }
 

@@ -1,10 +1,13 @@
 package com.zkb.bot.warframe.utils.riven;
 
 import com.mikuac.shiro.core.Bot;
+import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.domain.OCRData;
+import com.zkb.bot.enums.FunctionEnums;
 import com.zkb.bot.enums.WarframeRivenTrendTypeEnum;
 import com.zkb.bot.utils.CqParse;
 import com.zkb.bot.utils.Msg;
+import com.zkb.bot.utils.SelectGroupFunctionOnOff;
 import com.zkb.bot.warframe.dao.RivenAnaiyseTrend;
 import com.zkb.bot.warframe.domain.WarframeRivenAnalyseTrend;
 import com.zkb.bot.warframe.domain.WarframeRivenTrend;
@@ -15,13 +18,29 @@ import com.zkb.common.utils.MessageUtils;
 import com.zkb.common.utils.RegularMatch;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.spring.SpringUtils;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class RivenAnaiyseTrendUtils {
 
+    static Logger log = LoggerFactory.getLogger(RivenAnaiyseTrendUtils.class);
 
-    public static Msg rivenAnaiyse(String raw, Bot bot) {
+    public static void rivenAnaiyse(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
+        if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
+            if (!StringUtils.isHttpUrl(event.getRawMessage())) {
+                bot.sendGroupMsg(event.getGroupId(), "请在发送指令的同时携带图片，只能携带一张图片！", false);
+                return;
+            }
+            Msg msg = RivenAnaiyseTrendUtils.rivenAnaiyse(event.getRawMessage(), bot);
+            bot.sendGroupMsg(event.getGroupId(), msg.build(), false);
+        }
+    }
+
+
+    private static Msg rivenAnaiyse(String raw, Bot bot) {
         raw = CqParse.build(raw).getCqImageMD5().get(0);
         OCRData ocrData = OCRData.ocrImage(raw + ".image", bot);
         RivenAnaiyseTrend trend = new RivenAnaiyseTrend();
@@ -35,8 +54,17 @@ public class RivenAnaiyseTrendUtils {
                     String str = ocrData.getTexts().get(i).getText();
                     //检查是否是武器名字
                     if (RegularMatch.isWeaponsName(str)) {
-                        trend.setWeaponsName(RegularMatch.getChines(str));
-                        trend.setRivenName(RegularMatch.getRivenNameE(str) + ocrData.getTexts().get(i + 1).getText());
+                        if (trend.getWeaponsName() == null || trend.getWeaponsName().isEmpty()) {
+                            trend.setWeaponsName(RegularMatch.getChines(str));
+                            if (i + 1 < ocrData.getTexts().size() - 1) {
+                                String rivenName = ocrData.getTexts().get(i + 1).getText();
+                                if(RegularMatch.isRivenNameEx(rivenName)){
+                                    trend.setRivenName(RegularMatch.getRivenNameE(str) + rivenName);
+                                }else{
+                                    trend.setRivenName(RegularMatch.getRivenNameE(str));
+                                }
+                            }
+                        }
                     }
 
                     //检查是否是紫卡名字
@@ -68,11 +96,6 @@ public class RivenAnaiyseTrendUtils {
                     msg.text(MessageUtils.message("warframe.riven.anaiyse")).img("https://i.niupic.com/images/2023/02/27/alan.png");
                     return msg;
                 }
-                if (s.equals(trend.getWeaponsName())) {
-                    msg.text(MessageUtils.message("warframe.riven.anaiyse")).img("https://i.niupic.com/images/2023/02/27/alan.png");
-                    return msg;
-                }
-
                 WarframeRivenTrend analyseTrend = new WarframeRivenTrend();
                 analyseTrend.setRivenTrendName(s);
                 //查询武器紫卡具体的倾向
@@ -271,21 +294,15 @@ public class RivenAnaiyseTrendUtils {
                     }
                 }
                 msg.text(ret.toString());
-
-                if (analyseTrend.getRivenTrendName() == null) {
-                    msg.text(MessageUtils.message("warframe.riven.anaiyse")).img("https://i.niupic.com/images/2023/02/27/alan.png");
-                }
-
             } else {
+                log.error("OCR识别结果为空！");
                 msg.text(MessageUtils.message("warframe.riven.anaiyse")).img("https://i.niupic.com/images/2023/02/27/alan.png");
             }
         } catch (Exception e) {
-
+            log.error("紫卡分析报错信息： ", e);
             msg.text(MessageUtils.message("warframe.riven.anaiyse")).img("https://i.niupic.com/images/2023/02/27/alan.png");
             return msg;
         }
-
-
         return msg;
 
     }

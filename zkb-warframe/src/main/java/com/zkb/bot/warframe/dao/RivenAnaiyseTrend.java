@@ -92,7 +92,6 @@ public class RivenAnaiyseTrend {
          * @return 计算结果
          */
         public Double getLowAttribute(Double baseVal, Double pro, int x, boolean nag, boolean isNag) {
-            System.out.println(baseVal + "--" + pro + "--" + x + "--" + nag + "--" + isNag);
             switch (x) {
                 case 2:
                     lowAttribute = DoubleUtils.formatDouble4(0.9 * baseVal * pro * 0.99);
@@ -120,7 +119,6 @@ public class RivenAnaiyseTrend {
                     }
                 }
             }
-            //System.out.println("lowAttribute:"+lowAttribute);
             return lowAttribute;
         }
 
@@ -135,12 +133,6 @@ public class RivenAnaiyseTrend {
          * @return 计算结果
          */
         public Double getHighAttribute(Double baseVal, Double pro, int x, boolean nag, boolean isNag) {
-           /* System.out.println("baseVal:"+baseVal);
-            System.out.println("pro:"+pro);
-            System.out.println(" x:"+ x);
-            System.out.println("nag:"+nag);
-            System.out.println("isNag:"+isNag);
-            System.out.println("-----------");*/
             switch (x) {
                 case 2:
                     highAttribute = DoubleUtils.formatDouble4(1.1 * baseVal * pro * 0.99);

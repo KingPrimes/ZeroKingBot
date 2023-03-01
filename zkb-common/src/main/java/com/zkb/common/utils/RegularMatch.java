@@ -21,15 +21,15 @@ public class RegularMatch {
      * 判断是否是武器名称
      */
     public static boolean isWeaponsName(String str) {
-        Pattern p = Pattern.compile("^[\u4e00-\u9fa5]*?\\&?[\u4e00-\u9fa5]*[A-z]*-$");
+        Pattern p = Pattern.compile("^[\u4e00-\u9fa5]*?\\&?[\u4e00-\u9fa5]*?[A-z]*?-?[A-z]*?$");
         Pattern compile = Pattern.compile("^[\u4e00-\u9fa5]*?\\&?[\u4e00-\u9fa5]*$");
-        Matcher m = p.matcher(str);
-        Matcher m2 = compile.matcher(str);
+        Matcher m = p.matcher(str.trim());
+        Matcher m2 = compile.matcher(str.trim());
         return m.matches() || m2.matches();
     }
 
     public static String getRivenNameE(String str) {
-        Pattern p = Pattern.compile("[a-zA-z]*-$");
+        Pattern p = Pattern.compile("[a-zA-z]*-?$");
         Matcher m = p.matcher(str);
         StringBuilder builder = new StringBuilder();
         while (m.find()) {
@@ -55,7 +55,7 @@ public class RegularMatch {
      * 判断是否是属性词条
      */
     public static boolean isAttribute(String str) {
-        Pattern p = Pattern.compile(".[+-]?\\d+(\\.\\d+)%?[\u4e00-\u9fa5]*?[a-zA-Z]*?[\u4e00-\u9fa5]+$");
+        Pattern p = Pattern.compile(".[+-]?\\d+(\\.\\d+)?%?.?[\u4e00-\u9fa5]*?[a-zA-Z]*?[\u4e00-\u9fa5]+$");
         Matcher m = p.matcher(str);
         return m.matches();
     }
@@ -64,17 +64,16 @@ public class RegularMatch {
      * 获取属性数值
      */
     public static Double getAttributeNum(String str) {
-        System.out.println(str);
-        String regex = "[+-]?\\d+(\\.\\d+)%?";
+        String regex = "[+-]?\\d+(\\.\\d+)?%?";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(str);
         StringBuilder builder = new StringBuilder();
         while (m.find()) {
             builder.append(m.group());
+            break;
         }
         return Double.valueOf(builder.toString().replace("%", "").trim());
     }
-
     /**
      * 获取属性名称
      */
@@ -96,5 +95,11 @@ public class RegularMatch {
         Pattern p = Pattern.compile("^[a-zA-z]*-[a-zA-z]*$");
         Matcher m = p.matcher(str);
         return m.matches();
+    }
+
+    public static boolean isRivenNameEx(String str){
+        Pattern p = Pattern.compile("^[a-zA-z]*$");
+        Matcher m = p.matcher(str);
+        return isRivenName(str)||m.matches();
     }
 }

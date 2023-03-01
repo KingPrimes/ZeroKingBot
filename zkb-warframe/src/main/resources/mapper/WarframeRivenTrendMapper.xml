@@ -51,7 +51,7 @@
     </select>
     <insert id="insertAndUpDateWarframeRivenTrend" parameterType="WarframeRivenTrend" useGeneratedKeys="true"
             keyProperty="rivenTrendId">
-        REPLACE INTO warframe_riven_trend
+        insert OR REPLACE INTO warframe_riven_trend
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="rivenTrendName != null">riven_trend_name,</if>
             <if test="rivenTrendOldNum != null">riven_trend_old_num,</if>

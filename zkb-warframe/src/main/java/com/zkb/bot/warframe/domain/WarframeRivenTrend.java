@@ -82,6 +82,10 @@ public class WarframeRivenTrend {
 
     }
 
+    public WarframeRivenTrend(String rivenTrendName) {
+        this.rivenTrendName = rivenTrendName;
+    }
+
     public String getIsDate() {
         return isDate;
     }

@@ -39,7 +39,7 @@
 
     <insert id="insertWarframeRivenAnalyseTrend" parameterType="WarframeRivenAnalyseTrend" useGeneratedKeys="true"
             keyProperty="id">
-        insert OR IGNORE into warframe_riven_analyse_trend
+        insert OR REPLACE into warframe_riven_analyse_trend
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null and id != ''">id,</if>
             <if test="name != null and name != ''">name,</if>

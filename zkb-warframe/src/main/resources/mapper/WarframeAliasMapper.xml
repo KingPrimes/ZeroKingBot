@@ -30,12 +30,14 @@
     </select>
 
     <insert id="insertWarframeAlias" parameterType="WarframeAlias" useGeneratedKeys="true" keyProperty="aliasId">
-        insert into warframe_alias
+        insert OR REPLACE into warframe_alias
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="aliasId != null">alias_id,</if>
             <if test="aliasEn != null">alias_en,</if>
             <if test="aliasCh != null">alias_ch,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="aliasId != null">#{aliasId},</if>
             <if test="aliasEn != null">#{aliasEn},</if>
             <if test="aliasCh != null">#{aliasCh},</if>
         </trim>

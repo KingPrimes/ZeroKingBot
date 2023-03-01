@@ -99,11 +99,12 @@
 
     <insert id="insertWarframeTranslationList" parameterType="java.util.List" useGeneratedKeys="true"
             keyProperty="traId">
-        REPLACE INTO warframe_translation
-        (tra_en,tra_ch,tra_prime,tra_set)
+        insert OR REPLACE INTO warframe_translation
+        (tra_id,tra_en,tra_ch,tra_prime,tra_set)
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (
+            <if test="item.traId != null">#{item.traId},</if>
             <if test="item.traEn != null">#{item.traEn},</if>
             <if test="item.traCh != null">#{item.traCh},</if>
             <if test="item.traPrime != null">#{item.traPrime},</if>
