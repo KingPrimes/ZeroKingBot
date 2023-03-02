@@ -48,7 +48,7 @@ public class ThesaurusController extends BaseController {
         IssueReply issueReply = replyService.selectIssueReplyBuMsgId(msgId);
         issueReply.setMsgIssue(EscapeUtil.escape(EscapeUtil.unescape(issueReply.getMsgIssue())));
         mmap.put("ir", issueReply);
-        return PREFIX + "/edit";
+        return PREFIX + "edit";
     }
 
     @Log(title = "词库", businessType = BusinessType.UPDATE)

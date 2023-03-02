@@ -45,7 +45,7 @@ public class BlackController extends BaseController {
 
     @GetMapping("/add")
     public String add(ModelMap mmap) {
-        return PREFIX + "/add";
+        return PREFIX + "add";
     }
 
     @Log(title = "黑名单", businessType = BusinessType.DELETE)
@@ -59,7 +59,7 @@ public class BlackController extends BaseController {
     public String edit(@PathVariable("id") Long id, ModelMap mmap) {
         BotBlack botBlack = blackServer.selectBotBlackById(id);
         mmap.put("black", botBlack);
-        return PREFIX + "/edit";
+        return PREFIX + "edit";
     }
 
     @Log(title = "黑名单", businessType = BusinessType.UPDATE)

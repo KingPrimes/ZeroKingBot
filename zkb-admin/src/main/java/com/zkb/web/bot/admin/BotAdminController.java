@@ -20,7 +20,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/bot/admin")
 public class BotAdminController extends BaseController {
-    private final String PREFIX = "bot/admin";
+    private final String PREFIX = "bot/admin/";
     @Autowired
     private IBotAdminsServer adminsServer;
 
@@ -31,7 +31,7 @@ public class BotAdminController extends BaseController {
             keys.put(e.ordinal(), e.desc());
         }
         mmp.put("keys", keys);
-        return PREFIX + "/admin";
+        return PREFIX + "admin";
     }
 
     @PostMapping("/list")
@@ -56,7 +56,7 @@ public class BotAdminController extends BaseController {
             keys.put(e.ordinal(), e.desc());
         }
         mmap.put("keys", keys);
-        return PREFIX + "/add";
+        return PREFIX + "add";
     }
 
     @Log(title = "管理员", businessType = BusinessType.DELETE)
@@ -75,7 +75,7 @@ public class BotAdminController extends BaseController {
             keys.put(e.ordinal(), e.desc());
         }
         mmap.put("keys", keys);
-        return PREFIX + "/edit";
+        return PREFIX + "edit";
     }
 
     @Log(title = "管理员", businessType = BusinessType.UPDATE)
