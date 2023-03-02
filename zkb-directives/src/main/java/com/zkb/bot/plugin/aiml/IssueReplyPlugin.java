@@ -14,7 +14,6 @@ import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.SelectGroupFunctionOnOff;
 import com.zkb.common.utils.html.EscapeUtil;
 import com.zkb.common.utils.spring.SpringUtils;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +24,7 @@ public class IssueReplyPlugin {
     private IssueReplyService service;
 
     @GroupMessageHandler
-    public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
+    public int groupMessageHandler(Bot bot, GroupMessageEvent event) {
 
         if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_AI)) {
             //@Bot触发

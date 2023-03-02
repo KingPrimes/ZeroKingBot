@@ -20,7 +20,6 @@ import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.uuid.UUID;
 import com.zkb.framework.manager.AsyncManager;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
@@ -40,7 +39,7 @@ import static com.zkb.bot.enums.WarframeTypeEnum.*;
 public class WarframePlugin {
 
     @GroupMessageHandler
-    public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
+    public int groupMessageHandler(Bot bot, GroupMessageEvent event) {
 
         long botId = bot.getSelfId();
         long user = event.getUserId();
@@ -124,7 +123,7 @@ public class WarframePlugin {
         }
 
         //核桃
-        if (TYPE_RELICS_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_RELICS_PLUGIN.getType().length()).toUpperCase(Locale.ROOT))) {
+        if (TYPE_RELICS_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_RELICS_PLUGIN.getType().length()).toUpperCase())) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
                 String key = rawMsg.replaceAll(TYPE_RELICS_PLUGIN.getType(), "");
                 if (key.trim().length() == 0) {
@@ -210,7 +209,7 @@ public class WarframePlugin {
         }
 
         //WM
-        if (TYPE_WM_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_WM_PLUGIN.getType().length()).toUpperCase(Locale.ROOT))) {
+        if (TYPE_WM_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_WM_PLUGIN.getType().length()).toUpperCase())) {
             AsyncManager.me().execute(new TimerTask() {
                 @Override
                 public void run() {
@@ -221,12 +220,12 @@ public class WarframePlugin {
         }
 
         //RM
-        if (TYPE_RM_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_RM_PLUGIN.getType().length()).toUpperCase(Locale.ROOT))) {
+        if (TYPE_RM_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_RM_PLUGIN.getType().length()).toUpperCase())) {
 
         }
 
         // WR
-        if (TYPE_WR_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_WR_PLUGIN.getType().length()).toUpperCase(Locale.ROOT)) || TYPE_ZKWM_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_ZKWM_PLUGIN.getType().length()).toUpperCase(Locale.ROOT))) {
+        if (TYPE_WR_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_WR_PLUGIN.getType().length()).toUpperCase()) || TYPE_ZKWM_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_ZKWM_PLUGIN.getType().length()).toUpperCase())) {
             AsyncManager.me().execute(new TimerTask() {
                 @Override
                 public void run() {
@@ -237,7 +236,7 @@ public class WarframePlugin {
         }
 
         //赤毒武器
-        if (TYPE_CD_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_CD_PLUGIN.getType().length()).toUpperCase(Locale.ROOT)) || TYPE_C_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_C_PLUGIN.getType().length()).toUpperCase(Locale.ROOT))) {
+        if (TYPE_CD_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_CD_PLUGIN.getType().length()).toUpperCase()) || TYPE_C_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_C_PLUGIN.getType().length()).toUpperCase())) {
             AsyncManager.me().execute(new TimerTask() {
                 @Override
                 public void run() {
@@ -248,7 +247,7 @@ public class WarframePlugin {
         }
 
         //信条武器
-        if (TYPE_XT_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_XT_PLUGIN.getType().length()).toUpperCase(Locale.ROOT)) || TYPE_X_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_X_PLUGIN.getType().length()).toUpperCase(Locale.ROOT))) {
+        if (TYPE_XT_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_XT_PLUGIN.getType().length()).toUpperCase()) || TYPE_X_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_X_PLUGIN.getType().length()).toUpperCase())) {
             AsyncManager.me().execute(new TimerTask() {
                 @Override
                 public void run() {
@@ -259,7 +258,7 @@ public class WarframePlugin {
         }
 
         //紫卡分析
-        if (TYPE_RIVEN_ANALYSE.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_RIVEN_ANALYSE.getType().length()).toUpperCase(Locale.ROOT))) {
+        if (TYPE_RIVEN_ANALYSE.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_RIVEN_ANALYSE.getType().length()).toUpperCase())) {
             AsyncManager.me().execute(new TimerTask() {
                 @Override
                 public void run() {
@@ -274,9 +273,9 @@ public class WarframePlugin {
         }
 
         //WIKI
-        if (TYPE_WIKI_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_WIKI_PLUGIN.getType().toUpperCase(Locale.ROOT).length()))) {
+        if (TYPE_WIKI_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_WIKI_PLUGIN.getType().length()).toUpperCase())) {
             try {
-                bot.sendGroupMsg(group, Msg.builder().text("http://warframe.huijiwiki.com/index.php?search=" + URLEncoder.encode(rawMsg.replace("wiki", "").trim(), "UTF-8")).build(), false);
+                bot.sendGroupMsg(group, Msg.builder().text("http://warframe.huijiwiki.com/index.php?search=" + URLEncoder.encode(rawMsg.toUpperCase().replace(TYPE_WIKI_PLUGIN.getType(), "").trim(), "UTF-8")).build(), false);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }

@@ -18,7 +18,6 @@ import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.utils.MessageUtils;
 import com.zkb.common.utils.StaticFinal;
 import com.zkb.common.utils.VerifyCodeUtils;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class JoinGroupVerifyCodePlugin {
 
 
     @GroupDecreaseHandler
-    public void onGroupDecreaseNotice(@NotNull Bot bot, @NotNull GroupDecreaseNoticeEvent event) {
+    public void groupDecreaseHandler(Bot bot, GroupDecreaseNoticeEvent event) {
         bot.sendGroupMsg(
                 event.getGroupId(),
                 Msg.builder()
@@ -58,7 +57,7 @@ public class JoinGroupVerifyCodePlugin {
      * 给新入群的人员提示验证码消息
      */
     @GroupIncreaseHandler
-    public int onGroupIncreaseNotice(@NotNull Bot bot, @NotNull GroupIncreaseNoticeEvent event) {
+    public int groupIncreaseHandler(Bot bot, GroupIncreaseNoticeEvent event) {
         if (GroupAddApi.isAdmin(bot, event.getGroupId())) {
             for (Long bottle : botContainer.robots.keySet()) {
                 if (bottle == event.getUserId()) {
@@ -97,7 +96,7 @@ public class JoinGroupVerifyCodePlugin {
      * 核查验证码是否正确
      */
     @GroupMessageHandler
-    public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
+    public int groupMessageHandler(Bot bot, GroupMessageEvent event) {
         try {
             //如果是当前群组则取出待验证用户
             Long groupId = StaticFinal.JOINGROUPVERIFYCODE.get(event.getUserId());

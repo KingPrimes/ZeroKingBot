@@ -14,7 +14,6 @@ import com.zkb.common.utils.MessageUtils;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.uuid.UUID;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +35,7 @@ public class WarframeSubscribePlugin {
     IWarframeMissionSubscribeService service;
 
     @GroupMessageHandler
-    public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
+    public int groupMessageHandler(Bot bot, GroupMessageEvent event) {
 
         if (event.getRawMessage().trim().length() == 0) {
             return MESSAGE_IGNORE;
@@ -127,7 +126,7 @@ public class WarframeSubscribePlugin {
         return MESSAGE_IGNORE;
     }
 
-    private boolean err(@NotNull Bot bot, long GroupId, String str) {
+    private boolean err(Bot bot, long GroupId, String str) {
         if (str.length() == 0) {
             bot.sendGroupMsg(GroupId, Msg.builder().text("请在订阅后方填写要订阅的数字\n详情发送[订阅列表]查看").build(), false);
             return true;

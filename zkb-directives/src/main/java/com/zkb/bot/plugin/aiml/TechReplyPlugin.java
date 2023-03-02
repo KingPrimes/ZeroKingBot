@@ -10,7 +10,6 @@ import com.zkb.bot.utils.GroupAddApi;
 import com.zkb.bot.utils.SelectGroupFunctionOnOff;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.spring.SpringUtils;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
 import static com.zkb.bot.aiml.enums.OrderEnum.ORDER_REPLY;
@@ -22,7 +21,7 @@ public class TechReplyPlugin {
 
 
     @GroupMessageHandler
-    public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
+    public int groupMessageHandler(Bot bot, GroupMessageEvent event) {
         if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_AI)) {
             if (GroupAddApi.isAdmin(bot, event)) {
                 if (ORDER_TEACHING.equals(StringUtils.substring(event.getRawMessage(), 0, ORDER_TEACHING.length()))) {

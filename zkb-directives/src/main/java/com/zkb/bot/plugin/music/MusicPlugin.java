@@ -9,7 +9,6 @@ import com.zkb.bot.domain.xmsj.model.vo.Body;
 import com.zkb.bot.enums.MusicEnum;
 import com.zkb.bot.utils.Msg;
 import com.zkb.common.utils.StringUtils;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +24,7 @@ public class MusicPlugin {
     IXmsjApi api;
 
     @GroupMessageHandler
-    public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
+    public int groupMessageHandler(Bot bot, GroupMessageEvent event) {
 
         String rawMsg = event.getRawMessage();
 

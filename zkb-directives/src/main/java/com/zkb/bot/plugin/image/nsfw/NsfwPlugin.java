@@ -7,7 +7,6 @@ import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.enums.ImageEnum;
 import com.zkb.bot.nsfw.Nsfw;
 import com.zkb.common.utils.StringUtils;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
@@ -20,9 +19,9 @@ import static com.mikuac.shiro.core.BotPlugin.MESSAGE_IGNORE;
 public class NsfwPlugin {
 
     @GroupMessageHandler
-    public int onGroupMessage(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
+    public int groupMessageHandler(Bot bot, GroupMessageEvent event) {
         if (ImageEnum.ORDER_NSFW.getType().equals(StringUtils.substring(event.getRawMessage(), 0, ImageEnum.ORDER_NSFW.getType().length()).toUpperCase(Locale.ROOT))) {
-            bot.sendGroupMsg(event.getGroupId(), Nsfw.judge(event.getRawMessage()), false);
+            bot.sendGroupMsg(event.getGroupId(), Nsfw.judge(event.getRawMessage().replaceAll(ImageEnum.ORDER_NSFW.getType(), "")), false);
             return MESSAGE_BLOCK;
         }
         return MESSAGE_IGNORE;

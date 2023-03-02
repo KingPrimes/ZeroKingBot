@@ -8,13 +8,12 @@ import com.mikuac.shiro.core.BotPlugin;
 import com.mikuac.shiro.dto.event.message.PrivateMessageEvent;
 import com.zkb.bot.domain.BotAdmins;
 import com.zkb.bot.enums.AdminControlEnum;
-import com.zkb.bot.server.BotAdminsServer;
+import com.zkb.bot.server.IBotAdminsServer;
 import com.zkb.bot.utils.ChackVersionToUpdateJar;
 import com.zkb.bot.utils.Msg;
 import com.zkb.common.load.LoadConfig;
 import com.zkb.common.utils.file.FileUtils;
 import org.eclipse.jgit.api.Git;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +31,10 @@ public class AdministratorControlPlugin extends BotPlugin {
     private static final Logger log = LoggerFactory.getLogger(LoadConfig.class);
     private static final String HTML_PATH = "./ZKBotHtml";
     @Autowired
-    BotAdminsServer adminsServer;
+    IBotAdminsServer adminsServer;
 
     @PrivateMessageHandler
-    public int onPrivateMessage(@NotNull Bot bot, @NotNull PrivateMessageEvent event) {
+    public int privateMessageHandler(Bot bot, PrivateMessageEvent event) {
         if (event.getRawMessage().trim().length() == 0) {
             return MESSAGE_IGNORE;
         }
@@ -67,16 +66,16 @@ public class AdministratorControlPlugin extends BotPlugin {
             if (TYPE_CODE.getType().equals(event.getRawMessage())) {
                 Msg msg = new Msg();
                 for (AdminControlEnum value : values()) {
-                    msg.text(value.getType()+"\n");
+                    msg.text(value.getType() + "\n");
                 }
-                bot.sendPrivateMsg(event.getUserId(),msg.build() , false);
+                bot.sendPrivateMsg(event.getUserId(), msg.build(), false);
             }
 
-            if(UPDATE_JAR.getType().equals(event.getMessage())){
-                ChackVersionToUpdateJar.update(bot,event.getUserId());
+            if (UPDATE_JAR.getType().equals(event.getMessage())) {
+                ChackVersionToUpdateJar.update(bot, event.getUserId());
             }
-            if (CHACK_VERSION.getType().equals(event.getMessage())){
-                ChackVersionToUpdateJar.chackVersion(bot,event.getUserId());
+            if (CHACK_VERSION.getType().equals(event.getMessage())) {
+                ChackVersionToUpdateJar.chackVersion(bot, event.getUserId());
             }
 
         } else {
