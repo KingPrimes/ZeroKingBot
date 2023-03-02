@@ -10,30 +10,21 @@
         <div class="container-div">
             <div class="row">
                 <div class="col-sm-12 search-collapse">
-                    <form id="admin-form">
+                    <form id="black-form">
                         <div class="select-list">
                             <ul>
 
                                 <li>
-                                    <label>BotQQ： </label>
-                                    <input id="botUid" name="botUid" type="text" placeholder="BotQQ"
+                                    <label>QQ： </label>
+                                    <input id="userId" name="userId" type="number" placeholder="QQ账号"
                                            />
                                 </li>
 
                                 <li>
-                                    <label>管理员QQ： </label>
-                                    <input id="botAdminUid" name="botAdminUid" type="text" placeholder="管理员QQ"
+                                    <label>QQ群： </label>
+                                    <input id="groupId" name="groupId" type="number" placeholder="QQ群"
                                            />
                                 </li>
-
-                                <li>
-                                    <label>权限等级：</label>
-                                    <select id="botPrivilege" name="botPrivilege">
-                                    <option value="">所有</option>
-                                        <option  th:each="k:${keys}" th:value="${k.key}" th:text="${k.value}"></option>
-                                    </select>
-                                </li>
-
                                 <li>
                                     <a class="btn btn-primary btn-rounded btn-sm" onclick="searchPre()"><i
                                             class="fa fa-search"></i>&nbsp;搜索</a>
@@ -47,7 +38,7 @@
 
                 <div class="btn-group-sm" id="toolbar" role="group">
                     <a class="btn btn-primary btn-rounded btn-sm" onclick="$.operate.add()">
-                        <i class="fa fa-remove"></i> 添加
+                        <i class="fa fa-add"></i> 添加
                     </a>
                 </div>
 
@@ -62,14 +53,14 @@
 <th:block th:include="include :: footer" />
 <th:block th:include="include :: bootstrap-select-js"/>
 <script th:inline="javascript">
-    var prefix = ctx + "bot/admin"
+    var prefix = ctx + "bot/black"
     $(function() {
         var options = {
             url: prefix + "/list",
             createUrl: prefix + "/add/{id}",
             updateUrl: prefix + "/edit/{id}",
             removeUrl: prefix + "/remove/{id}",
-            modalName: "管理员",
+            modalName: "黑名单",
             sortOrder: "desc",
             escape: true,
             showPageGo: true,
@@ -80,20 +71,16 @@
                     radio: true
                 },
                 {
-                    field: 'uid',
-                    title: 'uid'
+                    field: 'blackId',
+                    title: 'ID'
                 },
                 {
-                    field: 'botUid',
-                    title: '机器人QQ'
+                    field: 'userId',
+                    title: 'QQ'
                 },
                 {
-                    field: 'botAdminUid',
-                    title: '管理员QQ'
-                },
-                {
-                    field: 'botPrivilege',
-                    title: '权限等级'
+                    field: 'groupId',
+                    title: 'QQ群'
                 },
                 {
                     title: '操作',
@@ -101,8 +88,8 @@
                     formatter: function(value, row, index) {
                         if (row.uid !== 0) {
                             var actions = [];
-                            actions.push('<a class="btn btn-success btn-xs " href="javascript:void(0)" onclick="$.operate.edit(' + row.uid + ')"><i class="fa fa-edit"></i>修改</a> ');
-                            actions.push('<a class="btn btn-danger btn-xs " href="javascript:void(0)" onclick="$.operate.remove(' + row.uid + ')"><i class="fa fa-trash"></i>删除</a>');
+                            actions.push('<a class="btn btn-success btn-xs " href="javascript:void(0)" onclick="$.operate.edit(' + row.blackId + ')"><i class="fa fa-edit"></i>修改</a> ');
+                            actions.push('<a class="btn btn-danger btn-xs " href="javascript:void(0)" onclick="$.operate.remove(' + row.blackId + ')"><i class="fa fa-trash"></i>删除</a>');
                             return actions.join('');
                         }
                     }
@@ -116,12 +103,12 @@
     }
 
     function searchPre() {
-        $.table.search('admin-form', 'bootstrap-table');
+        $.table.search('black-form', 'bootstrap-table');
     }
 
     function resetPre() {
-        $("#admin-form")[0].reset();
-        $.table.search('admin-form', 'bootstrap-table');
+        $("#black-form")[0].reset();
+        $.table.search('black-form', 'bootstrap-table');
     }
 </script>
 

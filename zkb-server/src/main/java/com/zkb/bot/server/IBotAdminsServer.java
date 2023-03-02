@@ -4,7 +4,7 @@ import com.zkb.bot.domain.BotAdmins;
 
 import java.util.List;
 
-public interface BotAdminsServer {
+public interface IBotAdminsServer {
     /**
      * 添加管理员
      *

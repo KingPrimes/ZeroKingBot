@@ -70,7 +70,11 @@ public class ChackVersionToUpdateJar {
         if (version.equals(release.getTagName())) {
             bot.sendPrivateMsg(id,MessageUtils.message("up.msg.isnew"), false);
         } else {
-            bot.sendPrivateMsg(id,MessageUtils.message("up.msg.upin"), false);
+            Msg msg = new Msg();
+            msg.text("当前版本：" + version + "\n最新版本：" + release.getTagName() + "\n有版本更新！！");
+            msg.text(MessageUtils.message("up.msg.log") + release.getBody());
+            msg.text(MessageUtils.message("up.msg.upin"));
+            bot.sendPrivateMsg(id,msg.build(), false);
 
             boolean falg = DownLoadUtils.saveUrlAs("https://ghproxy.com/" + release.getAssets().get(0).getBrowserDownloadUrl(),
                     "./tmp",

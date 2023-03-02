@@ -3,14 +3,14 @@ package com.zkb.bot.server.impl;
 import com.zkb.bot.domain.BotAdmins;
 import com.zkb.bot.enums.BotAdminPrivilegeEnum;
 import com.zkb.bot.mapper.BotAdminsMapper;
-import com.zkb.bot.server.BotAdminsServer;
+import com.zkb.bot.server.IBotAdminsServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class BotAdminsServerImpl implements BotAdminsServer {
+public class BotAdminsServerImpl implements IBotAdminsServer {
 
 
     @Autowired

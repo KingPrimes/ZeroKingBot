@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkb.bot.mapper.BotBlackMapper">
+
+    <resultMap type="com.zkb.bot.domain.BotBlack" id="BotBlackResult">
+        <result property="blackId" column="black_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="groupId" column="group_id"/>
+    </resultMap>
+
+    <sql id="selectBotBlackVo">
+        select black_id, user_id, group_id
+        from bot_black
+    </sql>
+
+    <select id="selectBotBlackList" parameterType="com.zkb.bot.domain.BotBlack" resultMap="BotBlackResult">
+        <include refid="selectBotBlackVo"/>
+        <where>
+            <if test="blackId != null and blackId != ''">
+                AND black_id = #{blackId}
+            </if>
+            <if test="userId != null and userId != ''">
+                AND user_id = #{userId}
+            </if>
+            <if test="groupId != null and groupId != ''">
+                AND group_id = #{groupId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectBotBlackById" parameterType="Long" resultMap="BotBlackResult">
+        <include refid="selectBotBlackVo"/>
+        where black_id = #{blackId}
+    </select>
+
+    <select id="selectBotBlackByUserId" parameterType="Long" resultMap="BotBlackResult">
+        <include refid="selectBotBlackVo"/>
+        where user_id = #{userId}
+    </select>
+
+    <select id="selectBotBlackByGroupId" parameterType="Long" resultMap="BotBlackResult">
+        <include refid="selectBotBlackVo"/>
+        where group_id = #{groupId}
+    </select>
+
+    <insert id="insertBotBlack" parameterType="com.zkb.bot.domain.BotBlack" useGeneratedKeys="true">
+        insert OR IGNORE into bot_black
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="blackId != null and blackId != ''">black_id,</if>
+            <if test="userId != null and userId != ''">user_id,</if>
+            <if test="groupId != null and groupId != ''">group_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="blackId != null and blackId != ''">#{black_id},</if>
+            <if test="userId != null and userId != ''">#{userId},</if>
+            <if test="groupId != null and groupId != ''">#{groupId},</if>
+        </trim>
+    </insert>
+
+    <delete id="deleteBotBlackById" parameterType="Long">
+        delete from bot_black where black_id=#{blackId}
+    </delete>
+
+    <update id="updateBotBlack">
+        update bot_black
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null and userId != ''">user_id = #{userId},</if>
+            <if test="groupId != null and groupId != ''">group_id = #{groupId},</if>
+        </trim>
+        where black_id=#{blackId}
+    </update>
+
+
+</mapper>

@@ -4,7 +4,7 @@ package com.zkb.bot.utils;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.zkb.bot.domain.BotAdmins;
-import com.zkb.bot.server.BotAdminsServer;
+import com.zkb.bot.server.IBotAdminsServer;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -45,7 +45,14 @@ public class GroupAddApi {
         if (role == null || role.length() == 0) {
             return false;
         }
-        return role.equals("owner") || role.equals("admin") || SpringUtils.getBean(BotAdminsServer.class).checkIsAdmin(new BotAdmins(bot.getSelfId(), event.getUserId()), false);
+        return role.equals("owner") || role.equals("admin") || SpringUtils.getBean(IBotAdminsServer.class).checkIsAdmin(new BotAdmins(bot.getSelfId(), event.getUserId()), false);
+    }
+
+    /**
+     * 判断是否是超级管理员
+     */
+    public static boolean isSuperAdmin(Bot bot,Long userId){
+        return SpringUtils.getBean(IBotAdminsServer.class).checkIsAdmin(new BotAdmins(bot.getSelfId(), userId),true);
     }
 
     /**

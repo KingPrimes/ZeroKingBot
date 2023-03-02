@@ -9,8 +9,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "bot_black", uniqueConstraints = @UniqueConstraint(name = "botAdmins", columnNames = {"botUid", "botAdminUid"}))
-public class Black {
+@Table(name = "bot_black", uniqueConstraints = @UniqueConstraint(name = "botBlack", columnNames = {"userId", "groupId"}))
+public class BotBlack {
     @Id
     Long blackId;
 

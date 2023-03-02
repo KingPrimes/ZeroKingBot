@@ -2,7 +2,7 @@ package com.zkb.bot.server.impl;
 
 import com.zkb.bot.domain.BotFunction;
 import com.zkb.bot.mapper.BotFunctionMapper;
-import com.zkb.bot.server.BotFunctionServer;
+import com.zkb.bot.server.IBotFunctionServer;
 import com.zkb.common.core.redis.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -15,7 +15,7 @@ import java.util.List;
  * @author KingPrimes
  */
 @Service
-public class BotFunctionServerImpl implements BotFunctionServer, CommandLineRunner {
+public class BotFunctionServerImpl implements IBotFunctionServer, CommandLineRunner {
 
     @Autowired
     BotFunctionMapper botFunctionMapper;

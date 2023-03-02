@@ -3,7 +3,7 @@ package com.zkb.bot.utils;
 import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.core.BotContainer;
 import com.zkb.bot.domain.BotAdmins;
-import com.zkb.bot.server.BotAdminsServer;
+import com.zkb.bot.server.IBotAdminsServer;
 import com.zkb.common.utils.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ public class SendAdminMessage {
      */
     public static void sendAllAdminMsg(Msg msg){
         Map<Long, Bot> bots = SpringUtils.getBean(BotContainer.class).robots;
-        List<BotAdmins> botAdmins = SpringUtils.getBean(BotAdminsServer.class).selectBotAdminsList(null);
+        List<BotAdmins> botAdmins = SpringUtils.getBean(IBotAdminsServer.class).selectBotAdminsList(null);
         if(botAdmins==null){
             log.info("未设置管理员！无法发送通知消息！");
             return;

@@ -2,7 +2,7 @@ package com.zkb.web.bot.admin;
 
 import com.zkb.bot.domain.BotAdmins;
 import com.zkb.bot.enums.BotAdminPrivilegeEnum;
-import com.zkb.bot.server.BotAdminsServer;
+import com.zkb.bot.server.IBotAdminsServer;
 import com.zkb.common.annotation.Log;
 import com.zkb.common.core.controller.BaseController;
 import com.zkb.common.core.domain.AjaxResult;
@@ -22,7 +22,7 @@ import java.util.Map;
 public class BotAdminController extends BaseController {
     private final String PREFIX = "bot/admin";
     @Autowired
-    private BotAdminsServer adminsServer;
+    private IBotAdminsServer adminsServer;
 
     @GetMapping()
     public String info(ModelMap mmp) {

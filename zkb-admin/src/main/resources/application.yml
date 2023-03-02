@@ -1,5 +1,5 @@
 zero:
-  isTest: false
+  isTest: true
 
 # 日志配置
 logging:

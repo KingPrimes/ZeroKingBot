@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author KingPrimes
  */
-public interface BotFunctionServer {
+public interface IBotFunctionServer {
     /**
      * 查询功能列表
      *

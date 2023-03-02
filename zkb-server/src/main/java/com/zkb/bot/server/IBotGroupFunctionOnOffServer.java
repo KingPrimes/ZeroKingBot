@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author KingPrimes
  */
-public interface BotGroupFunctionOnOffServer {
+public interface IBotGroupFunctionOnOffServer {
     /**
      * 查询所有的群组功能列表
      */

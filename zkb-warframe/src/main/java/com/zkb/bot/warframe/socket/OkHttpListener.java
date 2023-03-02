@@ -54,7 +54,7 @@ public class OkHttpListener extends WebSocketListener {
     @Override
     public void onClosing(@NotNull WebSocket webSocket, int code, @NotNull String reason) {
         super.onClosing(webSocket, code, reason);
-        log.error("onClosing:链接被关闭,尝试重新连接...Code:{}---Reason:{}", code, reason);
+        log.warn("onClosing:链接被关闭,尝试重新连接...Code:{}---Reason:{}", code, reason);
         if (code == 1002) {
             OkHttpWebSocket.init();
         }
@@ -65,7 +65,7 @@ public class OkHttpListener extends WebSocketListener {
     @Override
     public void onFailure(@NotNull WebSocket webSocket, @NotNull Throwable t, @Nullable Response response) {
         super.onFailure(webSocket, t, response);
-        log.error("链接出错,尝试重新连接...\nError:{}", t.getMessage());
+        log.warn("链接出错,尝试重新连接...\nError:{}", t.getMessage());
         OkHttpWebSocket.init();
     }
 }
