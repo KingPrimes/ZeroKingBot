@@ -28,8 +28,12 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件名格式 -->
             <fileNamePattern>${log.path}/sys-info.%d{yyyy-MM-dd}.log</fileNamePattern>
-            <!-- 日志最大的历史 60天 -->
-            <maxHistory>60</maxHistory>
+            <!-- 日志最大的历史 7天 -->
+            <maxHistory>7</maxHistory>
+            <!--日志文件最大文件大小-->
+            <totalSizeCap>10MB</totalSizeCap>
+            <!--重启清理日志文件-->
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <encoder>
             <pattern>${log.pattern}</pattern>
@@ -50,8 +54,12 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件名格式 -->
             <fileNamePattern>${log.path}/sys-error.%d{yyyy-MM-dd}.log</fileNamePattern>
-            <!-- 日志最大的历史 60天 -->
-            <maxHistory>60</maxHistory>
+            <!-- 日志最大的历史 7天 -->
+            <maxHistory>7</maxHistory>
+            <!--日志文件最大文件大小-->
+            <totalSizeCap>10MB</totalSizeCap>
+            <!--重启清理日志文件-->
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <encoder>
             <pattern>${log.pattern}</pattern>
@@ -69,7 +77,7 @@
     <!-- 系统模块日志级别控制  -->
     <logger name="com.zkb" level="info"/>
     <!-- Spring日志级别控制  -->
-    <logger name="org.springframework" level="warn"/>
+    <logger name="org.springframework" level="info"/>
 
     <root level="info">
         <appender-ref ref="console"/>
