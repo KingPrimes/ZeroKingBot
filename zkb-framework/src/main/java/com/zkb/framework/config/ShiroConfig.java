@@ -261,8 +261,8 @@ public class ShiroConfig {
         // 机器人相关
         filterChainDefinitionMap.put("/ws/shiro/**", "anon");
         filterChainDefinitionMap.put("/warframe/**", "anon");
-        filterChainDefinitionMap.put("/GIF/**", "anon");
-        filterChainDefinitionMap.put("/PNG/**", "anon");
+        filterChainDefinitionMap.put("/Gif/**", "anon");
+        filterChainDefinitionMap.put("/Png/**", "anon");
 
         //验证码
         filterChainDefinitionMap.put("/captcha/captchaImage**", "anon");
