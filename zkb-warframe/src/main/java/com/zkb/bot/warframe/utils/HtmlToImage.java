@@ -1732,17 +1732,7 @@ public class HtmlToImage {
         return tmpHtmlToImageByteArray("relicsToy", html, width);
     }
 
-    public void convertHtmlToImage2(String htmlFilePath, int width) {
-        try {
-          /*  File htmlFile = new File(htmlFilePath);
-            String url = htmlFile.toURI().toURL().toExternalForm();*/
-            BufferedImage image = RenderToImage.renderToImageAutoSize(htmlFilePath, width, BufferedImage.TYPE_INT_ARGB_PRE);
-            ImageIO.write(image, "png", new File("C:\\Users\\15066\\Desktop\\market\\1.png"));
 
-        } catch (IOException e) {
-            log.error("html渲染字节流出错，文件路径：{}\n\t\t错误信息：{}", htmlFilePath, e.getMessage());
-        }
-    }
 
     public ByteArrayOutputStream tmpHtmlToImageByteArray(String name, String html, int width) {
         String path = HTML_PATH;

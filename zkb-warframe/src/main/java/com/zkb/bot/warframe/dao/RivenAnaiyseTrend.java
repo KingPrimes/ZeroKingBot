@@ -53,6 +53,8 @@ public class RivenAnaiyseTrend {
         String name;
         Double attribute;
 
+        Boolean nag;
+
         Double lowAttribute = 0.0;
 
         Double highAttribute = 0.0;
@@ -160,9 +162,17 @@ public class RivenAnaiyseTrend {
                     }
                 }
             }
-            //System.out.println("highAttribute:"+highAttribute);
             return highAttribute;
         }
+
+        public Boolean getNag() {
+            return nag;
+        }
+
+        public void setNag(Boolean nag) {
+            this.nag = nag;
+        }
+
 
         public String getName() {
             return name;
@@ -185,6 +195,9 @@ public class RivenAnaiyseTrend {
             return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
                     .append("name", name)
                     .append("attribute", attribute)
+                    .append("nag", nag)
+                    .append("lowAttribute", lowAttribute)
+                    .append("highAttribute", highAttribute)
                     .toString();
         }
     }

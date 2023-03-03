@@ -51,6 +51,7 @@ public class WarframeHtmlToImage {
         Document doc = Jsoup.parse(html);
         if (!doc.getElementsByTag("xx").isEmpty()) {
             int i = doc.getElementsByTag("xx").size();
+            System.out.println(i);
             for (; i > 0; i--) {
                 html = new StringBuilder(html).replace(html.indexOf("<xx>"), html.indexOf("</xx>") + 5, "").toString().trim();
             }
@@ -141,6 +142,7 @@ public class WarframeHtmlToImage {
      */
     public static ByteArrayOutputStream conver(String url) {
         String html = HttpUtils.sendGetOkHttp(url);
+        System.out.println(html);
         int width = getWidth(html);
         html = outH(html);
         return tmpHtmlToImageByteArray(html, width);
