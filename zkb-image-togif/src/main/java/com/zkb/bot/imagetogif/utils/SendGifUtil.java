@@ -15,10 +15,7 @@ import java.util.Random;
 public class SendGifUtil {
 
     /**
-     * @param bot
-     * @param event
      * @param url   /Gif/Email/Funny/getImage/
-     * @return
      */
     public static int sendGif(@NotNull Bot bot, @NotNull GroupMessageEvent event, @NotNull String url) {
         if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_GIF)) {

@@ -30,7 +30,6 @@ public class GifImagePlugin {
             } else {
                 return SendGifUtil.sendGif(bot, event, "/Gif/Capoo/Chuo/2/getImage/");
             }
-
         }
         //Email Funny 滑稽果表情
         if (event.getRawMessage().toLowerCase(Locale.ROOT).contains(GIF_EMAIL_FUNNY.getType())) {

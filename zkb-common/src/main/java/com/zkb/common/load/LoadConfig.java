@@ -5,6 +5,7 @@ import com.zkb.common.utils.JarUtils;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.file.FileUtils;
 import com.zkb.common.utils.http.HttpUtils;
+import com.zkb.common.zero.ZeroConfig;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.RepositoryCache;
@@ -254,5 +255,20 @@ public class LoadConfig {
             log.error("初始化Redis失败！{}", e.getMessage());
         }
         log.info("初始化Redis完毕……");
+    }
+
+    /**
+     * 获取表情图片
+     */
+    @PostConstruct
+    public void getInitPng() {
+        if(ZeroConfig.getTest()){
+            try {
+                File file = new File("./temp-png");
+                Git.cloneRepository().setURI("https://gitcode.net/KingPrimes/zerokingbot-gif.git").setDirectory(file).call();
+            } catch (Exception e) {
+                log.error("错误信息：{}", e.getMessage());
+            }
+        }
     }
 }
