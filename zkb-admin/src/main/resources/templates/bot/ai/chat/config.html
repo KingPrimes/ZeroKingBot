@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('修改词库')" />
+</head>
+<body>
+<div class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-chat-config-edit" th:object="${config}">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">OpenAI-ApiKey：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input class="form-control" type="text" id="key" name="key" th:field="*{key}">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">前置词语：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <textarea class="form-control"  id="msg" name="msg" th:field="*{msg}"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">代理地址：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input class="form-control" type="text" id="host" name="host" th:field="*{proxy.host}">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">代理端口：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input class="form-control" type="number" id="port" name="port" th:field="*{proxy.port}">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<th:block th:include="include :: footer" />
+<script type="text/javascript">
+  const prefix = ctx + "bot/ai/chat/config";
+
+  function submitHandler() {
+    if ($.validate.form()) {
+      $.operate.save(prefix + "/edit", $('#form-chat-config-edit').serialize());
+    }
+  }
+
+  function doSubmit(index, layero){
+    const tree = layero.find("iframe")[0].contentWindow.$._tree;
+    if ($.tree.notAllowLastLevel(tree)) {
+      const body = $.modal.getChildFrame(index);
+      $.modal.close(index);
+    }
+  }
+</script>
+</body>
+</html>

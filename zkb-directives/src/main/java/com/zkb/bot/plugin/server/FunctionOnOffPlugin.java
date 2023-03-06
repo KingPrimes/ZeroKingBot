@@ -98,7 +98,7 @@ public class FunctionOnOffPlugin {
 
         //开启AI
         if (ON_AI.getType().equals(event.getRawMessage().toUpperCase(Locale.ROOT))) {
-            if (GroupAddApi.isAdmin(bot, event)) {
+            if (GroupAddApi.isSuperAdmin(bot, event.getUserId())) {
                 int i = SpringUtils.getBean(IBotGroupFunctionOnOffServer.class).updateGroupFunctionOnOff(new GroupFunctionOnOff(event.getGroupId(), String.valueOf(FUNCTION_AI.ordinal())));
                 if (i > 0) {
                     bot.sendGroupMsg(event.getGroupId(), "开启AI功能", false);
@@ -111,9 +111,10 @@ public class FunctionOnOffPlugin {
                 return MESSAGE_BLOCK;
             }
         }
+
         //关闭AI
         if (OFF_AI.getType().equals(event.getRawMessage().toUpperCase(Locale.ROOT))) {
-            if (GroupAddApi.isAdmin(bot, event)) {
+            if (GroupAddApi.isSuperAdmin(bot, event.getUserId())) {
                 int i = SpringUtils.getBean(IBotGroupFunctionOnOffServer.class).deleteGroupFunctionOnOff(new GroupFunctionOnOff(event.getGroupId(), String.valueOf(FUNCTION_AI.ordinal())));
                 if (i > 0) {
                     bot.sendGroupMsg(event.getGroupId(), "关闭AI功能", false);

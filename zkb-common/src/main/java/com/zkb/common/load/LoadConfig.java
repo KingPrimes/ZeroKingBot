@@ -265,6 +265,9 @@ public class LoadConfig {
         if(ZeroConfig.getTest()){
             try {
                 File file = new File("./temp-png");
+                if (!file.exists()){
+                    file.mkdirs();
+                }
                 Git.cloneRepository().setURI("https://gitcode.net/KingPrimes/zerokingbot-gif.git").setDirectory(file).call();
             } catch (Exception e) {
                 log.error("错误信息：{}", e.getMessage());

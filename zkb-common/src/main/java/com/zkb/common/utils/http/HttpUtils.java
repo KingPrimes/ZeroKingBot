@@ -40,9 +40,9 @@ public class HttpUtils {
     private static OkHttpClient httpClient = new OkHttpClient();
     private static OkHttpClient CLIENT_PROXY = new OkHttpClient.Builder().proxy(new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("127.0.0.1", 7890))).build();
 
-    public static void initOkHttpClient() {
+    public static void initOkHttpClient(String host,Integer prot) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.proxy(new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("127.0.0.1", 10808)));
+        builder.proxy(new Proxy(Proxy.Type.SOCKS, new InetSocketAddress(host, prot)));
         httpClient = builder.build();
     }
 
@@ -531,6 +531,9 @@ public class HttpUtils {
             return result;
         } catch (Exception e) {
             log.info(e.getMessage());
+            if (e.getMessage().equals("timeout")) {
+                return "timeout";
+            }
             return "";
         }
     }

@@ -71,6 +71,9 @@
                             class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
                         <li>
+                            <a class="menuItem" onclick="chatGPTConfig()">ChatGPT</a>
+                        </li>
+                        <li>
                             <a class="menuItem" th:href="@{/bot/ai/thesaurus}">词库</a>
                         </li>
                     </ul>
@@ -192,6 +195,11 @@
     function resetPwd() {
         var url = ctx + 'system/user/profile/resetPwd';
         $.modal.open("重置密码", url, '770', '380');
+    }
+
+    function chatGPTConfig(){
+        var url = ctx + 'bot/ai/chat/config';
+        $.modal.open('ChatGPT配置',url,'770','380')
     }
 
     /* 切换主题 */

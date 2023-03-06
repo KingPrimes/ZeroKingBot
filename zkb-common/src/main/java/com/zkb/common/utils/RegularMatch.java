@@ -102,4 +102,16 @@ public class RegularMatch {
         Matcher m = p.matcher(str);
         return isRivenName(str)||m.matches();
     }
+
+    /**
+     * 判断是否是一个合法的IPV4地址
+     * @param str 待匹配项
+     * @return true 合规
+     */
+    public static boolean isIPV4(String str){
+        Pattern p = Pattern.compile("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}");
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
+
 }
