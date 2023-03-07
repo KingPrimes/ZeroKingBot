@@ -271,7 +271,6 @@ public class RivenAnaiyseTrendController {
             tm.setAttributes(mas);
             tms.add(tm);
         }
-        System.out.println(tms.toString());
         model.addAttribute("tms", tms);
         return "html/anaiyseTrend";
     }
