@@ -33,7 +33,6 @@ public class RivenAnaiyseTrendUtils {
             }
             Msg msg = new Msg();
             RivenAnaiyseTrend trend = RivenAnaiyseTrendUtils.rivenAnaiyse(event.getRawMessage(), bot);
-            System.out.println("ORC:"+trend);
             if(trend == null){
                 msg.img(errorHtmlUrl);
             }else{

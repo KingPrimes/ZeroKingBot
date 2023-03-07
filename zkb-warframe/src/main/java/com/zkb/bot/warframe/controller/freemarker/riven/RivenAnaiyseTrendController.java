@@ -33,7 +33,6 @@ public class RivenAnaiyseTrendController {
 
         String s = SpringUtils.getBean(IWarframeTranslationService.class).zhToEnTrim(anaiyseTrend.getWeaponsName());
         if (s == null || s.isEmpty() || s.equals(anaiyseTrend.getWeaponsName())) {
-            model.addAttribute("src", "https://i.niupic.com/images/2023/02/27/alan.png");
             model.addAttribute("msg", MessageUtils.message("warframe.riven.anaiyse").replaceAll("\n","<br/>"));
             return "html/rivenError";
         }
@@ -272,6 +271,7 @@ public class RivenAnaiyseTrendController {
             tm.setAttributes(mas);
             tms.add(tm);
         }
+        System.out.println(tms.toString());
         model.addAttribute("tms", tms);
         return "html/anaiyseTrend";
     }
