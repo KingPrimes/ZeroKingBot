@@ -41,11 +41,16 @@ public class IssueReplyPlugin {
                         }
 
                         if (issueReply != null) {
+                            
+                        if(issueReply.getMsgReplyImage()!=null
+                    )
+                            {
                             if (!issueReply.getMsgReplyImage().isEmpty()) {
                                 String[] urls = issueReply.getMsgReplyImage().replaceAll("\\[", "").replaceAll("]", "").split(",");
                                 for (String url : urls) {
                                     msg.img(url.trim());
                                 }
+                            }
                             }
                             if (!issueReply.getMsgReplyFace().isEmpty()) {
                                 String[] ids = issueReply.getMsgReplyFace().replaceAll("\\[", "").replaceAll("]", "").trim().split(",");
