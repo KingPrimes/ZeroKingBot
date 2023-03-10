@@ -11,7 +11,7 @@ public class Proxy {
     }
 
     public Proxy() {
-        this.host = "";
+        this.host = "127.0.0.1";
         this.port = 0;
     }
 
