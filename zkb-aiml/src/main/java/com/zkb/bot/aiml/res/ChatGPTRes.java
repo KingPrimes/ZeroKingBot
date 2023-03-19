@@ -3,6 +3,8 @@ package com.zkb.bot.aiml.res;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,8 @@ public class ChatGPTRes {
     private Usage usage;
     @JsonProperty("choices")
     private List<Choices> choices;
+    @JsonProperty("error")
+    private Error error;
 
     @NoArgsConstructor
     @Data
@@ -55,6 +59,61 @@ public class ChatGPTRes {
             private String role;
             @JsonProperty("content")
             private String content;
+        }
+    }
+
+    @NoArgsConstructor
+    @Data
+    public static class Error{
+        @JsonProperty("message")
+        private String message;
+        @JsonProperty("type")
+        private String type;
+        @JsonProperty("param")
+        private String param;
+        @JsonProperty("code")
+        private String code;
+
+        @Override
+        public String toString() {
+            return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
+                    .append("message", message)
+                    .append("type", type)
+                    .append("param", param)
+                    .append("code", code)
+                    .toString();
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getParam() {
+            return param;
+        }
+
+        public void setParam(String param) {
+            this.param = param;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
         }
     }
 

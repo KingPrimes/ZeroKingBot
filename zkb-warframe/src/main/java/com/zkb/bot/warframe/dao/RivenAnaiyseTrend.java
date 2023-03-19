@@ -119,6 +119,34 @@ public class RivenAnaiyseTrend {
                         break;
                     }
                 }
+                default:{
+                    switch (x-1) {
+                        case 2:
+                            lowAttribute = DoubleUtils.formatDouble4(0.9 * baseVal * pro * 0.99);
+                            break;
+                        case 3:
+                            if (nag) {
+                                if (isNag) {
+                                    lowAttribute = DoubleUtils.formatDouble4(0.9 * baseVal * pro * -0.495);
+                                    break;
+                                }
+                                lowAttribute = DoubleUtils.formatDouble4(0.9 * baseVal * pro * 1.2375);
+                                break;
+                            } else {
+                                lowAttribute = DoubleUtils.formatDouble4(0.9 * baseVal * pro * 0.75);
+                                break;
+                            }
+                        case 4: {
+                            if (isNag) {
+                                lowAttribute = DoubleUtils.formatDouble4(0.9 * baseVal * pro * -0.75);
+                                break;
+                            } else {
+                                lowAttribute = DoubleUtils.formatDouble4(0.9 * baseVal * pro * 0.9375);
+                                break;
+                            }
+                        }
+                    }
+                }
             }
             return lowAttribute;
         }
@@ -157,6 +185,34 @@ public class RivenAnaiyseTrend {
                         highAttribute = DoubleUtils.formatDouble4(1.1 * baseVal * pro * 0.9375);
                     }
                     break;
+                }
+                default:{
+                    switch (x-1) {
+                        case 2:
+                            lowAttribute = DoubleUtils.formatDouble4(0.9 * baseVal * pro * 0.99);
+                            break;
+                        case 3:
+                            if (nag) {
+                                if (isNag) {
+                                    lowAttribute = DoubleUtils.formatDouble4(0.9 * baseVal * pro * -0.495);
+                                    break;
+                                }
+                                lowAttribute = DoubleUtils.formatDouble4(0.9 * baseVal * pro * 1.2375);
+                                break;
+                            } else {
+                                lowAttribute = DoubleUtils.formatDouble4(0.9 * baseVal * pro * 0.75);
+                                break;
+                            }
+                        case 4: {
+                            if (isNag) {
+                                lowAttribute = DoubleUtils.formatDouble4(0.9 * baseVal * pro * -0.75);
+                                break;
+                            } else {
+                                lowAttribute = DoubleUtils.formatDouble4(0.9 * baseVal * pro * 0.9375);
+                                break;
+                            }
+                        }
+                    }
                 }
             }
             return highAttribute;

@@ -50,6 +50,10 @@ public class ChatGptPlugin {
                         req.add(ChatRoleEnum.USER, event.getRawMessage().replaceAll("^chat*", "").trim());
                         ChatGPTRes res = service.sendChatGPT(req);
                         StringBuilder msg = new StringBuilder();
+                        if (res.getError()!=null){
+                            bot.sendGroupMsg(event.getGroupId(),"请求出错：\n"+res.getError().getMessage(),false);
+                            return;
+                        }
 
                         for (ChatGPTRes.Choices choice : res.getChoices()) {
                             msg.append(choice.getMessage().getContent()).append("\n");

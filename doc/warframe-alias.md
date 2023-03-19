@@ -90,6 +90,7 @@ Hildryn
 Hydroid
 ---
 
+- 海王
 - 水男
 - 惊涛骇浪
 
