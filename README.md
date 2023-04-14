@@ -45,7 +45,7 @@
 ---
 
 - [文档链接](https://www.yuque.com/kingprimes/twgbot)
-- [WarframeMarket战甲别名](doc/warframe-alias.md)
+- [WarframeMarket战甲别名](https://github.com/KingPrimes/ZeroKingBotDataSource/blob/main/warframe_alias.json)
 
 服务器资源推荐
 ---
@@ -90,7 +90,9 @@
 
 | 支付宝用户 | 微信用户 | 金额        | 日期         |
 |-------|------|-----------|------------|
-| **元   |      | 50RMB | 2023-03-07 |
+|       | R*D  | 10RMB     | 2023-04-14 |
+| **谦   |      | 50RMB     | 2023-03-22 |
+| **元   |      | 50RMB     | 2023-03-07 |
 | **顺   |      | 66RMB     | 2023-02-10 |
 | **平   |      | 10RMB     | 2022-10-17 |
 | **谦   |      | 50RMB     | 2022-10-11 |
