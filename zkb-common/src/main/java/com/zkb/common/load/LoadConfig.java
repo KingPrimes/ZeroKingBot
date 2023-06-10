@@ -1,10 +1,12 @@
 package com.zkb.common.load;
 
+import com.alibaba.fastjson.JSONObject;
+import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.utils.JarManifest;
-import com.zkb.common.utils.JarUtils;
-import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.file.FileUtils;
 import com.zkb.common.utils.http.HttpUtils;
+import com.zkb.common.utils.spring.SpringUtils;
+import com.zkb.common.vo.ReleaseDomain;
 import com.zkb.common.zero.ZeroConfig;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -16,10 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.lang.reflect.Method;
 import java.util.Locale;
 import java.util.jar.Manifest;
@@ -36,7 +35,6 @@ public class LoadConfig {
 
     /**
      * 获取操作系统
-     *
      * @return 1/Win
      * 2/Linux
      */
@@ -135,13 +133,12 @@ public class LoadConfig {
     public void init() {
         int os = isOs();
         if (os == 1) {
-            initQQ();
             initWinRedis();
+            initQQ("go-cqhttp_windows_amd64.exe");
         }
-
     }
 
-    public void initQQ() {
+    public void initQQ(String os) {
         log.info("开始初始化GoCqHttp……");
         String x = System.getProperty("user.dir") + "\\gocqhttp\\go-cqhttp.bat";
         try {
@@ -153,7 +150,7 @@ public class LoadConfig {
                         .call()
                 ;
                 boolean flg = RepositoryCache.FileKey.isGitRepository(file, FS.DETECTED);
-                if (!flg) {
+                if (!flg && upGocq(os)) {
                     Runtime.getRuntime().exec(x);
                     return;
                 }
@@ -161,8 +158,10 @@ public class LoadConfig {
                 return;
             }
             if (file.exists()) {
-                if (isRunRedis("go-cqhttp")) {
-                    Runtime.getRuntime().exec(x);
+                if(upGocq(os)){
+                    if (isRunRedis("go-cqhttp")) {
+                        Runtime.getRuntime().exec(x);
+                    }
                 }
             }
 
@@ -172,16 +171,57 @@ public class LoadConfig {
         log.info("GoCqHttp初始化完毕……");
     }
 
+    public static boolean upGocq(String os){
+        ReleaseDomain release;
+        release = JSONObject.parseObject(HttpUtils.sendGetOkHttp("https://api.github.com/repos/Mrs4s/go-cqhttp/releases/latest"), ReleaseDomain.class);
+        String value;
+        value = release.getName();
+        boolean exists = SpringUtils.getBean(RedisCache.class).exists("gocq-value");
+        if(exists){
+            String Rvalue = SpringUtils.getBean(RedisCache.class).getCacheObject("gocq-value");
+            if(Rvalue.equals(value)){
+                return true;
+            }
+        }
+
+        String url = "";
+        for (ReleaseDomain.Assets asset : release.getAssets()) {
+            if(asset.getName().equals(os)){
+                url = asset.getBrowserDownloadUrl();
+            }
+        }
+
+        byte[] bytes = HttpUtils.sendGetForFile("https://ghproxy.com/" + url);
+        File mkd = new File("./gocqhttp/");
+        if (!mkd.exists()) {
+            mkd.mkdirs();
+        }
+        File gocq = new File("./gocqhttp/"+os);
+        FileOutputStream outputStream;
+        try {
+            outputStream = new FileOutputStream(gocq);
+            if (bytes != null) {
+                outputStream.write(bytes);
+            }
+            outputStream.close();
+            SpringUtils.getBean(RedisCache.class).setCacheObject("gocq-value",value);
+        } catch (IOException e) {
+            log.error("下载GoCqHttp文件失败！错误信息：{}",e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
     @PostConstruct
     public void initHtml() {
         log.info("开始初始化Html渲染模板……");
         File file = new File(HTML_PATH);
-        long versionNew = Long.parseLong(HttpUtils.sendGetOkHttp("https://gitee.com/KingPrime/ZKBotHtml/raw/main/version.txt").replace(".", "").trim());
+        long versionNew = Long.parseLong(HttpUtils.sendGetOkHttp("https://ghproxy.com/https://github.com/KingPrimes/ZKBotImageHtml/blob/main/version.txt").replace(".", "").trim());
         long version = 0;
         if (!file.exists()) {
             try {
                 Git.cloneRepository()
-                        .setURI("https://gitee.com/KingPrime/ZKBotHtml.git")
+                        .setURI("https://ghproxy.com/https://github.com/KingPrimes/ZKBotImageHtml")
                         .setDirectory(file)
                         .call();
             } catch (GitAPIException e) {
@@ -194,7 +234,7 @@ public class LoadConfig {
                 try {
                     if (FileUtils.delAllFile(HTML_PATH)) {
                         Git.cloneRepository()
-                                .setURI("https://gitee.com/KingPrime/ZKBotHtml.git")
+                                .setURI("https://ghproxy.com/https://github.com/KingPrimes/ZKBotImageHtml")
                                 .setDirectory(file)
                                 .call();
                     }
@@ -206,8 +246,7 @@ public class LoadConfig {
         log.info("Html渲染模板初始化完毕……");
     }
 
-
-    @PostConstruct
+  /*  @PostConstruct
     public void updateJar() {
         //判断启动模式
         if (JarUtils.isStartupFromJarEx(LoadConfig.class)) {
@@ -224,8 +263,7 @@ public class LoadConfig {
             }
 
         }
-
-    }
+    }*/
 
     public void initWinRedis() {
         log.info("开始初始化Redis……");
@@ -263,15 +301,18 @@ public class LoadConfig {
     @PostConstruct
     public void getInitPng() {
         if(ZeroConfig.getTest()){
+            log.info("开始初始化表情文件……");
             try {
                 File file = new File("./temp-png");
                 if (!file.exists()){
                     file.mkdirs();
+                    Git.cloneRepository().setURI("https://gitcode.net/KingPrimes/zerokingbot-gif.git").setDirectory(file).call();
                 }
-                Git.cloneRepository().setURI("https://gitcode.net/KingPrimes/zerokingbot-gif.git").setDirectory(file).call();
             } catch (Exception e) {
                 log.error("错误信息：{}", e.getMessage());
             }
         }
     }
+
+
 }
