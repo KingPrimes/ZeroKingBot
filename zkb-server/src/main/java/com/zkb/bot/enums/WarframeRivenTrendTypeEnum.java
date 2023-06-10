@@ -1,9 +1,8 @@
 package com.zkb.bot.enums;
 
 import com.zkb.framework.config.EnumValue;
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
+
 public enum WarframeRivenTrendTypeEnum implements EnumValue {
 
     //步枪 - 狙击枪
@@ -30,7 +29,10 @@ public enum WarframeRivenTrendTypeEnum implements EnumValue {
         return desc;
     }
 
-
+    WarframeRivenTrendTypeEnum(short value, String desc) {
+        this.desc = desc;
+        this.value = value;
+    }
     /**
      * 序列化
      *
