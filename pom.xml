@@ -6,7 +6,7 @@
     <groupId>com.zkb</groupId>
     <artifactId>ZeroKingBot</artifactId>
     <packaging>pom</packaging>
-    <version>4.2.6</version>
+    <version>4.2.7</version>
 
 
     <name>ZeroKingBot</name>
@@ -72,6 +72,7 @@
         <oshi.version>6.2.2</oshi.version>
 
         <alibaba-bruid.version>1.2.16</alibaba-bruid.version>
+
     </properties>
 
 
@@ -301,6 +302,14 @@
                 <artifactId>zkb-music</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <!--图片识别模块-->
+           <!-- <dependency>
+                <groupId>com.zkb</groupId>
+                <artifactId>ocr-sdk</artifactId>
+                <version>${project.version}</version>
+            </dependency>-->
+
             <!--GIF绘图核心-->
             <dependency>
                 <groupId>com.madgag</groupId>
@@ -345,6 +354,8 @@
                 <artifactId>org.eclipse.jgit</artifactId>
                 <version>${org.eclipse.jgit.version}</version>
             </dependency>
+
+
             <!--JavaX模块-->
             <dependency>
                 <groupId>javax.xml.bind</groupId>
@@ -436,7 +447,7 @@
                                 自定义MANIFEST.MF中的键值对，
                                 <键>值</键>
                             -->
-                            <ZeroKingBot-Version>4.2.6</ZeroKingBot-Version>
+                            <ZeroKingBot-Version>4.2.7</ZeroKingBot-Version>
                         </manifestEntries>
                     </archive>
                 </configuration>
