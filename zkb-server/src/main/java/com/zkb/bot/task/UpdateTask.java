@@ -1,18 +1,12 @@
 package com.zkb.bot.task;
 
-import com.alibaba.fastjson.JSONObject;
 import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.SendAdminMessage;
-import com.zkb.bot.utils.SendAllGroup;
-import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.load.LoadConfig;
 import com.zkb.common.utils.JarManifest;
-import com.zkb.common.utils.JarUtils;
 import com.zkb.common.utils.StringUtils;
 import com.zkb.common.utils.file.FileUtils;
 import com.zkb.common.utils.http.HttpUtils;
-import com.zkb.common.utils.spring.SpringUtils;
-import com.zkb.system.domain.ReleaseDomain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;

@@ -41,11 +41,11 @@ public class CqParse {
      * @return Url地址集合
      */
     public List<String> getCqImageUrl() {
-        Pattern p = Pattern.compile("CQ:image,(.*?)url=(.*?)?term=3");
+        Pattern p = Pattern.compile("CQ:image,(.*?)url=(.*?)?term");
         Matcher m = p.matcher(CQ);
         List<String> ids = new ArrayList<>();
         while (m.find()) {
-            Pattern pa = Pattern.compile("[a-zA-z]+://[^\\s]*term=3");
+            Pattern pa = Pattern.compile("[a-zA-z]+://[^\\s]*term");
             Matcher ma = pa.matcher(m.group());
             while (ma.find()) {
                 ids.add(ma.group());

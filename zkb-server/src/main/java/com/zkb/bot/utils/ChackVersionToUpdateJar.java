@@ -10,7 +10,7 @@ import com.zkb.common.utils.MessageUtils;
 import com.zkb.common.utils.http.HttpUtils;
 import com.zkb.common.utils.spring.SpringUtils;
 import com.zkb.common.utils.update.UpdateJar;
-import com.zkb.system.domain.ReleaseDomain;
+import com.zkb.common.vo.ReleaseDomain;
 import org.springframework.http.HttpMethod;
 
 import java.util.jar.Manifest;

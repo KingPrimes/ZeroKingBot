@@ -1,9 +1,8 @@
 package com.zkb.bot.enums;
 
 import com.zkb.framework.config.EnumValue;
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
+
 public enum MusicTypeEnum implements EnumValue {
     SONG((short) 0, ""),
     QQ((short) 1, "qq"),
@@ -24,6 +23,11 @@ public enum MusicTypeEnum implements EnumValue {
 
     public String desc() {
         return desc;
+    }
+
+    MusicTypeEnum(short value, String desc) {
+        this.desc = desc;
+        this.value = value;
     }
 
     /**

@@ -15,6 +15,7 @@ import com.zkb.framework.shiro.web.filter.online.OnlineSessionFilter;
 import com.zkb.framework.shiro.web.filter.sync.SyncOnlineSessionFilter;
 import com.zkb.framework.shiro.web.session.OnlineWebSessionManager;
 import com.zkb.framework.shiro.web.session.SpringSessionValidationScheduler;
+import net.sf.ehcache.CacheManager;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.config.ConfigurationException;
@@ -122,10 +123,10 @@ public class ShiroConfig {
      */
     @Bean
     public EhCacheManager getEhCacheManager() {
-        net.sf.ehcache.CacheManager cacheManager = net.sf.ehcache.CacheManager.getCacheManager("zkb");
+        CacheManager cacheManager = CacheManager.getCacheManager("zkb");
         EhCacheManager em = new EhCacheManager();
         if (StringUtils.isNull(cacheManager)) {
-            em.setCacheManager(new net.sf.ehcache.CacheManager(getCacheManagerConfigFileInputStream()));
+            em.setCacheManager(new CacheManager(getCacheManagerConfigFileInputStream()));
         } else {
             em.setCacheManager(cacheManager);
         }
@@ -209,11 +210,11 @@ public class ShiroConfig {
     public SecurityManager securityManager(UserRealm userRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 设置realm.
-        securityManager.setRealm(userRealm);
+        //securityManager.setRealm(userRealm);
         // 记住我
         //securityManager.setRememberMeManager(rememberMe ? rememberMeManager() : null);
         // 注入缓存管理器;
-        securityManager.setCacheManager(getEhCacheManager());
+        //securityManager.setCacheManager(getEhCacheManager());
         // session管理器
         securityManager.setSessionManager(sessionManager());
         return securityManager;

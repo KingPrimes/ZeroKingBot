@@ -22,7 +22,7 @@ public class CqMatcher {
      * @return true/false
      */
     public static boolean isCqImage(String str) {
-        return isStr(str, "CQ:image,(.*?)url=(.*?)?term=3");
+        return isStr(str, "CQ:image,(.*?)url=(.*?)?term");
     }
 
     /**

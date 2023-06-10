@@ -1,9 +1,7 @@
 package com.zkb.bot.enums;
 
 import com.zkb.framework.config.EnumValue;
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 public enum GitHubUrlEnum implements EnumValue {
 
     ZeroKingBotDataSource((short) 0, "https://ghproxy.com/https://raw.githubusercontent.com/KingPrimes/ZeroKingBotDataSource/main/"),
@@ -14,6 +12,11 @@ public enum GitHubUrlEnum implements EnumValue {
     private final Short value;
 
     private final String desc;
+
+    GitHubUrlEnum(short value, String desc) {
+        this.desc = desc;
+        this.value = value;
+    }
 
 
     public Short value() {

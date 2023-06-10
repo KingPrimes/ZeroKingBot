@@ -32,6 +32,8 @@ public enum FunctionEnums {
 
     ON_IMAGE("开启涩图"),
 
+    ON_CHAT_GPT("开启chat"),
+
     /**
      * 关闭WF
      */
@@ -46,6 +48,8 @@ public enum FunctionEnums {
     OFF_GIF("关闭GIF"),
 
     OFF_IMAGE("关闭涩图"),
+
+    OFF_CHAT_GPT("关闭chat")
 
 
     ;

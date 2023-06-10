@@ -1,11 +1,8 @@
 package com.zkb.bot.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@Data
+
 public class Bvoid {
 
     @JsonProperty("app")
@@ -25,7 +22,71 @@ public class Bvoid {
     @JsonProperty("view")
     private String view;
 
- /*   public static String getBV(long botId) {
+    public String getApp() {
+        return app;
+    }
+
+    public void setApp(String app) {
+        this.app = app;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public Extra getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Extra extra) {
+        this.extra = extra;
+    }
+
+    public Meta getMeta() {
+        return meta;
+    }
+
+    public void setMeta(Meta meta) {
+        this.meta = meta;
+    }
+
+    public Boolean getNeedShareCallBack() {
+        return needShareCallBack;
+    }
+
+    public void setNeedShareCallBack(Boolean needShareCallBack) {
+        this.needShareCallBack = needShareCallBack;
+    }
+
+    public String getPrompt() {
+        return prompt;
+    }
+
+    public void setPrompt(String prompt) {
+        this.prompt = prompt;
+    }
+
+    public String getVer() {
+        return ver;
+    }
+
+    public void setVer(String ver) {
+        this.ver = ver;
+    }
+
+    public String getView() {
+        return view;
+    }
+
+    public void setView(String view) {
+        this.view = view;
+    }
+
+    /*   public static String getBV(long botId) {
         Bvoid bv = new Bvoid();
         bv.setApp("com.tencent.miniapp_01");
         bv.setDesc("哔哩哔哩");
@@ -51,8 +112,7 @@ public class Bvoid {
         return bvoid.replace("&", "&amp;").replace(",", "&#44;").replace("[", "&#91;").replace("]", "&#93;");
     }*/
 
-    @NoArgsConstructor
-    @Data
+
     public static class Extra {
         @JsonProperty("app_type")
         private Integer appType;
@@ -67,10 +127,33 @@ public class Bvoid {
             this.appid = appid;
             this.uin = uin;
         }
+
+        public Integer getAppType() {
+            return appType;
+        }
+
+        public void setAppType(Integer appType) {
+            this.appType = appType;
+        }
+
+        public Integer getAppid() {
+            return appid;
+        }
+
+        public void setAppid(Integer appid) {
+            this.appid = appid;
+        }
+
+        public long getUin() {
+            return uin;
+        }
+
+        public void setUin(long uin) {
+            this.uin = uin;
+        }
     }
 
-    @NoArgsConstructor
-    @Data
+
     public static class Meta {
         @JsonProperty("detail_1")
         private Detail1 detail1;
@@ -79,8 +162,14 @@ public class Bvoid {
             this.detail1 = detail1;
         }
 
-        @NoArgsConstructor
-        @Data
+        public Detail1 getDetail1() {
+            return detail1;
+        }
+
+        public void setDetail1(Detail1 detail1) {
+            this.detail1 = detail1;
+        }
+
         public static class Detail1 {
             @JsonProperty("appType")
             private Integer appType;
@@ -101,6 +190,80 @@ public class Bvoid {
             @JsonProperty("url")
             private String url;
 
+
+
+            public Integer getAppType() {
+                return appType;
+            }
+
+            public void setAppType(Integer appType) {
+                this.appType = appType;
+            }
+
+            public String getAppid() {
+                return appid;
+            }
+
+            public void setAppid(String appid) {
+                this.appid = appid;
+            }
+
+            public String getDesc() {
+                return desc;
+            }
+
+            public void setDesc(String desc) {
+                this.desc = desc;
+            }
+
+            public Host getHost() {
+                return host;
+            }
+
+            public void setHost(Host host) {
+                this.host = host;
+            }
+
+            public String getIcon() {
+                return icon;
+            }
+
+            public void setIcon(String icon) {
+                this.icon = icon;
+            }
+
+            public Integer getScene() {
+                return scene;
+            }
+
+            public void setScene(Integer scene) {
+                this.scene = scene;
+            }
+
+            public String getShareTemplateId() {
+                return shareTemplateId;
+            }
+
+            public void setShareTemplateId(String shareTemplateId) {
+                this.shareTemplateId = shareTemplateId;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public String getUrl() {
+                return url;
+            }
+
+            public void setUrl(String url) {
+                this.url = url;
+            }
+
             public Detail1(Integer appType, String appid, String desc, Host host, String icon, Integer scene, String shareTemplateId, String title, String url) {
                 this.appType = appType;
                 this.appid = appid;
@@ -113,8 +276,7 @@ public class Bvoid {
                 this.url = url;
             }
 
-            @NoArgsConstructor
-            @Data
+
             public static class Host {
                 @JsonProperty("nick")
                 private String nick;
@@ -123,6 +285,22 @@ public class Bvoid {
 
                 public Host(String nick, long uin) {
                     this.nick = nick;
+                    this.uin = uin;
+                }
+
+                public String getNick() {
+                    return nick;
+                }
+
+                public void setNick(String nick) {
+                    this.nick = nick;
+                }
+
+                public long getUin() {
+                    return uin;
+                }
+
+                public void setUin(long uin) {
                     this.uin = uin;
                 }
             }

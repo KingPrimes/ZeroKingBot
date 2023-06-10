@@ -41,24 +41,22 @@ public class IssueReplyPlugin {
                         }
 
                         if (issueReply != null) {
-                            
-                        if(issueReply.getMsgReplyImage()!=null
-                    )
-                            {
-                            if (!issueReply.getMsgReplyImage().isEmpty()) {
-                                String[] urls = issueReply.getMsgReplyImage().replaceAll("\\[", "").replaceAll("]", "").split(",");
-                                for (String url : urls) {
-                                    msg.img(url.trim());
+
+                            if (issueReply.getMsgReplyImage() != null) {
+                                if (!issueReply.getMsgReplyImage().isEmpty()) {
+                                    String[] urls = issueReply.getMsgReplyImage().replaceAll("\\[", "").replaceAll("]", "").split(",");
+                                    for (String url : urls) {
+                                        msg.img(url.trim());
+                                    }
                                 }
                             }
-                            }
-                            if (issueReply.getMsgReplyFace()!=null && !issueReply.getMsgReplyFace().isEmpty()) {
+                            if (issueReply.getMsgReplyFace() != null && !issueReply.getMsgReplyFace().isEmpty()) {
                                 String[] ids = issueReply.getMsgReplyFace().replaceAll("\\[", "").replaceAll("]", "").trim().split(",");
                                 for (String id : ids) {
                                     msg.face(Integer.parseInt(id));
                                 }
                             }
-                            if (issueReply.getMsgReply()!=null && !issueReply.getMsgReply().isEmpty()) {
+                            if (issueReply.getMsgReply() != null && !issueReply.getMsgReply().isEmpty()) {
                                 String[] split = EscapeUtil.unescape(issueReply.getMsgReply()
                                         .replace("{name}", bot.getGroupMemberInfo(event.getGroupId(), event.getUserId(), true).getData().getNickname())
                                         .replace("{me}", bot.getGroupMemberInfo(event.getGroupId(), bot.getSelfId(), true).getData().getNickname())

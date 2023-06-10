@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class WarframeTraTask {
 
-    @Async("taskExecutor")
-    @Scheduled(cron = "${task.cron.traTask}")
+    /*@Async("taskExecutor")
+    @Scheduled(cron = "${task.cron.traTask}")*/
     public void TaskUserDict() {
         SpringUtils.getBean(WarframeTraUtils.class).getUserDict();
     }
