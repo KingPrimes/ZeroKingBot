@@ -38,6 +38,7 @@
 
 - [Windows部署文档](doc/win.md)
 - [Linux部署文档](doc/liunx.md)
+- [常见问题](doc/asked.md)
 - [最新视频部署教程](https://b23.tv/tnLP86i)
 
 使用文档
