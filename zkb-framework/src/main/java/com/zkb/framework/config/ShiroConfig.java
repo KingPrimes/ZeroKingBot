@@ -210,11 +210,11 @@ public class ShiroConfig {
     public SecurityManager securityManager(UserRealm userRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 设置realm.
-        //securityManager.setRealm(userRealm);
+        securityManager.setRealm(userRealm);
         // 记住我
         //securityManager.setRememberMeManager(rememberMe ? rememberMeManager() : null);
         // 注入缓存管理器;
-        //securityManager.setCacheManager(getEhCacheManager());
+        securityManager.setCacheManager(getEhCacheManager());
         // session管理器
         securityManager.setSessionManager(sessionManager());
         return securityManager;
