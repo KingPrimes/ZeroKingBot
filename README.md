@@ -18,9 +18,6 @@
     <p>该机器人主要用于 Warframe 游戏的查询</p>
     <p>若您在使用过程中发现了Bug或者有一些建议，欢迎提出<a href="https://github.com/KingPrimes/ZeroKingBot/issues">ISSUE</a>、PR或加入 <a href="https://jq.qq.com/?_wv=1027&k=HkG2Q9PT">QQ交流群：260079469</a></p>
 </div>
-   <div>    
-    <h1>该项目已停止更新</h1>
-</div>
 </div>
 
 项目介绍
