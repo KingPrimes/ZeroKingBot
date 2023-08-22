@@ -7,6 +7,9 @@ import com.mikuac.shiro.core.Bot;
 import com.mikuac.shiro.dto.event.message.GroupMessageEvent;
 import com.mikuac.shiro.dto.event.message.PrivateMessageEvent;
 import com.zkb.bot.enums.MusicTypeEnum;
+import org.eclipse.jgit.util.Base64;
+
+import java.util.Arrays;
 
 import static java.lang.String.format;
 
@@ -33,6 +36,13 @@ public class Msg extends MsgUtils {
     public Msg img(String url) {
         this.str.append(
                 format("[CQ:image,file=%s]", ShiroUtils.escape(url))
+        );
+        return this;
+    }
+
+    public Msg imgBase64(byte[] b) {
+        this.str.append(
+                format("[CQ:image,file=%s]", ShiroUtils.escape("base64://"+ Base64.encodeBytes(b)))
         );
         return this;
     }
