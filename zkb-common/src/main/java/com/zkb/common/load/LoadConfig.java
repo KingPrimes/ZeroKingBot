@@ -3,6 +3,7 @@ package com.zkb.common.load;
 import com.alibaba.fastjson.JSONObject;
 import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.utils.JarManifest;
+import com.zkb.common.utils.RuntimeUtils;
 import com.zkb.common.utils.file.FileUtils;
 import com.zkb.common.utils.http.HttpUtils;
 import com.zkb.common.utils.spring.SpringUtils;
@@ -140,6 +141,10 @@ public class LoadConfig {
 
     public void initQQ(String os) {
         log.info("开始初始化GoCqHttp……");
+        if(RuntimeUtils.exec("go-cqhttp")){
+            log.info("检测到go-cqhttp正在运行！已停止go-cqhttp初始化！");
+            return;
+        }
         String x = System.getProperty("user.dir") + "\\gocqhttp\\go-cqhttp.bat";
         try {
             File file = new File("./gocqhttp");
@@ -216,7 +221,12 @@ public class LoadConfig {
     public void initHtml() {
         log.info("开始初始化Html渲染模板……");
         File file = new File(HTML_PATH);
-        long versionNew = Long.parseLong(HttpUtils.sendGetOkHttp("https://ghproxy.com/https://github.com/KingPrimes/ZKBotImageHtml/blob/main/version.txt").replace(".", "").trim());
+        String v = HttpUtils.sendGetOkHttp("https://ghproxy.com/https://github.com/KingPrimes/ZKBotImageHtml/blob/main/version.txt");
+        if(v.isEmpty() ||v.equals("timeout")){
+            log.info("HTML渲染模板超时！\n如果你是初次启动请手动下载！\n不是初次启动请忽略本条消息！");
+            return;
+        }
+        long versionNew = Long.parseLong(v.replace(".", "").trim());
         long version = 0;
         if (!file.exists()) {
             try {
@@ -267,6 +277,10 @@ public class LoadConfig {
 
     public void initWinRedis() {
         log.info("开始初始化Redis……");
+        if(RuntimeUtils.exec("redis")){
+            log.info("监测到Redis正在运行！已停止初始化Redis！");
+            return;
+        }
         String x = "cmd /c start " + System.getProperty("user.dir") + "\\Redis\\redis-server.exe " + System.getProperty("user.dir") + "\\Redis\\redis.windows.conf";
         try {
             File file = new File("./Redis");
