@@ -346,10 +346,14 @@ public class HttpUtils {
      */
     public static byte[] sendGetForFile(String url) {
         InputStream inputStream = null;
-        Request req = (new Request.Builder()).url(url).addHeader("User-Agent", getUserAgent()).get().build();
-        Response response;
+
         try {
-            response = new OkHttpClient().newCall(req).execute();
+            Request req = new Request.Builder()
+                    .url(url)
+                    .addHeader("User-Agent", getUserAgent())
+                    .get()
+                    .build();
+            Response response = httpClient.newCall(req).execute();
             if (!response.isSuccessful()) {
                 log.error("【调用HTTP请求异常】 code:{},message:{}", response.code(), response.message());
                 return null;
@@ -365,6 +369,36 @@ public class HttpUtils {
             } catch (IOException var12) {
                 log.error("【关闭流异常】");
             }
+        }
+    }
+    public static byte[] sendPostForFile(String url, String json) {
+
+        InputStream inputStream = null;
+
+        try {
+            RequestBody requestBody = RequestBody.create(json, MEDIA_TYPE_JSON);
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(requestBody)
+                    .build();
+
+            Response response =  httpClient.newCall(request).execute() ;
+            if (!response.isSuccessful()) {
+                log.error("【调用HTTP请求异常】 code:{},message:{}", response.code(), response.message());
+                return null;
+            }
+            inputStream = response.body().byteStream();
+            return inputToByte(inputStream);
+
+        } catch (IOException var13) {
+            return null;
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException var12) {
+                log.error("【关闭流异常】");
+            }
+
         }
     }
 
@@ -643,6 +677,11 @@ public class HttpUtils {
             this.value = value;
         }
     }
+
+
+
+
+
 
 
 }
