@@ -9,6 +9,7 @@ import com.zkb.bot.utils.ErroSendMessage;
 import com.zkb.bot.utils.Msg;
 import com.zkb.bot.utils.SelectGroupFunctionOnOff;
 import com.zkb.common.utils.StaticFinal;
+import com.zkb.common.utils.http.HttpUtils;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.uuid.UUID;
 import org.jetbrains.annotations.NotNull;
@@ -73,7 +74,13 @@ public class WarframeStringUtils {
      */
     public static int getRivenUpdate(@NotNull Bot bot, @NotNull GroupMessageEvent event) {
         if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(event.getGroupId(), FunctionEnums.FUNCTION_WARFRAME)) {
-            Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/forums/riven/" + UUID.fastUUID() + "/getNewsImage/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + event.getRawMessage()).sendToGroup(bot, event);
+            byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/forums/riven/" + UUID.fastUUID() + "/getNewsImage/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + event.getRawMessage());
+            if(bytes!=null){
+                bot.sendGroupMsg(event.getGroupId(), Msg.builder().imgBase64(bytes).build(), false);
+            }else{
+                bot.sendGroupMsg(event.getGroupId(),"图片生成错误！",false);
+            }
+            //Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/forums/riven/" + UUID.fastUUID() + "/getNewsImage/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + event.getRawMessage()).sendToGroup(bot, event);
         } else {
             return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
         }

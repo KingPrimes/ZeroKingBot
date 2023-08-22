@@ -52,14 +52,21 @@ public class MarketLichAndSisterUtil {
                         "/warframe/market/" + UUID.fastUUID() + "/getLichOrSisterImage/" +
                         URLEncoder.encode(key, "UTF-8") +
                         "/" + WarframeEnum.TYPE_MARKET_CD + "/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + key;
+
+                byte[] bytes = HttpUtils.sendGetForFile(url);
+                if(bytes!=null){
+                   bot.sendGroupMsg(event.getGroupId(), Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(event.getGroupId(), "图片生成错误！",false);
+                }
+
                 //发送消息
-                bot.sendGroupMsg(event.getGroupId(), Msg
+               /* bot.sendGroupMsg(event.getGroupId(), Msg
                                 .builder()
                                 .img(url)
                                 .build(),
-                        false);
+                        false);*/
             } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
                 log.error("调用赤毒武器查询错误：{}", e.getMessage());
             }
         } else {
@@ -86,14 +93,19 @@ public class MarketLichAndSisterUtil {
                         "/warframe/market/" + UUID.fastUUID() + "/getLichOrSisterImage/" +
                         URLEncoder.encode(key, "UTF-8") +
                         "/" + WarframeEnum.TYPE_MARKET_XT + "/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + event.getRawMessage();
+                byte[] bytes = HttpUtils.sendGetForFile(url);
+                if(bytes!=null){
+                    bot.sendGroupMsg(event.getGroupId(), Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(event.getGroupId(), "图片生成错误！",false);
+                }
                 //发送消息
-                bot.sendGroupMsg(event.getGroupId(), Msg
+                /*bot.sendGroupMsg(event.getGroupId(), Msg
                                 .builder()
                                 .img(url)
                                 .build(),
-                        false);
+                        false);*/
             } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
                 log.error("调用信条武器查询错误：{}", e.getMessage());
             }
         } else {

@@ -10,6 +10,7 @@ import com.zkb.bot.utils.SelectGroupFunctionOnOff;
 import com.zkb.bot.warframe.dao.RivenAnaiyseTrend;
 import com.zkb.common.utils.RegularMatch;
 import com.zkb.common.utils.StringUtils;
+import com.zkb.common.utils.http.HttpUtils;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.uuid.UUID;
 import org.jetbrains.annotations.NotNull;
@@ -34,12 +35,24 @@ public class RivenAnaiyseTrendUtils {
             Msg msg = new Msg();
             RivenAnaiyseTrend trend = RivenAnaiyseTrendUtils.rivenAnaiyse(event.getRawMessage(), bot);
             if(trend == null){
-                msg.img(errorHtmlUrl);
+                byte[] bytes = HttpUtils.sendGetForFile(errorHtmlUrl);
+                if(bytes!=null){
+                    msg.imgBase64(bytes);
+                }
+                //msg.img(errorHtmlUrl);
             }else{
                try {
-                   msg.img("http://localhost:" + GetServerPort.getPort() + "/warframe/riven/anaiyse/" + UUID.fastUUID() + "/getRivenAnaiyseImage?trend="+ URLEncoder.encode(trend.toString(),"UTF-8"));
+                   byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/riven/anaiyse/" + UUID.fastUUID() + "/getRivenAnaiyseImage?trend="+ URLEncoder.encode(trend.toString(),"UTF-8"));
+                   if(bytes!=null){
+                       msg.imgBase64(bytes);
+                   }
+                   //msg.img("http://localhost:" + GetServerPort.getPort() + "/warframe/riven/anaiyse/" + UUID.fastUUID() + "/getRivenAnaiyseImage?trend="+ URLEncoder.encode(trend.toString(),"UTF-8"));
                }catch (Exception e){
-                   msg.img(errorHtmlUrl);
+                   byte[] bytes = HttpUtils.sendGetForFile(errorHtmlUrl);
+                   if(bytes!=null){
+                       msg.imgBase64(bytes);
+                   }
+                   //msg.img(errorHtmlUrl);
                }
             }
             bot.sendGroupMsg(event.getGroupId(), msg.build(), false);

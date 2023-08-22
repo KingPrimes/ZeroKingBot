@@ -51,7 +51,13 @@ public class MarketRivenUtil {
             }
             bot.sendGroupMsg(event.getGroupId(), MessageUtils.message("warframe.market.prompt"), false);
             try {
-                msgId = bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektRivenImage/" + URLEncoder.encode(key, "UTF-8") + "/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + key).build(), false).getData().getMessageId();
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektRivenImage/" + URLEncoder.encode(key, "UTF-8") + "/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + key);
+                if(bytes!=null){
+                    msgId = bot.sendGroupMsg(event.getGroupId(), Msg.builder().imgBase64(bytes).build(), false).getData().getMessageId();
+                }else{
+                    bot.sendGroupMsg(event.getGroupId(), "图片生成错误！",false);
+                }
+                //msgId = bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektRivenImage/" + URLEncoder.encode(key, "UTF-8") + "/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + key).build(), false).getData().getMessageId();
             } catch (UnsupportedEncodingException ignored) {
 
             }

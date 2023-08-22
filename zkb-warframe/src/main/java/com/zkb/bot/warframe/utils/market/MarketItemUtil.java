@@ -65,7 +65,7 @@ public class MarketItemUtil {
             if (TYPE_WM_PLUGIN.getType().equals(StringUtils.substring(event.getRawMessage(), 0, TYPE_WM_PLUGIN.getType().length()).toUpperCase(Locale.ROOT))) {
                 tra = StringUtils.substring(event.getRawMessage(), TYPE_WM_PLUGIN.getType().length(), event.getRawMessage().length());
             }
-            if (tra.length() == 0) {
+            if (tra.isEmpty()) {
                 bot.sendGroupMsg(event.getGroupId(), MessageUtils.message("warframe.marek.keyNot.error"), false);
                 return;
             }
@@ -91,21 +91,33 @@ public class MarketItemUtil {
                 return;
             }
             String key = marketKey.getKey();
-            if (key != null && !"".equals(key)) {
-                OneBotMedia oneBotMedia = OneBotMedia.builder()
+            if (key != null && !key.isEmpty()) {
+                /*OneBotMedia oneBotMedia = OneBotMedia.builder()
                         .cache(false)
                         .proxy(false)
                         .timeout(30)
                         .file("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektImage/" + key + "/" + seBy + "/" + isMax + "/" + form + "/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + tra);
-
-                msgId = bot.sendGroupMsg(event.getGroupId(), Msg.builder().img(oneBotMedia).build(), false).getData().getMessageId();
+               */
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektImage/" + key + "/" + seBy + "/" + isMax + "/" + form + "/" + bot.getSelfId() + "/" + event.getUserId() + "/" + event.getGroupId() + "/" + tra);
+                if(bytes!=null){
+                    msgId = bot.sendGroupMsg(event.getGroupId(), Msg.builder().imgBase64(bytes).build(), false).getData().getMessageId();
+                }else{
+                    bot.sendGroupMsg(event.getGroupId(), "图片生成错误！",false);
+                }
+               // msgId = bot.sendGroupMsg(event.getGroupId(), Msg.builder().img(oneBotMedia).build(), false).getData().getMessageId();
             }
-            if (marketKey.getErrorWM() != null && marketKey.getErrorWM().size() != 0) {
+            if (marketKey.getErrorWM() != null && !marketKey.getErrorWM().isEmpty()) {
                 try {
-                    msgId = bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektErrImage?er=" + URLEncoder.encode(marketKey.getErrorWM().toString(), "UTF-8")).build(), false).getData().getMessageId();
+                    byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektErrImage?er=" + URLEncoder.encode(marketKey.getErrorWM().toString(), "UTF-8"));
+                    if(bytes!=null){
+                        msgId = bot.sendGroupMsg(event.getGroupId(), Msg.builder().imgBase64(bytes).build(), false).getData().getMessageId();
+                    }else{
+                        bot.sendGroupMsg(event.getGroupId(), "图片生成错误！",false);
+                    }
+                    //msgId = bot.sendGroupMsg(event.getGroupId(), Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektErrImage?er=" + URLEncoder.encode(marketKey.getErrorWM().toString(), "UTF-8")).build(), false).getData().getMessageId();
                 } catch (Exception ignored) {
                 }
-            } else {
+            }else {
                 if (msgId == 0) {
                     //未找到任何相匹配的值
                     msgId = bot.sendGroupMsg(event.getGroupId(), MessageUtils.message("warframe.marek.eqNot.error"), false).getData().getMessageId();
@@ -138,7 +150,7 @@ public class MarketItemUtil {
         //把用户输入的值全部转换成小写
         key = key.toLowerCase(Locale.ROOT).replace("总图", "蓝图");
         try {
-            WarframeMarketItems items = new WarframeMarketItems();
+            WarframeMarketItems items;
             //假设用户使用了别名
             //匹配是否使用了别名 查出所有的别名列表并迭代查询
             List<WarframeAlias> aliases = aliasService.selectWarframeAliasList(null);
@@ -243,7 +255,6 @@ public class MarketItemUtil {
                 }
             }
             market.setCode("200");
-
             return market;
         } catch (Exception e) {
             e.printStackTrace();
