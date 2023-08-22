@@ -17,6 +17,7 @@ import com.zkb.bot.warframe.utils.market.MarketLichAndSisterUtil;
 import com.zkb.bot.warframe.utils.market.MarketRivenUtil;
 import com.zkb.bot.warframe.utils.riven.RivenAnaiyseTrendUtils;
 import com.zkb.common.utils.StringUtils;
+import com.zkb.common.utils.http.HttpUtils;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.uuid.UUID;
 import com.zkb.framework.manager.AsyncManager;
@@ -46,14 +47,20 @@ public class WarframePlugin {
         long group = event.getGroupId();
         String rawMsg = event.getRawMessage();
 
-        if (rawMsg.trim().length() == 0) {
+        if (rawMsg.trim().isEmpty()) {
             return MESSAGE_IGNORE;
         }
 
         //突击
         if (TYPE_ASSAULT_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getAssaultImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getAssaultImage/" + botId + "/" + user + "/" + group + "/" + rawMsg);
+                if(bytes!=null){
+                    bot.sendGroupMsg(group, Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(group,"图片生成错误！",false);
+                }
+
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -62,7 +69,13 @@ public class WarframePlugin {
         //执政官突击
         if (TYPE_ARCHON_HUNT_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getArchonHuntImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getArchonHuntImage/" + botId + "/" + user + "/" + group + "/" + rawMsg);
+                if(bytes!=null){
+                    bot.sendGroupMsg(group, Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(group,"图片生成错误！",false);
+                }
+                //bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getArchonHuntImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -71,7 +84,13 @@ public class WarframePlugin {
         //入侵
         if (TYPE_INVASIONS_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getInvasionsImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getInvasionsImage/" + botId + "/" + user + "/" + group + "/" + rawMsg);
+                if(bytes!=null){
+                    bot.sendGroupMsg(group, Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(group,"图片生成错误！",false);
+                }
+                //bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getInvasionsImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -80,7 +99,13 @@ public class WarframePlugin {
         //奸商
         if (TYPE_VOID_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getVoidImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getVoidImage/" + botId + "/" + user + "/" + group + "/" + rawMsg);
+                if(bytes!=null){
+                    bot.sendGroupMsg(group, Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(group,"图片生成错误！",false);
+                }
+                //bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getVoidImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -89,7 +114,13 @@ public class WarframePlugin {
         //仲裁
         if (TYPE_ARBITRATION_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getArbitrationImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getArbitrationImage/" + botId + "/" + user + "/" + group + "/" + rawMsg);
+                if(bytes!=null){
+                    bot.sendGroupMsg(group, Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(group,"图片生成错误！",false);
+                }
+                //bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getArbitrationImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -98,7 +129,13 @@ public class WarframePlugin {
         //每日特惠
         if (TYPE_DAILY_DEALS_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getDailyDealsImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getDailyDealsImage/" + botId + "/" + user + "/" + group + "/" + rawMsg);
+                if(bytes!=null){
+                    bot.sendGroupMsg(group, Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(group,"图片生成错误！",false);
+                }
+                //bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getDailyDealsImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -107,7 +144,13 @@ public class WarframePlugin {
         //钢铁
         if (TYPE_STEEL_PATH_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getSteelPathImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getSteelPathImage/" + botId + "/" + user + "/" + group + "/" + rawMsg);
+                if(bytes!=null){
+                    bot.sendGroupMsg(group, Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(group,"图片生成错误！",false);
+                }
+                //bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getSteelPathImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -116,7 +159,13 @@ public class WarframePlugin {
         //模拟开核桃
         if (TYPE_OPEN_RELICS_PLUGIN.getType().equals(rawMsg) || TYPE_OPEN1_RELICS_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getRelicsToy/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getRelicsToy/" + botId + "/" + user + "/" + group + "/" + rawMsg);
+                if(bytes!=null){
+                    bot.sendGroupMsg(group, Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(group,"图片生成错误！",false);
+                }
+                //bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getRelicsToy/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -126,11 +175,17 @@ public class WarframePlugin {
         if (TYPE_RELICS_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_RELICS_PLUGIN.getType().length()).toUpperCase())) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
                 String key = rawMsg.replaceAll(TYPE_RELICS_PLUGIN.getType(), "");
-                if (key.trim().length() == 0) {
+                if (key.trim().isEmpty()) {
                     bot.sendGroupMsg(group, Msg.builder().text("请输入 遗物名称如 A1").build(), false);
                     return 0;
                 }
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getRelics/" + key + "/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getRelics/"+ key + "/" + + botId + "/" + user + "/" + group + "/" + rawMsg);
+                if(bytes!=null){
+                    bot.sendGroupMsg(group, Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(group,"图片生成错误！",false);
+                }
+                //bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getRelics/" + key + "/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -139,7 +194,13 @@ public class WarframePlugin {
         //裂隙
         if (TYPE_FISSUES_PLUGIN.getType().equals(rawMsg) || TYPE_FISSUESX_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/" + WarframeFissureTypeEnum.ORDINARY + "/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/"+ WarframeFissureTypeEnum.ORDINARY + "/" + + botId + "/" + user + "/" + group + "/" + rawMsg);
+                if(bytes!=null){
+                    bot.sendGroupMsg(group, Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(group,"图片生成错误！",false);
+                }
+                //bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/" + WarframeFissureTypeEnum.ORDINARY + "/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -148,7 +209,13 @@ public class WarframePlugin {
         //九重天裂隙
         if (TYPE_FISSUES_EMPYREAN_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/" + WarframeFissureTypeEnum.STORM + "/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/"+ WarframeFissureTypeEnum.STORM + "/" + + botId + "/" + user + "/" + group + "/" + rawMsg);
+                if(bytes!=null){
+                    bot.sendGroupMsg(group, Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(group,"图片生成错误！",false);
+                }
+                //bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/" + WarframeFissureTypeEnum.STORM + "/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -157,7 +224,13 @@ public class WarframePlugin {
         //钢铁裂隙
         if (TYPE_FISSUES_PATH_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/" + WarframeFissureTypeEnum.HARD + "/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/"+ WarframeFissureTypeEnum.HARD + "/" + + botId + "/" + user + "/" + group + "/" + rawMsg);
+                if(bytes!=null){
+                    bot.sendGroupMsg(group, Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(group,"图片生成错误！",false);
+                }
+                //bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getFissuesImage/" + WarframeFissureTypeEnum.HARD + "/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -166,7 +239,13 @@ public class WarframePlugin {
         //平原
         if (TYPE_ALL_CYCLE_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getAllCycleImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getAllCycleImage/"+ + botId + "/" + user + "/" + group + "/" + rawMsg);
+                if(bytes!=null){
+                    bot.sendGroupMsg(group, Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(group,"图片生成错误！",false);
+                }
+                //bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getAllCycleImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -180,7 +259,13 @@ public class WarframePlugin {
         //电波
         if (TYPE_NIGH_TWAVE_PLUGIN.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getNighTwaveImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getNighTwaveImage/"+ + botId + "/" + user + "/" + group + "/" + rawMsg);
+                if(bytes!=null){
+                    bot.sendGroupMsg(group, Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(group,"图片生成错误！",false);
+                }
+                //bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/mission/" + UUID.fastUUID() + "/getNighTwaveImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
@@ -190,9 +275,15 @@ public class WarframePlugin {
         if (TYPE_TRA_PLUGIN.getType().equals(StringUtils.substring(rawMsg, 0, TYPE_TRA_PLUGIN.getType().length()))) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
                 try {
-                    bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/" + UUID.fastUUID() + "/getTraImage/" + URLEncoder.encode(rawMsg.replace("翻译", "").trim(), "UTF-8") + "/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
+                    byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/" + UUID.fastUUID() + "/getTraImage/" + URLEncoder.encode(rawMsg.replace("翻译", "").trim(), "UTF-8") + "/" + botId + "/" + user + "/" + group + "/" + rawMsg);
+                    if(bytes!=null){
+                        bot.sendGroupMsg(group, Msg.builder().imgBase64(bytes).build(), false);
+                    }else{
+                        bot.sendGroupMsg(group,"图片生成错误！",false);
+                    }
+                    //bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/" + UUID.fastUUID() + "/getTraImage/" + URLEncoder.encode(rawMsg.replace("翻译", "").trim(), "UTF-8") + "/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
                 } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
+                   e.printStackTrace();
                 }
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
@@ -202,7 +293,13 @@ public class WarframePlugin {
         //金银垃圾
         if (TYPE_MARKET_GOD_DUMP.getType().equals(rawMsg) || TYPE_MARKET_SILVER_DUMP.getType().equals(rawMsg)) {
             if (SelectGroupFunctionOnOff.getGroupFunctionOnOff(group, FunctionEnums.FUNCTION_WARFRAME)) {
-                bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektDumpsImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
+                byte[] bytes = HttpUtils.sendGetForFile("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektDumpsImage/" + botId + "/" + user + "/" + group + "/" + rawMsg);
+                if(bytes!=null){
+                    bot.sendGroupMsg(group, Msg.builder().imgBase64(bytes).build(), false);
+                }else{
+                    bot.sendGroupMsg(group,"图片生成错误！",false);
+                }
+                //bot.sendGroupMsg(group, Msg.builder().img("http://localhost:" + GetServerPort.getPort() + "/warframe/market/" + UUID.fastUUID() + "/getMarektDumpsImage/" + botId + "/" + user + "/" + group + "/" + rawMsg).build(), false);
             } else {
                 return ErroSendMessage.getFunctionOff(bot, event, FunctionEnums.FUNCTION_WARFRAME);
             }
