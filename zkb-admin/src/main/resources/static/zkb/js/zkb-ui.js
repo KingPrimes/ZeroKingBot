@@ -1766,7 +1766,60 @@ var table = {
             },
         }
     });
+
 })(jQuery);
+
+function isJson(json) {
+
+    let is_json = true; //true at first
+
+    let object;
+    try {
+        object = JSON.parse(json);
+    } catch (error) {
+        is_json = false;
+        console.log("might be a problem in key or value's data type");
+    }
+
+    if (!is_json) {
+        countCharacter = function(string,character) {
+            count = 0;
+            for (var i = 0; i < string.length; i++) {
+                if (string.charAt(i) === character) { //counting : or ,
+                    count ++;
+                }
+            }
+            return count;
+        }
+
+        json = json.trim(); // remove whitespace, start and end spaces
+
+        if (json.charAt(0) !== '{' || json.charAt(json.length-1) !== '}') {
+            console.log("Brackets {} are not balanced")
+
+        }
+
+        else if ( !(countCharacter(json,':')-1 === countCharacter(json, ',')) ){
+
+            console.log("comma or colon are not balanced");
+
+        } else {
+
+            json = json.substring(1, json.length-1); //remove first and last brackets
+            json = json.split(',');
+
+
+            for (var i = 0; i < json.length; i++) {
+
+                pairs = json[i];
+                if (pairs.indexOf(':') === -1) { //if colon not exist in b/w
+                    console.log("No colon b/w key and value");
+                }
+            }
+        }
+    }
+    return is_json;
+}
 
 /** 表格类型 */
 table_type = {

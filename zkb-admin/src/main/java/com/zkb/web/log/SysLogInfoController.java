@@ -35,23 +35,23 @@ public class SysLogInfoController extends BaseController {
     public String infolog(ModelMap map) {
         List<Object> orderType = new ArrayList<>();
         for (WarframeTypeEnum key : WarframeTypeEnum.values()) {
-            if (!key.getType().equals("") && !key.getType().equals("warframe-data-the-provided-plat")) {
+            if (!key.getType().isEmpty() && !key.getType().equals("warframe-data-the-provided-plat")) {
                 orderType.add(key.getType().replace("/", ""));
             }
         }
         for (GifEnums key : GifEnums.values()) {
-            if (!key.getType().equals("")) {
+            if (!key.getType().isEmpty()) {
                 orderType.add(key.getType().replace("/", ""));
             }
         }
         for (ImageEnum key : ImageEnum.values()) {
-            if (!key.getType().equals("")) {
+            if (!key.getType().isEmpty()) {
                 orderType.add(key.getType().replace("/", ""));
             }
         }
         List<Object> title = new ArrayList<>();
         for (TitleType key : TitleType.values()) {
-            if (!key.getType().equals("")) {
+            if (!key.getType().isEmpty()) {
                 title.add(key.getType());
             }
         }
@@ -60,6 +60,16 @@ public class SysLogInfoController extends BaseController {
         return prefix + "/info";
     }
 
+    @GetMapping("/detail/{logId}")
+    public String detail(@PathVariable("logId") Long logId, ModelMap mmap) {
+        Map<Object, Object> m = new HashMap<>();
+        for (BusinessType key : BusinessType.values()) {
+            m.put(key.ordinal(), key.getType());
+        }
+        mmap.put("businessType", m);
+        mmap.put("loginfo", infoService.selectSysLogInfoById(logId));
+        return prefix + "/detail";
+    }
 
     @PostMapping("/list")
     @ResponseBody
@@ -78,7 +88,7 @@ public class SysLogInfoController extends BaseController {
     }
 
 
-    @GetMapping("/detail/{operId}")
+/*    @GetMapping("/detail/{operId}")
     public String detail(@PathVariable("operId") Long operId, ModelMap mmap) {
         Map<Object, Object> m = new HashMap<>();
         for (BusinessType key : BusinessType.values()) {
@@ -87,7 +97,7 @@ public class SysLogInfoController extends BaseController {
         mmap.put("businessType", m);
         mmap.put("infoLog", infoService.selectSysLogInfoById(operId));
         return prefix + "/detail";
-    }
+    }*/
 
     @Log(title = "操作日志", businessType = BusinessType.CLEAN)
     @PostMapping("/clean")

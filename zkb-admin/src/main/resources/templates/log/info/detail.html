@@ -9,45 +9,65 @@
 	<form class="form-horizontal m-t" id="signupForm">
 		<div class="form-group">
 			<label class="col-sm-2 control-label">操作模块：</label>
-			<div class="form-control-static" th:text="${operLog.title} + ' / ' + ${businessType[operLog.businessType]}">
+			<div class="form-control-static" th:text="${loginfo.logTitle} + ' / ' + ${businessType[loginfo.logBusinessType]}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label">登录信息：</label>
-			<div class="form-control-static" th:text="${operLog.operName} +  ' / ' + ${operLog.operIp}+ ' / ' + ${operLog.operLocation}">
+			<label class="col-sm-2 control-label">执行的命令：</label>
+			<div class="form-control-static" th:text="${loginfo.logOrderType}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">机器人/群组：</label>
+			<div class="form-control-static" th:text="${loginfo.logBot} + ' / ' + ${loginfo.logGroup}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">请求的用户：</label>
+			<div class="form-control-static" th:text="${loginfo.logUser}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">原信息：</label>
+			<div class="form-control-static" th:text="${loginfo.logRawMsg}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">请求地址：</label>
-			<div class="form-control-static" th:text="${operLog.operUrl}">
+			<div class="form-control-static" th:text="${loginfo.logUrl}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">请求方式：</label>
-			<div class="form-control-static" th:text="${operLog.requestMethod}">
+			<div class="form-control-static" th:text="${loginfo.logRequestMethod}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">操作方法：</label>
-			<div class="form-control-static" th:text="${operLog.method}">
+			<div class="form-control-static" th:text="${loginfo.logMethod}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">执行时间：</label>
+			<div class="form-control-static" th:text="${loginfo.logRunTime}+'ms'">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">请求参数：</label>
-			<div class="form-control-static"><pre id="operParam"></pre></div>
+			<div class="form-control-static"><pre id="logParam"></pre></div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">返回参数：</label>
-			<div class="form-control-static"><pre id="jsonResult"></pre></div>
+			<div class="form-control-static"><pre id="logResult"></pre></div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">状态：</label>
-			<div class="form-control-static" th:class="${operLog.status == 0 ? 'label label-primary' : 'label label-danger'}" th:text="${operLog.status == 0 ? '正常' : '异常'}">
+			<div class="form-control-static" th:class="${loginfo.logStatus == 0 ? 'label label-primary' : 'label label-danger'}" th:text="${loginfo.logStatus == 0 ? '正常' : '异常'}">
 			</div>
 		</div>
-		<div class="form-group" th:style="'display:' + ${operLog.status == 0 ? 'none' : 'block'}">
+		<div class="form-group" th:style="'display:' + ${loginfo.logStatus == 0 ? 'none' : 'block'}">
 			<label class="col-sm-2 control-label">异常信息：</label>
-			<div class="form-control-static" th:text="${operLog.errorMsg}">
+			<div class="form-control-static" th:text="${loginfo.logErrorMsg}">
 			</div>
 		</div>
 	</form>
@@ -56,17 +76,17 @@
 <th:block th:include="include :: jsonview-js" />
 <script th:inline="javascript">
 	$(function() {
-		var operParam = [[${operLog.operParam}]];
-		if ($.common.isNotEmpty(operParam) && operParam.length < 2000) {
-			$("#operParam").JSONView(operParam);
+		var logParam = [[${loginfo.logParam}]];
+		if ($.common.isNotEmpty(logParam)  && isJson(logParam)) {
+			$("#logParam").JSONView(logParam);
 		} else {
-			$("#operParam").text(operParam);
+			$("#logParam").text(logParam);
 		}
-		var jsonResult = [[${operLog.jsonResult}]];
-		if ($.common.isNotEmpty(jsonResult) && jsonResult.length < 2000) {
-			$("#jsonResult").JSONView(jsonResult);
+		var logResult = [[${loginfo.logResult}]];
+		if ($.common.isNotEmpty(logResult) && isJson(logResult)) {
+			$("#logResult").JSONView(logResult);
 		} else {
-			$("#jsonResult").text(jsonResult);
+			$("#logResult").text(logResult);
 		}
 	});
 </script>
