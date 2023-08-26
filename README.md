@@ -35,10 +35,8 @@
 项目部署
 ---
 ---
-
-- [Windows部署文档](doc/win.md)
-- [Linux部署文档](doc/liunx.md)
-- [常见问题](doc/asked.md)
+ 具体请查看Wiki！视频有滞后性！
+- [Wiki](https://github.com/KingPrimes/ZeroKingBot/wiki)
 - [最新视频部署教程](https://b23.tv/tnLP86i)
 
 使用文档
