@@ -4,7 +4,7 @@ import com.zkb.framework.config.EnumValue;
 
 public enum GitHubUrlEnum implements EnumValue {
 
-    ZeroKingBotDataSource((short) 0, "https://ghproxy.com/https://raw.githubusercontent.com/KingPrimes/ZeroKingBotDataSource/main/"),
+    ZeroKingBotDataSource((short) 0, "https://raw.gitmirror.com/KingPrimes/ZeroKingBotDataSource/main/"),
 
     ;
 

@@ -2,6 +2,7 @@ package com.zkb.common.load;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zkb.common.core.redis.RedisCache;
+import com.zkb.common.utils.GitFiles;
 import com.zkb.common.utils.JarManifest;
 import com.zkb.common.utils.RuntimeUtils;
 import com.zkb.common.utils.file.FileUtils;
@@ -120,12 +121,12 @@ public class LoadConfig {
         }
 
         if (!file.exists()) {
-            log.info("数据库文件不存在，正在初始化……");
+            log.info("数据库文件不存在，正在创建数据库文件……");
             try {
                 file.createNewFile();
-                log.info("数据库文件初始化完毕……");
+                log.info("数据库文件创建完毕……");
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error("数据库文件创建失败，错误信息：{}",e.getMessage());
             }
         }
     }
@@ -179,6 +180,9 @@ public class LoadConfig {
     public static boolean upGocq(String os){
         ReleaseDomain release;
         release = JSONObject.parseObject(HttpUtils.sendGetOkHttp("https://api.github.com/repos/Mrs4s/go-cqhttp/releases/latest"), ReleaseDomain.class);
+        if(release==null){
+            return true;
+        }
         String value;
         value = release.getName();
         boolean exists = SpringUtils.getBean(RedisCache.class).exists("gocq-value");
@@ -221,13 +225,19 @@ public class LoadConfig {
     public void initHtml() {
         log.info("开始初始化Html渲染模板……");
         File file = new File(HTML_PATH);
-        String v = HttpUtils.sendGetOkHttp("https://ghproxy.com/https://github.com/KingPrimes/ZKBotImageHtml/blob/main/version.txt");
+        String v = HttpUtils.sendGetOkHttp("https://raw.githubusercontent.com/KingPrimes/ZKBotImageHtml/main/version.txt");
+        if(v.isEmpty() ||v.equals("timeout")){
+            v = HttpUtils.sendGetOkHttp("https://raw.gitmirror.com/KingPrimes/ZKBotImageHtml/main/version.txt");
+        }
+        if(v.isEmpty() ||v.equals("timeout")){
+            v = HttpUtils.sendGetOkHttp("https://ghproxy.com/https://raw.githubusercontent.com/KingPrimes/ZKBotImageHtml/main/version.txt");
+        }
         if(v.isEmpty() ||v.equals("timeout")){
             log.info("HTML渲染模板超时！\n如果你是初次启动请手动下载！\n不是初次启动请忽略本条消息！");
             return;
         }
         long versionNew = Long.parseLong(v.replace(".", "").trim());
-        long version = 0;
+        long version;
         if (!file.exists()) {
             try {
                 Git.cloneRepository()
@@ -317,11 +327,11 @@ public class LoadConfig {
         if(ZeroConfig.getTest()){
             log.info("开始初始化表情文件……");
             try {
-                File file = new File("./temp-png");
-                if (!file.exists()){
-                    file.mkdirs();
-                    Git.cloneRepository().setURI("https://gitcode.net/KingPrimes/zerokingbot-gif.git").setDirectory(file).call();
-                }
+              if(GitFiles.git("./emoji_file")){
+                  log.info("表情文件下载完毕");
+              }else{
+                  log.info("如果之前已下载完成过请忽略本条消息！表情文件下载中断，可能是触发到请求速率限制！请一小时后再次尝试！");
+              }
             } catch (Exception e) {
                 log.error("错误信息：{}", e.getMessage());
             }
