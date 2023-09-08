@@ -66,7 +66,7 @@ public class WarframeMarketRivenTionServiceImpl implements IWarframeMarketRivenT
                 if (!ZeroConfig.getTest()) {
                     log.info("开始初始化Warframe.MarketRivenTion表数据……");
                     String aliasJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc() + "warframe_market_riven_tion.json");
-                    if (aliasJson.trim().length() == 0) {
+                    if (aliasJson.trim().isEmpty()) {
                         log.error("未获取到MarketRivenTion数据……");
                         return;
                     }

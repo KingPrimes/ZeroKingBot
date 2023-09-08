@@ -36,7 +36,7 @@ public class WarframeMissionUtils {
         GlobalStates form = states.getPacket().getData();
         GlobalStates redisForm = redisState.getPacket().getData();
 
-        if (form.getArbitration().getNode().isEmpty()) {
+        if (form.getArbitration().getNode() == null || form.getArbitration().getNode().isEmpty()) {
             states.getPacket().getData().setArbitration(redisForm.getArbitration());
         }
         SpringUtils.getBean(RedisCache.class).setCacheObject(REDIS_MISSION_KEY.getType(), states);
@@ -98,7 +98,7 @@ public class WarframeMissionUtils {
         //判断虚空商人是否相同
         if (form.getVoidTrader() != null && redisForm.getVoidTrader() != null) {
             if (!form.getVoidTrader().equals(redisForm.getVoidTrader())) {
-                if (form.getVoidTrader().getInventory().size() == 0 && !form.getVoidTrader().getActive()) {
+                if (form.getVoidTrader().getInventory().isEmpty() && !form.getVoidTrader().getActive()) {
                     WarframeDataUpdateMission.updateVoidTrader(MessageUtils.message("warframe.up.voidOut"));
                 } else {
                     WarframeDataUpdateMission.updateVoidTrader(MessageUtils.message("warframe.up.voidIn"));

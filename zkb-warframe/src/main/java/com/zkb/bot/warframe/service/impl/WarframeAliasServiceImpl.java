@@ -72,7 +72,7 @@ public class WarframeAliasServiceImpl implements IWarframeAliasService, CommandL
                 if (!ZeroConfig.getTest()) {
                     log.info("开始初始化Warframe别名表数据……");
                     String aliasJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc() + "warframe_alias.json");
-                    if (aliasJson.trim().length() == 0) {
+                    if (aliasJson.trim().isEmpty()) {
                         log.error("未获取到别名数据……");
                         return;
                     }

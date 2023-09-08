@@ -80,7 +80,7 @@ public class WarframeMarketSisterServiceImpl implements IWarframeMarketSisterSer
                 if (!ZeroConfig.getTest()) {
                     log.info("开始初始化Warframe.Market信条武器数据……");
                     String aliasJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc() + "warframe_market_sister.json");
-                    if (aliasJson.trim().length() == 0) {
+                    if (aliasJson.trim().isEmpty()) {
                         log.error("未获取到信条武器数据……");
                         return;
                     }

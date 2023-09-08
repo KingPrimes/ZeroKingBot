@@ -28,7 +28,7 @@ public class WarframeTypeEnumServiceImpl implements IWarframeTypeEnumService, Co
         log.info("开始初始化Warframe指令……");
         List<WarframeTypeEnum> tes = typeEnumMapper.selectWarframeTypeEnumList(null);
 
-        if (tes == null || tes.size() == 0 || tes.size() != com.zkb.bot.enums.WarframeTypeEnum.values().length) {
+        if (tes == null || tes.isEmpty() || tes.size() != com.zkb.bot.enums.WarframeTypeEnum.values().length) {
             if (tes != null) {
                 Map<String, String> initMap = new HashMap<>();
                 Map<String, String> sqlMap = new HashMap<>();
@@ -56,7 +56,7 @@ public class WarframeTypeEnumServiceImpl implements IWarframeTypeEnumService, Co
             }
 
             for (com.zkb.bot.enums.WarframeTypeEnum key : com.zkb.bot.enums.WarframeTypeEnum.values()) {
-                if (com.zkb.bot.enums.WarframeTypeEnum.valueOf(key.name()).getType() != null && com.zkb.bot.enums.WarframeTypeEnum.valueOf(key.name()).getType().trim().length() != 0 && !key.name().equals("REDIS_MISSION_KEY")) {
+                if (com.zkb.bot.enums.WarframeTypeEnum.valueOf(key.name()).getType() != null && !com.zkb.bot.enums.WarframeTypeEnum.valueOf(key.name()).getType().trim().isEmpty() && !key.name().equals("REDIS_MISSION_KEY")) {
                     WarframeTypeEnum typeEnum = new WarframeTypeEnum();
                     typeEnum.setKey(key.name());
                     typeEnum.setValue(key.getType());

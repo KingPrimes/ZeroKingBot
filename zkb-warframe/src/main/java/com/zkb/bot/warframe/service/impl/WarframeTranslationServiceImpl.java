@@ -58,7 +58,7 @@ public class WarframeTranslationServiceImpl implements IWarframeTranslationServi
     public String enToZh(String us_en) {
         try {
             String traCh = warframeTranslationMapper.enToZh(us_en);
-            if (traCh == null || traCh.trim().length() == 0) {
+            if (traCh == null || traCh.trim().isEmpty()) {
                 return us_en;
             }
             return traCh;
@@ -248,7 +248,7 @@ public class WarframeTranslationServiceImpl implements IWarframeTranslationServi
                 if (!ZeroConfig.getTest()) {
                     log.info("开始初始化Warframe中英翻译表数据……");
                     String tarJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc() + "warframe_translation.json");
-                    if (tarJson.trim().length() == 0) {
+                    if (tarJson.trim().isEmpty()) {
                         log.error("未获取到中英翻译数据……");
                         return;
                     }

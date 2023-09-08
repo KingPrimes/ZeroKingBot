@@ -117,7 +117,7 @@ public class OnlineWebSessionManager extends DefaultWebSessionManager {
             }
 
         }
-        if (needOfflineIdList.size() > 0) {
+        if (!needOfflineIdList.isEmpty()) {
             try {
                 userOnlineService.batchDeleteOnline(needOfflineIdList);
             } catch (Exception e) {

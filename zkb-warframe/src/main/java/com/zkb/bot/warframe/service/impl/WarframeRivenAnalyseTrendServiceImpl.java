@@ -88,7 +88,7 @@ public class WarframeRivenAnalyseTrendServiceImpl implements IWarframeRivenAnaly
                 if (!ZeroConfig.getTest()) {
                     log.info("开始初始化Warframe-Riven-Analyse-Trend数据……");
                     String aliasJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc() + "warframe_riven_analyse_trend.json");
-                    if (aliasJson.trim().length() == 0) {
+                    if (aliasJson.trim().isEmpty()) {
                         log.error("未获取到Warframe-Riven-Analyse-Trend数据……");
                         return;
                     }

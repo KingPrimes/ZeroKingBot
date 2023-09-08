@@ -122,7 +122,7 @@ public class WarframeMarketElementServiceImpl implements IWarframeMarketElementS
                 if (!ZeroConfig.getTest()) {
                     log.info("开始初始化Warframe赤毒元素字典数据……");
                     String aliasJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc() + "warframe_market_element.json");
-                    if (aliasJson.trim().length() == 0) {
+                    if (aliasJson.trim().isEmpty()) {
                         log.error("未获取到赤毒元素字典数据……");
                         return;
                     }

@@ -18,12 +18,15 @@ import com.zkb.common.utils.DateUtils;
 import com.zkb.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
 
 import static com.zkb.bot.enums.WarframeEnum.REDIS_MISSION_KEY;
 
 @Component
+@Controller
 public class WarframeUtils {
 
     @Autowired
@@ -32,6 +35,7 @@ public class WarframeUtils {
     IWarframeTranslationService traService;
 
     @LogInfo(title = TitleType.Warframe, orderType = "信条", businessType = BusinessType.SELECT)
+    @ResponseBody
     public static String getSister(String offset, long bot, long user, long group, String rawMsg) {
         BiliBili bili = UpUtils.getUpDynamic(offset, 16730771L);
         BiliBili.BDataDao.Items item = new BiliBili.BDataDao.Items();

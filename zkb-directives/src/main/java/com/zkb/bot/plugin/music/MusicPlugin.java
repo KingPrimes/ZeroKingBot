@@ -28,7 +28,7 @@ public class MusicPlugin {
 
         String rawMsg = event.getRawMessage();
 
-        if (rawMsg.trim().length() == 0) {
+        if (rawMsg.trim().isEmpty()) {
             return MESSAGE_IGNORE;
         }
 

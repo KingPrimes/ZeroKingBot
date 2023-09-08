@@ -32,7 +32,6 @@ public class VoidHtmlController {
     @LogInfo(title = TitleType.Warframe, orderType = "奸商", businessType = BusinessType.SELECT)
     public String getHtml(Model model) {
 
-
         SocketGlobalStates sgs = redisCache.getCacheObject(REDIS_MISSION_KEY.getType());
         GlobalStates.VoidTrader v = sgs.getPacket().getData().getVoidTrader();
         v.setLocation(v.getLocation().replace(

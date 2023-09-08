@@ -37,7 +37,7 @@ public class MarektImageController {
             response.getOutputStream().write(out.toByteArray());
             return;
         }
-        if (market.getPayload().getOrders().size() != 0) {
+        if (!market.getPayload().getOrders().isEmpty()) {
             ByteArrayOutputStream out = SpringUtils.getBean(HtmlToImage.class).marketImage2(market, seBy, isMax, form);
             response.getOutputStream().write(out.toByteArray());
         } else {

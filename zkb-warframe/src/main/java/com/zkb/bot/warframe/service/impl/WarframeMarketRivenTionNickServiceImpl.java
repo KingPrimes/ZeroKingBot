@@ -58,7 +58,7 @@ public class WarframeMarketRivenTionNickServiceImpl implements IWarframeMarketRi
                 if (!ZeroConfig.getTest()) {
                     log.info("开始初始化Warframe.MarketRiven别名表数据……");
                     String aliasJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc() + "warframe_market_riven_tion_nick.json");
-                    if (aliasJson.trim().length() == 0) {
+                    if (aliasJson.trim().isEmpty()) {
                         log.error("未获取到MarketRiven别名数据……");
                         return;
                     }

@@ -339,7 +339,7 @@ public class HttpUtils {
     }
 
     /**
-     * 根据URL网址获取Image图片
+     * 根据URL网址获取文件
      *
      * @param url 网址
      * @return 流数据 二进制

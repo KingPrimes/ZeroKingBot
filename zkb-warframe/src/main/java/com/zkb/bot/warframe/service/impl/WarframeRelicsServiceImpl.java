@@ -160,7 +160,7 @@ public class WarframeRelicsServiceImpl implements IWarframeRelicsService, Comman
             public void run() {
                 if (!ZeroConfig.getTest()) {
                     log.info("开始初始化Warframe遗物表数据……");
-                    if (WarframeRelicsMapper.selectWarframeRelicsList(null).size() == 0) {
+                    if (WarframeRelicsMapper.selectWarframeRelicsList(null).isEmpty()) {
                         upInit();
                         DataHash d = JSONObject.parseObject(HttpUtils.sendGetOkHttp("https://drops.warframestat.us//data/info.json"), DataHash.class);
                         SpringUtils.getBean(RedisCache.class).setCacheObject("datahash", d);

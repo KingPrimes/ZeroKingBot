@@ -37,7 +37,7 @@ public class WarframeSubscribePlugin {
     @GroupMessageHandler
     public int groupMessageHandler(Bot bot, GroupMessageEvent event) {
 
-        if (event.getRawMessage().trim().length() == 0) {
+        if (event.getRawMessage().trim().isEmpty()) {
             return MESSAGE_IGNORE;
         }
 
@@ -54,11 +54,11 @@ public class WarframeSubscribePlugin {
             WarframeSubscribeEnums enums = WarframeDataUpdateMission.getSubscribeEnums(Integer.valueOf(str));
             WarframeMissionSubscribe subscribe1 = new WarframeMissionSubscribe(event.getGroupId(), "", bot.getSelfId(), enums.ordinal());
             List<WarframeMissionSubscribe> subscribes = service.selectWarframeMissionSubscribeList(subscribe1);
-            if (subscribes.size() != 0) {
+            if (!subscribes.isEmpty()) {
                 if (!GroupAddApi.isAdmin(bot, event)) {
                     for (WarframeMissionSubscribe subscribe : subscribes) {
                         if (subscribe.getSubscribeUser() != null) {
-                            if (subscribe.getSubscribeUser().length() != 0) {
+                            if (!subscribe.getSubscribeUser().isEmpty()) {
                                 Msg.builder().text(MessageUtils.message("warframe.sb.group.error")).sendToGroup(bot, event);
                                 return MESSAGE_BLOCK;
                             }
@@ -127,7 +127,7 @@ public class WarframeSubscribePlugin {
     }
 
     private boolean err(Bot bot, long GroupId, String str) {
-        if (str.length() == 0) {
+        if (str.isEmpty()) {
             bot.sendGroupMsg(GroupId, Msg.builder().text("请在订阅后方填写要订阅的数字\n详情发送[订阅列表]查看").build(), false);
             return true;
         }

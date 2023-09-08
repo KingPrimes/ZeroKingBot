@@ -20,7 +20,7 @@ public class GifImagePlugin {
     @GroupMessageHandler
     public int groupMessageHandler(Bot bot, GroupMessageEvent event) {
 
-        if (event.getRawMessage().trim().length() == 0) {
+        if (event.getRawMessage().trim().isEmpty()) {
             return MESSAGE_IGNORE;
         }
 

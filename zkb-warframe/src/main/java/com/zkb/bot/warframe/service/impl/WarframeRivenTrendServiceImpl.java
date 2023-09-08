@@ -119,7 +119,7 @@ public class WarframeRivenTrendServiceImpl implements IWarframeRivenTrendService
                 if (!ZeroConfig.getTest()) {
                     log.info("开始初始化Warframe.RivenTrend紫卡倾向数据……");
                     String aliasJson = HttpUtils.sendGetOkHttp(GitHubUrlEnum.ZeroKingBotDataSource.desc() + "warframe_riven_trend.json");
-                    if (aliasJson.trim().length() == 0) {
+                    if (aliasJson.trim().isEmpty()) {
                         log.error("未获取到Warframe.RivenTrend紫卡倾向数据……");
                         return;
                     }
