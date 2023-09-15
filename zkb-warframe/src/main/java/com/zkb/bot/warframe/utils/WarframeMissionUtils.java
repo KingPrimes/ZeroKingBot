@@ -36,7 +36,11 @@ public class WarframeMissionUtils {
         GlobalStates form = states.getPacket().getData();
         GlobalStates redisForm = redisState.getPacket().getData();
 
-        if (form.getArbitration().getNode() == null || form.getArbitration().getNode().isEmpty()) {
+        if(form.getArbitration().getNode()!=null && form.getArbitration().getNode().isEmpty()){
+            states.getPacket().getData().setArbitration(redisForm.getArbitration());
+        }
+
+        if (form.getArbitration().getNode() == null) {
             states.getPacket().getData().setArbitration(redisForm.getArbitration());
         }
         SpringUtils.getBean(RedisCache.class).setCacheObject(REDIS_MISSION_KEY.getType(), states);

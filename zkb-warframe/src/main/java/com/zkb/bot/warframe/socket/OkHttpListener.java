@@ -5,21 +5,44 @@ import com.zkb.bot.warframe.dao.SocketGlobalStates;
 import com.zkb.bot.warframe.utils.WarframeMissionUtils;
 import com.zkb.framework.manager.AsyncManager;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.Response;
-import okhttp3.WebSocket;
-import okhttp3.WebSocketListener;
+import okhttp3.*;
 import okio.ByteString;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.stereotype.Component;
 
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
+@Component
 public class OkHttpListener extends WebSocketListener {
 
 
-    public OkHttpListener() {
-        super();
+    private static final OkHttpListener socket = new OkHttpListener();
+
+    public static OkHttpListener socket() {
+        return socket;
+    }
+
+    WebSocket webSocket;
+
+
+    public void connectServer(){
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60,TimeUnit.SECONDS)
+                .connectTimeout(60,TimeUnit.SECONDS)
+                .pingInterval(45,TimeUnit.SECONDS)
+                .build();
+        Request request = new Request.Builder().url("ws://api.warframestat.us/socket").build();
+        webSocket = client.newWebSocket(request,this);
+    }
+
+    public void close() {
+        if (webSocket != null) {
+            webSocket.close(1000, "service close");
+        }
     }
 
     @Override
@@ -56,7 +79,7 @@ public class OkHttpListener extends WebSocketListener {
         super.onClosing(webSocket, code, reason);
         log.warn("onClosing:链接被关闭,尝试重新连接...Code:{}---Reason:{}", code, reason);
         if (code == 1002) {
-            OkHttpWebSocket.init();
+            this.connectServer();
         }
 
 
@@ -66,6 +89,6 @@ public class OkHttpListener extends WebSocketListener {
     public void onFailure(@NotNull WebSocket webSocket, @NotNull Throwable t, @Nullable Response response) {
         super.onFailure(webSocket, t, response);
         log.warn("链接出错,尝试重新连接...\nError:{}", t.getMessage());
-        OkHttpWebSocket.init();
+        this.connectServer();
     }
 }
