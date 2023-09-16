@@ -226,13 +226,13 @@ public class LoadConfig {
         log.info("开始初始化Html渲染模板……");
         File file = new File(HTML_PATH);
         String v = HttpUtils.sendGetOkHttp("https://raw.githubusercontent.com/KingPrimes/ZKBotImageHtml/main/version.txt");
-        if(v.isEmpty() ||v.equals("timeout")){
+        if(v.trim().isEmpty() ||v.equals("timeout")){
             v = HttpUtils.sendGetOkHttp("https://raw.gitmirror.com/KingPrimes/ZKBotImageHtml/main/version.txt");
         }
-        if(v.isEmpty() ||v.equals("timeout")){
+        if(v.trim().isEmpty() ||v.equals("timeout")){
             v = HttpUtils.sendGetOkHttp("https://ghproxy.com/https://raw.githubusercontent.com/KingPrimes/ZKBotImageHtml/main/version.txt");
         }
-        if(v.isEmpty() ||v.equals("timeout")){
+        if(v.trim().isEmpty() ||v.equals("timeout")){
             log.info("HTML渲染模板超时！\n如果你是初次启动请手动下载！\n不是初次启动请忽略本条消息！");
             return;
         }
