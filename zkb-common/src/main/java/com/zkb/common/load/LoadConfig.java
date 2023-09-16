@@ -226,44 +226,51 @@ public class LoadConfig {
         log.info("开始初始化Html渲染模板……");
         File file = new File(HTML_PATH);
         String v = HttpUtils.sendGetOkHttp("https://raw.githubusercontent.com/KingPrimes/ZKBotImageHtml/main/version.txt");
+
         if(v.trim().isEmpty() ||v.equals("timeout")){
             v = HttpUtils.sendGetOkHttp("https://raw.gitmirror.com/KingPrimes/ZKBotImageHtml/main/version.txt");
         }
+
         if(v.trim().isEmpty() ||v.equals("timeout")){
             v = HttpUtils.sendGetOkHttp("https://ghproxy.com/https://raw.githubusercontent.com/KingPrimes/ZKBotImageHtml/main/version.txt");
         }
+
         if(v.trim().isEmpty() ||v.equals("timeout")){
             log.info("HTML渲染模板超时！\n如果你是初次启动请手动下载！\n不是初次启动请忽略本条消息！");
             return;
         }
-        long versionNew = Long.parseLong(v.replace(".", "").trim());
-        long version;
-        if (!file.exists()) {
-            try {
-                Git.cloneRepository()
-                        .setURI("https://ghproxy.com/https://github.com/KingPrimes/ZKBotImageHtml")
-                        .setDirectory(file)
-                        .call();
-            } catch (GitAPIException e) {
-                log.error("下载Html文件失败：{}", e.getMessage());
-            }
-        } else {
-            version = Long.parseLong(FileUtils.getFileString(HTML_PATH + "/version.txt").replace(".", "").trim());
-            if (versionNew > version && versionNew != 0) {
-                log.info("当前版本：{} 最新版本：{} 检测到新版Html模板，选择是否更新", version, versionNew);
+        try {
+            long versionNew = Long.parseLong(v.replace(".", "").trim());
+            long version;
+            if (!file.exists()) {
                 try {
-                    if (FileUtils.delAllFile(HTML_PATH)) {
-                        Git.cloneRepository()
-                                .setURI("https://ghproxy.com/https://github.com/KingPrimes/ZKBotImageHtml")
-                                .setDirectory(file)
-                                .call();
-                    }
-                } catch (Exception e) {
+                    Git.cloneRepository()
+                            .setURI("https://ghproxy.com/https://github.com/KingPrimes/ZKBotImageHtml")
+                            .setDirectory(file)
+                            .call();
+                } catch (GitAPIException e) {
                     log.error("下载Html文件失败：{}", e.getMessage());
                 }
+            } else {
+                version = Long.parseLong(FileUtils.getFileString(HTML_PATH + "/version.txt").replace(".", "").trim());
+                if (versionNew > version && versionNew != 0) {
+                    log.info("当前版本：{} 最新版本：{} 检测到新版Html模板，选择是否更新", version, versionNew);
+                    try {
+                        if (FileUtils.delAllFile(HTML_PATH)) {
+                            Git.cloneRepository()
+                                    .setURI("https://ghproxy.com/https://github.com/KingPrimes/ZKBotImageHtml")
+                                    .setDirectory(file)
+                                    .call();
+                        }
+                    } catch (Exception e) {
+                        log.error("下载Html文件失败：{}", e.getMessage());
+                    }
+                }
             }
+            log.info("Html渲染模板初始化完毕……");
+        } catch (Exception ignored){
+
         }
-        log.info("Html渲染模板初始化完毕……");
     }
 
   /*  @PostConstruct
