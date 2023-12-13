@@ -3,10 +3,10 @@ package com.zkb.common.load;
 import com.alibaba.fastjson.JSONObject;
 import com.zkb.common.core.redis.RedisCache;
 import com.zkb.common.utils.GitFiles;
-import com.zkb.common.utils.JarManifest;
 import com.zkb.common.utils.RuntimeUtils;
 import com.zkb.common.utils.file.FileUtils;
 import com.zkb.common.utils.http.HttpUtils;
+import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.spring.SpringUtils;
 import com.zkb.common.vo.ReleaseDomain;
 import com.zkb.common.zero.ZeroConfig;
@@ -23,7 +23,6 @@ import javax.annotation.PostConstruct;
 import java.io.*;
 import java.lang.reflect.Method;
 import java.util.Locale;
-import java.util.jar.Manifest;
 
 @Component
 @Configuration
@@ -32,8 +31,6 @@ public class LoadConfig {
     private static final Logger log = LoggerFactory.getLogger(LoadConfig.class);
 
     private static final String HTML_PATH = "./ZKBotHtml";
-
-    private static final Manifest manifestFromClasspath = JarManifest.getManifestFromClasspath(LoadConfig.class);
 
     /**
      * 获取操作系统
@@ -54,7 +51,7 @@ public class LoadConfig {
 
     //启动完成之后自动打开浏览器并访问 Url 地址
     public static void index() {
-        String url = "http://localhost:8080";
+        String url = "http://localhost:"+GetServerPort.getPort();
         // 获取操作系统的名字
         String osName = System.getProperty("os.name", "");
         try {
@@ -87,7 +84,7 @@ public class LoadConfig {
                     Runtime.getRuntime().exec(new String[]{browser, url});
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("尝试打开浏览器出现错误：{}",e.getMessage());
         }
     }
 
@@ -136,7 +133,6 @@ public class LoadConfig {
         int os = isOs();
         if (os == 1) {
             initWinRedis();
-            initQQ("go-cqhttp_windows_amd64.exe");
         }
     }
 
@@ -225,6 +221,7 @@ public class LoadConfig {
     public void initHtml() {
         log.info("开始初始化Html渲染模板……");
         File file = new File(HTML_PATH);
+        log.info("正在尝试获取Html渲染模板版本号……请耐心等待！");
         String v = HttpUtils.sendGetOkHttp("https://raw.githubusercontent.com/KingPrimes/ZKBotImageHtml/main/version.txt");
 
         if(v.trim().isEmpty() ||v.equals("timeout")){
@@ -237,6 +234,7 @@ public class LoadConfig {
 
         if(v.trim().isEmpty() ||v.equals("timeout")){
             log.info("HTML渲染模板超时！\n如果你是初次启动请手动下载！\n不是初次启动请忽略本条消息！");
+            log.info("下载地址：https://github.com/KingPrimes/ZKBotImageHtml");
             return;
         }
         try {
@@ -249,7 +247,7 @@ public class LoadConfig {
                             .setDirectory(file)
                             .call();
                 } catch (GitAPIException e) {
-                    log.error("下载Html文件失败：{}", e.getMessage());
+                    log.error("下载Html文件失败：{}\n请您手动下载：https://github.com/KingPrimes/ZKBotImageHtml", e.getMessage());
                 }
             } else {
                 version = Long.parseLong(FileUtils.getFileString(HTML_PATH + "/version.txt").replace(".", "").trim());
@@ -263,7 +261,7 @@ public class LoadConfig {
                                     .call();
                         }
                     } catch (Exception e) {
-                        log.error("下载Html文件失败：{}", e.getMessage());
+                        log.error("下载Html文件失败：{}\n请您手动下载：https://github.com/KingPrimes/ZKBotImageHtml", e.getMessage());
                     }
                 }
             }
