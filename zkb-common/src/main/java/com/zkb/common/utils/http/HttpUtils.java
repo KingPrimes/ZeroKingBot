@@ -22,6 +22,7 @@ import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 通用http发送方法
@@ -472,7 +473,9 @@ public class HttpUtils {
      */
     public static String sendGetOkHttp(String url, String param, Headers.Builder headers) {
         try {
-            Response response = httpClient.newCall(send(url, param, headers)).execute();
+            Call call = httpClient.newCall(send(url, param, headers));
+            call.timeout().timeout(30, TimeUnit.SECONDS);
+            Response response = call.execute();
             String tmp = Objects.requireNonNull(response.body()).string();
             response.close();
             return tmp;
