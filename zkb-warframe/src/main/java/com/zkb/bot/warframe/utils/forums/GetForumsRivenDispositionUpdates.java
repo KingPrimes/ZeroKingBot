@@ -87,33 +87,48 @@ public class GetForumsRivenDispositionUpdates {
                     for (Element e1 : p) {
                         //格式化
                         String br = String.valueOf(e1).replace("<br>", "HN");
+                        if(br.trim().equals("<p>&nbsp;</p>")){
+                            continue;
+                        }
                         //重新解析格式化后的Html
                         Document doc = Jsoup.parse(br);
                         //遍历此标签中的元素
                         for (Element e2 : doc.getElementsByTag("p")) {
-                            String[] rivens = e2.text().split("HN");
-                            for (String riven : rivens) {
+                            //根据HN裁剪内容
+                            String[] rives = e2.text().split("HN");
+
+                            for (String riven : rives) {
+                                //根据：裁剪内容
                                 String[] wep = riven.split(":");
-                                String[] rmnt = wep[1].split("->");
+                                //根据->裁剪内容
+                                String[] rent = wep[1].split("->");
+                                //新建倾向变更实体类
                                 WarframeRivenTrend trend = new WarframeRivenTrend();
+                                //根据：裁剪内容的第0位下标是武器名
                                 trend.setRivenTrendName(wep[0]);
-                                String newNum = rmnt[1].replaceAll("[^\\d.]", "");
+                                //根据->裁剪内容的第1位下标是更改后的倾向值
+                                String newNum = rent[1].replaceAll("[^\\d.]", "");
+                                //设置新的倾向值
                                 trend.setRivenTrendNewNum(newNum);
-                                trend.setRivenTrendOldNum(rmnt[0]);
+                                //设置旧的倾向值
+                                trend.setRivenTrendOldNum(rent[0]);
+                                //设置新的倾向点
                                 trend.setRivenTrendNewDot(WarframeRivenTrendEnum.getRivenTrendDot(Double.parseDouble(newNum)));
-                                trend.setRivenTrendOldDot(WarframeRivenTrendEnum.getRivenTrendDot(Double.parseDouble(rmnt[0])));
+                                //设置旧的倾向点
+                                trend.setRivenTrendOldDot(WarframeRivenTrendEnum.getRivenTrendDot(Double.parseDouble(rent[0])));
+                                //设置更改日期
                                 trend.setIsDate(dateTime);
+                                //保存
                                 trends.add(trend);
                             }
                         }
                     }
                 }
             }
-            if (trends.size() != 0) {
+            if (!trends.isEmpty()) {
                 return trends;
             }
         }
-
         return trends;
     }
 
