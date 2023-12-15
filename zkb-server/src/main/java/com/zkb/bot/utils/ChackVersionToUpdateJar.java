@@ -76,13 +76,38 @@ public class ChackVersionToUpdateJar {
             msg.text(MessageUtils.message("up.msg.upin"));
             bot.sendPrivateMsg(id,msg.build(), false);
 
-            boolean falg = DownLoadUtils.saveUrlAs("https://ghproxy.com/" + release.getAssets().get(0).getBrowserDownloadUrl(),
+            boolean flag = DownLoadUtils.saveUrlAs(release.getAssets().get(0).getBrowserDownloadUrl(),
                     "./tmp",
                     release.getAssets().get(0).getName(),
                     HttpMethod.GET,
                     "jar"
             );
-            if(falg){
+            if(!flag){
+                flag = DownLoadUtils.saveUrlAs(release.getAssets().get(0).getBrowserDownloadUrl().replaceAll("github","521github"),
+                        "./tmp",
+                        release.getAssets().get(0).getName(),
+                        HttpMethod.GET,
+                        "jar"
+                );
+            }
+            if(!flag){
+                flag = DownLoadUtils.saveUrlAs("https://github.moeyy.xyz/"+release.getAssets().get(0).getBrowserDownloadUrl(),
+                        "./tmp",
+                        release.getAssets().get(0).getName(),
+                        HttpMethod.GET,
+                        "jar"
+                );
+            }
+            if(!flag){
+                flag = DownLoadUtils.saveUrlAs("http://gh.api.99988866.xyz/"+release.getAssets().get(0).getBrowserDownloadUrl(),
+                        "./tmp",
+                        release.getAssets().get(0).getName(),
+                        HttpMethod.GET,
+                        "jar"
+                );
+            }
+
+            if(flag){
                 bot.sendPrivateMsg(id, MessageUtils.message("up.msg.upres"), false);
                 redis.deleteObject("updateJar");
                 SpringUtils.getBean(UpdateJar.class).restart(release.getAssets().get(0).getName());
