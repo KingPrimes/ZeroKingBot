@@ -41,11 +41,11 @@ public class RivenDispositionUpdatesTask {
             log.error("紫卡更新失败，空缓存，错误信息：{}", e.getMessage());
         }
 
-        if (redis_trends != null && redis_trends.size() > 0) {
+        if (redis_trends != null && !redis_trends.isEmpty()) {
             trends.retainAll(redis_trends);
         }
 
-        if (trends.size() <= 0) {
+        if (trends.isEmpty()) {
             log.error("WarframeRivenTrend集合为空，未获取到数据！");
             return;
         }

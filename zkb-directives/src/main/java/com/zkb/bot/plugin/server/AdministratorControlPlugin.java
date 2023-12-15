@@ -35,7 +35,7 @@ public class AdministratorControlPlugin extends BotPlugin {
 
     @PrivateMessageHandler
     public int privateMessageHandler(Bot bot, PrivateMessageEvent event) {
-        if (event.getRawMessage().trim().length() == 0) {
+        if (event.getRawMessage().trim().isEmpty()) {
             return MESSAGE_IGNORE;
         }
 
