@@ -25,6 +25,7 @@ import com.zkb.common.utils.http.HttpUtils;
 import com.zkb.common.utils.ip.GetServerPort;
 import com.zkb.common.utils.spring.SpringUtils;
 import com.zkb.common.utils.uuid.UUID;
+import okhttp3.Headers;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,7 @@ public class MarketRivenUtil {
             // 清除指令 TYPE_WR_PLUGIN TYPE_ZKWM_PLUGIN
             String key = event.getRawMessage().toUpperCase(Locale.ROOT).replace(WarframeTypeEnum.TYPE_WR_PLUGIN.getType(), "").replace(WarframeTypeEnum.TYPE_ZKWM_PLUGIN.getType(), "").trim();
             int msgId = 0;
-            if ("".equals(key) || key.length() == 0) {
+            if (key.isEmpty()) {
                 bot.sendGroupMsg(event.getGroupId(), MessageUtils.message("warframe.marek.keyNot.error"), false);
                 return;
             }
@@ -75,7 +76,7 @@ public class MarketRivenUtil {
             StringBuilder buffer = new StringBuilder();
             buffer.append("https://api.warframe.market/v1/auctions/search?type=riven&weapon_url_name=");
             buffer.append(parameter.getUrlName());
-            if (parameter.getUrlName() == null || parameter.getUrlName().trim().length() == 0) {
+            if (parameter.getUrlName() == null || parameter.getUrlName().trim().isEmpty()) {
                 return null;
             }
             if (!"".equals(parameter.getPositiveStats()) && parameter.getPositiveStats() != null) {
@@ -91,16 +92,25 @@ public class MarketRivenUtil {
             //排序方式
             buffer.append("&sort_by=price_asc");
             //订单的状况 direct 售卖 / auction 拍卖
-            buffer.append("&buyout_policy=direct");
-
-            String json = HttpUtils.sendGetOkHttp(buffer.toString());
+            //buffer.append("&buyout_policy=direct");
+            Headers.Builder headers = new Headers.Builder();
+            headers
+                    .add("Accept", "*/*")
+                    .add("Content-Type", "application/json;charset=utf-8")
+                    .add("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6")
+                    .add("Cache-Control", "no-cache")
+                    .add("Language", "en")
+                    .add("Platform", "pc")
+                    .add("Origin", "https://warframe.market")
+                    .add("Referer", "https://warframe.market/")
+                    .add("Pragma", "no-cache");
+            String json = HttpUtils.sendGetOkHttp(buffer.toString(),"",headers);
 
             if (json.equals("timeout")) {
                 return null;
             }
             return JSONObject.parseObject(json, MarketRiven.class);
         } catch (Exception e) {
-            e.printStackTrace();
             log.error("api.warframe.market查询紫卡错误：{}", e.getMessage());
             return null;
         }
@@ -276,7 +286,7 @@ public class MarketRivenUtil {
             }
             return parameter;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return parameter;
         }
 

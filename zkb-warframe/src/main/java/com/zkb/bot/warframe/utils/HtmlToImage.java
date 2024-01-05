@@ -1550,7 +1550,7 @@ public class HtmlToImage {
         String html = FileUtils.getFileString(HTML_PATH + "html/relics.html");
         int width = getWidth(html);
         html = outH(html);
-        if (relics.size() == 0 || relics.size() > 90) return NotImage();
+        if (relics.isEmpty() || relics.size() > 90) return NotImage();
         if (html.contains("#table")) {
             StringBuilder str = new StringBuilder();
             str.append("<tr><td>");

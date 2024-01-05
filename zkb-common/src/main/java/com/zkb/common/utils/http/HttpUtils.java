@@ -511,7 +511,7 @@ public class HttpUtils {
     private static Request send(String url, String param, Headers.Builder headers) {
         headers.add("User-Agent", getUserAgent());
         String urlNameString;
-        if (param.length() != 0) {
+        if (!param.isEmpty()) {
             urlNameString = url + "?" + param;
         } else {
             urlNameString = url;

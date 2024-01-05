@@ -30,13 +30,13 @@ public class MarektRivenImageController {
         response.setHeader("Content-Type", "image/png");
         MarketRivenParameter parameter = MarketRivenUtil.toMarketRiven(URLDecoder.decode(key, "UTF-8"));
         MarketRiven riven = MarketRivenUtil.marketRiven(parameter);
+        ByteArrayOutputStream out;
         if (riven != null) {
-            ByteArrayOutputStream out = SpringUtils.getBean(HtmlToImage.class).marketRiven(riven, parameter.getItemName());
-            response.getOutputStream().write(out.toByteArray());
+            out = SpringUtils.getBean(HtmlToImage.class).marketRiven(riven, parameter.getItemName());
         } else {
-            ByteArrayOutputStream out = SpringUtils.getBean(HtmlToImage.class).marketNotImage();
-            response.getOutputStream().write(out.toByteArray());
+            out = SpringUtils.getBean(HtmlToImage.class).marketNotImage();
         }
+        response.getOutputStream().write(out.toByteArray());
 
     }
 
