@@ -222,18 +222,18 @@ public class LoadConfig {
         log.info("开始初始化Html渲染模板……");
         File file = new File(HTML_PATH);
         log.info("正在尝试获取Html渲染模板版本号……请耐心等待！");
-        String v = HttpUtils.sendGetOkHttp("https://raw.githubusercontent.com/KingPrimes/ZKBotImageHtml/main/version.txt");
+        String v = HttpUtils.sendGetOkHttp("https://raw.github.com/KingPrimes/ZKBotImageHtml/main/version.txt");
 
-        if(v.trim().isEmpty() ||v.equals("timeout")){
+        if(v.trim().isEmpty() || v.equals("timeout")){
             v = HttpUtils.sendGetOkHttp("https://raw.gitmirror.com/KingPrimes/ZKBotImageHtml/main/version.txt");
         }
 
-        if(v.trim().isEmpty() ||v.equals("timeout")){
-            v = HttpUtils.sendGetOkHttp("https://ghproxy.com/https://raw.githubusercontent.com/KingPrimes/ZKBotImageHtml/main/version.txt");
+        if(v.trim().isEmpty() || v.equals("timeout")){
+            v = HttpUtils.sendGetOkHttp("https://raw.githubusercontent.com/KingPrimes/ZKBotImageHtml/main/version.txt");
         }
 
         if(v.trim().isEmpty() ||v.equals("timeout")){
-            log.info("HTML渲染模板超时！\n如果你是初次启动请手动下载！\n不是初次启动请忽略本条消息！");
+            log.info("HTML渲染模板超时！\n如果你是初次启动请手动下载！\n不是初次启动请忽略本条消息！\n放置到ZeroKingBot.jar同级目录下并更名文件夹为 ZKBotHtml");
             log.info("下载地址：https://github.com/KingPrimes/ZKBotImageHtml");
             return;
         }
@@ -243,20 +243,25 @@ public class LoadConfig {
             if (!file.exists()) {
                 try {
                     Git.cloneRepository()
-                            .setURI("https://ghproxy.com/https://github.com/KingPrimes/ZKBotImageHtml")
+                            .setURI("https://github.com/KingPrimes/ZKBotImageHtml")
                             .setDirectory(file)
                             .call();
                 } catch (GitAPIException e) {
                     log.error("下载Html文件失败：{}\n请您手动下载：https://github.com/KingPrimes/ZKBotImageHtml", e.getMessage());
                 }
             } else {
-                version = Long.parseLong(FileUtils.getFileString(HTML_PATH + "/version.txt").replace(".", "").trim());
+                String s_version = FileUtils.getFileString(HTML_PATH + "/version.txt").replace(".", "").trim();
+                if(!s_version.isEmpty()){
+                    version = Long.parseLong(s_version);
+                }else{
+                    version = 0L;
+                }
                 if (versionNew > version && versionNew != 0) {
-                    log.info("当前版本：{} 最新版本：{} 检测到新版Html模板，选择是否更新", version, versionNew);
+                    log.info("当前版本：{} 最新版本：{} 检测到新版Html模板,正在更新...", version, versionNew);
                     try {
-                        if (FileUtils.delAllFile(HTML_PATH)) {
+                        if(file.delete() || FileUtils.delAllFile(HTML_PATH)){
                             Git.cloneRepository()
-                                    .setURI("https://ghproxy.com/https://github.com/KingPrimes/ZKBotImageHtml")
+                                    .setURI("https://github.com/KingPrimes/ZKBotImageHtml")
                                     .setDirectory(file)
                                     .call();
                         }
