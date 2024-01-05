@@ -24,6 +24,7 @@
 ---
 ---
 
+- 本项目以暂停维护，请查看最新项目 <a href="https://github.com/KingPrimes/NyxBot">NYXBot</a> 
 - <p>原名 <a href="https://github.com/KingPrimes/TWGBot">TWGBot</a> 现已更名为 <a href="https://github.com/KingPrimes/ZeroKingBot">ZeroKingBot</a></p>
 - 图片渲染
   <br/>
