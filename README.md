@@ -13,6 +13,7 @@
 ----
 
 <div align="center">
+   <h1> 本项目以暂停维护，请查看最新项目 <a href="https://github.com/KingPrimes/NyxBot">NYXBot</a> </h1>
 <h3>一个基于 Java 编写的 QQ 机器人</h3>
 <div>    
     <p>该机器人主要用于 Warframe 游戏的查询</p>
@@ -23,8 +24,6 @@
 项目介绍
 ---
 ---
-
-- 本项目以暂停维护，请查看最新项目 <a href="https://github.com/KingPrimes/NyxBot">NYXBot</a> 
 - <p>原名 <a href="https://github.com/KingPrimes/TWGBot">TWGBot</a> 现已更名为 <a href="https://github.com/KingPrimes/ZeroKingBot">ZeroKingBot</a></p>
 - 图片渲染
   <br/>
